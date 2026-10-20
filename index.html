@@ -229,6 +229,9 @@
   .projeto-img { position: relative; overflow: hidden; }
   .projeto-img .arte { transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
   .projeto:hover .projeto-img .arte { transform: scale(1.07); }
+  .arte-img { width: 100%; height: auto; aspect-ratio: 4/3; object-fit: cover; object-position: top; display: block; transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
+  .projeto:hover .arte-img { transform: scale(1.06); }
+  .selo-conceito { position: absolute; top: 12px; left: 12px; background: rgba(255, 255, 255, .92); color: var(--azul-escuro); font-size: .72rem; font-weight: 700; padding: 5px 12px; border-radius: 999px; z-index: 1; }
   .ver { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(11, 42, 91, .55); color: var(--branco); font-weight: 600; opacity: 0; transition: opacity .35s; }
   .ver span { transform: translateY(12px); transition: transform .35s; }
   .projeto:hover .ver { opacity: 1; }
@@ -475,14 +478,11 @@
   <section id="portfolio">
     <div class="container">
       <h2 class="titulo-secao revelar">Portfólio</h2>
-      <p class="sub-secao revelar">Alguns projetos que criamos.</p>
+      <p class="sub-secao revelar">Projetos conceito que criamos para mostrar nosso trabalho. Clique para navegar em cada site.</p>
       <div class="portfolio-grid">
-        <a class="projeto revelar" href="#"><div class="projeto-img"><div class="arte">Imagem do projeto 1</div><span class="ver"><span>Ver projeto →</span></span></div><div class="projeto-info"><strong>Nome do cliente</strong><small>Site institucional</small></div></a>
-        <a class="projeto revelar" href="#"><div class="projeto-img"><div class="arte">Imagem do projeto 2</div><span class="ver"><span>Ver projeto →</span></span></div><div class="projeto-info"><strong>Nome do cliente</strong><small>Landing page</small></div></a>
-        <a class="projeto revelar" href="#"><div class="projeto-img"><div class="arte">Imagem do projeto 3</div><span class="ver"><span>Ver projeto →</span></span></div><div class="projeto-info"><strong>Nome do cliente</strong><small>Loja virtual</small></div></a>
-        <a class="projeto revelar" href="#"><div class="projeto-img"><div class="arte">Imagem do projeto 4</div><span class="ver"><span>Ver projeto →</span></span></div><div class="projeto-info"><strong>Nome do cliente</strong><small>Site institucional</small></div></a>
-        <a class="projeto revelar" href="#"><div class="projeto-img"><div class="arte">Imagem do projeto 5</div><span class="ver"><span>Ver projeto →</span></span></div><div class="projeto-info"><strong>Nome do cliente</strong><small>Landing page</small></div></a>
-        <a class="projeto revelar" href="#"><div class="projeto-img"><div class="arte">Imagem do projeto 6</div><span class="ver"><span>Ver projeto →</span></span></div><div class="projeto-info"><strong>Nome do cliente</strong><small>Manutenção</small></div></a>
+        <a class="projeto revelar" href="portfolio/clinica/" target="_blank" rel="noopener"><div class="projeto-img"><img class="arte-img" src="img/capa-clinica.jpg" alt="Página inicial do projeto Sorriso Leve Odontologia" loading="lazy" width="1280" height="960"><span class="selo-conceito">Projeto conceito</span><span class="ver"><span>Ver site →</span></span></div><div class="projeto-info"><strong>Sorriso Leve Odontologia</strong><small>Site institucional · Clínica</small></div></a>
+        <a class="projeto revelar" href="portfolio/restaurante/" target="_blank" rel="noopener"><div class="projeto-img"><img class="arte-img" src="img/capa-restaurante.jpg" alt="Página inicial do projeto Casa Taiá Cozinha de Fogo" loading="lazy" width="1280" height="960"><span class="selo-conceito">Projeto conceito</span><span class="ver"><span>Ver site →</span></span></div><div class="projeto-info"><strong>Casa Taiá Cozinha de Fogo</strong><small>Site com cardápio e reservas · Restaurante</small></div></a>
+        <a class="projeto revelar" href="portfolio/loja/" target="_blank" rel="noopener"><div class="projeto-img"><img class="arte-img" src="img/capa-loja.jpg" alt="Página inicial do projeto Raiz Viva Plantas" loading="lazy" width="1280" height="960"><span class="selo-conceito">Projeto conceito</span><span class="ver"><span>Ver site →</span></span></div><div class="projeto-info"><strong>Raiz Viva Plantas</strong><small>Loja virtual · Plantas</small></div></a>
       </div>
     </div>
   </section>

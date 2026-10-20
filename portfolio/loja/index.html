@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raiz Viva Plantas | Projeto conceito SA Studio</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root { --verde: #2f5d3a; --folha: #6aa36f; --areia: #f4efe6; --terracota: #c96f4a; --texto: #22301f; --suave: #6b7566; --borda: #e4ddd0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "DM Sans", system-ui, sans-serif; color: var(--texto); background: #fffdf9; line-height: 1.55; }
+  a { color: inherit; text-decoration: none; }
+  h1, h2 { font-family: "DM Serif Display", Georgia, serif; font-weight: 400; }
+  .container { width: min(1160px, 100% - 32px); margin-inline: auto; }
+  .demo { background: var(--verde); color: #d8e8d6; font-size: .82rem; text-align: center; padding: 8px 16px; }
+  .demo a { color: #fff; font-weight: 700; text-decoration: underline; }
+  .aviso { background: var(--areia); text-align: center; font-size: .85rem; padding: 8px; color: var(--verde); font-weight: 500; }
+  header { border-bottom: 1px solid var(--borda); background: #fffdf9; position: sticky; top: 0; z-index: 10; }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 16px; }
+  .marca { font-family: "DM Serif Display", serif; font-size: 1.6rem; color: var(--verde); }
+  .nav ul { display: flex; gap: 28px; list-style: none; color: var(--suave); font-weight: 500; }
+  .carrinho { position: relative; width: 44px; height: 44px; border-radius: 50%; background: var(--areia); display: grid; place-items: center; }
+  .carrinho b { position: absolute; top: -4px; right: -4px; background: var(--terracota); color: #fff; font-size: .72rem; min-width: 20px; height: 20px; border-radius: 10px; display: grid; place-items: center; transition: transform .3s; }
+  .carrinho b.pulo { transform: scale(1.4); }
+  .hero { background: var(--areia); border-radius: 28px; margin-top: 24px; display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; overflow: hidden; }
+  .hero-txt { padding: 64px 56px; }
+  .hero small { color: var(--terracota); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; font-size: .78rem; }
+  .hero h1 { font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.05; color: var(--verde); margin: 14px 0 18px; }
+  .hero p { color: var(--suave); max-width: 440px; margin-bottom: 28px; font-size: 1.05rem; }
+  .btn { display: inline-block; font: inherit; font-weight: 700; background: var(--verde); color: #fff; border: 0; padding: 14px 28px; border-radius: 999px; cursor: pointer; transition: transform .2s, background .2s; }
+  .btn:hover { transform: translateY(-2px); background: #244a2d; }
+  .hero-img { height: 100%; min-height: 380px; background: linear-gradient(160deg, #cfe2c6, #9cc496); display: grid; place-items: end center; }
+  .hero-img svg { width: 78%; max-width: 380px; }
+  .beneficios { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 40px 0; }
+  .ben { display: flex; gap: 14px; align-items: center; }
+  .ben i { width: 46px; height: 46px; border-radius: 50%; background: var(--areia); display: grid; place-items: center; font-style: normal; flex-shrink: 0; }
+  .ben strong { display: block; } .ben span { color: var(--suave); font-size: .88rem; }
+  .loja { padding: 40px 0 88px; }
+  .topo-loja { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; }
+  .topo-loja h2 { font-size: 2.4rem; color: var(--verde); }
+  .filtros { display: flex; gap: 8px; flex-wrap: wrap; }
+  .filtro { font: inherit; border: 1px solid var(--borda); background: #fff; padding: 9px 18px; border-radius: 999px; cursor: pointer; color: var(--suave); transition: .2s; }
+  .filtro.ativo { background: var(--verde); color: #fff; border-color: var(--verde); }
+  .produtos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .prod { transition: opacity .3s, transform .3s; }
+  .prod.oculto { display: none; }
+  .foto { aspect-ratio: 4/5; border-radius: 20px; display: grid; place-items: end center; position: relative; overflow: hidden; }
+  .foto svg { width: 72%; transition: transform .5s; }
+  .prod:hover .foto svg { transform: scale(1.06) rotate(-2deg); }
+  .selo { position: absolute; top: 14px; left: 14px; background: #fff; font-size: .75rem; font-weight: 700; padding: 5px 12px; border-radius: 999px; color: var(--terracota); }
+  .add { position: absolute; bottom: 14px; right: 14px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--verde); color: #fff; font-size: 1.4rem; cursor: pointer; transform: translateY(70px); transition: transform .3s; }
+  .prod:hover .add, .add:focus { transform: none; }
+  .prod h3 { font-size: 1.02rem; margin-top: 14px; }
+  .prod p { color: var(--suave); font-size: .86rem; }
+  .preco { font-weight: 700; color: var(--verde); margin-top: 4px; }
+  .preco s { color: var(--suave); font-weight: 400; margin-left: 6px; font-size: .88rem; }
+  .news { background: var(--verde); color: #fff; border-radius: 28px; padding: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; margin-bottom: 72px; }
+  .news h2 { font-size: 2.2rem; line-height: 1.1; }
+  .news p { opacity: .8; margin-top: 8px; }
+  .news form { display: flex; gap: 10px; }
+  .news input { flex: 1; font: inherit; padding: 14px 20px; border-radius: 999px; border: 0; min-width: 0; }
+  .news .btn { background: var(--terracota); }
+  footer { border-top: 1px solid var(--borda); padding: 32px 0; color: var(--suave); font-size: .88rem; }
+  footer .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translate(-50%, 120px); background: var(--texto); color: #fff; padding: 14px 24px; border-radius: 999px; font-weight: 500; transition: transform .35s; z-index: 20; }
+  .toast.ver { transform: translate(-50%, 0); }
+  @media (max-width: 900px) {
+    .produtos { grid-template-columns: repeat(2, 1fr); }
+    .hero, .news { grid-template-columns: 1fr; }
+    .hero-txt { padding: 40px 28px; }
+    .hero-img { min-height: 280px; }
+    .nav ul { display: none; }
+    .beneficios { grid-template-columns: 1fr; }
+    .news { padding: 36px 24px; }
+    .add { transform: none; }
+  }
+  @media (max-width: 420px) { .news form { flex-direction: column; } }
+</style>
+</head>
+<body>
+<div class="demo">Projeto conceito criado pela <a href="../../">SA Studio</a>. Loja fictícia, apenas para demonstração.</div>
+<div class="aviso">Frete grátis para compras acima de R$ 199</div>
+<header>
+  <div class="container nav">
+    <a class="marca" href="#">Raiz Viva</a>
+    <ul><li>Plantas</li><li>Vasos</li><li>Cuidados</li><li>Presentes</li></ul>
+    <a class="carrinho" href="#" aria-label="Carrinho"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2f5d3a" stroke-width="2" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg><b id="qtd">0</b></a>
+  </div>
+</header>
+
+<main class="container">
+  <div class="hero">
+    <div class="hero-txt">
+      <small>Nova coleção de primavera</small>
+      <h1>Traga a natureza para dentro de casa</h1>
+      <p>Plantas saudáveis, vasos artesanais e tudo o que você precisa para cuidar delas, entregue na sua porta.</p>
+      <a class="btn" href="#loja">Comprar agora</a>
+    </div>
+    <div class="hero-img">
+      <svg viewBox="0 0 200 220"><path d="M100 120C60 110 40 60 60 20c20 30 40 60 40 100z" fill="#2f5d3a"/><path d="M100 120c40-10 60-60 40-100-20 30-40 60-40 100z" fill="#4c8a55"/><path d="M100 125C70 100 20 100 10 70c40 0 80 20 90 55z" fill="#6aa36f"/><path d="M100 125c30-25 80-25 90-55-40 0-80 20-90 55z" fill="#3c7346"/><path d="M60 130h80l-10 90H70z" fill="#c96f4a"/><rect x="54" y="122" width="92" height="16" rx="4" fill="#b55f3d"/></svg>
+    </div>
+  </div>
+
+  <div class="beneficios">
+    <div class="ben"><i>🚚</i><div><strong>Entrega cuidadosa</strong><span>Embalagem que protege cada folha</span></div></div>
+    <div class="ben"><i>🌱</i><div><strong>Garantia de 30 dias</strong><span>Planta saudável ou trocamos</span></div></div>
+    <div class="ben"><i>💬</i><div><strong>Consultoria grátis</strong><span>Tire dúvidas pelo WhatsApp</span></div></div>
+  </div>
+
+  <section class="loja" id="loja">
+    <div class="topo-loja">
+      <h2>Mais vendidas</h2>
+      <div class="filtros">
+        <button class="filtro ativo" data-f="todas">Todas</button>
+        <button class="filtro" data-f="sombra">Meia-sombra</button>
+        <button class="filtro" data-f="sol">Sol pleno</button>
+        <button class="filtro" data-f="facil">Fáceis de cuidar</button>
+      </div>
+    </div>
+    <div class="produtos" id="produtos"></div>
+  </section>
+
+  <div class="news">
+    <div><h2>Ganhe 10% na primeira compra</h2><p>E receba dicas de cuidado toda semana.</p></div>
+    <form onsubmit="event.preventDefault(); this.querySelector('button').textContent='Cadastrado ✓'"><input type="email" placeholder="Seu e-mail" required><button class="btn">Quero</button></form>
+  </div>
+</main>
+
+<footer><div class="container"><span>© Raiz Viva Plantas (fictícia)</span><span>Loja criada pela <a href="../../" style="color:var(--verde);font-weight:700">SA Studio</a></span></div></footer>
+<div class="toast" id="toast">Adicionado ao carrinho 🌿</div>
+
+<script>
+  const folha = (c1, c2, vaso) => `<svg viewBox="0 0 200 220"><path d="M100 130C70 110 50 70 70 30c20 30 30 60 30 100z" fill="${c1}"/><path d="M100 130c30-20 50-60 30-100-20 30-30 60-30 100z" fill="${c2}"/><path d="M100 132C75 115 35 112 25 85c35 2 65 18 75 47z" fill="${c2}"/><path d="M100 132c25-17 65-20 75-47-35 2-65 18-75 47z" fill="${c1}"/><path d="M62 138h76l-9 82H71z" fill="${vaso}"/><rect x="56" y="130" width="88" height="15" rx="4" fill="${vaso}" opacity=".85"/></svg>`;
+  const produtos = [
+    { n: "Costela-de-adão", d: "Vaso cerâmica 18cm", p: 149, de: 179, f: ["sombra"], bg: "#e3eedc", c: ["#2f5d3a", "#4c8a55"], v: "#e9e2d6", selo: "-17%" },
+    { n: "Zamioculca", d: "Vaso concreto 15cm", p: 89, f: ["sombra", "facil"], bg: "#f3e7da", c: ["#3c6b3f", "#5d9a5f"], v: "#9a9a96" },
+    { n: "Espada-de-são-jorge", d: "Vaso terracota 14cm", p: 69, f: ["sol", "facil"], bg: "#e6ece2", c: ["#47703c", "#8bb05a"], v: "#c96f4a", selo: "Mais vendida" },
+    { n: "Jiboia", d: "Cachepô de palha", p: 59, f: ["sombra", "facil"], bg: "#efe9dc", c: ["#4f8a43", "#86b96a"], v: "#cfae7c" },
+    { n: "Lavanda", d: "Vaso cerâmica 12cm", p: 49, f: ["sol"], bg: "#ece6f2", c: ["#6b7f5a", "#9a86c4"], v: "#ffffff" },
+    { n: "Ficus lyrata", d: "Vaso fibra 30cm", p: 289, f: ["sol"], bg: "#e1ebe0", c: ["#2a5233", "#3f7a49"], v: "#2d2d2d", selo: "Novidade" },
+    { n: "Peperômia", d: "Vaso cerâmica 10cm", p: 39, f: ["sombra", "facil"], bg: "#f4eadf", c: ["#5b8f4c", "#9cc27a"], v: "#e8b9a0" },
+    { n: "Suculentas (kit 3)", d: "Vasinhos de barro", p: 54, f: ["sol", "facil"], bg: "#efeee4", c: ["#7aa37a", "#b0c98f"], v: "#c96f4a" },
+  ];
+  const grade = document.getElementById("produtos");
+  grade.innerHTML = produtos.map(x => `
+    <div class="prod" data-f="${x.f.join(" ")}">
+      <div class="foto" style="background:${x.bg}">${x.selo ? `<span class="selo">${x.selo}</span>` : ""}${folha(x.c[0], x.c[1], x.v)}<button class="add" aria-label="Adicionar">+</button></div>
+      <h3>${x.n}</h3><p>${x.d}</p>
+      <div class="preco">R$ ${x.p},00${x.de ? `<s>R$ ${x.de},00</s>` : ""}</div>
+    </div>`).join("");
+
+  let qtd = 0;
+  const qtdEl = document.getElementById("qtd"), toast = document.getElementById("toast");
+  grade.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("add")) return;
+    qtdEl.textContent = ++qtd;
+    qtdEl.classList.add("pulo"); setTimeout(() => qtdEl.classList.remove("pulo"), 300);
+    toast.classList.add("ver"); clearTimeout(toast.t); toast.t = setTimeout(() => toast.classList.remove("ver"), 1800);
+  });
+  document.querySelectorAll(".filtro").forEach(b => b.onclick = () => {
+    document.querySelectorAll(".filtro").forEach(x => x.classList.remove("ativo"));
+    b.classList.add("ativo");
+    document.querySelectorAll(".prod").forEach(p => p.classList.toggle("oculto", b.dataset.f !== "todas" && !p.dataset.f.includes(b.dataset.f)));
+  });
+</script>
+</body>
+</html>
