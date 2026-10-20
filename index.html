@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SA Studio | Criação de sites sob medida para empresas</title>
+<meta name="description" content="A SA Studio cria sites institucionais, landing pages e lojas virtuais sob medida para empresas. Solicite seu orçamento.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul: #1d5bd8;
+    --azul-escuro: #0b2a5b;
+    --azul-claro: #eaf1ff;
+    --cinza-fundo: #f5f7fa;
+    --cinza-borda: #e3e8ef;
+    --texto: #1f2937;
+    --texto-suave: #5b6676;
+    --branco: #ffffff;
+    --raio: 16px;
+    --sombra: 0 10px 30px rgba(11, 42, 91, .08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: "Inter", system-ui, sans-serif; color: var(--texto); background: var(--branco); line-height: 1.6; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  .container { width: min(1140px, 100% - 32px); margin-inline: auto; }
+  section { padding: 96px 0; }
+  .titulo-secao { font-size: clamp(1.8rem, 3.5vw, 2.5rem); color: var(--azul-escuro); font-weight: 800; line-height: 1.2; text-align: center; }
+  .sub-secao { color: var(--texto-suave); text-align: center; max-width: 620px; margin: 12px auto 56px; }
+  .etiqueta { display: inline-block; font-size: .8rem; font-weight: 600; color: var(--azul); background: var(--azul-claro); padding: 6px 14px; border-radius: 999px; margin-bottom: 16px; }
+
+  /* Botões */
+  .btn { display: inline-flex; align-items: center; gap: 8px; font: inherit; font-weight: 600; border: 0; cursor: pointer; padding: 14px 28px; border-radius: 999px; transition: transform .2s, box-shadow .2s, background .2s; }
+  .btn-azul { background: var(--azul); color: var(--branco); box-shadow: 0 8px 20px rgba(29, 91, 216, .3); }
+  .btn-azul:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(29, 91, 216, .4); background: #1750c2; }
+  .btn-branco { background: var(--branco); color: var(--azul); }
+  .btn-branco:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0, 0, 0, .2); }
+  .btn-contorno { background: transparent; color: var(--azul-escuro); border: 2px solid var(--cinza-borda); }
+  .btn-contorno:hover { border-color: var(--azul); color: var(--azul); }
+
+  /* Topo */
+  header { position: sticky; top: 0; z-index: 50; background: rgba(255, 255, 255, .92); backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: border-color .3s; }
+  header.rolou { border-color: var(--cinza-borda); }
+  .topo { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+  .logo { font-weight: 800; font-size: 1.4rem; color: var(--azul-escuro); letter-spacing: -.02em; }
+  .logo span { color: var(--azul); }
+  nav ul { display: flex; gap: 36px; list-style: none; }
+  nav a { font-weight: 500; color: var(--texto-suave); transition: color .2s; }
+  nav a:hover { color: var(--azul); }
+  .menu-btn { display: none; background: none; border: 0; cursor: pointer; padding: 8px; }
+  .menu-btn span { display: block; width: 24px; height: 2px; background: var(--azul-escuro); margin: 5px 0; transition: .3s; }
+
+  /* Hero */
+  .hero { padding: 72px 0 96px; }
+  .hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
+  .hero h1 { font-size: clamp(2.3rem, 5vw, 3.6rem); line-height: 1.08; font-weight: 800; color: var(--azul-escuro); letter-spacing: -.03em; }
+  .hero h1 em { font-style: normal; color: var(--azul); }
+  .hero p { font-size: 1.15rem; color: var(--texto-suave); margin: 20px 0 32px; max-width: 520px; }
+  .hero-acoes { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  /* Mockups (espaço reservado para as artes da designer) */
+  .mockups { position: relative; height: 420px; }
+  .mock-desktop { position: absolute; inset: 0 60px 40px 0; background: var(--branco); border-radius: 14px; box-shadow: 0 30px 60px rgba(11, 42, 91, .15); overflow: hidden; border: 1px solid var(--cinza-borda); animation: flutuar 6s ease-in-out infinite; }
+  .mock-barra { height: 34px; background: var(--cinza-fundo); display: flex; align-items: center; gap: 7px; padding: 0 14px; border-bottom: 1px solid var(--cinza-borda); }
+  .mock-barra i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+  .mock-celular { position: absolute; right: 0; bottom: 0; width: 150px; height: 300px; background: var(--azul-escuro); border-radius: 28px; padding: 9px; box-shadow: 0 30px 60px rgba(11, 42, 91, .25); animation: flutuar 6s ease-in-out infinite 1.5s; }
+  .mock-celular .tela { width: 100%; height: 100%; border-radius: 20px; overflow: hidden; }
+  .arte { width: 100%; height: 100%; display: grid; place-items: center; text-align: center; color: var(--azul); font-size: .85rem; font-weight: 600; background: repeating-linear-gradient(45deg, var(--azul-claro), var(--azul-claro) 12px, #f3f7ff 12px, #f3f7ff 24px); padding: 12px; }
+  .mock-desktop .arte { height: calc(100% - 34px); }
+  @keyframes flutuar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+  /* Faixa de garantias */
+  .garantias { background: var(--cinza-fundo); padding: 40px 0; }
+  .garantias-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .garantia { display: flex; align-items: center; gap: 14px; }
+  .garantia svg { flex-shrink: 0; }
+  .garantia strong { display: block; color: var(--azul-escuro); font-size: 1.05rem; }
+  .garantia small { color: var(--texto-suave); font-size: .88rem; }
+
+  /* Serviços */
+  .servicos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .card { background: var(--branco); border: 1px solid var(--cinza-borda); border-radius: var(--raio); padding: 32px 26px; transition: transform .3s, box-shadow .3s, border-color .3s; }
+  .card:hover { transform: translateY(-6px); box-shadow: var(--sombra); border-color: transparent; }
+  .icone { width: 54px; height: 54px; border-radius: 14px; background: var(--azul-claro); display: grid; place-items: center; margin-bottom: 20px; transition: background .3s; }
+  .card:hover .icone { background: var(--azul); }
+  .card:hover .icone svg { stroke: var(--branco); }
+  .icone svg { stroke: var(--azul); transition: stroke .3s; }
+  .card h3 { color: var(--azul-escuro); font-size: 1.15rem; margin-bottom: 8px; }
+  .card p { color: var(--texto-suave); font-size: .95rem; }
+
+  /* Comparativo */
+  .comparativo { background: var(--cinza-fundo); }
+  .tabela { max-width: 860px; margin: 0 auto; background: var(--branco); border-radius: var(--raio); box-shadow: var(--sombra); overflow: hidden; }
+  .linha { display: grid; grid-template-columns: 1.4fr 1fr 1fr; align-items: center; border-bottom: 1px solid var(--cinza-borda); }
+  .linha:last-child { border-bottom: 0; }
+  .linha > div { padding: 18px 24px; }
+  .linha.cabeca { font-weight: 700; color: var(--azul-escuro); }
+  .linha.cabeca .nos { background: var(--azul); color: var(--branco); }
+  .linha .nos { background: #f7faff; text-align: center; color: var(--azul); font-weight: 600; }
+  .linha .eles { text-align: center; color: var(--texto-suave); }
+
+  /* Portfólio */
+  .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .projeto { border-radius: var(--raio); overflow: hidden; border: 1px solid var(--cinza-borda); transition: transform .3s, box-shadow .3s; }
+  .projeto:hover { transform: translateY(-6px); box-shadow: var(--sombra); }
+  .projeto .arte { aspect-ratio: 4/3; height: auto; }
+  .projeto-info { padding: 18px 22px; }
+  .projeto-info strong { color: var(--azul-escuro); display: block; }
+  .projeto-info small { color: var(--texto-suave); }
+
+  /* Como funciona */
+  .passos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; counter-reset: passo; }
+  .passo { text-align: center; padding: 0 12px; position: relative; }
+  .passo .num { width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 20px; display: grid; place-items: center; font-weight: 800; font-size: 1.3rem; color: var(--azul); background: var(--azul-claro); border: 2px solid var(--branco); box-shadow: 0 0 0 2px var(--azul-claro); position: relative; z-index: 1; }
+  .passo:not(:last-child)::after { content: ""; position: absolute; top: 32px; left: calc(50% + 40px); width: calc(100% - 80px + 32px); border-top: 2px dashed var(--cinza-borda); }
+  .passo h3 { color: var(--azul-escuro); margin-bottom: 8px; }
+  .passo p { color: var(--texto-suave); font-size: .95rem; }
+
+  /* Chamada final (única seção azul) */
+  .cta { background: linear-gradient(135deg, var(--azul) 0%, var(--azul-escuro) 100%); color: var(--branco); }
+  .cta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .cta h2 { font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.15; font-weight: 800; }
+  .cta p { opacity: .85; margin: 16px 0 28px; font-size: 1.08rem; }
+  .form-curto { background: var(--branco); border-radius: var(--raio); padding: 32px; color: var(--texto); box-shadow: 0 30px 60px rgba(0, 0, 0, .2); }
+  .campo { margin-bottom: 16px; }
+  .campo label { display: block; font-weight: 600; font-size: .9rem; margin-bottom: 6px; color: var(--azul-escuro); }
+  .campo input, .campo textarea { width: 100%; font: inherit; padding: 12px 16px; border: 1.5px solid var(--cinza-borda); border-radius: 10px; transition: border-color .2s, box-shadow .2s; }
+  .campo input:focus, .campo textarea:focus { outline: none; border-color: var(--azul); box-shadow: 0 0 0 4px var(--azul-claro); }
+  .form-curto .btn { width: 100%; justify-content: center; }
+
+  footer { padding: 36px 0; border-top: 1px solid var(--cinza-borda); color: var(--texto-suave); font-size: .9rem; }
+  .rodape { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+
+  /* WhatsApp flutuante */
+  .zap { position: fixed; right: 22px; bottom: 22px; width: 58px; height: 58px; border-radius: 50%; background: #25d366; display: grid; place-items: center; box-shadow: 0 10px 25px rgba(37, 211, 102, .45); z-index: 60; transition: transform .2s; }
+  .zap:hover { transform: scale(1.08); }
+
+  /* Janela estilo Mac (orçamento) */
+  .overlay { position: fixed; inset: 0; background: rgba(11, 42, 91, .45); backdrop-filter: blur(6px); display: grid; place-items: center; z-index: 100; opacity: 0; pointer-events: none; transition: opacity .3s; padding: 16px; }
+  .overlay.aberto { opacity: 1; pointer-events: auto; }
+  .janela { width: min(640px, 100%); max-height: calc(100vh - 32px); overflow: auto; background: var(--branco); border-radius: 14px; box-shadow: 0 40px 80px rgba(0, 0, 0, .3); transform: scale(.92) translateY(20px); transition: transform .35s cubic-bezier(.2, .9, .3, 1.2); }
+  .overlay.aberto .janela { transform: none; }
+  .janela-barra { position: sticky; top: 0; height: 44px; background: #ececec; border-bottom: 1px solid #d6d6d6; display: flex; align-items: center; padding: 0 16px; gap: 8px; }
+  .semaforo { width: 13px; height: 13px; border-radius: 50%; border: 0; cursor: pointer; display: block; }
+  .vermelho { background: #ff5f57; } .amarelo { background: #febc2e; } .verde { background: #28c840; }
+  .janela-titulo { position: absolute; left: 50%; transform: translateX(-50%); font-size: .85rem; font-weight: 600; color: #555; }
+  .janela-corpo { padding: 32px; }
+  .progresso { height: 4px; background: var(--cinza-borda); border-radius: 4px; margin-bottom: 28px; overflow: hidden; }
+  .progresso div { height: 100%; width: 33%; background: var(--azul); transition: width .4s; }
+  .etapa { display: none; animation: entrar .4s; }
+  .etapa.ativa { display: block; }
+  @keyframes entrar { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: none; } }
+  .etapa h3 { color: var(--azul-escuro); font-size: 1.35rem; margin-bottom: 6px; }
+  .etapa > p { color: var(--texto-suave); margin-bottom: 22px; }
+  .opcoes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+  .opcao input { position: absolute; opacity: 0; pointer-events: none; }
+  .opcao span { display: flex; align-items: center; gap: 12px; padding: 16px; border: 1.5px solid var(--cinza-borda); border-radius: 12px; cursor: pointer; font-weight: 500; transition: border-color .2s, background .2s, transform .15s; }
+  .opcao span::before { content: ""; width: 20px; height: 20px; flex-shrink: 0; border-radius: 6px; border: 2px solid var(--cinza-borda); transition: .2s; background: var(--branco) center/12px no-repeat; }
+  .opcao.radio span::before { border-radius: 50%; }
+  .opcao span:hover { border-color: var(--azul); }
+  .opcao span:active { transform: scale(.97); }
+  .opcao input:checked + span { border-color: var(--azul); background: var(--azul-claro); color: var(--azul-escuro); }
+  .opcao input:checked + span::before { background-color: var(--azul); border-color: var(--azul); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E"); animation: marcar .3s; }
+  @keyframes marcar { 50% { transform: scale(1.25); } }
+  .nav-etapas { display: flex; justify-content: space-between; gap: 12px; }
+  .aviso { color: #c0392b; font-size: .88rem; margin: -12px 0 16px; min-height: 1em; }
+  .sucesso { text-align: center; padding: 20px 0; }
+  .sucesso .check { width: 72px; height: 72px; border-radius: 50%; background: var(--azul-claro); display: grid; place-items: center; margin: 0 auto 18px; animation: marcar .5s; }
+
+  /* Animação de entrada ao rolar */
+  .revelar { opacity: 0; transform: translateY(30px); transition: opacity .7s, transform .7s; }
+  .revelar.visivel { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .revelar { opacity: 1; transform: none; } }
+
+  /* Responsivo */
+  @media (max-width: 960px) {
+    .hero-grid, .cta-grid { grid-template-columns: 1fr; }
+    .mockups { height: 360px; }
+    .servicos-grid, .garantias-grid { grid-template-columns: 1fr 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 720px) {
+    section { padding: 72px 0; }
+    nav { position: fixed; top: 76px; left: 0; right: 0; background: var(--branco); border-bottom: 1px solid var(--cinza-borda); padding: 20px 16px; transform: translateY(-10px); opacity: 0; visibility: hidden; transition: transform .3s, opacity .3s, visibility .3s; box-shadow: var(--sombra); }
+    nav.aberto { transform: none; opacity: 1; visibility: visible; }
+    nav ul { flex-direction: column; gap: 18px; }
+    .menu-btn { display: block; }
+    .topo .btn { display: none; }
+    .servicos-grid, .garantias-grid, .portfolio-grid, .passos, .opcoes { grid-template-columns: 1fr; }
+    .passo:not(:last-child)::after { display: none; }
+    .mockups { height: 300px; }
+    .mock-desktop { inset: 0 40px 50px 0; }
+    .mock-celular { width: 110px; height: 220px; border-radius: 22px; padding: 7px; }
+    .linha > div { padding: 14px 12px; font-size: .9rem; }
+    .janela-corpo { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header id="topo">
+  <div class="container topo">
+    <a href="#" class="logo">SA <span>Studio</span></a>
+    <nav id="menu">
+      <ul>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#portfolio">Portfólio</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+    <button class="btn btn-azul abrir-orcamento">Solicitar orçamento</button>
+    <button class="menu-btn" aria-label="Abrir menu" id="menuBtn"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="revelar">
+        <span class="etiqueta">Sites sob medida para empresas</span>
+        <h1>Vamos criar o site que <em>sua empresa</em> merece?</h1>
+        <p>Design exclusivo, rápido e pensado para transformar visitantes em clientes. Nada de modelo pronto.</p>
+        <div class="hero-acoes">
+          <button class="btn btn-azul abrir-orcamento">Solicitar orçamento
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </button>
+          <a href="#portfolio" class="btn btn-contorno">Ver portfólio</a>
+        </div>
+      </div>
+      <!-- ESPAÇO PARA AS ARTES DA DESIGNER: troque cada .arte por <img src="..."> -->
+      <div class="mockups revelar">
+        <div class="mock-desktop">
+          <div class="mock-barra"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div>
+          <div class="arte">Arte da designer<br>site no desktop</div>
+        </div>
+        <div class="mock-celular"><div class="tela"><div class="arte">Arte da designer<br>site no celular</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GARANTIAS (trocar por números/logos de clientes quando houver) -->
+  <div class="garantias">
+    <div class="container garantias-grid">
+      <div class="garantia revelar">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1d5bd8" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <div><strong>Entrega em até 15 dias</strong><small>Prazo combinado e cumprido</small></div>
+      </div>
+      <div class="garantia revelar">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1d5bd8" stroke-width="1.8" stroke-linecap="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2" y="14" width="5" height="6" rx="2"/><rect x="17" y="14" width="5" height="6" rx="2"/></svg>
+        <div><strong>Suporte de 30 dias</strong><small>Ajustes após a entrega</small></div>
+      </div>
+      <div class="garantia revelar">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1d5bd8" stroke-width="1.8" stroke-linecap="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+        <div><strong>100% responsivo</strong><small>Perfeito no celular</small></div>
+      </div>
+      <div class="garantia revelar">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1d5bd8" stroke-width="1.8" stroke-linecap="round"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg>
+        <div><strong>Design exclusivo</strong><small>Feito do zero para você</small></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVIÇOS -->
+  <section id="servicos">
+    <div class="container">
+      <h2 class="titulo-secao revelar">O que fazemos</h2>
+      <p class="sub-secao revelar">Do primeiro site à loja virtual, cuidamos de tudo para sua empresa estar bem apresentada na internet.</p>
+      <div class="servicos-grid">
+        <div class="card revelar">
+          <div class="icone"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div>
+          <h3>Site institucional</h3><p>Apresente sua empresa, seus serviços e seus diferenciais com credibilidade.</p>
+        </div>
+        <div class="card revelar">
+          <div class="icone"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></div>
+          <h3>Landing page</h3><p>Página focada em conversão para campanhas, lançamentos e captação de clientes.</p>
+        </div>
+        <div class="card revelar">
+          <div class="icone"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg></div>
+          <h3>Loja virtual</h3><p>Venda online com catálogo, carrinho e pagamento integrados.</p>
+        </div>
+        <div class="card revelar">
+          <div class="icone"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></div>
+          <h3>Manutenção e SEO</h3><p>Site sempre atualizado, seguro e bem posicionado no Google.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR QUE NÓS -->
+  <section class="comparativo">
+    <div class="container">
+      <h2 class="titulo-secao revelar">Por que um site sob medida?</h2>
+      <p class="sub-secao revelar">Um modelo pronto parece barato, mas deixa sua empresa igual a todas as outras.</p>
+      <div class="tabela revelar">
+        <div class="linha cabeca"><div></div><div class="nos">SA Studio</div><div class="eles">Modelo pronto</div></div>
+        <div class="linha"><div>Design exclusivo da sua marca</div><div class="nos">✓</div><div class="eles">✕</div></div>
+        <div class="linha"><div>Pensado para gerar contatos</div><div class="nos">✓</div><div class="eles">✕</div></div>
+        <div class="linha"><div>Rápido e otimizado para o Google</div><div class="nos">✓</div><div class="eles">Às vezes</div></div>
+        <div class="linha"><div>Atendimento direto com quem faz</div><div class="nos">✓</div><div class="eles">✕</div></div>
+        <div class="linha"><div>Site é seu, sem mensalidade obrigatória</div><div class="nos">✓</div><div class="eles">✕</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFÓLIO -->
+  <section id="portfolio">
+    <div class="container">
+      <h2 class="titulo-secao revelar">Portfólio</h2>
+      <p class="sub-secao revelar">Alguns projetos que criamos.</p>
+      <div class="portfolio-grid">
+        <a class="projeto revelar" href="#"><div class="arte">Imagem do projeto 1</div><div class="projeto-info"><strong>Nome do cliente</strong><small>Site institucional</small></div></a>
+        <a class="projeto revelar" href="#"><div class="arte">Imagem do projeto 2</div><div class="projeto-info"><strong>Nome do cliente</strong><small>Landing page</small></div></a>
+        <a class="projeto revelar" href="#"><div class="arte">Imagem do projeto 3</div><div class="projeto-info"><strong>Nome do cliente</strong><small>Loja virtual</small></div></a>
+        <a class="projeto revelar" href="#"><div class="arte">Imagem do projeto 4</div><div class="projeto-info"><strong>Nome do cliente</strong><small>Site institucional</small></div></a>
+        <a class="projeto revelar" href="#"><div class="arte">Imagem do projeto 5</div><div class="projeto-info"><strong>Nome do cliente</strong><small>Landing page</small></div></a>
+        <a class="projeto revelar" href="#"><div class="arte">Imagem do projeto 6</div><div class="projeto-info"><strong>Nome do cliente</strong><small>Manutenção</small></div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section style="background: var(--cinza-fundo)">
+    <div class="container">
+      <h2 class="titulo-secao revelar">Como funciona</h2>
+      <p class="sub-secao revelar">Um processo simples, em três passos.</p>
+      <div class="passos">
+        <div class="passo revelar"><div class="num">1</div><h3>Briefing</h3><p>Conversamos sobre sua empresa, seus objetivos e o que você precisa.</p></div>
+        <div class="passo revelar"><div class="num">2</div><h3>Design</h3><p>Criamos o layout exclusivo e ajustamos até ficar do seu jeito.</p></div>
+        <div class="passo revelar"><div class="num">3</div><h3>Entrega</h3><p>Seu site no ar, rápido e pronto para receber clientes.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAMADA FINAL -->
+  <section class="cta" id="contato">
+    <div class="container cta-grid">
+      <div class="revelar">
+        <h2>Pronto para tirar seu site do papel?</h2>
+        <p>Conte um pouco sobre seu projeto e receba um orçamento sem compromisso. Respondemos em até 24 horas.</p>
+        <a class="btn btn-branco link-zap" href="#" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#25d366"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>
+          Falar no WhatsApp
+        </a>
+      </div>
+      <form class="form-curto revelar" id="formCurto">
+        <div class="campo"><label for="nome">Nome</label><input id="nome" required placeholder="Seu nome"></div>
+        <div class="campo"><label for="empresa">Empresa</label><input id="empresa" placeholder="Nome da empresa"></div>
+        <div class="campo"><label for="msg">O que você precisa?</label><textarea id="msg" rows="3" placeholder="Ex.: um site institucional para minha clínica"></textarea></div>
+        <button class="btn btn-azul" type="submit">Enviar pelo WhatsApp</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container rodape">
+    <a href="#" class="logo">SA <span>Studio</span></a>
+    <span>© <span id="ano"></span> SA Studio. Todos os direitos reservados.</span>
+  </div>
+</footer>
+
+<a class="zap link-zap" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>
+</a>
+
+<!-- JANELA ESTILO MAC: ORÇAMENTO -->
+<div class="overlay" id="orcamento" aria-hidden="true">
+  <div class="janela" role="dialog" aria-modal="true" aria-labelledby="tituloJanela">
+    <div class="janela-barra">
+      <button class="semaforo vermelho fechar" aria-label="Fechar"></button>
+      <span class="semaforo amarelo"></span>
+      <span class="semaforo verde"></span>
+      <span class="janela-titulo" id="tituloJanela">orcamento — SA Studio</span>
+    </div>
+    <div class="janela-corpo">
+      <div class="progresso"><div id="barra"></div></div>
+      <form id="formOrcamento">
+        <div class="etapa ativa" data-etapa="1">
+          <h3>O que você precisa?</h3>
+          <p>Pode marcar mais de uma opção.</p>
+          <div class="opcoes">
+            <label class="opcao"><input type="checkbox" name="servico" value="Site institucional"><span>Site institucional</span></label>
+            <label class="opcao"><input type="checkbox" name="servico" value="Landing page"><span>Landing page</span></label>
+            <label class="opcao"><input type="checkbox" name="servico" value="Loja virtual"><span>Loja virtual</span></label>
+            <label class="opcao"><input type="checkbox" name="servico" value="Manutenção e SEO"><span>Manutenção e SEO</span></label>
+          </div>
+          <div class="aviso"></div>
+          <div class="nav-etapas"><span></span><button type="button" class="btn btn-azul proximo">Continuar</button></div>
+        </div>
+        <div class="etapa" data-etapa="2">
+          <h3>Para quando você precisa?</h3>
+          <p>Isso nos ajuda a planejar o seu projeto.</p>
+          <div class="opcoes">
+            <label class="opcao radio"><input type="radio" name="prazo" value="O quanto antes"><span>O quanto antes</span></label>
+            <label class="opcao radio"><input type="radio" name="prazo" value="Em até 1 mês"><span>Em até 1 mês</span></label>
+            <label class="opcao radio"><input type="radio" name="prazo" value="Em 2 a 3 meses"><span>Em 2 a 3 meses</span></label>
+            <label class="opcao radio"><input type="radio" name="prazo" value="Ainda não sei"><span>Ainda não sei</span></label>
+          </div>
+          <div class="aviso"></div>
+          <div class="nav-etapas"><button type="button" class="btn btn-contorno voltar">Voltar</button><button type="button" class="btn btn-azul proximo">Continuar</button></div>
+        </div>
+        <div class="etapa" data-etapa="3">
+          <h3>Como falamos com você?</h3>
+          <p>Último passo. Vamos abrir o WhatsApp com tudo preenchido.</p>
+          <div class="campo"><label for="oNome">Nome</label><input id="oNome" name="nome" placeholder="Seu nome"></div>
+          <div class="campo"><label for="oEmpresa">Empresa</label><input id="oEmpresa" name="empresa" placeholder="Nome da empresa"></div>
+          <div class="aviso"></div>
+          <div class="nav-etapas"><button type="button" class="btn btn-contorno voltar">Voltar</button><button type="submit" class="btn btn-azul">Enviar orçamento</button></div>
+        </div>
+        <div class="etapa" data-etapa="4">
+          <div class="sucesso">
+            <div class="check"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#1d5bd8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <h3>Pedido enviado!</h3>
+            <p>Abrimos o WhatsApp com seu pedido. Responderemos em breve.</p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  // TROQUE PELO NÚMERO DE VOCÊS: 55 + DDD + número, só dígitos
+  const WHATSAPP = "554891248377";
+  const linkZap = (texto) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texto)}`;
+
+  document.getElementById("ano").textContent = new Date().getFullYear();
+  document.querySelectorAll(".link-zap").forEach(a => a.href = linkZap("Olá, SA Studio! Gostaria de um orçamento."));
+
+  // Topo com borda ao rolar
+  const topo = document.getElementById("topo");
+  addEventListener("scroll", () => topo.classList.toggle("rolou", scrollY > 10));
+
+  // Menu no celular
+  const menu = document.getElementById("menu");
+  document.getElementById("menuBtn").onclick = () => menu.classList.toggle("aberto");
+  menu.querySelectorAll("a").forEach(a => a.onclick = () => menu.classList.remove("aberto"));
+
+  // Animação ao rolar
+  const obs = new IntersectionObserver(entradas => entradas.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add("visivel"); obs.unobserve(e.target); }
+  }), { threshold: .15 });
+  document.querySelectorAll(".revelar").forEach((el, i) => { el.style.transitionDelay = (i % 4) * 80 + "ms"; obs.observe(el); });
+
+  // Formulário curto -> WhatsApp
+  document.getElementById("formCurto").onsubmit = (e) => {
+    e.preventDefault();
+    const n = nome.value, emp = empresa.value, m = msg.value;
+    open(linkZap(`Olá! Sou ${n}${emp ? " da " + emp : ""}.\n${m}`), "_blank");
+  };
+
+  // Janela de orçamento
+  const overlay = document.getElementById("orcamento");
+  const form = document.getElementById("formOrcamento");
+  const etapas = form.querySelectorAll(".etapa");
+  const barra = document.getElementById("barra");
+  let atual = 1;
+
+  function irPara(n) {
+    atual = n;
+    etapas.forEach(et => et.classList.toggle("ativa", +et.dataset.etapa === n));
+    barra.style.width = Math.min(n, 3) / 3 * 100 + "%";
+  }
+  function abrir() { irPara(1); form.reset(); overlay.classList.add("aberto"); overlay.setAttribute("aria-hidden", "false"); }
+  function fechar() { overlay.classList.remove("aberto"); overlay.setAttribute("aria-hidden", "true"); }
+
+  document.querySelectorAll(".abrir-orcamento").forEach(b => b.onclick = abrir);
+  overlay.querySelector(".fechar").onclick = fechar;
+  overlay.onclick = (e) => { if (e.target === overlay) fechar(); };
+  addEventListener("keydown", (e) => { if (e.key === "Escape") fechar(); });
+
+  function valida(n) {
+    const aviso = form.querySelector(`[data-etapa="${n}"] .aviso`);
+    let ok = true, txt = "";
+    if (n === 1 && !form.querySelector("[name=servico]:checked")) { ok = false; txt = "Escolha pelo menos uma opção."; }
+    if (n === 2 && !form.querySelector("[name=prazo]:checked")) { ok = false; txt = "Escolha um prazo."; }
+    if (n === 3 && !form.nome.value.trim()) { ok = false; txt = "Informe seu nome."; }
+    aviso.textContent = txt;
+    return ok;
+  }
+  form.querySelectorAll(".proximo").forEach(b => b.onclick = () => valida(atual) && irPara(atual + 1));
+  form.querySelectorAll(".voltar").forEach(b => b.onclick = () => irPara(atual - 1));
+
+  form.onsubmit = (e) => {
+    e.preventDefault();
+    if (!valida(3)) return;
+    const servicos = [...form.querySelectorAll("[name=servico]:checked")].map(i => i.value).join(", ");
+    const prazo = form.querySelector("[name=prazo]:checked").value;
+    const emp = form.empresa.value.trim();
+    const texto = `Olá, SA Studio! Gostaria de um orçamento.\n\nNome: ${form.nome.value}${emp ? "\nEmpresa: " + emp : ""}\nServiços: ${servicos}\nPrazo: ${prazo}`;
+    open(linkZap(texto), "_blank");
+    irPara(4);
+  };
+</script>
+</body>
+</html>
