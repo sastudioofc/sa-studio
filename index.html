@@ -172,7 +172,131 @@
   /* Animação de entrada ao rolar */
   .revelar { opacity: 0; transform: translateY(30px); transition: opacity .7s, transform .7s; }
   .revelar.visivel { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .revelar { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .revelar, .entrada, .plano li { opacity: 1; transform: none; } }
+
+
+  /* ===== Animações extras ===== */
+  .progresso-rolagem { position: fixed; top: 0; left: 0; height: 3px; width: 100%; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--azul), #5b8cff); z-index: 200; }
+
+  .hero { position: relative; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(var(--cinza-borda) 1px, transparent 1px), linear-gradient(90deg, var(--cinza-borda) 1px, transparent 1px); background-size: 48px 48px; -webkit-mask-image: radial-gradient(ellipse at 70% 40%, #000 0%, transparent 65%); mask-image: radial-gradient(ellipse at 70% 40%, #000 0%, transparent 65%); opacity: .5; pointer-events: none; }
+  .hero .container { position: relative; z-index: 1; }
+  .bolha { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .5; pointer-events: none; animation: vagar 14s ease-in-out infinite; }
+  .bolha.b1 { width: 380px; height: 380px; background: #bcd3ff; top: -80px; right: 8%; }
+  .bolha.b2 { width: 280px; height: 280px; background: #dbe7ff; bottom: -60px; left: 30%; animation-delay: -5s; }
+  @keyframes vagar { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(40px, -30px) scale(1.1); } 66% { transform: translate(-30px, 20px) scale(.95); } }
+
+  .entrada { opacity: 0; animation: subir .9s cubic-bezier(.2, .8, .2, 1) forwards; }
+  .entrada.zoom { animation-name: surgir; }
+  @keyframes subir { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
+  @keyframes surgir { from { opacity: 0; transform: scale(.9) translateY(30px); } to { opacity: 1; transform: none; } }
+
+  .hero h1 { isolation: isolate; }
+  .rotativo { display: inline-block; position: relative; }
+  .rotativo span { display: inline-block; transition: opacity .35s, transform .35s; }
+  .rotativo span.saindo { opacity: 0; transform: translateY(-18px); }
+  .rotativo span.entrando { opacity: 0; transform: translateY(18px); transition: none; }
+  .rotativo::after { content: ""; position: absolute; left: 0; right: 0; bottom: 6px; height: 12px; background: var(--azul-claro); z-index: -1; border-radius: 4px; transform-origin: left; animation: sublinhar 1s 1s cubic-bezier(.2, .8, .2, 1) both; }
+  @keyframes sublinhar { from { transform: scaleX(0); } }
+  .mockups { transition: transform .25s ease-out; transform-style: preserve-3d; will-change: transform; }
+
+  /* Botões: brilho e onda ao clicar */
+  .btn { position: relative; overflow: hidden; isolation: isolate; }
+  .btn-azul::after, .btn-branco::after { content: ""; position: absolute; top: 0; left: -75%; width: 50%; height: 100%; background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .4), transparent); transform: skewX(-20deg); transition: left .7s; pointer-events: none; }
+  .btn-branco::after { background: linear-gradient(120deg, transparent, rgba(29, 91, 216, .15), transparent); }
+  .btn-azul:hover::after, .btn-branco:hover::after { left: 130%; }
+  .btn svg { transition: transform .25s; }
+  .btn:hover svg { transform: translateX(4px); }
+  .onda { position: absolute; border-radius: 50%; transform: scale(0); background: rgba(255, 255, 255, .5); animation: onda .6s ease-out; pointer-events: none; }
+  .btn-contorno .onda, .btn-branco .onda { background: rgba(29, 91, 216, .2); }
+  @keyframes onda { to { transform: scale(4); opacity: 0; } }
+
+  /* Cartões: linha no topo, luz que segue o mouse, ícone animado */
+  .card { position: relative; overflow: hidden; }
+  .card::before { content: ""; position: absolute; top: 0; left: 0; height: 3px; width: 100%; background: linear-gradient(90deg, var(--azul), #5b8cff); transform: scaleX(0); transform-origin: left; transition: transform .45s; }
+  .card:hover::before { transform: scaleX(1); }
+  .card::after { content: ""; position: absolute; inset: 0; background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(29, 91, 216, .09), transparent 70%); opacity: 0; transition: opacity .3s; pointer-events: none; }
+  .card:hover::after { opacity: 1; }
+  .icone { transition: background .3s, transform .4s cubic-bezier(.3, 1.6, .5, 1); }
+  .card:hover .icone { transform: rotate(-8deg) scale(1.12); }
+
+  /* Garantias */
+  .garantia svg { transition: transform .4s cubic-bezier(.3, 1.6, .5, 1); }
+  .garantia:hover svg { transform: scale(1.15) rotate(-6deg); }
+  .contar { font-variant-numeric: tabular-nums; }
+
+  /* Portfólio */
+  .projeto-img { position: relative; overflow: hidden; }
+  .projeto-img .arte { transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
+  .projeto:hover .projeto-img .arte { transform: scale(1.07); }
+  .ver { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(11, 42, 91, .55); color: var(--branco); font-weight: 600; opacity: 0; transition: opacity .35s; }
+  .ver span { transform: translateY(12px); transition: transform .35s; }
+  .projeto:hover .ver { opacity: 1; }
+  .projeto:hover .ver span { transform: none; }
+
+  /* Passos: linha que se desenha */
+  .passo:not(:last-child)::after { transform: scaleX(0); transform-origin: left; transition: transform 1.1s .5s cubic-bezier(.2, .8, .2, 1); }
+  .passo.visivel::after { transform: scaleX(1); }
+  .passo.visivel .num { animation: pulsar 1.4s .3s; }
+  @keyframes pulsar { 0% { box-shadow: 0 0 0 2px var(--azul-claro), 0 0 0 0 rgba(29, 91, 216, .4); } 100% { box-shadow: 0 0 0 2px var(--azul-claro), 0 0 0 22px rgba(29, 91, 216, 0); } }
+  .passo .num { transition: background .3s, color .3s, transform .3s; }
+  .passo:hover .num { background: var(--azul); color: var(--branco); transform: scale(1.08); }
+
+  /* Chamada final com gradiente em movimento */
+  .cta { background: linear-gradient(135deg, var(--azul) 0%, var(--azul-escuro) 50%, var(--azul) 100%); background-size: 250% 250%; animation: gradiente 14s ease infinite; position: relative; overflow: hidden; }
+  .cta::before, .cta::after { content: ""; position: absolute; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .12); pointer-events: none; animation: girar 30s linear infinite; }
+  .cta::before { width: 520px; height: 520px; top: -260px; right: -120px; }
+  .cta::after { width: 340px; height: 340px; bottom: -200px; left: -100px; animation-direction: reverse; }
+  .cta .container { position: relative; z-index: 1; }
+  @keyframes gradiente { 0%, 100% { background-position: 0% 0%; } 50% { background-position: 100% 100%; } }
+  @keyframes girar { to { transform: rotate(360deg); } }
+
+  /* WhatsApp pulsando */
+  .zap::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: #25d366; z-index: -1; animation: pulso 2.2s infinite; }
+  @keyframes pulso { to { transform: scale(1.7); opacity: 0; } }
+
+  /* Variações de entrada ao rolar */
+  .revelar { transition: opacity .8s cubic-bezier(.2, .8, .2, 1), transform .8s cubic-bezier(.2, .8, .2, 1), box-shadow .3s, border-color .3s; }
+  .revelar.esq { transform: translateX(-50px); }
+  .revelar.dir { transform: translateX(50px); }
+  .revelar.zoom { transform: scale(.85); }
+  .revelar.visivel { opacity: 1; transform: none; }
+
+  .card.visivel:hover, .projeto.visivel:hover { transform: translateY(-6px); }
+
+  /* ===== Por que sob medida (comparativo) ===== */
+  .comparativo .titulo-secao, .comparativo .sub-secao { position: relative; }
+  .centro { text-align: center; }
+  .versus { display: grid; grid-template-columns: 1fr auto 1.1fr; align-items: center; gap: 28px; max-width: 1000px; margin: 0 auto; }
+  .plano { border-radius: 22px; padding: 36px 32px; position: relative; }
+  .plano.pronto { background: var(--branco); border: 1px solid var(--cinza-borda); color: var(--texto-suave); }
+  .plano.pronto h3 { color: var(--texto-suave); }
+  .plano.nos { background: linear-gradient(150deg, var(--azul) 0%, var(--azul-escuro) 100%); color: var(--branco); box-shadow: 0 30px 60px rgba(29, 91, 216, .35); padding: 44px 36px; }
+  .plano.nos.visivel { animation: respirar 5s ease-in-out 1.2s infinite; }
+  @keyframes respirar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .plano.nos .luz { position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(300px circle at var(--mx, 85%) var(--my, 0%), rgba(255, 255, 255, .2), transparent 60%); pointer-events: none; }
+  .plano-topo { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; position: relative; }
+  .plano-icone { width: 50px; height: 50px; border-radius: 14px; display: grid; place-items: center; background: var(--cinza-fundo); flex-shrink: 0; }
+  .nos .plano-icone { background: rgba(255, 255, 255, .15); }
+  .plano h3 { font-size: 1.3rem; line-height: 1.2; }
+  .plano small { opacity: .75; }
+  .plano ul { list-style: none; display: grid; gap: 15px; position: relative; }
+  .plano li { display: flex; gap: 12px; align-items: flex-start; opacity: 0; transform: translateX(-12px); transition: opacity .45s, transform .45s; }
+  .plano.visivel li { opacity: 1; transform: none; }
+  .plano li:nth-child(1) { transition-delay: .35s; } .plano li:nth-child(2) { transition-delay: .45s; } .plano li:nth-child(3) { transition-delay: .55s; } .plano li:nth-child(4) { transition-delay: .65s; } .plano li:nth-child(5) { transition-delay: .75s; }
+  .plano li::before { content: ""; flex-shrink: 0; width: 24px; height: 24px; margin-top: 1px; border-radius: 50%; background: center/13px no-repeat; }
+  .plano li.sim::before { background-color: rgba(255, 255, 255, .2); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E"); }
+  .plano li.nao::before { background-color: #fdecec; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e5484d' stroke-width='3.5' stroke-linecap='round'%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3C/svg%3E"); }
+  .plano li.talvez::before { background-color: #fff4e0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f59e0b' stroke-width='3.5' stroke-linecap='round'%3E%3Cline x1='6' y1='12' x2='18' y2='12'/%3E%3C/svg%3E"); }
+  .plano.visivel li.sim::before { animation: marcar .4s backwards; }
+  .plano.visivel li.sim:nth-child(1)::before { animation-delay: .45s; } .plano.visivel li.sim:nth-child(2)::before { animation-delay: .55s; } .plano.visivel li.sim:nth-child(3)::before { animation-delay: .65s; } .plano.visivel li.sim:nth-child(4)::before { animation-delay: .75s; } .plano.visivel li.sim:nth-child(5)::before { animation-delay: .85s; }
+  .selo { position: absolute; top: -15px; right: 28px; background: var(--branco); color: var(--azul); font-weight: 700; font-size: .8rem; padding: 7px 16px; border-radius: 999px; box-shadow: var(--sombra); }
+  .plano.nos .btn { margin-top: 30px; width: 100%; justify-content: center; }
+  .vs { width: 58px; height: 58px; border-radius: 50%; background: var(--branco); display: grid; place-items: center; font-weight: 800; color: var(--azul-escuro); box-shadow: var(--sombra); border: 1px solid var(--cinza-borda); }
+  .resumo { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; margin-top: 56px; }
+  .resumo div { text-align: center; }
+  .resumo strong { display: block; font-size: 2.2rem; font-weight: 800; color: var(--azul); line-height: 1.1; }
+  .resumo small { color: var(--texto-suave); }
 
   /* Responsivo */
   @media (max-width: 960px) {
@@ -190,6 +314,11 @@
     .topo .btn { display: none; }
     .servicos-grid, .garantias-grid, .portfolio-grid, .passos, .opcoes { grid-template-columns: 1fr; }
     .passo:not(:last-child)::after { display: none; }
+    .versus { grid-template-columns: 1fr; gap: 20px; }
+    .vs { margin: 0 auto; }
+    .plano { padding: 30px 22px; }
+    .plano.nos { padding: 38px 22px; }
+    .resumo { gap: 28px; }
     .mockups { height: 300px; }
     .mock-desktop { inset: 0 40px 50px 0; }
     .mock-celular { width: 110px; height: 220px; border-radius: 22px; padding: 7px; }
@@ -199,6 +328,8 @@
 </style>
 </head>
 <body>
+
+<div class="progresso-rolagem" id="progressoRolagem"></div>
 
 <header id="topo">
   <div class="container topo">
@@ -218,12 +349,13 @@
 <main>
   <!-- HERO -->
   <section class="hero">
+    <span class="bolha b1"></span><span class="bolha b2"></span>
     <div class="container hero-grid">
-      <div class="revelar">
-        <span class="etiqueta">Sites sob medida para empresas</span>
-        <h1>Vamos criar o site que <em>sua empresa</em> merece?</h1>
-        <p>Design exclusivo, rápido e pensado para transformar visitantes em clientes. Nada de modelo pronto.</p>
-        <div class="hero-acoes">
+      <div>
+        <span class="etiqueta entrada">Sites sob medida para empresas</span>
+        <h1 class="entrada" style="animation-delay:.12s">Vamos criar o site que <em class="rotativo"><span>sua empresa</span></em> merece?</h1>
+        <p class="entrada" style="animation-delay:.24s">Design exclusivo, rápido e pensado para transformar visitantes em clientes. Nada de modelo pronto.</p>
+        <div class="hero-acoes entrada" style="animation-delay:.36s">
           <button class="btn btn-azul abrir-orcamento">Solicitar orçamento
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </button>
@@ -231,12 +363,14 @@
         </div>
       </div>
       <!-- ESPAÇO PARA AS ARTES DA DESIGNER: troque cada .arte por <img src="..."> -->
-      <div class="mockups revelar">
+      <div class="entrada zoom" style="animation-delay:.3s">
+      <div class="mockups" id="mockups">
         <div class="mock-desktop">
           <div class="mock-barra"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div>
           <div class="arte">Arte da designer<br>site no desktop</div>
         </div>
         <div class="mock-celular"><div class="tela"><div class="arte">Arte da designer<br>site no celular</div></div></div>
+      </div>
       </div>
     </div>
   </section>
@@ -246,15 +380,15 @@
     <div class="container garantias-grid">
       <div class="garantia revelar">
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1d5bd8" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        <div><strong>Entrega em até 15 dias</strong><small>Prazo combinado e cumprido</small></div>
+        <div><strong>Entrega em até <span class="contar" data-ate="15">15</span> dias</strong><small>Prazo combinado e cumprido</small></div>
       </div>
       <div class="garantia revelar">
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1d5bd8" stroke-width="1.8" stroke-linecap="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2" y="14" width="5" height="6" rx="2"/><rect x="17" y="14" width="5" height="6" rx="2"/></svg>
-        <div><strong>Suporte de 30 dias</strong><small>Ajustes após a entrega</small></div>
+        <div><strong>Suporte de <span class="contar" data-ate="30">30</span> dias</strong><small>Ajustes após a entrega</small></div>
       </div>
       <div class="garantia revelar">
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1d5bd8" stroke-width="1.8" stroke-linecap="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
-        <div><strong>100% responsivo</strong><small>Perfeito no celular</small></div>
+        <div><strong><span class="contar" data-ate="100">100</span>% responsivo</strong><small>Perfeito no celular</small></div>
       </div>
       <div class="garantia revelar">
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1d5bd8" stroke-width="1.8" stroke-linecap="round"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg>
@@ -290,17 +424,49 @@
   </section>
 
   <!-- POR QUE NÓS -->
-  <section class="comparativo">
+  <section class="comparativo" id="porque">
     <div class="container">
+      <div class="centro revelar"><span class="etiqueta">Por que a SA Studio</span></div>
       <h2 class="titulo-secao revelar">Por que um site sob medida?</h2>
-      <p class="sub-secao revelar">Um modelo pronto parece barato, mas deixa sua empresa igual a todas as outras.</p>
-      <div class="tabela revelar">
-        <div class="linha cabeca"><div></div><div class="nos">SA Studio</div><div class="eles">Modelo pronto</div></div>
-        <div class="linha"><div>Design exclusivo da sua marca</div><div class="nos">✓</div><div class="eles">✕</div></div>
-        <div class="linha"><div>Pensado para gerar contatos</div><div class="nos">✓</div><div class="eles">✕</div></div>
-        <div class="linha"><div>Rápido e otimizado para o Google</div><div class="nos">✓</div><div class="eles">Às vezes</div></div>
-        <div class="linha"><div>Atendimento direto com quem faz</div><div class="nos">✓</div><div class="eles">✕</div></div>
-        <div class="linha"><div>Site é seu, sem mensalidade obrigatória</div><div class="nos">✓</div><div class="eles">✕</div></div>
+      <p class="sub-secao revelar">Um modelo pronto parece barato, mas deixa sua empresa igual a todas as outras. Veja a diferença.</p>
+      <div class="versus">
+        <div class="plano pronto revelar esq">
+          <div class="plano-topo">
+            <span class="plano-icone"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8a94a6" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
+            <div><h3>Modelo pronto</h3><small>Igual a milhares de outros sites</small></div>
+          </div>
+          <ul>
+            <li class="nao">Layout genérico, igual ao do concorrente</li>
+            <li class="nao">Feito para "servir", não para vender</li>
+            <li class="talvez">Velocidade e Google variam muito</li>
+            <li class="nao">Suporte por ticket, sem saber quem atende</li>
+            <li class="nao">Mensalidade para sempre</li>
+          </ul>
+        </div>
+        <div class="vs revelar zoom">VS</div>
+        <div class="plano nos revelar dir">
+          <span class="luz"></span>
+          <span class="selo">Recomendado</span>
+          <div class="plano-topo">
+            <span class="plano-icone"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></span>
+            <div><h3>SA Studio</h3><small>Sob medida para a sua empresa</small></div>
+          </div>
+          <ul>
+            <li class="sim">Design exclusivo, com a cara da sua marca</li>
+            <li class="sim">Estrutura pensada para gerar contatos</li>
+            <li class="sim">Rápido e otimizado para o Google</li>
+            <li class="sim">Atendimento direto com quem faz</li>
+            <li class="sim">O site é seu, sem mensalidade obrigatória</li>
+          </ul>
+          <button class="btn btn-branco abrir-orcamento">Quero um site assim
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="resumo">
+        <div class="revelar"><strong><span class="contar" data-ate="100">100</span>%</strong><small>exclusivo</small></div>
+        <div class="revelar"><strong><span class="contar" data-ate="15">15</span> dias</strong><small>para entregar</small></div>
+        <div class="revelar"><strong>R$ <span class="contar" data-ate="0">0</span></strong><small>de mensalidade obrigatória</small></div>
       </div>
     </div>
   </section>
@@ -311,12 +477,12 @@
       <h2 class="titulo-secao revelar">Portfólio</h2>
       <p class="sub-secao revelar">Alguns projetos que criamos.</p>
       <div class="portfolio-grid">
-        <a class="projeto revelar" href="#"><div class="arte">Imagem do projeto 1</div><div class="projeto-info"><strong>Nome do cliente</strong><small>Site institucional</small></div></a>
-        <a class="projeto revelar" href="#"><div class="arte">Imagem do projeto 2</div><div class="projeto-info"><strong>Nome do cliente</strong><small>Landing page</small></div></a>
-        <a class="projeto revelar" href="#"><div class="arte">Imagem do projeto 3</div><div class="projeto-info"><strong>Nome do cliente</strong><small>Loja virtual</small></div></a>
-        <a class="projeto revelar" href="#"><div class="arte">Imagem do projeto 4</div><div class="projeto-info"><strong>Nome do cliente</strong><small>Site institucional</small></div></a>
-        <a class="projeto revelar" href="#"><div class="arte">Imagem do projeto 5</div><div class="projeto-info"><strong>Nome do cliente</strong><small>Landing page</small></div></a>
-        <a class="projeto revelar" href="#"><div class="arte">Imagem do projeto 6</div><div class="projeto-info"><strong>Nome do cliente</strong><small>Manutenção</small></div></a>
+        <a class="projeto revelar" href="#"><div class="projeto-img"><div class="arte">Imagem do projeto 1</div><span class="ver"><span>Ver projeto →</span></span></div><div class="projeto-info"><strong>Nome do cliente</strong><small>Site institucional</small></div></a>
+        <a class="projeto revelar" href="#"><div class="projeto-img"><div class="arte">Imagem do projeto 2</div><span class="ver"><span>Ver projeto →</span></span></div><div class="projeto-info"><strong>Nome do cliente</strong><small>Landing page</small></div></a>
+        <a class="projeto revelar" href="#"><div class="projeto-img"><div class="arte">Imagem do projeto 3</div><span class="ver"><span>Ver projeto →</span></span></div><div class="projeto-info"><strong>Nome do cliente</strong><small>Loja virtual</small></div></a>
+        <a class="projeto revelar" href="#"><div class="projeto-img"><div class="arte">Imagem do projeto 4</div><span class="ver"><span>Ver projeto →</span></span></div><div class="projeto-info"><strong>Nome do cliente</strong><small>Site institucional</small></div></a>
+        <a class="projeto revelar" href="#"><div class="projeto-img"><div class="arte">Imagem do projeto 5</div><span class="ver"><span>Ver projeto →</span></span></div><div class="projeto-info"><strong>Nome do cliente</strong><small>Landing page</small></div></a>
+        <a class="projeto revelar" href="#"><div class="projeto-img"><div class="arte">Imagem do projeto 6</div><span class="ver"><span>Ver projeto →</span></span></div><div class="projeto-info"><strong>Nome do cliente</strong><small>Manutenção</small></div></a>
       </div>
     </div>
   </section>
@@ -432,7 +598,12 @@
 
   // Topo com borda ao rolar
   const topo = document.getElementById("topo");
-  addEventListener("scroll", () => topo.classList.toggle("rolou", scrollY > 10));
+  const progresso = document.getElementById("progressoRolagem");
+  addEventListener("scroll", () => {
+    topo.classList.toggle("rolou", scrollY > 10);
+    const max = document.documentElement.scrollHeight - innerHeight;
+    progresso.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+  }, { passive: true });
 
   // Menu no celular
   const menu = document.getElementById("menu");
@@ -441,9 +612,77 @@
 
   // Animação ao rolar
   const obs = new IntersectionObserver(entradas => entradas.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add("visivel"); obs.unobserve(e.target); }
+    if (e.isIntersecting) {
+      e.target.classList.add("visivel"); obs.unobserve(e.target);
+      // tira o atraso depois da entrada para o hover responder na hora
+      setTimeout(() => e.target.style.transitionDelay = "", 1200);
+    }
   }), { threshold: .15 });
   document.querySelectorAll(".revelar").forEach((el, i) => { el.style.transitionDelay = (i % 4) * 80 + "ms"; obs.observe(el); });
+
+
+  const semMovimento = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const temMouse = matchMedia("(hover: hover)").matches;
+
+  // Palavra que troca no título
+  const rotativo = document.querySelector(".rotativo span");
+  const palavras = ["sua empresa", "seu negócio", "sua marca"];
+  let iPalavra = 0;
+  if (!semMovimento) setInterval(() => {
+    rotativo.classList.add("saindo");
+    setTimeout(() => {
+      iPalavra = (iPalavra + 1) % palavras.length;
+      rotativo.textContent = palavras[iPalavra];
+      rotativo.classList.remove("saindo");
+      rotativo.classList.add("entrando");
+      requestAnimationFrame(() => requestAnimationFrame(() => rotativo.classList.remove("entrando")));
+    }, 350);
+  }, 3000);
+
+  // Mockups inclinam com o mouse
+  const hero = document.querySelector(".hero");
+  const mockups = document.getElementById("mockups");
+  if (temMouse && !semMovimento) {
+    hero.addEventListener("mousemove", (e) => {
+      const r = hero.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      mockups.style.transform = `perspective(1100px) rotateY(${x * 12}deg) rotateX(${-y * 9}deg)`;
+    });
+    hero.addEventListener("mouseleave", () => mockups.style.transform = "");
+  }
+
+  // Luz que segue o mouse nos cartões
+  document.querySelectorAll(".card, .plano.nos").forEach(el => el.addEventListener("mousemove", (e) => {
+    const r = el.getBoundingClientRect();
+    el.style.setProperty("--mx", e.clientX - r.left + "px");
+    el.style.setProperty("--my", e.clientY - r.top + "px");
+  }));
+
+  // Onda ao clicar nos botões
+  document.querySelectorAll(".btn").forEach(b => b.addEventListener("pointerdown", (e) => {
+    const r = b.getBoundingClientRect(), d = Math.max(r.width, r.height);
+    const onda = document.createElement("span");
+    onda.className = "onda";
+    onda.style.cssText = `width:${d}px;height:${d}px;left:${e.clientX - r.left - d / 2}px;top:${e.clientY - r.top - d / 2}px`;
+    b.appendChild(onda);
+    onda.addEventListener("animationend", () => onda.remove());
+  }));
+
+  // Números que contam ao aparecer
+  const obsNum = new IntersectionObserver(entradas => entradas.forEach(e => {
+    if (!e.isIntersecting) return;
+    obsNum.unobserve(e.target);
+    const fim = +e.target.dataset.ate, ini = performance.now(), dur = 1400;
+    if (semMovimento || fim === 0) return;
+    const passo = (t) => {
+      const p = Math.min((t - ini) / dur, 1);
+      e.target.textContent = Math.round(fim * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(passo);
+    };
+    e.target.textContent = 0;
+    requestAnimationFrame(passo);
+  }), { threshold: .6 });
+  document.querySelectorAll(".contar").forEach(el => obsNum.observe(el));
 
   // Formulário curto -> WhatsApp
   document.getElementById("formCurto").onsubmit = (e) => {
