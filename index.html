@@ -301,10 +301,68 @@
   .resumo strong { display: block; font-size: 2.2rem; font-weight: 800; color: var(--azul); line-height: 1.1; }
   .resumo small { color: var(--texto-suave); }
 
+
+  /* ===== Vitrine ao vivo ===== */
+  .mockups { height: 450px; }
+  .mock-desktop { inset: 0 0 110px 0; --c: #0f9b8e; --bg: #fbfaf7; --tx: #0b4f4a; --img: linear-gradient(150deg, #8fe0d5, #0f9b8e); --suave: #d5e6e2; transition: background .5s; }
+  .mock-barra .url { margin-left: 12px; flex: 1; max-width: 260px; height: 20px; border-radius: 6px; background: var(--branco); border: 1px solid var(--cinza-borda); display: flex; align-items: center; gap: 6px; padding: 0 10px; font-size: .7rem; color: var(--texto-suave); }
+  .mock-barra .url svg { color: #28a745; flex-shrink: 0; }
+  .obra { position: relative; height: calc(100% - 34px - 30px); background: var(--bg); padding: 14px 18px; overflow: hidden; transition: background .5s; }
+  .pc { opacity: 0; transform: translateY(8px); transition: opacity .35s, transform .35s, background .35s, border-color .35s, color .35s; }
+  .pc.rascunho { opacity: 1; transform: none; outline: 1.5px dashed var(--c); outline-offset: 2px; background: transparent !important; color: transparent !important; }
+  .pc.on { opacity: 1; transform: none; outline-color: transparent; }
+  .o-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; height: 26px; border-radius: 6px; }
+  .o-logo { font-size: .78rem; color: var(--tx); font-weight: 800; white-space: nowrap; }
+  .o-menu { display: flex; gap: 8px; }
+  .o-menu i { width: 26px; height: 6px; border-radius: 3px; background: var(--suave); display: block; }
+  .o-mini { width: 54px; height: 18px; border-radius: 6px; background: var(--c); }
+  .o-hero { display: grid; grid-template-columns: 1.15fr 1fr; gap: 14px; align-items: center; margin-top: 16px; }
+  .o-tag { display: block; width: 70px; height: 8px; border-radius: 4px; background: var(--c); opacity: .6; margin-bottom: 10px; }
+  .o-tag.on { opacity: .6; }
+  .o-tit { font-size: 1.15rem; line-height: 1.15; font-weight: 800; color: var(--tx); min-height: 2.4em; letter-spacing: -.02em; border-radius: 4px; }
+  .o-cursor { display: inline-block; width: 2px; height: 1em; background: var(--c); vertical-align: -.12em; margin-left: 2px; animation: piscar 1s steps(1) infinite; }
+  .o-lin { display: block; height: 7px; border-radius: 4px; background: var(--suave); margin-top: 10px; width: 92%; }
+  .o-lin.curta { width: 64%; margin-top: 6px; }
+  .o-cta { display: inline-block; margin-top: 14px; background: var(--c); color: #fff; font-size: .68rem; font-weight: 700; padding: 7px 12px; border-radius: 7px; white-space: nowrap; }
+  .o-cta.clica { animation: clicar .35s; }
+  @keyframes clicar { 50% { transform: scale(.88); box-shadow: 0 0 0 6px color-mix(in srgb, var(--c) 25%, transparent); } }
+  .o-img { aspect-ratio: 1.35; border-radius: 12px; background: var(--img); position: relative; overflow: hidden; }
+  .o-img span { position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .45) 50%, transparent 70%); transform: translateX(-100%); }
+  .o-img.on span { animation: brilho 1.2s .2s; }
+  @keyframes brilho { to { transform: translateX(100%); } }
+  .o-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }
+  .o-cards i { display: block; height: 46px; border-radius: 8px; background: color-mix(in srgb, var(--suave) 35%, var(--bg)); border: 1px solid var(--suave); }
+  .o-mouse { position: absolute; left: 92%; top: 92%; opacity: 0; transition: left .9s cubic-bezier(.4, 0, .2, 1), top .9s cubic-bezier(.4, 0, .2, 1), opacity .3s; pointer-events: none; z-index: 2; }
+  .o-status { height: 30px; display: flex; align-items: center; gap: 8px; padding: 0 14px; font-size: .72rem; font-weight: 600; color: var(--texto-suave); background: var(--branco); border-top: 1px solid var(--cinza-borda); }
+  .o-status b { margin-left: 2px; color: var(--azul); font-variant-numeric: tabular-nums; }
+  .o-dot { width: 8px; height: 8px; border-radius: 50%; background: #febc2e; animation: piscar 1s infinite; }
+  .o-status.pronto { color: #1a7f37; } .o-status.pronto .o-dot { background: #28c840; animation: none; } .o-status.pronto b { color: #1a7f37; }
+  @keyframes piscar { 50% { opacity: 0; } }
+
+  .busca { position: absolute; right: -18px; bottom: 0; width: 280px; background: var(--branco); border: 1px solid var(--cinza-borda); border-radius: 18px; padding: 14px; box-shadow: 0 30px 60px -20px rgba(29, 91, 216, .4); z-index: 3; }
+  .busca.escondida { opacity: 0; transform: translateY(24px) scale(.96); }
+  .busca { transition: opacity .5s, transform .5s cubic-bezier(.2, .8, .2, 1); }
+  .busca-barra { display: flex; align-items: center; gap: 8px; border: 1px solid var(--cinza-borda); background: #f5f8fe; border-radius: 999px; padding: 7px 12px; font-size: .82rem; color: var(--texto); min-height: 34px; }
+  .busca-barra svg { color: var(--texto-suave); flex-shrink: 0; }
+  .caret { display: inline-block; width: 1.5px; height: 1.05em; background: var(--azul-escuro); vertical-align: -.15em; margin-left: 1px; animation: piscar 1s steps(1) infinite; }
+  .busca-res { margin-top: 12px; transition: opacity .45s, transform .45s; }
+  .busca-res.pendente { opacity: 0; transform: translateY(8px); }
+  .hit { border-left: 3px solid var(--azul); padding-left: 10px; }
+  .hit-site { display: flex; align-items: center; gap: 7px; font-size: .7rem; color: var(--texto-suave); }
+  .fav { width: 20px; height: 20px; border-radius: 50%; background: var(--azul); color: #fff; display: grid; place-items: center; font-weight: 800; font-size: .65rem; transition: background .4s; }
+  .hit-tit { display: block; color: #1a4fd0; font-size: .9rem; font-weight: 600; line-height: 1.3; margin: 5px 0 3px; }
+  .hit-desc { font-size: .74rem; color: var(--texto-suave); line-height: 1.45; }
+  .hit-meta { font-size: .7rem; color: var(--texto); margin-top: 4px; }
+  .hit-meta::before { content: "★★★★★ "; color: #f5a524; letter-spacing: 1px; }
+  .fantasma { margin-top: 10px; padding-left: 13px; }
+  .fantasma span { display: block; height: 6px; border-radius: 3px; background: var(--azul-claro); margin-bottom: 6px; width: 45%; }
+  .fantasma span + span { width: 80%; }
+  .busca-nota { font-size: .62rem; color: var(--texto-suave); margin-top: 8px; }
+
   /* Responsivo */
   @media (max-width: 960px) {
     .hero-grid, .cta-grid { grid-template-columns: 1fr; }
-    .mockups { height: 360px; }
+    .mockups { height: 450px; max-width: 560px; }
     .servicos-grid, .garantias-grid { grid-template-columns: 1fr 1fr; }
     .portfolio-grid { grid-template-columns: 1fr 1fr; }
   }
@@ -322,8 +380,12 @@
     .plano { padding: 30px 22px; }
     .plano.nos { padding: 38px 22px; }
     .resumo { gap: 28px; }
-    .mockups { height: 300px; }
-    .mock-desktop { inset: 0 40px 50px 0; }
+    .mockups { height: auto; }
+    .mock-desktop { position: relative; inset: auto; height: 300px; }
+    .busca { position: relative; width: auto; margin: -28px 12px 0; }
+    .o-tit { font-size: .95rem; }
+    .o-menu { display: none; }
+    .obra { padding: 12px; }
     .mock-celular { width: 110px; height: 220px; border-radius: 22px; padding: 7px; }
     .linha > div { padding: 14px 12px; font-size: .9rem; }
     .janela-corpo { padding: 24px 20px; }
@@ -365,14 +427,43 @@
           <a href="#portfolio" class="btn btn-contorno">Ver portfólio</a>
         </div>
       </div>
-      <!-- ESPAÇO PARA AS ARTES DA DESIGNER: troque cada .arte por <img src="..."> -->
+      <!-- VITRINE AO VIVO: site sendo montado + busca no Google -->
       <div class="entrada zoom" style="animation-delay:.3s">
-      <div class="mockups" id="mockups">
-        <div class="mock-desktop">
-          <div class="mock-barra"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div>
-          <div class="arte">Arte da designer<br>site no desktop</div>
+      <div class="mockups" id="mockups" aria-hidden="true">
+        <div class="mock-desktop" id="obraJanela">
+          <div class="mock-barra"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i>
+            <span class="url"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span id="obraUrl">suaclinica.com.br</span></span>
+          </div>
+          <div class="obra" id="obra">
+            <div class="o-nav pc"><b class="o-logo" id="obraLogo">Sorriso Leve</b><span class="o-menu"><i></i><i></i><i></i></span><b class="o-mini"></b></div>
+            <div class="o-hero">
+              <div class="o-txt">
+                <small class="o-tag pc"></small>
+                <div class="o-tit pc" id="obraTitBox"><span id="obraTit"></span><span class="o-cursor"></span></div>
+                <i class="o-lin pc"></i><i class="o-lin curta pc"></i>
+                <b class="o-cta pc" id="obraCta">Agendar consulta</b>
+              </div>
+              <div class="o-img pc"><span></span></div>
+            </div>
+            <div class="o-cards"><i class="pc"></i><i class="pc"></i><i class="pc"></i></div>
+            <svg class="o-mouse" id="obraMouse" width="18" height="18" viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L10 19z" fill="#0b2a5b" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="o-status" id="obraStatus"><span class="o-dot"></span><span id="obraTxt">Construindo layout</span><b id="obraPct">0%</b></div>
         </div>
-        <div class="mock-celular"><div class="tela"><div class="arte">Arte da designer<br>site no celular</div></div></div>
+
+        <div class="busca escondida" id="busca">
+          <div class="busca-barra"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span><span id="buscaQ"></span><span class="caret"></span></span></div>
+          <div class="busca-res pendente" id="buscaRes">
+            <div class="hit">
+              <div class="hit-site"><span class="fav" id="buscaFav">S</span><span id="buscaSite">suaclinica.com.br</span></div>
+              <span class="hit-tit" id="buscaTit"></span>
+              <div class="hit-desc" id="buscaDesc"></div>
+              <div class="hit-meta" id="buscaMeta"></div>
+            </div>
+            <div class="fantasma"><span></span><span></span></div>
+          </div>
+          <div class="busca-nota">Ilustração. A posição no Google não é garantida.</div>
+        </div>
       </div>
       </div>
     </div>
@@ -683,6 +774,89 @@
     requestAnimationFrame(passo);
   }), { threshold: .6 });
   document.querySelectorAll(".contar").forEach(el => obsNum.observe(el));
+
+
+  // Vitrine ao vivo: monta um site, depois mostra ele aparecendo na busca
+  (() => {
+    const casos = [
+      { url: "suaclinica.com.br", logo: "Sorriso Leve", tit: "Cuidar do seu sorriso pode ser leve.", cta: "Agendar consulta",
+        tema: { "--c": "#0f9b8e", "--bg": "#fbfaf7", "--tx": "#0b4f4a", "--img": "linear-gradient(150deg, #8fe0d5, #0f9b8e)", "--suave": "#d5e6e2" },
+        q: "dentista em florianópolis", f: "S", bt: "Sorriso Leve Odontologia | Dentista em Florianópolis",
+        d: "Clareamento, ortodontia e implantes. Agende sua avaliação gratuita pelo WhatsApp.", m: "4,9 · Aberto agora" },
+      { url: "seurestaurante.com.br", logo: "Casa Taiá", tit: "Sabor que nasce na brasa.", cta: "Reservar mesa",
+        tema: { "--c": "#d9b77e", "--bg": "#17110d", "--tx": "#f2e9de", "--img": "radial-gradient(circle at 50% 100%, #e8743b, #3a1d0e 70%)", "--suave": "#3a2c22" },
+        q: "restaurante parrilla perto de mim", f: "C", bt: "Casa Taiá | Cozinha de fogo e carnes na brasa",
+        d: "Carnes maturadas e pães de fermentação natural. Veja o cardápio e reserve sua mesa.", m: "4,8 · Fecha às 23:00" },
+      { url: "sualoja.com.br", logo: "Raiz Viva", tit: "Traga a natureza para dentro de casa.", cta: "Comprar agora",
+        tema: { "--c": "#2f5d3a", "--bg": "#fffdf9", "--tx": "#2f5d3a", "--img": "linear-gradient(160deg, #cfe2c6, #6aa36f)", "--suave": "#e4ddd0" },
+        q: "comprar plantas online", f: "R", bt: "Raiz Viva Plantas | Loja de plantas com entrega",
+        d: "Plantas saudáveis, vasos artesanais e frete grátis acima de R$ 199.", m: "4,9 · Entrega em 24h" },
+    ];
+    const $ = (id) => document.getElementById(id);
+    const janela = $("obraJanela"), obra = $("obra"), pcs = [...obra.querySelectorAll(".pc")];
+    const tit = $("obraTit"), mouse = $("obraMouse"), cta = $("obraCta"), status = $("obraStatus");
+    const res = $("buscaRes"), q = $("buscaQ");
+    const espera = (ms) => new Promise(r => setTimeout(r, ms));
+    let n = 0;
+
+    function aplicar(c) {
+      Object.entries(c.tema).forEach(([k, v]) => janela.style.setProperty(k, v));
+      $("obraUrl").textContent = c.url; $("obraLogo").textContent = c.logo; cta.textContent = c.cta;
+      $("buscaFav").textContent = c.f; $("buscaSite").textContent = c.url; $("buscaTit").textContent = c.bt;
+      $("buscaDesc").textContent = c.d; $("buscaMeta").textContent = c.m;
+      $("buscaFav").style.background = c.tema["--c"] === "#d9b77e" ? "#b8863b" : c.tema["--c"];
+    }
+    function pct(v, txt) { $("obraPct").textContent = v + "%"; if (txt) $("obraTxt").textContent = txt; }
+
+    async function digitar(el, texto, ms) {
+      for (let i = 1; i <= texto.length; i++) { el.textContent = texto.slice(0, i); await espera(ms); }
+    }
+
+    async function ciclo() {
+      const c = casos[n++ % casos.length];
+      // reinicia
+      pcs.forEach(p => p.classList.remove("on", "rascunho"));
+      tit.textContent = ""; q.textContent = ""; res.classList.add("pendente"); $("busca").classList.add("escondida");
+      mouse.style.opacity = 0; mouse.style.left = "92%"; mouse.style.top = "92%";
+      status.classList.remove("pronto"); pct(0, "Construindo layout");
+      await espera(400);
+      aplicar(c);
+      // monta peça por peça: primeiro o rascunho tracejado, depois o acabamento
+      for (let i = 0; i < pcs.length; i++) {
+        const p = pcs[i];
+        p.classList.add("rascunho");
+        await espera(260);
+        p.classList.remove("rascunho"); p.classList.add("on");
+        if (p.id === "obraTitBox") { pct(35, "Escrevendo textos"); await digitar(tit, c.tit, 45); }
+        if (i === 5) pct(60, "Aplicando cores");
+        if (i === 6) pct(78, "Ajustando para celular");
+        pct(Math.max(+$("obraPct").textContent.replace("%", ""), Math.round((i + 1) / pcs.length * 92)));
+        await espera(140);
+      }
+      // mouse vai até o botão e clica
+      mouse.style.opacity = 1;
+      mouse.style.left = cta.offsetLeft + cta.offsetWidth * .6 + "px";
+      mouse.style.top = cta.offsetTop + cta.offsetHeight * .5 + "px";
+      await espera(950);
+      cta.classList.remove("clica"); void cta.offsetWidth; cta.classList.add("clica");
+      status.classList.add("pronto"); pct(100, "Site publicado ✓");
+      await espera(500);
+      // aparece na busca
+      $("busca").classList.remove("escondida");
+      await espera(500);
+      await digitar(q, c.q, 55);
+      await espera(300);
+      res.classList.remove("pendente");
+      await espera(3800);
+      ciclo();
+    }
+
+    if (semMovimento) {
+      aplicar(casos[0]); pcs.forEach(p => p.classList.add("on"));
+      $("busca").classList.remove("escondida"); tit.textContent = casos[0].tit; q.textContent = casos[0].q; res.classList.remove("pendente");
+      status.classList.add("pronto"); pct(100, "Site publicado ✓");
+    } else setTimeout(ciclo, 900);
+  })();
 
   // Formulário curto -> WhatsApp
   document.getElementById("formCurto").onsubmit = (e) => {
