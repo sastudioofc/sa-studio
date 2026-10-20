@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SA Studio | Criação de sites sob medida para empresas</title>
 <meta name="description" content="A SA Studio cria sites institucionais, landing pages e lojas virtuais sob medida para empresas. Solicite seu orçamento.">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -46,6 +48,9 @@
   .topo { display: flex; align-items: center; justify-content: space-between; height: 76px; }
   .logo { font-weight: 800; font-size: 1.4rem; color: var(--azul-escuro); letter-spacing: -.02em; }
   .logo span { color: var(--azul); }
+  .logo { display: inline-flex; align-items: center; gap: 10px; }
+  .logo img { width: 38px; height: 38px; transition: transform .5s cubic-bezier(.3, 1.6, .5, 1); }
+  .logo:hover img { transform: rotate(-14deg) scale(1.1); }
   nav ul { display: flex; gap: 36px; list-style: none; }
   nav a { font-weight: 500; color: var(--texto-suave); transition: color .2s; }
   nav a:hover { color: var(--azul); }
@@ -398,7 +403,7 @@
 
 <header id="topo">
   <div class="container topo">
-    <a href="#" class="logo">SA <span>Studio</span></a>
+    <a href="#" class="logo"><img src="img/logo.png" alt="" width="38" height="38"><strong>SA <span>Studio</span></strong></a>
     <nav id="menu">
       <ul>
         <li><a href="#servicos">Serviços</a></li>
@@ -614,7 +619,7 @@
 
 <footer>
   <div class="container rodape">
-    <a href="#" class="logo">SA <span>Studio</span></a>
+    <a href="#" class="logo"><img src="img/logo.png" alt="" width="38" height="38"><strong>SA <span>Studio</span></strong></a>
     <span>© <span id="ano"></span> SA Studio. Todos os direitos reservados.</span>
   </div>
 </footer>
