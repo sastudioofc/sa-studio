@@ -395,12 +395,49 @@
   .fantasma span + span { width: 80%; }
   .busca-nota { font-size: .62rem; color: var(--texto-suave); margin-top: 8px; }
 
+  /* Planos */
+  .planos { background: var(--branco); }
+  .planos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: stretch; }
+  .preco-card { position: relative; display: flex; flex-direction: column; background: var(--branco); border: 1px solid var(--cinza-borda); border-radius: var(--raio); padding: 34px 28px; transition: transform .3s, box-shadow .3s; }
+  .preco-card.visivel:hover { transform: translateY(-6px); box-shadow: var(--sombra); }
+  .preco-card.destaque { border: 2px solid var(--azul); box-shadow: 0 24px 50px -20px rgba(49, 102, 154, .45); }
+  .preco-selo { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--azul); color: var(--branco); font-size: .75rem; font-weight: 700; padding: 5px 14px; border-radius: 999px; white-space: nowrap; }
+  .preco-card h3 { color: var(--azul-escuro); font-size: 1.2rem; }
+  .preco-desc { color: var(--texto-suave); font-size: .92rem; margin: 6px 0 22px; min-height: 3.2em; }
+  .preco-de { display: block; font-size: .8rem; color: var(--texto-suave); font-weight: 500; }
+  .preco-valor { display: flex; align-items: flex-start; gap: 4px; color: var(--azul-escuro); font-weight: 800; font-size: 2.6rem; line-height: 1.1; letter-spacing: -1px; }
+  .preco-valor small { font-size: .95rem; font-weight: 700; margin-top: .45em; letter-spacing: 0; color: var(--azul); }
+  .preco-extra { font-size: .8rem; color: var(--texto-suave); margin-top: 4px; min-height: 1.3em; }
+  .preco-card ul { list-style: none; margin: 22px 0 28px; display: grid; gap: 10px; flex: 1; }
+  .preco-card li { position: relative; padding-left: 28px; font-size: .93rem; }
+  .preco-card li::before { content: ""; position: absolute; left: 0; top: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--azul-claro) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2331669a' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center / 11px no-repeat; }
+  .preco-card .btn { width: 100%; justify-content: center; }
+  .manutencao { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 28px; padding: 24px 28px; border-radius: var(--raio); background: var(--azul-claro); }
+  .manutencao strong { color: var(--azul-escuro); font-size: 1.05rem; }
+  .manutencao p { color: var(--texto-suave); font-size: .92rem; }
+  .manutencao .preco-valor { font-size: 1.9rem; white-space: nowrap; }
+  .manutencao .preco-valor span { font-size: .9rem; font-weight: 600; color: var(--texto-suave); margin-top: .7em; letter-spacing: 0; }
+  .planos-nota { text-align: center; color: var(--texto-suave); font-size: .85rem; margin-top: 22px; }
+
+  /* Perguntas frequentes */
+  .faq { background: var(--cinza-fundo); }
+  .faq-lista { max-width: 780px; margin: 0 auto; display: grid; gap: 12px; }
+  .faq details { background: var(--branco); border: 1px solid var(--cinza-borda); border-radius: 14px; transition: box-shadow .3s, border-color .3s; }
+  .faq details[open] { border-color: transparent; box-shadow: var(--sombra); }
+  .faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 24px; font-weight: 600; color: var(--azul-escuro); }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; flex: none; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--azul-claro); color: var(--azul); font-size: 1.2rem; font-weight: 600; transition: transform .3s, background .3s, color .3s; }
+  .faq details[open] summary::after { transform: rotate(45deg); background: var(--azul); color: var(--branco); }
+  .faq details p { padding: 0 24px 22px; color: var(--texto-suave); font-size: .95rem; }
+
   /* Responsivo */
   @media (max-width: 960px) {
     .hero-grid, .cta-grid { grid-template-columns: 1fr; }
     .mockups { height: 450px; max-width: 560px; }
     .servicos-grid, .garantias-grid { grid-template-columns: 1fr 1fr; }
     .portfolio-grid { grid-template-columns: 1fr 1fr; }
+    .planos-grid { grid-template-columns: 1fr; max-width: 480px; margin-inline: auto; gap: 30px; }
+    .preco-desc, .preco-extra { min-height: 0; }
   }
   @media (max-width: 720px) {
     section { padding: 72px 0; }
@@ -413,6 +450,9 @@
     .passo:not(:last-child)::after { display: none; }
     .versus { grid-template-columns: 1fr; gap: 20px; }
     .vs { margin: 0 auto; }
+    .manutencao { flex-direction: column; align-items: flex-start; }
+    .faq summary { padding: 18px; }
+    .faq details p { padding: 0 18px 20px; }
     .plano { padding: 30px 22px; }
     .plano.nos { padding: 38px 22px; }
     .resumo { gap: 28px; }
@@ -439,6 +479,7 @@
       <ul>
         <li><a href="#servicos">Serviços</a></li>
         <li><a href="#portfolio">Portfólio</a></li>
+        <li><a href="#planos">Planos</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
     </nav>
@@ -628,6 +669,85 @@
     </div>
   </section>
 
+  <!-- PLANOS -->
+  <section class="planos" id="planos">
+    <div class="container">
+      <div class="centro revelar"><span class="etiqueta">Planos</span></div>
+      <h2 class="titulo-secao revelar">Quanto custa um site?</h2>
+      <p class="sub-secao revelar">Valores de referência para você se planejar. O preço final depende do seu projeto, e o orçamento é sem compromisso.</p>
+      <div class="planos-grid">
+        <div class="preco-card revelar">
+          <h3>Landing page</h3>
+          <p class="preco-desc">Uma página focada em transformar visitantes em contatos.</p>
+          <span class="preco-de">a partir de</span><div class="preco-valor"><small>R$</small>690</div>
+          <p class="preco-extra">Sem mensalidade</p>
+          <ul>
+            <li>Design exclusivo, feito do zero</li>
+            <li>Botão direto para o seu WhatsApp</li>
+            <li>Perfeita no celular</li>
+            <li>Otimizada para o Google</li>
+            <li>Entrega em até 7 dias</li>
+          </ul>
+          <button class="btn btn-contorno plano-zap" data-plano="uma landing page">Quero esse</button>
+        </div>
+        <div class="preco-card destaque revelar">
+          <span class="preco-selo">Mais procurado</span>
+          <h3>Site institucional</h3>
+          <p class="preco-desc">Sua empresa completa na internet, com credibilidade.</p>
+          <span class="preco-de">a partir de</span><div class="preco-valor"><small>R$</small>1.290</div>
+          <p class="preco-extra">Sem mensalidade</p>
+          <ul>
+            <li>Até 5 páginas (início, sobre, serviços, contato...)</li>
+            <li>WhatsApp, formulário e mapa</li>
+            <li>Perfeito no celular</li>
+            <li>Otimizado para o Google</li>
+            <li>Entrega em até 15 dias</li>
+          </ul>
+          <button class="btn btn-azul plano-zap" data-plano="um site institucional">Quero esse</button>
+        </div>
+        <div class="preco-card revelar">
+          <h3>Loja virtual</h3>
+          <p class="preco-desc">Venda seus produtos online, todos os dias.</p>
+          <span class="preco-de">a partir de</span><div class="preco-valor"><small>R$</small>2.490</div>
+          <p class="preco-extra">+ mensalidade da plataforma de vendas</p>
+          <ul>
+            <li>Catálogo com fotos e filtros</li>
+            <li>Carrinho e pagamento online</li>
+            <li>Cálculo de frete</li>
+            <li>Painel para gerenciar produtos e pedidos</li>
+            <li>Prazo combinado no orçamento</li>
+          </ul>
+          <button class="btn btn-contorno plano-zap" data-plano="uma loja virtual">Quero esse</button>
+        </div>
+      </div>
+      <div class="manutencao revelar">
+        <div>
+          <strong>Manutenção mensal (opcional)</strong>
+          <p>Atualizamos textos, fotos e preços para você, cuidamos de backups e acompanhamos o Google.</p>
+        </div>
+        <div><span class="preco-de">a partir de</span><div class="preco-valor"><small>R$</small>79<span>/mês</span></div></div>
+      </div>
+      <p class="planos-nota revelar">O domínio (ex.: suaempresa.com.br) é registrado no seu nome e custa cerca de R$ 40 por ano.</p>
+    </div>
+  </section>
+
+  <!-- PERGUNTAS FREQUENTES -->
+  <section class="faq" id="duvidas">
+    <div class="container">
+      <h2 class="titulo-secao revelar">Perguntas frequentes</h2>
+      <p class="sub-secao revelar">Ficou alguma dúvida? Chama a gente no WhatsApp.</p>
+      <div class="faq-lista">
+        <details class="revelar"><summary>Como funciona o pagamento?</summary><p>Combinamos tudo na proposta. Normalmente é metade para começar e metade na entrega, por Pix ou transferência.</p></details>
+        <details class="revelar"><summary>Vou ter que pagar mensalidade?</summary><p>Em sites institucionais e landing pages, não. O único custo fixo é o domínio, cerca de R$ 40 por ano. Lojas virtuais usam uma plataforma de vendas que cobra mensalidade, e a manutenção mensal é opcional.</p></details>
+        <details class="revelar"><summary>Quanto tempo leva para o site ficar pronto?</summary><p>Uma landing page fica pronta em até 7 dias e um site institucional em até 15 dias, contando a partir do envio dos textos e fotos. O prazo de lojas virtuais é combinado no orçamento.</p></details>
+        <details class="revelar"><summary>Posso pedir alterações?</summary><p>Sim. Você acompanha o design e pedimos sua aprovação antes de publicar. Depois da entrega, você ainda tem 30 dias de suporte para ajustes.</p></details>
+        <details class="revelar"><summary>Não tenho textos nem fotos. E agora?</summary><p>Sem problema. Ajudamos a escrever os textos e usamos fotos profissionais de bancos de imagem até você ter as suas.</p></details>
+        <details class="revelar"><summary>O site vai aparecer no Google?</summary><p>Sim. Todo site sai otimizado para buscas e cadastrado no Google. A posição nos resultados depende também da concorrência e do tempo, e a manutenção mensal ajuda a subir.</p></details>
+        <details class="revelar"><summary>O site fica no meu nome?</summary><p>Sim. O domínio é registrado no seu nome e o site é seu. Se um dia quiser trocar de empresa, você leva tudo.</p></details>
+      </div>
+    </div>
+  </section>
+
   <!-- CHAMADA FINAL -->
   <section class="cta" id="contato">
     <div class="container cta-grid">
@@ -723,6 +843,7 @@
 
   document.getElementById("ano").textContent = new Date().getFullYear();
   document.querySelectorAll(".link-zap").forEach(a => a.href = linkZap("Olá, SA Studio! Gostaria de um orçamento."));
+  document.querySelectorAll(".plano-zap").forEach(b => b.onclick = () => window.open(linkZap(`Olá, SA Studio! Tenho interesse em ${b.dataset.plano}. Podemos conversar?`), "_blank", "noopener"));
 
   // Topo com borda ao rolar
   const topo = document.getElementById("topo");
