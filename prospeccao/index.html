@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prospecção | SA Studio</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul: #31669a;
+    --azul-escuro: #12304f;
+    --azul-claro: #e8f0f8;
+    --cinza-fundo: #f5f7fa;
+    --cinza-borda: #e3e8ef;
+    --texto: #1f2937;
+    --texto-suave: #5b6676;
+    --branco: #ffffff;
+    --verde: #1f8a4c;
+    --vermelho: #b42318;
+    --raio: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Inter", system-ui, sans-serif; color: var(--texto); background: var(--cinza-fundo); line-height: 1.5; font-size: 15px; }
+  a { color: var(--azul); }
+  .topo { background: var(--branco); border-bottom: 1px solid var(--cinza-borda); }
+  .topo .wrap { display: flex; align-items: center; gap: 12px; padding-top: 14px; padding-bottom: 14px; }
+  .topo img { height: 34px; }
+  .topo span { color: var(--texto-suave); font-weight: 600; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 16px; }
+  h1 { font-size: 26px; color: var(--azul-escuro); margin: 28px 0 4px; }
+  .sub { color: var(--texto-suave); margin-bottom: 20px; }
+  .card { background: var(--branco); border: 1px solid var(--cinza-borda); border-radius: var(--raio); padding: 20px; margin-bottom: 20px; }
+  .card h2 { font-size: 16px; color: var(--azul-escuro); margin-bottom: 12px; }
+  .grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+  label.campo { display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 13px; color: var(--texto-suave); }
+  input[type=text], input[type=password], select, textarea { font: inherit; padding: 10px 12px; border: 1px solid var(--cinza-borda); border-radius: 10px; background: var(--branco); color: var(--texto); width: 100%; }
+  textarea { min-height: 96px; resize: vertical; }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--azul); outline-offset: -1px; }
+  .fontes { display: flex; gap: 10px; flex-wrap: wrap; }
+  .fonte { flex: 1 1 260px; border: 1px solid var(--cinza-borda); border-radius: 12px; padding: 12px 14px; cursor: pointer; display: flex; gap: 10px; align-items: flex-start; }
+  .fonte:has(input:checked) { border-color: var(--azul); background: var(--azul-claro); }
+  .fonte b { display: block; color: var(--azul-escuro); }
+  .fonte small { color: var(--texto-suave); }
+  .nichos { display: flex; flex-wrap: wrap; gap: 8px; }
+  .nicho { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--cinza-borda); border-radius: 999px; padding: 6px 12px; cursor: pointer; user-select: none; font-size: 14px; }
+  .nicho:has(input:checked) { border-color: var(--azul); background: var(--azul-claro); color: var(--azul-escuro); font-weight: 600; }
+  .nicho input { accent-color: var(--azul); }
+  .linha-acoes { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 16px; }
+  .btn { font: inherit; font-weight: 600; border: 0; border-radius: 10px; padding: 11px 18px; cursor: pointer; background: var(--azul); color: var(--branco); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+  .btn:hover { background: var(--azul-escuro); }
+  .btn:disabled { opacity: .6; cursor: wait; }
+  .btn.sec { background: var(--branco); color: var(--azul); border: 1px solid var(--azul); }
+  .btn.sec:hover { background: var(--azul-claro); }
+  .btn.mini { padding: 6px 10px; font-size: 13px; border-radius: 8px; }
+  .btn.zap { background: var(--verde); }
+  .link-btn { background: none; border: 0; color: var(--azul); font: inherit; font-size: 13px; cursor: pointer; text-decoration: underline; }
+  .aviso { font-size: 13px; color: var(--texto-suave); margin-top: 8px; }
+  .status-msg { margin-top: 12px; font-size: 14px; }
+  .status-msg.erro { color: var(--vermelho); }
+  .abas { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+  .aba { font: inherit; font-weight: 600; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--cinza-borda); background: var(--branco); cursor: pointer; color: var(--texto-suave); }
+  .aba.ativa { background: var(--azul-escuro); color: var(--branco); border-color: var(--azul-escuro); }
+  .filtros { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; font-size: 14px; }
+  .filtros input[type=text] { width: 220px; padding: 7px 10px; }
+  .tabela-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--texto-suave); padding: 8px 10px; border-bottom: 1px solid var(--cinza-borda); white-space: nowrap; }
+  td { padding: 10px; border-bottom: 1px solid var(--cinza-borda); vertical-align: top; }
+  td .nome { font-weight: 700; color: var(--azul-escuro); }
+  td .meta { color: var(--texto-suave); font-size: 13px; }
+  .tag { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--azul-claro); color: var(--azul-escuro); margin-top: 4px; }
+  .tag.rede { background: #fff4e5; color: #8a4b00; }
+  .acoes { display: flex; gap: 6px; flex-wrap: wrap; }
+  td select { padding: 6px 8px; font-size: 13px; width: auto; }
+  td input.nota { padding: 6px 8px; font-size: 13px; min-width: 160px; }
+  .vazio { text-align: center; color: var(--texto-suave); padding: 30px 10px; }
+  details summary { cursor: pointer; font-weight: 600; color: var(--azul-escuro); }
+  details[open] summary { margin-bottom: 10px; }
+  .dicas li { margin: 0 0 6px 18px; }
+  @media (max-width: 720px) {
+    h1 { font-size: 22px; }
+    thead { display: none; }
+    table, tbody, tr, td { display: block; width: 100%; }
+    tr { border: 1px solid var(--cinza-borda); border-radius: 12px; margin-bottom: 10px; padding: 4px; background: var(--branco); }
+    td { border: 0; padding: 6px 8px; }
+    td[data-l]::before { content: attr(data-l); display: block; font-size: 11px; text-transform: uppercase; color: var(--texto-suave); font-weight: 600; }
+  }
+</style>
+</head>
+<body>
+<header class="topo"><div class="wrap"><img src="../img/logo.png" alt="SA Studio"><span>Prospecção</span></div></header>
+
+<main class="wrap">
+  <h1>Empresas sem site</h1>
+  <p class="sub">Escolha a cidade e os nichos. A ferramenta lista os estabelecimentos que não têm site (ou só têm rede social).</p>
+
+  <section class="card">
+    <h2>1. Fonte dos dados</h2>
+    <div class="fontes">
+      <label class="fonte"><input type="radio" name="fonte" value="osm" checked>
+        <span><b>OpenStreetMap</b><small>Grátis e sem cadastro. Tem menos empresas cadastradas, principalmente fora das capitais.</small></span></label>
+      <label class="fonte"><input type="radio" name="fonte" value="google">
+        <span><b>Google Maps (Places API)</b><small>Muito mais completo, com telefone, nota e avaliações. Precisa de uma chave da Google Cloud.</small></span></label>
+    </div>
+    <div id="caixaChave" hidden style="margin-top:14px">
+      <label class="campo">Chave da API do Google
+        <input type="password" id="chave" placeholder="AIza..." autocomplete="off"></label>
+      <p class="aviso">A chave fica salva só neste navegador. Cada busca de nicho usa de 1 a 3 chamadas; o Google dá uma cota grátis por mês (cerca de 1.000 chamadas desse tipo) e cobra depois disso. Defina um limite de gastos no painel do Google Cloud.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>2. Onde e o quê</h2>
+    <div class="grade">
+      <label class="campo">Estado
+        <select id="uf"><option value="RS">Rio Grande do Sul</option><option value="SP">São Paulo</option></select></label>
+      <label class="campo">Cidade
+        <input type="text" id="cidade" list="listaCidades" placeholder="Ex.: Pelotas" autocomplete="off"></label>
+      <datalist id="listaCidades"></datalist>
+    </div>
+    <div style="margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span class="campo" style="flex-direction:row">Nichos</span>
+        <span><button class="link-btn" id="marcarTodos" type="button">marcar todos</button> · <button class="link-btn" id="desmarcarTodos" type="button">limpar</button></span>
+      </div>
+      <div class="nichos" id="nichos"></div>
+    </div>
+    <div class="linha-acoes">
+      <button class="btn" id="buscar" type="button">Buscar empresas sem site</button>
+    </div>
+    <div class="status-msg" id="statusMsg" role="status"></div>
+  </section>
+
+  <section class="card">
+    <div class="abas">
+      <button class="aba ativa" data-aba="resultados" type="button">Resultados da busca (<span id="nRes">0</span>)</button>
+      <button class="aba" data-aba="leads" type="button">Meus leads (<span id="nLeads">0</span>)</button>
+    </div>
+    <div class="filtros">
+      <input type="text" id="filtroTexto" placeholder="Filtrar por nome ou bairro">
+      <label><input type="checkbox" id="soTelefone"> Só com telefone</label>
+      <label id="caixaFiltroStatus" hidden>Status
+        <select id="filtroStatus"><option value="">Todos</option></select></label>
+      <button class="btn sec mini" id="exportar" type="button">Exportar planilha (CSV)</button>
+    </div>
+    <div class="tabela-wrap">
+      <table>
+        <thead><tr><th>Empresa</th><th>Contato</th><th>Ações</th><th>Status</th><th>Anotação</th></tr></thead>
+        <tbody id="tabela"><tr><td colspan="5" class="vazio">Faça uma busca para ver as empresas aqui.</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <details>
+      <summary>Mensagem do WhatsApp e boas práticas</summary>
+      <label class="campo">Modelo da primeira mensagem ({empresa}, {nicho} e {cidade} são trocados automaticamente)
+        <textarea id="modelo"></textarea></label>
+      <ul class="dicas aviso">
+        <li>Mande uma mensagem por vez, personalizada. Disparo em massa faz o número ser banido.</li>
+        <li>Antes de abordar, abra o Maps e confira se a empresa não tem site com outro nome ou endereço.</li>
+        <li>Se a pessoa disser que não tem interesse, marque "Sem interesse" e não insista (LGPD).</li>
+        <li>O que mais converte: mandar junto um print de como ficaria o site daquela empresa.</li>
+      </ul>
+    </details>
+  </section>
+</main>
+
+<script>
+const NICHOS = [
+  { id: "farmacia", nome: "Farmácia", busca: "farmácia", osm: ['["amenity"="pharmacy"]'] },
+  { id: "restaurante", nome: "Restaurante", busca: "restaurante", osm: ['["amenity"="restaurant"]'] },
+  { id: "lanchonete", nome: "Lanchonete", busca: "lanchonete", osm: ['["amenity"="fast_food"]'] },
+  { id: "cafe", nome: "Cafeteria", busca: "cafeteria", osm: ['["amenity"="cafe"]'] },
+  { id: "bar", nome: "Bar", busca: "bar", osm: ['["amenity"~"^(bar|pub)$"]'] },
+  { id: "padaria", nome: "Padaria", busca: "padaria", osm: ['["shop"~"^(bakery|pastry|confectionery)$"]'] },
+  { id: "dentista", nome: "Dentista", busca: "dentista", osm: ['["amenity"="dentist"]', '["healthcare"="dentist"]'] },
+  { id: "clinica", nome: "Clínica médica", busca: "clínica médica", osm: ['["amenity"~"^(clinic|doctors)$"]'] },
+  { id: "fisio", nome: "Fisioterapia", busca: "fisioterapia", osm: ['["healthcare"="physiotherapist"]'] },
+  { id: "psicologo", nome: "Psicólogo", busca: "psicólogo", osm: ['["healthcare"="psychotherapist"]'] },
+  { id: "veterinario", nome: "Veterinário", busca: "clínica veterinária", osm: ['["amenity"="veterinary"]'] },
+  { id: "petshop", nome: "Pet shop", busca: "pet shop", osm: ['["shop"="pet"]', '["shop"="pet_grooming"]'] },
+  { id: "floricultura", nome: "Floricultura", busca: "floricultura", osm: ['["shop"~"^(florist|garden_centre)$"]'] },
+  { id: "salao", nome: "Salão de beleza", busca: "salão de beleza", osm: ['["shop"~"^(hairdresser|beauty|cosmetics)$"]'] },
+  { id: "barbearia", nome: "Barbearia", busca: "barbearia", osm: ['["shop"="hairdresser"]["hairdresser"="barber"]'] },
+  { id: "academia", nome: "Academia", busca: "academia", osm: ['["leisure"="fitness_centre"]', '["sport"="fitness"]["name"]'] },
+  { id: "oficina", nome: "Oficina mecânica", busca: "oficina mecânica", osm: ['["shop"~"^(car_repair|tyres|motorcycle_repair)$"]'] },
+  { id: "otica", nome: "Ótica", busca: "ótica", osm: ['["shop"="optician"]'] },
+  { id: "roupas", nome: "Loja de roupas", busca: "loja de roupas", osm: ['["shop"~"^(clothes|shoes|boutique)$"]'] },
+  { id: "mercado", nome: "Mercado", busca: "mercado", osm: ['["shop"~"^(supermarket|convenience|greengrocer|butcher)$"]'] },
+  { id: "construcao", nome: "Material de construção", busca: "loja de material de construção", osm: ['["shop"~"^(hardware|doityourself|paint)$"]'] },
+  { id: "advogado", nome: "Advocacia", busca: "escritório de advocacia", osm: ['["office"="lawyer"]'] },
+  { id: "contabilidade", nome: "Contabilidade", busca: "escritório de contabilidade", osm: ['["office"~"^(accountant|tax_advisor)$"]'] },
+  { id: "imobiliaria", nome: "Imobiliária", busca: "imobiliária", osm: ['["office"="estate_agent"]', '["shop"="estate_agent"]'] },
+  { id: "hotel", nome: "Hotel e pousada", busca: "pousada", osm: ['["tourism"~"^(hotel|guest_house|hostel|motel)$"]'] },
+  { id: "autoescola", nome: "Autoescola", busca: "autoescola", osm: ['["amenity"="driving_school"]'] },
+  { id: "lavanderia", nome: "Lavanderia", busca: "lavanderia", osm: ['["shop"~"^(laundry|dry_cleaning)$"]'] },
+  { id: "papelaria", nome: "Papelaria", busca: "papelaria", osm: ['["shop"~"^(stationery|copyshop)$"]'] },
+];
+
+const CIDADES = {
+  RS: ["Porto Alegre", "Caxias do Sul", "Canoas", "Pelotas", "Santa Maria", "Gravataí", "Viamão", "Novo Hamburgo", "São Leopoldo", "Rio Grande", "Alvorada", "Passo Fundo", "Sapucaia do Sul", "Uruguaiana", "Santa Cruz do Sul", "Cachoeirinha", "Bagé", "Bento Gonçalves", "Erechim", "Guaíba", "Lajeado", "Ijuí", "Santo Ângelo", "Esteio", "Santana do Livramento", "Cachoeira do Sul", "Sapiranga", "Alegrete", "Santa Rosa", "Venâncio Aires", "Farroupilha", "Montenegro", "Campo Bom", "Estância Velha", "Vacaria", "Carazinho", "Cruz Alta", "Camaquã", "São Borja", "Gramado", "Canela", "Torres", "Capão da Canoa", "Tramandaí", "Garibaldi", "Flores da Cunha", "Eldorado do Sul", "Parobé", "Taquara", "Osório"],
+  SP: ["São Paulo", "Guarulhos", "Campinas", "São Bernardo do Campo", "Santo André", "Osasco", "São José dos Campos", "Ribeirão Preto", "Sorocaba", "Mauá", "São José do Rio Preto", "Santos", "Mogi das Cruzes", "Diadema", "Jundiaí", "Piracicaba", "Carapicuíba", "Bauru", "Itaquaquecetuba", "São Vicente", "Franca", "Praia Grande", "Guarujá", "Taubaté", "Limeira", "Suzano", "Taboão da Serra", "Sumaré", "Barueri", "Embu das Artes", "São Carlos", "Marília", "Indaiatuba", "Cotia", "Americana", "Jacareí", "Araraquara", "Presidente Prudente", "Itapevi", "Hortolândia", "Rio Claro", "Araçatuba", "Santa Bárbara d'Oeste", "Ferraz de Vasconcelos", "Itu", "Bragança Paulista", "Atibaia", "Valinhos", "Vinhedo", "São Caetano do Sul"],
+};
+
+const STATUS = [
+  { v: "novo", t: "Novo" },
+  { v: "contatado", t: "Contatado" },
+  { v: "respondeu", t: "Respondeu" },
+  { v: "proposta", t: "Proposta enviada" },
+  { v: "fechou", t: "Fechou 🎉" },
+  { v: "sem-interesse", t: "Sem interesse" },
+];
+
+const MODELO_PADRAO = "Olá, tudo bem? Aqui é da SA Studio, fazemos sites para empresas aqui do estado. Vi a {empresa} no Google Maps e percebi que vocês ainda não têm um site próprio. Um site simples ajuda muito quem procura {nicho} em {cidade} a encontrar e confiar em vocês. Posso te mostrar um exemplo de como ficaria o de vocês, sem compromisso? Se não tiver interesse, é só avisar que eu não envio mais mensagens.";
+
+const OVERPASS = ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter", "https://overpass.private.coffee/api/interpreter"];
+const REDES = /(instagram\.com|facebook\.com|fb\.com|linktr\.ee|wa\.me|whatsapp\.com|api\.whatsapp|ifood\.com|goo\.gl|g\.page|business\.site|tiktok\.com|linkedin\.com)/i;
+
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+const store = {
+  get(k, d) { try { const v = localStorage.getItem("sa-prospec-" + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem("sa-prospec-" + k, JSON.stringify(v)); } catch {} },
+};
+
+let resultados = [];
+let leads = store.get("leads", {});
+let aba = "resultados";
+
+// ---------- montagem da tela ----------
+function montarNichos() {
+  const marcados = new Set(store.get("nichos", ["farmacia", "restaurante", "dentista", "floricultura"]));
+  $("#nichos").innerHTML = NICHOS.map((n) =>
+    `<label class="nicho"><input type="checkbox" value="${n.id}" ${marcados.has(n.id) ? "checked" : ""}>${esc(n.nome)}</label>`).join("");
+}
+function montarCidades() {
+  $("#listaCidades").innerHTML = CIDADES[$("#uf").value].map((c) => `<option value="${esc(c)}">`).join("");
+}
+function nichosMarcados() {
+  return [...document.querySelectorAll("#nichos input:checked")].map((i) => NICHOS.find((n) => n.id === i.value));
+}
+function fonteAtual() { return document.querySelector('input[name=fonte]:checked').value; }
+
+function msg(texto, erro) {
+  const el = $("#statusMsg");
+  el.textContent = texto;
+  el.className = "status-msg" + (erro ? " erro" : "");
+}
+
+// ---------- telefone ----------
+function soDigitos(t) { return String(t || "").replace(/\D/g, ""); }
+function normalizarTelefone(t) {
+  let d = soDigitos(String(t || "").split(/[;,/]/)[0]);
+  if (d.startsWith("0")) d = d.replace(/^0+/, "");
+  if (d.length >= 12 && d.startsWith("55")) d = d.slice(2);
+  if (d.length === 10 || d.length === 11) return d;
+  return "";
+}
+function ehCelular(d) { return d.length === 11 && d[2] === "9"; }
+function formatarTelefone(d) {
+  if (!d) return "";
+  return d.length === 11 ? `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}` : `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+}
+
+// ---------- OpenStreetMap ----------
+function consultaOverpass(uf, cidade, nichos) {
+  const filtros = nichos.flatMap((n) => n.osm.map((f) => `  nwr${f}["name"](area.c);`)).join("\n");
+  const nomeCidade = cidade.replace(/"/g, '\\"');
+  return `[out:json][timeout:120];
+area["ISO3166-2"="BR-${uf}"]->.uf;
+rel["boundary"="administrative"]["admin_level"="8"]["name"="${nomeCidade}"](area.uf);
+map_to_area->.c;
+(
+${filtros}
+);
+out tags center;`;
+}
+
+function nichoDoOsm(tags, nichos) {
+  for (const n of nichos) {
+    for (const f of n.osm) {
+      const ok = [...f.matchAll(/\["([^"]+)"(?:(=|~)"([^"]+)")?\]/g)].every(([, k, op, v]) => {
+        if (!op) return tags[k] != null;
+        return op === "=" ? tags[k] === v : new RegExp(v).test(tags[k] || "");
+      });
+      if (ok) return n;
+    }
+  }
+  return nichos[0];
+}
+
+async function buscarOsm(uf, cidade, nichos) {
+  const q = consultaOverpass(uf, cidade, nichos);
+  let dados, ultimoErro;
+  for (const url of OVERPASS) {
+    try {
+      const r = await fetch(url, { method: "POST", body: "data=" + encodeURIComponent(q), headers: { "Content-Type": "application/x-www-form-urlencoded" } });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      dados = await r.json();
+      break;
+    } catch (e) { ultimoErro = e; }
+  }
+  if (!dados) throw new Error("Os servidores do OpenStreetMap não responderam (" + (ultimoErro && ultimoErro.message) + "). Tente de novo em alguns minutos.");
+
+  const lista = [];
+  for (const el of dados.elements || []) {
+    const t = el.tags || {};
+    const site = t.website || t["contact:website"] || t.url || "";
+    const redes = [t["contact:instagram"], t["contact:facebook"], t.instagram, t.facebook].filter(Boolean);
+    const soRede = site && REDES.test(site);
+    if (site && !soRede) continue;
+    const tel = normalizarTelefone(t.phone || t["contact:phone"] || t["contact:mobile"] || t.mobile || t["contact:whatsapp"]);
+    const endereco = [[t["addr:street"], t["addr:housenumber"]].filter(Boolean).join(", "), t["addr:suburb"]].filter(Boolean).join(" · ");
+    const lat = el.lat ?? el.center?.lat, lon = el.lon ?? el.center?.lon;
+    const n = nichoDoOsm(t, nichos);
+    lista.push({
+      id: "osm:" + el.type + "/" + el.id,
+      nome: t.name,
+      nicho: n.nome,
+      cidade, uf,
+      endereco,
+      telefone: tel,
+      rede: soRede ? site : redes[0] || "",
+      nota: null, avaliacoes: null,
+      mapa: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(t.name + " " + cidade + " " + uf)}`,
+      coords: lat != null ? `${lat},${lon}` : "",
+      fonte: "OpenStreetMap",
+    });
+  }
+  return lista;
+}
+
+// ---------- Google Places (API nova) ----------
+async function buscarGoogle(uf, cidade, nichos, chave) {
+  const campos = ["places.id", "places.displayName", "places.formattedAddress", "places.nationalPhoneNumber", "places.internationalPhoneNumber", "places.websiteUri", "places.rating", "places.userRatingCount", "places.googleMapsUri", "places.businessStatus", "nextPageToken"].join(",");
+  const lista = [];
+  let feitos = 0;
+  for (const n of nichos) {
+    feitos++;
+    msg(`Buscando ${n.nome.toLowerCase()} no Google (${feitos}/${nichos.length})...`);
+    let pageToken = "";
+    for (let pagina = 0; pagina < 3; pagina++) {
+      const corpo = { textQuery: `${n.busca} em ${cidade}, ${uf}`, languageCode: "pt-BR", regionCode: "BR", pageSize: 20 };
+      if (pageToken) corpo.pageToken = pageToken;
+      const r = await fetch("https://places.googleapis.com/v1/places:searchText", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Goog-Api-Key": chave, "X-Goog-FieldMask": campos },
+        body: JSON.stringify(corpo),
+      });
+      const dados = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error("Google respondeu: " + (dados.error?.message || "HTTP " + r.status));
+      for (const p of dados.places || []) {
+        if (p.businessStatus && p.businessStatus !== "OPERATIONAL") continue;
+        const site = p.websiteUri || "";
+        const soRede = site && REDES.test(site);
+        if (site && !soRede) continue;
+        const endereco = (p.formattedAddress || "").replace(/, Brazil$|, Brasil$/, "");
+        if (!endereco.toLowerCase().includes(cidade.toLowerCase())) continue;
+        lista.push({
+          id: "g:" + p.id,
+          nome: p.displayName?.text || "",
+          nicho: n.nome,
+          cidade, uf,
+          endereco,
+          telefone: normalizarTelefone(p.internationalPhoneNumber || p.nationalPhoneNumber),
+          rede: soRede ? site : "",
+          nota: p.rating ?? null,
+          avaliacoes: p.userRatingCount ?? 0,
+          mapa: p.googleMapsUri || `https://www.google.com/maps/place/?q=place_id:${p.id}`,
+          coords: "",
+          fonte: "Google",
+        });
+      }
+      pageToken = dados.nextPageToken;
+      if (!pageToken) break;
+    }
+  }
+  return lista;
+}
+
+// ---------- busca ----------
+async function buscar() {
+  const uf = $("#uf").value;
+  const cidade = $("#cidade").value.trim();
+  const nichos = nichosMarcados();
+  const fonte = fonteAtual();
+  if (!cidade) return msg("Digite uma cidade.", true);
+  if (!nichos.length) return msg("Marque pelo menos um nicho.", true);
+  const chave = $("#chave").value.trim();
+  if (fonte === "google" && !chave) return msg("Cole a chave da API do Google para usar essa fonte.", true);
+
+  store.set("nichos", nichos.map((n) => n.id));
+  store.set("ultima", { uf, cidade, fonte });
+  if (chave) store.set("chave", chave);
+
+  const btn = $("#buscar");
+  btn.disabled = true;
+  msg(fonte === "osm" ? `Buscando em ${cidade} no OpenStreetMap... (cidades grandes podem levar até 1 minuto)` : "Buscando no Google...");
+  try {
+    const lista = fonte === "osm" ? await buscarOsm(uf, cidade, nichos) : await buscarGoogle(uf, cidade, nichos, chave);
+    const vistos = new Set();
+    resultados = lista.filter((l) => {
+      const k = l.nome.toLowerCase() + "|" + l.telefone;
+      if (!l.nome || vistos.has(l.id) || vistos.has(k)) return false;
+      vistos.add(l.id); vistos.add(k);
+      return true;
+    }).sort((a, b) => (b.avaliacoes || 0) - (a.avaliacoes || 0) || (b.telefone ? 1 : 0) - (a.telefone ? 1 : 0) || a.nome.localeCompare(b.nome));
+    if (!resultados.length && fonte === "osm") {
+      msg(`Nada encontrado em ${cidade}. Confira o nome da cidade (com acento) ou tente a fonte Google, que é mais completa.`, true);
+    } else {
+      msg(`${resultados.length} ${resultados.length === 1 ? "empresa sem site encontrada" : "empresas sem site encontradas"} em ${cidade}/${uf}.`);
+    }
+    trocarAba("resultados");
+  } catch (e) {
+    msg(e.message || String(e), true);
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+// ---------- leads ----------
+function salvarLead(lead, mudancas) {
+  const atual = leads[lead.id] || { ...lead, status: "novo", anotacao: "" };
+  leads[lead.id] = { ...atual, ...mudancas, atualizado: new Date().toISOString() };
+  if (leads[lead.id].status === "novo" && !leads[lead.id].anotacao) delete leads[lead.id];
+  store.set("leads", leads);
+  $("#nLeads").textContent = Object.keys(leads).length;
+}
+
+function linkWhatsApp(l) {
+  const texto = ($("#modelo").value || MODELO_PADRAO)
+    .replaceAll("{empresa}", l.nome).replaceAll("{nicho}", l.nicho.toLowerCase()).replaceAll("{cidade}", l.cidade);
+  return `https://wa.me/55${l.telefone}?text=${encodeURIComponent(texto)}`;
+}
+
+// ---------- tabela ----------
+function listaVisivel() {
+  const base = aba === "resultados" ? resultados : Object.values(leads).sort((a, b) => (b.atualizado || "").localeCompare(a.atualizado || ""));
+  const txt = $("#filtroTexto").value.trim().toLowerCase();
+  const soTel = $("#soTelefone").checked;
+  const st = $("#filtroStatus").value;
+  return base.filter((l) => {
+    if (soTel && !l.telefone) return false;
+    if (txt && !(l.nome + " " + l.endereco + " " + l.nicho).toLowerCase().includes(txt)) return false;
+    if (aba === "leads" && st && (leads[l.id]?.status || "novo") !== st) return false;
+    return true;
+  });
+}
+
+function render() {
+  const lista = listaVisivel();
+  $("#nRes").textContent = resultados.length;
+  $("#nLeads").textContent = Object.keys(leads).length;
+  if (!lista.length) {
+    $("#tabela").innerHTML = `<tr><td colspan="5" class="vazio">${aba === "resultados" ? "Faça uma busca para ver as empresas aqui." : "Quando você mudar o status de uma empresa, ela aparece aqui."}</td></tr>`;
+    return;
+  }
+  $("#tabela").innerHTML = lista.slice(0, 500).map((l) => {
+    const salvo = leads[l.id] || {};
+    const status = salvo.status || "novo";
+    const nota = l.nota != null ? `⭐ ${l.nota.toFixed(1)} (${l.avaliacoes} avaliações)` : "";
+    return `<tr data-id="${esc(l.id)}">
+      <td data-l="Empresa"><div class="nome">${esc(l.nome)}</div>
+        <div class="meta">${esc(l.nicho)} · ${esc(l.cidade)}/${esc(l.uf)}${l.endereco ? " · " + esc(l.endereco) : ""}</div>
+        ${nota ? `<div class="meta">${nota}</div>` : ""}
+        ${l.rede ? `<span class="tag rede">só rede social</span>` : `<span class="tag">sem site</span>`}</td>
+      <td data-l="Contato">${l.telefone ? esc(formatarTelefone(l.telefone)) + (ehCelular(l.telefone) ? "" : `<div class="meta">fixo</div>`) : `<span class="meta">sem telefone</span>`}
+        ${l.rede ? `<div><a href="${esc(l.rede)}" target="_blank" rel="noopener">rede social</a></div>` : ""}</td>
+      <td data-l="Ações"><div class="acoes">
+        <a class="btn sec mini" href="${esc(l.mapa)}" target="_blank" rel="noopener">Ver no Maps</a>
+        ${l.telefone && ehCelular(l.telefone) ? `<a class="btn zap mini" data-zap href="${esc(linkWhatsApp(l))}" target="_blank" rel="noopener">WhatsApp</a>` : ""}
+        ${l.telefone && !ehCelular(l.telefone) ? `<a class="btn sec mini" href="tel:+55${esc(l.telefone)}">Ligar</a>` : ""}
+      </div></td>
+      <td data-l="Status"><select data-status>${STATUS.map((s) => `<option value="${s.v}" ${s.v === status ? "selected" : ""}>${s.t}</option>`).join("")}</select></td>
+      <td data-l="Anotação"><input type="text" class="nota" data-nota value="${esc(salvo.anotacao || "")}" placeholder="Ex.: falar com a dona à tarde"></td>
+    </tr>`;
+  }).join("") + (lista.length > 500 ? `<tr><td colspan="5" class="vazio">Mostrando 500 de ${lista.length}. Use o filtro ou exporte a planilha para ver todas.</td></tr>` : "");
+}
+
+function acharLead(id) { return resultados.find((l) => l.id === id) || leads[id]; }
+
+$("#tabela").addEventListener("change", (e) => {
+  const tr = e.target.closest("tr[data-id]");
+  if (!tr) return;
+  const l = acharLead(tr.dataset.id);
+  if (e.target.matches("[data-status]")) { salvarLead(l, { status: e.target.value }); if (aba === "leads") render(); }
+  if (e.target.matches("[data-nota]")) salvarLead(l, { anotacao: e.target.value });
+});
+$("#tabela").addEventListener("click", (e) => {
+  const zap = e.target.closest("[data-zap]");
+  if (!zap) return;
+  const tr = zap.closest("tr[data-id]");
+  const l = acharLead(tr.dataset.id);
+  if ((leads[l.id]?.status || "novo") === "novo") {
+    salvarLead(l, { status: "contatado" });
+    tr.querySelector("[data-status]").value = "contatado";
+  }
+});
+
+function trocarAba(nova) {
+  aba = nova;
+  document.querySelectorAll(".aba").forEach((b) => b.classList.toggle("ativa", b.dataset.aba === nova));
+  $("#caixaFiltroStatus").hidden = nova !== "leads";
+  render();
+}
+
+// ---------- CSV ----------
+function exportar() {
+  const lista = listaVisivel();
+  if (!lista.length) return msg("Não há nada para exportar.", true);
+  const cab = ["Empresa", "Nicho", "Cidade", "UF", "Endereço", "Telefone", "Celular", "Rede social", "Nota", "Avaliações", "Status", "Anotação", "Link do Maps", "Fonte"];
+  const linhas = lista.map((l) => {
+    const s = leads[l.id] || {};
+    return [l.nome, l.nicho, l.cidade, l.uf, l.endereco, formatarTelefone(l.telefone), l.telefone && ehCelular(l.telefone) ? "sim" : "não", l.rede, l.nota ?? "", l.avaliacoes ?? "",
+      (STATUS.find((x) => x.v === (s.status || "novo")) || {}).t, s.anotacao || "", l.mapa, l.fonte];
+  });
+  const csv = [cab, ...linhas].map((r) => r.map((c) => `"${String(c ?? "").replace(/"/g, '""')}"`).join(";")).join("\r\n");
+  const blob = new Blob(["﻿" + csv], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `prospeccao-${aba}-${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// ---------- início ----------
+montarNichos();
+$("#filtroStatus").innerHTML += STATUS.map((s) => `<option value="${s.v}">${s.t}</option>`).join("");
+const ultima = store.get("ultima", { uf: "RS", cidade: "", fonte: "osm" });
+$("#uf").value = ultima.uf;
+$("#cidade").value = ultima.cidade;
+document.querySelector(`input[name=fonte][value=${ultima.fonte === "google" ? "google" : "osm"}]`).checked = true;
+$("#caixaChave").hidden = fonteAtual() !== "google";
+$("#chave").value = store.get("chave", "");
+$("#modelo").value = store.get("modelo", MODELO_PADRAO);
+montarCidades();
+render();
+
+document.querySelectorAll("input[name=fonte]").forEach((r) => r.addEventListener("change", () => { $("#caixaChave").hidden = fonteAtual() !== "google"; }));
+$("#uf").addEventListener("change", montarCidades);
+$("#marcarTodos").addEventListener("click", () => document.querySelectorAll("#nichos input").forEach((i) => (i.checked = true)));
+$("#desmarcarTodos").addEventListener("click", () => document.querySelectorAll("#nichos input").forEach((i) => (i.checked = false)));
+$("#buscar").addEventListener("click", buscar);
+$("#cidade").addEventListener("keydown", (e) => { if (e.key === "Enter") buscar(); });
+$("#modelo").addEventListener("input", () => { store.set("modelo", $("#modelo").value); render(); });
+$("#filtroTexto").addEventListener("input", render);
+$("#soTelefone").addEventListener("change", render);
+$("#filtroStatus").addEventListener("change", render);
+$("#exportar").addEventListener("click", exportar);
+document.querySelectorAll(".aba").forEach((b) => b.addEventListener("click", () => trocarAba(b.dataset.aba)));
+</script>
+</body>
+</html>
