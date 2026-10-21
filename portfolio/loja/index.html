@@ -33,7 +33,8 @@
   .btn { display: inline-block; font: inherit; font-weight: 700; background: var(--verde); color: #fff; border: 0; padding: 14px 28px; border-radius: 999px; cursor: pointer; transition: transform .2s, background .2s; }
   .btn:hover { transform: translateY(-2px); background: #244a2d; }
   .hero-img { height: 100%; min-height: 380px; background: linear-gradient(160deg, #cfe2c6, #9cc496); display: grid; place-items: end center; }
-  .hero-img svg { width: 78%; max-width: 380px; }
+  .hero-img { position: relative; overflow: hidden; }
+  .hero-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .beneficios { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 40px 0; }
   .ben { display: flex; gap: 14px; align-items: center; }
   .ben i { width: 46px; height: 46px; border-radius: 50%; background: var(--areia); display: grid; place-items: center; font-style: normal; flex-shrink: 0; }
@@ -48,8 +49,9 @@
   .prod { transition: opacity .3s, transform .3s; }
   .prod.oculto { display: none; }
   .foto { aspect-ratio: 4/5; border-radius: 20px; display: grid; place-items: end center; position: relative; overflow: hidden; }
-  .foto svg { width: 72%; transition: transform .5s; }
-  .prod:hover .foto svg { transform: scale(1.06) rotate(-2deg); }
+  .foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+  .prod:hover .foto img { transform: scale(1.07); }
+  .selo, .add { z-index: 1; }
   .selo { position: absolute; top: 14px; left: 14px; background: #fff; font-size: .75rem; font-weight: 700; padding: 5px 12px; border-radius: 999px; color: var(--terracota); }
   .add { position: absolute; bottom: 14px; right: 14px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--verde); color: #fff; font-size: 1.4rem; cursor: pointer; transform: translateY(70px); transition: transform .3s; }
   .prod:hover .add, .add:focus { transform: none; }
@@ -99,9 +101,7 @@
       <p>Plantas saudáveis, vasos artesanais e tudo o que você precisa para cuidar delas, entregue na sua porta.</p>
       <a class="btn" href="#loja">Comprar agora</a>
     </div>
-    <div class="hero-img">
-      <svg viewBox="0 0 200 220"><path d="M100 120C60 110 40 60 60 20c20 30 40 60 40 100z" fill="#2f5d3a"/><path d="M100 120c40-10 60-60 40-100-20 30-40 60-40 100z" fill="#4c8a55"/><path d="M100 125C70 100 20 100 10 70c40 0 80 20 90 55z" fill="#6aa36f"/><path d="M100 125c30-25 80-25 90-55-40 0-80 20-90 55z" fill="#3c7346"/><path d="M60 130h80l-10 90H70z" fill="#c96f4a"/><rect x="54" y="122" width="92" height="16" rx="4" fill="#b55f3d"/></svg>
-    </div>
+    <div class="hero-img"><img src="img/orquidea.jpg" alt="Orquídea amarela em vaso de cerâmica" width="900" height="900"></div>
   </div>
 
   <div class="beneficios">
@@ -135,19 +135,19 @@
 <script>
   const folha = (c1, c2, vaso) => `<svg viewBox="0 0 200 220"><path d="M100 130C70 110 50 70 70 30c20 30 30 60 30 100z" fill="${c1}"/><path d="M100 130c30-20 50-60 30-100-20 30-30 60-30 100z" fill="${c2}"/><path d="M100 132C75 115 35 112 25 85c35 2 65 18 75 47z" fill="${c2}"/><path d="M100 132c25-17 65-20 75-47-35 2-65 18-75 47z" fill="${c1}"/><path d="M62 138h76l-9 82H71z" fill="${vaso}"/><rect x="56" y="130" width="88" height="15" rx="4" fill="${vaso}" opacity=".85"/></svg>`;
   const produtos = [
-    { n: "Costela-de-adão", d: "Vaso cerâmica 18cm", p: 149, de: 179, f: ["sombra"], bg: "#e3eedc", c: ["#2f5d3a", "#4c8a55"], v: "#e9e2d6", selo: "-17%" },
-    { n: "Zamioculca", d: "Vaso concreto 15cm", p: 89, f: ["sombra", "facil"], bg: "#f3e7da", c: ["#3c6b3f", "#5d9a5f"], v: "#9a9a96" },
-    { n: "Espada-de-são-jorge", d: "Vaso terracota 14cm", p: 69, f: ["sol", "facil"], bg: "#e6ece2", c: ["#47703c", "#8bb05a"], v: "#c96f4a", selo: "Mais vendida" },
-    { n: "Jiboia", d: "Cachepô de palha", p: 59, f: ["sombra", "facil"], bg: "#efe9dc", c: ["#4f8a43", "#86b96a"], v: "#cfae7c" },
-    { n: "Lavanda", d: "Vaso cerâmica 12cm", p: 49, f: ["sol"], bg: "#ece6f2", c: ["#6b7f5a", "#9a86c4"], v: "#ffffff" },
-    { n: "Ficus lyrata", d: "Vaso fibra 30cm", p: 289, f: ["sol"], bg: "#e1ebe0", c: ["#2a5233", "#3f7a49"], v: "#2d2d2d", selo: "Novidade" },
-    { n: "Peperômia", d: "Vaso cerâmica 10cm", p: 39, f: ["sombra", "facil"], bg: "#f4eadf", c: ["#5b8f4c", "#9cc27a"], v: "#e8b9a0" },
-    { n: "Suculentas (kit 3)", d: "Vasinhos de barro", p: 54, f: ["sol", "facil"], bg: "#efeee4", c: ["#7aa37a", "#b0c98f"], v: "#c96f4a" },
+    { n: "Costela-de-adão", img: "costela-de-adao", d: "Vaso cerâmica 18cm", p: 149, de: 179, f: ["sombra"], bg: "#e3eedc", c: ["#2f5d3a", "#4c8a55"], v: "#e9e2d6", selo: "-17%" },
+    { n: "Zamioculca", img: "zamioculca", d: "Vaso concreto 15cm", p: 89, f: ["sombra", "facil"], bg: "#f3e7da", c: ["#3c6b3f", "#5d9a5f"], v: "#9a9a96" },
+    { n: "Espada-de-são-jorge", img: "espada-de-sao-jorge", d: "Vaso terracota 14cm", p: 69, f: ["sol", "facil"], bg: "#e6ece2", c: ["#47703c", "#8bb05a"], v: "#c96f4a", selo: "Mais vendida" },
+    { n: "Orquídea amarela", img: "orquidea", d: "Cachepô de cerâmica", p: 119, f: ["sombra"], bg: "#efe9dc", c: ["#4f8a43", "#86b96a"], v: "#cfae7c" },
+    { n: "Lavanda", img: "lavanda", d: "Vaso cerâmica 12cm", p: 49, f: ["sol"], bg: "#ece6f2", c: ["#6b7f5a", "#9a86c4"], v: "#ffffff" },
+    { n: "Ficus lyrata", img: "ficus", d: "Vaso fibra 30cm", p: 289, f: ["sol"], bg: "#e1ebe0", c: ["#2a5233", "#3f7a49"], v: "#2d2d2d", selo: "Novidade" },
+    { n: "Peperômia", img: "peperomia", d: "Vaso cerâmica 10cm", p: 39, f: ["sombra", "facil"], bg: "#f4eadf", c: ["#5b8f4c", "#9cc27a"], v: "#e8b9a0" },
+    { n: "Suculentas (kit 3)", img: "suculentas", d: "Vasinhos de barro", p: 54, f: ["sol", "facil"], bg: "#efeee4", c: ["#7aa37a", "#b0c98f"], v: "#c96f4a" },
   ];
   const grade = document.getElementById("produtos");
   grade.innerHTML = produtos.map(x => `
     <div class="prod" data-f="${x.f.join(" ")}">
-      <div class="foto" style="background:${x.bg}">${x.selo ? `<span class="selo">${x.selo}</span>` : ""}${folha(x.c[0], x.c[1], x.v)}<button class="add" aria-label="Adicionar">+</button></div>
+      <div class="foto" style="background:${x.bg}">${x.selo ? `<span class="selo">${x.selo}</span>` : ""}<img src="img/${x.img}.jpg" alt="${x.n}" loading="lazy" width="672" height="900"><button class="add" aria-label="Adicionar">+</button></div>
       <h3>${x.n}</h3><p>${x.d}</p>
       <div class="preco">R$ ${x.p},00${x.de ? `<s>R$ ${x.de},00</s>` : ""}</div>
     </div>`).join("");
