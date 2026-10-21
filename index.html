@@ -7,24 +7,54 @@
 <meta name="description" content="A SA Studio cria sites institucionais, landing pages e lojas virtuais sob medida para empresas. Solicite seu orçamento.">
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="canonical" href="https://sastudioofc.github.io/sa-studio/">
+<meta name="theme-color" content="#31669a">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="SA Studio">
+<meta property="og:url" content="https://sastudioofc.github.io/sa-studio/">
+<meta property="og:title" content="SA Studio | Sites sob medida para sua empresa">
+<meta property="og:description" content="Sites institucionais, landing pages e lojas virtuais com design exclusivo, rápidos e feitos para trazer clientes. Peça seu orçamento pelo WhatsApp.">
+<meta property="og:image" content="https://sastudioofc.github.io/sa-studio/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SA Studio: sites sob medida para sua empresa crescer">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SA Studio | Sites sob medida para sua empresa">
+<meta name="twitter:description" content="Sites institucionais, landing pages e lojas virtuais com design exclusivo, rápidos e feitos para trazer clientes.">
+<meta name="twitter:image" content="https://sastudioofc.github.io/sa-studio/img/og.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "SA Studio",
+  "description": "Criação de sites institucionais, landing pages e lojas virtuais sob medida para empresas.",
+  "url": "https://sastudioofc.github.io/sa-studio/",
+  "logo": "https://sastudioofc.github.io/sa-studio/img/logo.png",
+  "image": "https://sastudioofc.github.io/sa-studio/img/og.jpg",
+  "telephone": "+55 48 9124-8377",
+  "areaServed": "BR",
+  "sameAs": ["https://github.com/sastudioofc"]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --azul: #1d5bd8;
-    --azul-escuro: #0b2a5b;
-    --azul-claro: #eaf1ff;
+    --azul: #31669a;
+    --azul-escuro: #12304f;
+    --azul-claro: #e8f0f8;
     --cinza-fundo: #f5f7fa;
     --cinza-borda: #e3e8ef;
     --texto: #1f2937;
     --texto-suave: #5b6676;
     --branco: #ffffff;
     --raio: 16px;
-    --sombra: 0 10px 30px rgba(11, 42, 91, .08);
+    --sombra: 0 10px 30px rgba(18, 48, 79, .08);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { font-family: "Inter", system-ui, sans-serif; color: var(--texto); background: var(--branco); line-height: 1.6; }
+  html { scroll-behavior: smooth; overflow-x: clip; }
+  body { font-family: "Inter", system-ui, sans-serif; color: var(--texto); background: var(--branco); line-height: 1.6; overflow-x: clip; }
   img { max-width: 100%; display: block; }
   a { color: inherit; text-decoration: none; }
   .container { width: min(1140px, 100% - 32px); margin-inline: auto; }
@@ -35,8 +65,8 @@
 
   /* Botões */
   .btn { display: inline-flex; align-items: center; gap: 8px; font: inherit; font-weight: 600; border: 0; cursor: pointer; padding: 14px 28px; border-radius: 999px; transition: transform .2s, box-shadow .2s, background .2s; }
-  .btn-azul { background: var(--azul); color: var(--branco); box-shadow: 0 8px 20px rgba(29, 91, 216, .3); }
-  .btn-azul:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(29, 91, 216, .4); background: #1750c2; }
+  .btn-azul { background: var(--azul); color: var(--branco); box-shadow: 0 8px 20px rgba(49, 102, 154, .3); }
+  .btn-azul:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(49, 102, 154, .4); background: #285786; }
   .btn-branco { background: var(--branco); color: var(--azul); }
   .btn-branco:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0, 0, 0, .2); }
   .btn-contorno { background: transparent; color: var(--azul-escuro); border: 2px solid var(--cinza-borda); }
@@ -67,12 +97,12 @@
 
   /* Mockups (espaço reservado para as artes da designer) */
   .mockups { position: relative; height: 420px; }
-  .mock-desktop { position: absolute; inset: 0 60px 40px 0; background: var(--branco); border-radius: 14px; box-shadow: 0 30px 60px rgba(11, 42, 91, .15); overflow: hidden; border: 1px solid var(--cinza-borda); animation: flutuar 6s ease-in-out infinite; }
+  .mock-desktop { position: absolute; inset: 0 60px 40px 0; background: var(--branco); border-radius: 14px; box-shadow: 0 30px 60px rgba(18, 48, 79, .15); overflow: hidden; border: 1px solid var(--cinza-borda); animation: flutuar 6s ease-in-out infinite; }
   .mock-barra { height: 34px; background: var(--cinza-fundo); display: flex; align-items: center; gap: 7px; padding: 0 14px; border-bottom: 1px solid var(--cinza-borda); }
   .mock-barra i { width: 11px; height: 11px; border-radius: 50%; display: block; }
-  .mock-celular { position: absolute; right: 0; bottom: 0; width: 150px; height: 300px; background: var(--azul-escuro); border-radius: 28px; padding: 9px; box-shadow: 0 30px 60px rgba(11, 42, 91, .25); animation: flutuar 6s ease-in-out infinite 1.5s; }
+  .mock-celular { position: absolute; right: 0; bottom: 0; width: 150px; height: 300px; background: var(--azul-escuro); border-radius: 28px; padding: 9px; box-shadow: 0 30px 60px rgba(18, 48, 79, .25); animation: flutuar 6s ease-in-out infinite 1.5s; }
   .mock-celular .tela { width: 100%; height: 100%; border-radius: 20px; overflow: hidden; }
-  .arte { width: 100%; height: 100%; display: grid; place-items: center; text-align: center; color: var(--azul); font-size: .85rem; font-weight: 600; background: repeating-linear-gradient(45deg, var(--azul-claro), var(--azul-claro) 12px, #f3f7ff 12px, #f3f7ff 24px); padding: 12px; }
+  .arte { width: 100%; height: 100%; display: grid; place-items: center; text-align: center; color: var(--azul); font-size: .85rem; font-weight: 600; background: repeating-linear-gradient(45deg, var(--azul-claro), var(--azul-claro) 12px, #f2f6fa 12px, #f2f6fa 24px); padding: 12px; }
   .mock-desktop .arte { height: calc(100% - 34px); }
   @keyframes flutuar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
@@ -143,7 +173,7 @@
   .zap:hover { transform: scale(1.08); }
 
   /* Janela estilo Mac (orçamento) */
-  .overlay { position: fixed; inset: 0; background: rgba(11, 42, 91, .45); backdrop-filter: blur(6px); display: grid; place-items: center; z-index: 100; opacity: 0; pointer-events: none; transition: opacity .3s; padding: 16px; }
+  .overlay { position: fixed; inset: 0; background: rgba(18, 48, 79, .45); backdrop-filter: blur(6px); display: grid; place-items: center; z-index: 100; opacity: 0; pointer-events: none; transition: opacity .3s; padding: 16px; }
   .overlay.aberto { opacity: 1; pointer-events: auto; }
   .janela { width: min(640px, 100%); max-height: calc(100vh - 32px); overflow: auto; background: var(--branco); border-radius: 14px; box-shadow: 0 40px 80px rgba(0, 0, 0, .3); transform: scale(.92) translateY(20px); transition: transform .35s cubic-bezier(.2, .9, .3, 1.2); }
   .overlay.aberto .janela { transform: none; }
@@ -181,14 +211,14 @@
 
 
   /* ===== Animações extras ===== */
-  .progresso-rolagem { position: fixed; top: 0; left: 0; height: 3px; width: 100%; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--azul), #5b8cff); z-index: 200; }
+  .progresso-rolagem { position: fixed; top: 0; left: 0; height: 3px; width: 100%; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--azul), #6f9fd0); z-index: 200; }
 
   .hero { position: relative; overflow: hidden; }
   .hero::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(var(--cinza-borda) 1px, transparent 1px), linear-gradient(90deg, var(--cinza-borda) 1px, transparent 1px); background-size: 48px 48px; -webkit-mask-image: radial-gradient(ellipse at 70% 40%, #000 0%, transparent 65%); mask-image: radial-gradient(ellipse at 70% 40%, #000 0%, transparent 65%); opacity: .5; pointer-events: none; }
   .hero .container { position: relative; z-index: 1; }
   .bolha { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .5; pointer-events: none; animation: vagar 14s ease-in-out infinite; }
-  .bolha.b1 { width: 380px; height: 380px; background: #bcd3ff; top: -80px; right: 8%; }
-  .bolha.b2 { width: 280px; height: 280px; background: #dbe7ff; bottom: -60px; left: 30%; animation-delay: -5s; }
+  .bolha.b1 { width: 380px; height: 380px; background: #c5d8ec; top: -80px; right: 8%; }
+  .bolha.b2 { width: 280px; height: 280px; background: #dce8f4; bottom: -60px; left: 30%; animation-delay: -5s; }
   @keyframes vagar { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(40px, -30px) scale(1.1); } 66% { transform: translate(-30px, 20px) scale(.95); } }
 
   .entrada { opacity: 0; animation: subir .9s cubic-bezier(.2, .8, .2, 1) forwards; }
@@ -208,19 +238,19 @@
   /* Botões: brilho e onda ao clicar */
   .btn { position: relative; overflow: hidden; isolation: isolate; }
   .btn-azul::after, .btn-branco::after { content: ""; position: absolute; top: 0; left: -75%; width: 50%; height: 100%; background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .4), transparent); transform: skewX(-20deg); transition: left .7s; pointer-events: none; }
-  .btn-branco::after { background: linear-gradient(120deg, transparent, rgba(29, 91, 216, .15), transparent); }
+  .btn-branco::after { background: linear-gradient(120deg, transparent, rgba(49, 102, 154, .15), transparent); }
   .btn-azul:hover::after, .btn-branco:hover::after { left: 130%; }
   .btn svg { transition: transform .25s; }
   .btn:hover svg { transform: translateX(4px); }
   .onda { position: absolute; border-radius: 50%; transform: scale(0); background: rgba(255, 255, 255, .5); animation: onda .6s ease-out; pointer-events: none; }
-  .btn-contorno .onda, .btn-branco .onda { background: rgba(29, 91, 216, .2); }
+  .btn-contorno .onda, .btn-branco .onda { background: rgba(49, 102, 154, .2); }
   @keyframes onda { to { transform: scale(4); opacity: 0; } }
 
   /* Cartões: linha no topo, luz que segue o mouse, ícone animado */
   .card { position: relative; overflow: hidden; }
-  .card::before { content: ""; position: absolute; top: 0; left: 0; height: 3px; width: 100%; background: linear-gradient(90deg, var(--azul), #5b8cff); transform: scaleX(0); transform-origin: left; transition: transform .45s; }
+  .card::before { content: ""; position: absolute; top: 0; left: 0; height: 3px; width: 100%; background: linear-gradient(90deg, var(--azul), #6f9fd0); transform: scaleX(0); transform-origin: left; transition: transform .45s; }
   .card:hover::before { transform: scaleX(1); }
-  .card::after { content: ""; position: absolute; inset: 0; background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(29, 91, 216, .09), transparent 70%); opacity: 0; transition: opacity .3s; pointer-events: none; }
+  .card::after { content: ""; position: absolute; inset: 0; background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(49, 102, 154, .09), transparent 70%); opacity: 0; transition: opacity .3s; pointer-events: none; }
   .card:hover::after { opacity: 1; }
   .icone { transition: background .3s, transform .4s cubic-bezier(.3, 1.6, .5, 1); }
   .card:hover .icone { transform: rotate(-8deg) scale(1.12); }
@@ -237,7 +267,7 @@
   .arte-img { width: 100%; height: auto; aspect-ratio: 4/3; object-fit: cover; object-position: top; display: block; transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
   .projeto:hover .arte-img { transform: scale(1.06); }
   .selo-conceito { position: absolute; top: 12px; left: 12px; background: rgba(255, 255, 255, .92); color: var(--azul-escuro); font-size: .72rem; font-weight: 700; padding: 5px 12px; border-radius: 999px; z-index: 1; }
-  .ver { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(11, 42, 91, .55); color: var(--branco); font-weight: 600; opacity: 0; transition: opacity .35s; }
+  .ver { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(18, 48, 79, .55); color: var(--branco); font-weight: 600; opacity: 0; transition: opacity .35s; }
   .ver span { transform: translateY(12px); transition: transform .35s; }
   .projeto:hover .ver { opacity: 1; }
   .projeto:hover .ver span { transform: none; }
@@ -246,7 +276,7 @@
   .passo:not(:last-child)::after { transform: scaleX(0); transform-origin: left; transition: transform 1.1s .5s cubic-bezier(.2, .8, .2, 1); }
   .passo.visivel::after { transform: scaleX(1); }
   .passo.visivel .num { animation: pulsar 1.4s .3s; }
-  @keyframes pulsar { 0% { box-shadow: 0 0 0 2px var(--azul-claro), 0 0 0 0 rgba(29, 91, 216, .4); } 100% { box-shadow: 0 0 0 2px var(--azul-claro), 0 0 0 22px rgba(29, 91, 216, 0); } }
+  @keyframes pulsar { 0% { box-shadow: 0 0 0 2px var(--azul-claro), 0 0 0 0 rgba(49, 102, 154, .4); } 100% { box-shadow: 0 0 0 2px var(--azul-claro), 0 0 0 22px rgba(49, 102, 154, 0); } }
   .passo .num { transition: background .3s, color .3s, transform .3s; }
   .passo:hover .num { background: var(--azul); color: var(--branco); transform: scale(1.08); }
 
@@ -279,7 +309,7 @@
   .plano { border-radius: 22px; padding: 36px 32px; position: relative; }
   .plano.pronto { background: var(--branco); border: 1px solid var(--cinza-borda); color: var(--texto-suave); }
   .plano.pronto h3 { color: var(--texto-suave); }
-  .plano.nos { background: linear-gradient(150deg, var(--azul) 0%, var(--azul-escuro) 100%); color: var(--branco); box-shadow: 0 30px 60px rgba(29, 91, 216, .35); padding: 44px 36px; }
+  .plano.nos { background: linear-gradient(150deg, var(--azul) 0%, var(--azul-escuro) 100%); color: var(--branco); box-shadow: 0 30px 60px rgba(49, 102, 154, .35); padding: 44px 36px; }
   .plano.nos.visivel { animation: respirar 5s ease-in-out 1.2s infinite; }
   @keyframes respirar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
   .plano.nos .luz { position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(300px circle at var(--mx, 85%) var(--my, 0%), rgba(255, 255, 255, .2), transparent 60%); pointer-events: none; }
@@ -345,10 +375,10 @@
   .o-status.pronto { color: #1a7f37; } .o-status.pronto .o-dot { background: #28c840; animation: none; } .o-status.pronto b { color: #1a7f37; }
   @keyframes piscar { 50% { opacity: 0; } }
 
-  .busca { position: absolute; right: -18px; bottom: 0; width: 280px; background: var(--branco); border: 1px solid var(--cinza-borda); border-radius: 18px; padding: 14px; box-shadow: 0 30px 60px -20px rgba(29, 91, 216, .4); z-index: 3; }
+  .busca { position: absolute; right: -18px; bottom: 0; width: 280px; background: var(--branco); border: 1px solid var(--cinza-borda); border-radius: 18px; padding: 14px; box-shadow: 0 30px 60px -20px rgba(49, 102, 154, .4); z-index: 3; }
   .busca.escondida { opacity: 0; transform: translateY(24px) scale(.96); }
   .busca { transition: opacity .5s, transform .5s cubic-bezier(.2, .8, .2, 1); }
-  .busca-barra { display: flex; align-items: center; gap: 8px; border: 1px solid var(--cinza-borda); background: #f5f8fe; border-radius: 999px; padding: 7px 12px; font-size: .82rem; color: var(--texto); min-height: 34px; }
+  .busca-barra { display: flex; align-items: center; gap: 8px; border: 1px solid var(--cinza-borda); background: #f4f7fb; border-radius: 999px; padding: 7px 12px; font-size: .82rem; color: var(--texto); min-height: 34px; }
   .busca-barra svg { color: var(--texto-suave); flex-shrink: 0; }
   .caret { display: inline-block; width: 1.5px; height: 1.05em; background: var(--azul-escuro); vertical-align: -.15em; margin-left: 1px; animation: piscar 1s steps(1) infinite; }
   .busca-res { margin-top: 12px; transition: opacity .45s, transform .45s; }
@@ -452,7 +482,7 @@
               <div class="o-img pc"><span></span></div>
             </div>
             <div class="o-cards"><i class="pc"></i><i class="pc"></i><i class="pc"></i></div>
-            <svg class="o-mouse" id="obraMouse" width="18" height="18" viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L10 19z" fill="#0b2a5b" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg class="o-mouse" id="obraMouse" width="18" height="18" viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L10 19z" fill="#12304f" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg>
           </div>
           <div class="o-status" id="obraStatus"><span class="o-dot"></span><span id="obraTxt">Construindo layout</span><b id="obraPct">0%</b></div>
         </div>
@@ -479,19 +509,19 @@
   <div class="garantias">
     <div class="container garantias-grid">
       <div class="garantia revelar">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1d5bd8" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#31669a" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
         <div><strong>Entrega em até <span class="contar" data-ate="15">15</span> dias</strong><small>Prazo combinado e cumprido</small></div>
       </div>
       <div class="garantia revelar">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1d5bd8" stroke-width="1.8" stroke-linecap="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2" y="14" width="5" height="6" rx="2"/><rect x="17" y="14" width="5" height="6" rx="2"/></svg>
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#31669a" stroke-width="1.8" stroke-linecap="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2" y="14" width="5" height="6" rx="2"/><rect x="17" y="14" width="5" height="6" rx="2"/></svg>
         <div><strong>Suporte de <span class="contar" data-ate="30">30</span> dias</strong><small>Ajustes após a entrega</small></div>
       </div>
       <div class="garantia revelar">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1d5bd8" stroke-width="1.8" stroke-linecap="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#31669a" stroke-width="1.8" stroke-linecap="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
         <div><strong><span class="contar" data-ate="100">100</span>% responsivo</strong><small>Perfeito no celular</small></div>
       </div>
       <div class="garantia revelar">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1d5bd8" stroke-width="1.8" stroke-linecap="round"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg>
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#31669a" stroke-width="1.8" stroke-linecap="round"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg>
         <div><strong>Design exclusivo</strong><small>Feito do zero para você</small></div>
       </div>
     </div>
@@ -676,7 +706,7 @@
         </div>
         <div class="etapa" data-etapa="4">
           <div class="sucesso">
-            <div class="check"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#1d5bd8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="check"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#31669a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
             <h3>Pedido enviado!</h3>
             <p>Abrimos o WhatsApp com seu pedido. Responderemos em breve.</p>
           </div>
