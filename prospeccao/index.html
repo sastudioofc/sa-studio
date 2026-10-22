@@ -116,9 +116,18 @@
     <h2>2. Onde e o quê</h2>
     <div class="grade">
       <label class="campo">Estado
-        <select id="uf"><option value="RS">Rio Grande do Sul</option><option value="SP">São Paulo</option></select></label>
+        <select id="uf"></select></label>
       <label class="campo">Cidade
-        <input type="text" id="cidade" list="listaCidades" placeholder="Ex.: Pelotas" autocomplete="off"></label>
+        <input type="text" id="cidade" list="listaCidades" placeholder="Comece a digitar" autocomplete="off"></label>
+      <label class="campo">Quantidade de resultados
+        <select id="qtd">
+          <option value="20">Até 20</option>
+          <option value="50">Até 50</option>
+          <option value="100" selected>Até 100</option>
+          <option value="200">Até 200</option>
+          <option value="500">Até 500</option>
+          <option value="0">Todos que encontrar</option>
+        </select></label>
       <datalist id="listaCidades"></datalist>
     </div>
     <div style="margin-top:16px">
@@ -131,6 +140,7 @@
     <div class="linha-acoes">
       <button class="btn" id="buscar" type="button">Buscar empresas sem site</button>
     </div>
+    <p class="aviso">Os melhores aparecem primeiro: mais avaliações e com telefone. No Google, cada nicho traz no máximo uns 60 lugares por cidade antes do filtro, e quanto menos resultados você pedir, menos chamadas (e menos custo) a busca usa.</p>
     <div class="status-msg" id="statusMsg" role="status"></div>
   </section>
 
@@ -201,10 +211,13 @@ const NICHOS = [
   { id: "papelaria", nome: "Papelaria", busca: "papelaria", osm: ['["shop"~"^(stationery|copyshop)$"]'] },
 ];
 
-const CIDADES = {
-  RS: ["Porto Alegre", "Caxias do Sul", "Canoas", "Pelotas", "Santa Maria", "Gravataí", "Viamão", "Novo Hamburgo", "São Leopoldo", "Rio Grande", "Alvorada", "Passo Fundo", "Sapucaia do Sul", "Uruguaiana", "Santa Cruz do Sul", "Cachoeirinha", "Bagé", "Bento Gonçalves", "Erechim", "Guaíba", "Lajeado", "Ijuí", "Santo Ângelo", "Esteio", "Santana do Livramento", "Cachoeira do Sul", "Sapiranga", "Alegrete", "Santa Rosa", "Venâncio Aires", "Farroupilha", "Montenegro", "Campo Bom", "Estância Velha", "Vacaria", "Carazinho", "Cruz Alta", "Camaquã", "São Borja", "Gramado", "Canela", "Torres", "Capão da Canoa", "Tramandaí", "Garibaldi", "Flores da Cunha", "Eldorado do Sul", "Parobé", "Taquara", "Osório"],
-  SP: ["São Paulo", "Guarulhos", "Campinas", "São Bernardo do Campo", "Santo André", "Osasco", "São José dos Campos", "Ribeirão Preto", "Sorocaba", "Mauá", "São José do Rio Preto", "Santos", "Mogi das Cruzes", "Diadema", "Jundiaí", "Piracicaba", "Carapicuíba", "Bauru", "Itaquaquecetuba", "São Vicente", "Franca", "Praia Grande", "Guarujá", "Taubaté", "Limeira", "Suzano", "Taboão da Serra", "Sumaré", "Barueri", "Embu das Artes", "São Carlos", "Marília", "Indaiatuba", "Cotia", "Americana", "Jacareí", "Araraquara", "Presidente Prudente", "Itapevi", "Hortolândia", "Rio Claro", "Araçatuba", "Santa Bárbara d'Oeste", "Ferraz de Vasconcelos", "Itu", "Bragança Paulista", "Atibaia", "Valinhos", "Vinhedo", "São Caetano do Sul"],
-};
+const ESTADOS = [
+  ["AC", "Acre"], ["AL", "Alagoas"], ["AP", "Amapá"], ["AM", "Amazonas"], ["BA", "Bahia"], ["CE", "Ceará"],
+  ["DF", "Distrito Federal"], ["ES", "Espírito Santo"], ["GO", "Goiás"], ["MA", "Maranhão"], ["MT", "Mato Grosso"],
+  ["MS", "Mato Grosso do Sul"], ["MG", "Minas Gerais"], ["PA", "Pará"], ["PB", "Paraíba"], ["PR", "Paraná"],
+  ["PE", "Pernambuco"], ["PI", "Piauí"], ["RJ", "Rio de Janeiro"], ["RN", "Rio Grande do Norte"], ["RS", "Rio Grande do Sul"],
+  ["RO", "Rondônia"], ["RR", "Roraima"], ["SC", "Santa Catarina"], ["SP", "São Paulo"], ["SE", "Sergipe"], ["TO", "Tocantins"],
+];
 
 const STATUS = [
   { v: "novo", t: "Novo" },
@@ -238,8 +251,19 @@ function montarNichos() {
   $("#nichos").innerHTML = NICHOS.map((n) =>
     `<label class="nicho"><input type="checkbox" value="${n.id}" ${marcados.has(n.id) ? "checked" : ""}>${esc(n.nome)}</label>`).join("");
 }
-function montarCidades() {
-  $("#listaCidades").innerHTML = CIDADES[$("#uf").value].map((c) => `<option value="${esc(c)}">`).join("");
+// Lista de municípios do IBGE só para sugerir nomes; se falhar, dá para digitar normalmente.
+const cacheCidades = {};
+async function montarCidades() {
+  const uf = $("#uf").value;
+  $("#listaCidades").innerHTML = "";
+  try {
+    if (!cacheCidades[uf]) {
+      const r = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`);
+      if (!r.ok) throw new Error();
+      cacheCidades[uf] = (await r.json()).map((m) => m.nome).sort((a, b) => a.localeCompare(b, "pt-BR"));
+    }
+    if ($("#uf").value === uf) $("#listaCidades").innerHTML = cacheCidades[uf].map((c) => `<option value="${esc(c)}">`).join("");
+  } catch {}
 }
 function nichosMarcados() {
   return [...document.querySelectorAll("#nichos input:checked")].map((i) => NICHOS.find((n) => n.id === i.value));
@@ -336,7 +360,9 @@ async function buscarOsm(uf, cidade, nichos) {
 }
 
 // ---------- Google Places (API nova) ----------
-async function buscarGoogle(uf, cidade, nichos, chave) {
+async function buscarGoogle(uf, cidade, nichos, chave, qtd) {
+  // Com limite, cada nicho busca só até a sua parte, para não gastar chamadas à toa.
+  const porNicho = qtd ? Math.ceil(qtd / nichos.length) : Infinity;
   const campos = ["places.id", "places.displayName", "places.formattedAddress", "places.nationalPhoneNumber", "places.internationalPhoneNumber", "places.websiteUri", "places.rating", "places.userRatingCount", "places.googleMapsUri", "places.businessStatus", "nextPageToken"].join(",");
   const lista = [];
   let feitos = 0;
@@ -344,7 +370,8 @@ async function buscarGoogle(uf, cidade, nichos, chave) {
     feitos++;
     msg(`Buscando ${n.nome.toLowerCase()} no Google (${feitos}/${nichos.length})...`);
     let pageToken = "";
-    for (let pagina = 0; pagina < 3; pagina++) {
+    const inicio = lista.length;
+    for (let pagina = 0; pagina < 3 && lista.length - inicio < porNicho; pagina++) {
       const corpo = { textQuery: `${n.busca} em ${cidade}, ${uf}`, languageCode: "pt-BR", regionCode: "BR", pageSize: 20 };
       if (pageToken) corpo.pageToken = pageToken;
       const r = await fetch("https://places.googleapis.com/v1/places:searchText", {
@@ -389,20 +416,21 @@ async function buscar() {
   const cidade = $("#cidade").value.trim();
   const nichos = nichosMarcados();
   const fonte = fonteAtual();
+  const qtd = Number($("#qtd").value);
   if (!cidade) return msg("Digite uma cidade.", true);
   if (!nichos.length) return msg("Marque pelo menos um nicho.", true);
   const chave = $("#chave").value.trim();
   if (fonte === "google" && !chave) return msg("Cole a chave da API do Google para usar essa fonte.", true);
 
   store.set("nichos", nichos.map((n) => n.id));
-  store.set("ultima", { uf, cidade, fonte });
+  store.set("ultima", { uf, cidade, fonte, qtd });
   if (chave) store.set("chave", chave);
 
   const btn = $("#buscar");
   btn.disabled = true;
   msg(fonte === "osm" ? `Buscando em ${cidade} no OpenStreetMap... (cidades grandes podem levar até 1 minuto)` : "Buscando no Google...");
   try {
-    const lista = fonte === "osm" ? await buscarOsm(uf, cidade, nichos) : await buscarGoogle(uf, cidade, nichos, chave);
+    const lista = fonte === "osm" ? await buscarOsm(uf, cidade, nichos) : await buscarGoogle(uf, cidade, nichos, chave, qtd);
     const vistos = new Set();
     resultados = lista.filter((l) => {
       const k = l.nome.toLowerCase() + "|" + l.telefone;
@@ -410,10 +438,12 @@ async function buscar() {
       vistos.add(l.id); vistos.add(k);
       return true;
     }).sort((a, b) => (b.avaliacoes || 0) - (a.avaliacoes || 0) || (b.telefone ? 1 : 0) - (a.telefone ? 1 : 0) || a.nome.localeCompare(b.nome));
+    const total = resultados.length;
+    if (qtd && total > qtd) resultados = resultados.slice(0, qtd);
     if (!resultados.length && fonte === "osm") {
       msg(`Nada encontrado em ${cidade}. Confira o nome da cidade (com acento) ou tente a fonte Google, que é mais completa.`, true);
     } else {
-      msg(`${resultados.length} ${resultados.length === 1 ? "empresa sem site encontrada" : "empresas sem site encontradas"} em ${cidade}/${uf}.`);
+      msg(`${total} ${total === 1 ? "empresa sem site encontrada" : "empresas sem site encontradas"} em ${cidade}/${uf}` + (total > resultados.length ? `, mostrando as ${resultados.length} melhores.` : "."));
     }
     trocarAba("resultados");
   } catch (e) {
@@ -531,8 +561,10 @@ function exportar() {
 // ---------- início ----------
 montarNichos();
 $("#filtroStatus").innerHTML += STATUS.map((s) => `<option value="${s.v}">${s.t}</option>`).join("");
+$("#uf").innerHTML = ESTADOS.map(([sigla, nome]) => `<option value="${sigla}">${nome}</option>`).join("");
 const ultima = store.get("ultima", { uf: "RS", cidade: "", fonte: "osm" });
 $("#uf").value = ultima.uf;
+if (ultima.qtd != null) $("#qtd").value = String(ultima.qtd);
 $("#cidade").value = ultima.cidade;
 document.querySelector(`input[name=fonte][value=${ultima.fonte === "google" ? "google" : "osm"}]`).checked = true;
 $("#caixaChave").hidden = fonteAtual() !== "google";
@@ -542,7 +574,7 @@ montarCidades();
 render();
 
 document.querySelectorAll("input[name=fonte]").forEach((r) => r.addEventListener("change", () => { $("#caixaChave").hidden = fonteAtual() !== "google"; }));
-$("#uf").addEventListener("change", montarCidades);
+$("#uf").addEventListener("change", () => { $("#cidade").value = ""; montarCidades(); });
 $("#marcarTodos").addEventListener("click", () => document.querySelectorAll("#nichos input").forEach((i) => (i.checked = true)));
 $("#desmarcarTodos").addEventListener("click", () => document.querySelectorAll("#nichos input").forEach((i) => (i.checked = false)));
 $("#buscar").addEventListener("click", buscar);

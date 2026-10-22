@@ -9,4 +9,4 @@ Publicado via GitHub Pages: https://sastudioofc.github.io/sa-studio/
 
 ## Ferramenta de prospecção
 
-`prospeccao/index.html` (fora do menu, com `noindex`): busca empresas sem site por cidade (RS/SP) e nicho, usando o OpenStreetMap (grátis) ou a Google Places API (precisa de chave). Status dos leads e anotações ficam salvos no navegador; dá para exportar CSV.
+`prospeccao/index.html` (fora do menu, com `noindex`): busca empresas sem site por cidade (todos os estados) e nicho, usando o OpenStreetMap (grátis) ou a Google Places API (precisa de chave). Status dos leads e anotações ficam salvos no navegador; dá para exportar CSV.
