@@ -253,17 +253,26 @@ function montarNichos() {
 }
 // Lista de municípios do IBGE só para sugerir nomes; se falhar, dá para digitar normalmente.
 const cacheCidades = {};
+const semAcento = (t) => String(t || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[’`´]/g, "'").toLowerCase().trim();
+async function carregarCidades(uf) {
+  if (!cacheCidades[uf]) {
+    const r = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`);
+    if (!r.ok) throw new Error();
+    cacheCidades[uf] = (await r.json()).map((m) => ({ nome: m.nome, codigo: String(m.id) })).sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"));
+  }
+  return cacheCidades[uf];
+}
 async function montarCidades() {
   const uf = $("#uf").value;
   $("#listaCidades").innerHTML = "";
   try {
-    if (!cacheCidades[uf]) {
-      const r = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`);
-      if (!r.ok) throw new Error();
-      cacheCidades[uf] = (await r.json()).map((m) => m.nome).sort((a, b) => a.localeCompare(b, "pt-BR"));
-    }
-    if ($("#uf").value === uf) $("#listaCidades").innerHTML = cacheCidades[uf].map((c) => `<option value="${esc(c)}">`).join("");
+    const lista = await carregarCidades(uf);
+    if ($("#uf").value === uf) $("#listaCidades").innerHTML = lista.map((c) => `<option value="${esc(c.nome)}">`).join("");
   } catch {}
+}
+// Acha o município do IBGE mesmo digitado sem acento ou com outra caixa ("florianopolis").
+async function acharMunicipio(uf, cidade) {
+  try { return (await carregarCidades(uf)).find((c) => semAcento(c.nome) === semAcento(cidade)) || null; } catch { return null; }
 }
 function nichosMarcados() {
   return [...document.querySelectorAll("#nichos input:checked")].map((i) => NICHOS.find((n) => n.id === i.value));
@@ -310,11 +319,19 @@ function filtrosOverpass(nichos) {
   ];
 }
 
-function consultaOverpass(uf, cidade, filtros) {
-  const nomeCidade = cidade.replace(/"/g, '\\"');
+// O município é achado pelo código do IBGE (tag IBGE:GEOCODIGO no OSM) ou pelo nome, sem diferenciar
+// maiúsculas e apóstrofos. O Distrito Federal não tem municípios: a busca usa o DF inteiro.
+function consultaOverpass(uf, cidade, filtros, codigo) {
+  const nomeRegex = cidade.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/'/g, "['’]").replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+  const municipio = uf === "DF"
+    ? `rel["ISO3166-2"="BR-DF"]->.cid;`
+    : `(
+  ${codigo ? `rel["IBGE:GEOCODIGO"="${codigo}"];` : ""}
+  rel["boundary"="administrative"]["admin_level"="8"]["name"~"^${nomeRegex}$",i](area.uf);
+)->.cid;`;
   return `[out:json][timeout:180][maxsize:1073741824];
 area["ISO3166-2"="BR-${uf}"]->.uf;
-rel["boundary"="administrative"]["admin_level"="8"]["name"="${nomeCidade}"](area.uf)->.cid;
+${municipio}
 .cid out ids;
 .cid map_to_area->.c;
 (
@@ -356,11 +373,11 @@ function nichoDoOsm(tags, nichos) {
   return nichos[0];
 }
 
-async function buscarOsm(uf, cidade, nichos) {
+async function buscarOsm(uf, cidade, nichos, codigo) {
   const filtros = filtrosOverpass(nichos);
   let elementos;
   try {
-    elementos = (await overpass(consultaOverpass(uf, cidade, filtros))).elements || [];
+    elementos = (await overpass(consultaOverpass(uf, cidade, filtros, codigo))).elements || [];
   } catch (e) {
     // Consulta inteira pesada demais: busca em partes, uma de cada vez.
     elementos = [];
@@ -368,7 +385,7 @@ async function buscarOsm(uf, cidade, nichos) {
     for (let i = 0; i < partes.length; i++) {
       msg(`A cidade é grande, buscando em partes (${i + 1}/${partes.length})...`);
       try {
-        elementos.push(...((await overpass(consultaOverpass(uf, cidade, partes[i]))).elements || []));
+        elementos.push(...((await overpass(consultaOverpass(uf, cidade, partes[i], codigo))).elements || []));
       } catch (e2) {
         throw new Error("O servidor do OpenStreetMap não conseguiu responder (" + e2.message.slice(0, 120) + "). Tente com menos nichos ou de novo em alguns minutos.");
       }
@@ -435,7 +452,7 @@ async function buscarGoogle(uf, cidade, nichos, chave, qtd) {
         const soRede = site && REDES.test(site);
         if (site && !soRede) continue;
         const endereco = (p.formattedAddress || "").replace(/, Brazil$|, Brasil$/, "");
-        if (!endereco.toLowerCase().includes(cidade.toLowerCase())) continue;
+        if (!semAcento(endereco).includes(semAcento(cidade))) continue;
         lista.push({
           id: "g:" + p.id,
           nome: p.displayName?.text || "",
@@ -461,7 +478,7 @@ async function buscarGoogle(uf, cidade, nichos, chave, qtd) {
 // ---------- busca ----------
 async function buscar() {
   const uf = $("#uf").value;
-  const cidade = $("#cidade").value.trim();
+  let cidade = $("#cidade").value.trim();
   const nichos = nichosMarcados();
   const fonte = fonteAtual();
   const qtd = Number($("#qtd").value);
@@ -474,11 +491,14 @@ async function buscar() {
   store.set("ultima", { uf, cidade, fonte, qtd });
   if (chave) store.set("chave", chave);
 
+  const municipio = await acharMunicipio(uf, cidade);
+  if (municipio) { cidade = municipio.nome; $("#cidade").value = cidade; }
+
   const btn = $("#buscar");
   btn.disabled = true;
   msg(fonte === "osm" ? `Buscando em ${cidade} no OpenStreetMap... (cidades grandes podem levar até 1 minuto)` : "Buscando no Google...");
   try {
-    const lista = fonte === "osm" ? await buscarOsm(uf, cidade, nichos) : await buscarGoogle(uf, cidade, nichos, chave, qtd);
+    const lista = fonte === "osm" ? await buscarOsm(uf, cidade, nichos, municipio?.codigo) : await buscarGoogle(uf, cidade, nichos, chave, qtd);
     const vistos = new Set();
     resultados = lista.filter((l) => {
       const k = l.nome.toLowerCase() + "|" + l.telefone;
