@@ -292,17 +292,55 @@ function formatarTelefone(d) {
 }
 
 // ---------- OpenStreetMap ----------
-function consultaOverpass(uf, cidade, nichos) {
-  const filtros = nichos.flatMap((n) => n.osm.map((f) => `  nwr${f}["name"](area.c);`)).join("\n");
+// Junta os filtros de uma mesma chave numa regex só ("amenity" ~ "^(pharmacy|restaurant|...)$").
+// Uma linha por nicho deixava a consulta pesada demais nas capitais e o servidor estourava o tempo.
+function filtrosOverpass(nichos) {
+  const porChave = {}, compostos = [];
+  for (const f of nichos.flatMap((n) => n.osm)) {
+    const m = f.match(/^\["([^"]+)"(=|~)"([^"]+)"\]$/);
+    if (!m) { compostos.push(f); continue; }
+    const [, k, op, v] = m;
+    const valores = op === "=" ? [v] : v.replace(/^\^\(|\)\$$/g, "").split("|");
+    (porChave[k] ||= new Set());
+    valores.forEach((x) => porChave[k].add(x));
+  }
+  return [
+    ...Object.entries(porChave).map(([k, vs]) => `["${k}"~"^(${[...vs].join("|")})$"]`),
+    ...[...new Set(compostos)],
+  ];
+}
+
+function consultaOverpass(uf, cidade, filtros) {
   const nomeCidade = cidade.replace(/"/g, '\\"');
-  return `[out:json][timeout:120];
+  return `[out:json][timeout:180][maxsize:1073741824];
 area["ISO3166-2"="BR-${uf}"]->.uf;
-rel["boundary"="administrative"]["admin_level"="8"]["name"="${nomeCidade}"](area.uf);
-map_to_area->.c;
+rel["boundary"="administrative"]["admin_level"="8"]["name"="${nomeCidade}"](area.uf)->.cid;
+.cid out ids;
+.cid map_to_area->.c;
 (
-${filtros}
+${filtros.map((f) => `  nwr${f}["name"](area.c);`).join("\n")}
 );
 out tags center;`;
+}
+
+// Tenta cada servidor. O Overpass responde 200 com "remark" quando estoura tempo ou memória,
+// e isso não pode virar "nada encontrado".
+async function overpass(q) {
+  let ultimoErro;
+  for (const url of OVERPASS) {
+    try {
+      const r = await fetch(url, { method: "POST", body: "data=" + encodeURIComponent(q), headers: { "Content-Type": "application/x-www-form-urlencoded" } });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      const dados = await r.json();
+      if (dados.remark && /error|timed out|out of memory/i.test(dados.remark)) throw Object.assign(new Error(dados.remark), { pesada: true });
+      return dados;
+    } catch (e) {
+      // Consulta pesada demais estoura em qualquer servidor; não adianta esperar os outros.
+      if (e.pesada) throw e;
+      ultimoErro = e;
+    }
+  }
+  throw ultimoErro || new Error("sem resposta");
 }
 
 function nichoDoOsm(tags, nichos) {
@@ -319,17 +357,27 @@ function nichoDoOsm(tags, nichos) {
 }
 
 async function buscarOsm(uf, cidade, nichos) {
-  const q = consultaOverpass(uf, cidade, nichos);
-  let dados, ultimoErro;
-  for (const url of OVERPASS) {
-    try {
-      const r = await fetch(url, { method: "POST", body: "data=" + encodeURIComponent(q), headers: { "Content-Type": "application/x-www-form-urlencoded" } });
-      if (!r.ok) throw new Error("HTTP " + r.status);
-      dados = await r.json();
-      break;
-    } catch (e) { ultimoErro = e; }
+  const filtros = filtrosOverpass(nichos);
+  let elementos;
+  try {
+    elementos = (await overpass(consultaOverpass(uf, cidade, filtros))).elements || [];
+  } catch (e) {
+    // Consulta inteira pesada demais: busca em partes, uma de cada vez.
+    elementos = [];
+    const partes = filtros.map((f) => [f]);
+    for (let i = 0; i < partes.length; i++) {
+      msg(`A cidade é grande, buscando em partes (${i + 1}/${partes.length})...`);
+      try {
+        elementos.push(...((await overpass(consultaOverpass(uf, cidade, partes[i]))).elements || []));
+      } catch (e2) {
+        throw new Error("O servidor do OpenStreetMap não conseguiu responder (" + e2.message.slice(0, 120) + "). Tente com menos nichos ou de novo em alguns minutos.");
+      }
+    }
   }
-  if (!dados) throw new Error("Os servidores do OpenStreetMap não responderam (" + (ultimoErro && ultimoErro.message) + "). Tente de novo em alguns minutos.");
+  if (!elementos.some((el) => el.type === "relation" && !el.tags)) {
+    throw new Error(`Não achei "${cidade}" em ${uf} no OpenStreetMap. Confira o nome da cidade, com acento, como aparece nas sugestões.`);
+  }
+  const dados = { elements: elementos.filter((el) => el.tags) };
 
   const lista = [];
   for (const el of dados.elements || []) {
@@ -441,7 +489,7 @@ async function buscar() {
     const total = resultados.length;
     if (qtd && total > qtd) resultados = resultados.slice(0, qtd);
     if (!resultados.length && fonte === "osm") {
-      msg(`Nada encontrado em ${cidade}. Confira o nome da cidade (com acento) ou tente a fonte Google, que é mais completa.`, true);
+      msg(`O OpenStreetMap não tem empresas sem site cadastradas nesses nichos em ${cidade}. Tente a fonte Google, que é mais completa.`, true);
     } else {
       msg(`${total} ${total === 1 ? "empresa sem site encontrada" : "empresas sem site encontradas"} em ${cidade}/${uf}` + (total > resultados.length ? `, mostrando as ${resultados.length} melhores.` : "."));
     }
