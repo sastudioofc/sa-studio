@@ -85,7 +85,7 @@
       radial-gradient(60% 55% at 75% 60%, rgba(255, 90, 31, .32), transparent 70%),
       radial-gradient(40% 40% at 10% 0%, rgba(255, 183, 3, .10), transparent 70%),
       var(--carvao); }
-  #brasas { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+  #brasas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
   .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
   .selo { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px 8px 8px; border-radius: 999px; background: rgba(255, 246, 234, .06); border: 1px solid var(--borda); font-size: .88rem; font-weight: 700; color: var(--claro); margin-bottom: 24px; }
   .selo .nota { background: var(--fogo); color: var(--carvao); border-radius: 999px; padding: 3px 10px; font-weight: 800; }
@@ -391,6 +391,49 @@
   .voo { position: fixed; z-index: 90; width: 46px; height: 46px; border-radius: 50%; background: var(--fogo); pointer-events: none; display: grid; place-items: center; box-shadow: 0 8px 20px rgba(255, 90, 31, .5); }
   .voo svg { width: 22px; height: 22px; color: var(--carvao); }
 
+
+  /* barra de progresso e faíscas */
+  .progresso { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 100; transform-origin: left; transform: scaleX(0); background: linear-gradient(90deg, var(--fogo), var(--brasa), var(--vermelho)); box-shadow: 0 0 12px rgba(255, 90, 31, .8); pointer-events: none; }
+  #faiscas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 95; }
+
+  /* parallax do palco */
+  .palco { --px: 0; --py: 0; }
+  .palco .foto-flutua { translate: calc(var(--px) * 26px) calc(var(--py) * 22px); transition: translate .25s ease-out; }
+  .palco .etiqueta { translate: calc(var(--px) * 36px) calc(var(--py) * 30px); transition: translate .25s ease-out; }
+  .palco svg.grelha { translate: calc(var(--px) * -10px) calc(var(--py) * -8px); transition: translate .3s ease-out; }
+  .palco .aura { translate: calc(var(--px) * -18px) calc(var(--py) * -14px); }
+
+  /* títulos que sobem palavra por palavra */
+  .palavra { display: inline-block; overflow: hidden; vertical-align: top; padding-top: .14em; margin-top: -.14em; }
+  .palavra > span { display: inline-block; transform: translateY(110%) rotate(5deg); transition: transform .9s cubic-bezier(.2,.8,.2,1); }
+  .visivel .palavra > span { transform: none; }
+  .sobretitulo { position: relative; }
+  .sobretitulo::after { content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 3px; border-radius: 3px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .8s cubic-bezier(.2,.8,.2,1) .45s; }
+  .visivel .sobretitulo::after, .sobretitulo.visivel::after { transform: scaleX(1); }
+
+  /* cartões 3D com brilho */
+  .prato, .motivo { will-change: transform; }
+  .motivo { position: relative; overflow: hidden; }
+  .brilho { position: absolute; inset: 0; pointer-events: none; z-index: 3; opacity: 0; transition: opacity .3s; background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 210, 140, .28), transparent 45%); }
+  .prato:hover .brilho, .motivo:hover .brilho { opacity: 1; }
+  .prato.revela .foto { clip-path: inset(100% 0 0 0); transition: clip-path 1.1s cubic-bezier(.7,0,.2,1) .15s; }
+  .prato.revela .foto img { transform: scale(1.25); transition: transform 1.4s cubic-bezier(.2,.8,.2,1) .15s; }
+  .prato.revela.visivel .foto { clip-path: inset(0 0 0 0); }
+  .prato.revela.visivel .foto img { transform: scale(1); }
+  .prato.revela.visivel:hover .foto img { transform: scale(1.1); transition-delay: 0s; transition-duration: .8s; }
+  .vapor { position: absolute; bottom: 18%; width: 16px; height: 70px; border-radius: 50%; background: linear-gradient(180deg, transparent, rgba(255,255,255,.6), transparent); filter: blur(7px); opacity: 0; z-index: 2; pointer-events: none; }
+  .vapor.v1 { left: 28%; } .vapor.v2 { left: 48%; animation-delay: .6s !important; } .vapor.v3 { left: 68%; animation-delay: 1.2s !important; }
+  .prato:hover .vapor { animation: vapor 2.2s ease-out infinite; }
+  @keyframes vapor { 0% { opacity: 0; transform: translateY(20px) scaleX(1); } 30% { opacity: .85; } 100% { opacity: 0; transform: translateY(-80px) scaleX(2.6) skewX(18deg); } }
+
+  /* ícones e números com vida */
+  .motivo.visivel .ico { animation: acende .8s cubic-bezier(.34,1.56,.64,1) both; }
+  .motivo.visivel.d1 .ico { animation-delay: .15s; } .motivo.visivel.d2 .ico { animation-delay: .3s; } .motivo.visivel.d3 .ico { animation-delay: .45s; }
+  @keyframes acende { 0% { transform: scale(0) rotate(-40deg); } 100% { transform: none; } }
+  .numero b { background: linear-gradient(180deg, var(--fogo), var(--brasa-escura) 60%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .tabua.completa { animation: brilhaTabua 1s ease-out; }
+  @keyframes brilhaTabua { 0% { box-shadow: inset 0 -10px 20px rgba(0,0,0,.35), 0 0 0 0 rgba(255,183,3,.8); } 100% { box-shadow: inset 0 -10px 20px rgba(0,0,0,.35), 0 0 0 26px rgba(255,183,3,0); } }
+  .faixa .trilho { animation-duration: var(--vel, 28s); }
   /* revelar ao rolar */
   .revela { opacity: 0; transform: translateY(40px); transition: opacity .9s cubic-bezier(.2,.8,.2,1), transform .9s cubic-bezier(.2,.8,.2,1); }
   .revela.visivel { opacity: 1; transform: none; }
@@ -436,6 +479,8 @@
 </head>
 <body>
 
+<div class="progresso" id="progresso"></div>
+<canvas id="faiscas" aria-hidden="true"></canvas>
 <div class="demo">Prévia criada pela SA Studio para o Espetinho do Paulista. <a href="https://sastudio.vercel.app/" target="_blank" rel="noopener">Conheça a SA Studio</a></div>
 
 <header class="topo" id="topo">
@@ -907,7 +952,7 @@
   function adicionar(nome, preco, origem, obs) {
     var l = acharLinha(nome, obs);
     if (l) l.qtd++; else pedido.push({ nome: nome, preco: preco, qtd: 1, obs: obs || "" });
-    if (origem) voar(origem);
+    if (origem) { voar(origem); var c0 = centro(origem); faiscas.explode(c0[0], c0[1], 16); }
     atualizarPedido(true);
     aviso((preco === null ? nome + " (preço a combinar)" : nome) + " no pedido");
   }
@@ -943,7 +988,7 @@
   /* ---------- destaques ---------- */
   function cartao(d, mini) {
     return '<article class="prato' + (mini ? " mini" : "") + ' revela">' +
-      '<div class="foto">' + (d.tag ? '<span class="tag">' + d.tag + '</span>' : "") + '<img src="' + IMG[d.img] + '" alt="' + esc(d.nome) + '" loading="lazy"></div>' +
+      '<div class="foto"><span class="vapor v1"></span><span class="vapor v2"></span><span class="vapor v3"></span>' + (d.tag ? '<span class="tag">' + d.tag + '</span>' : "") + '<img src="' + IMG[d.img] + '" alt="' + esc(d.nome) + '" loading="lazy"></div>' +
       '<div class="corpo"><h3>' + esc(d.nome) + '</h3><p>' + esc(d.desc) + '</p>' +
       '<div class="rodape"><span class="preco"><small>R$</small>' + d.preco.toFixed(2).replace(".", ",") + '</span>' +
       '<button class="add" data-nome="' + esc(d.nome) + '" data-preco="' + d.preco + '" aria-label="Adicionar ' + esc(d.nome) + '">' + ICO_MAIS + '</button></div></div></article>';
@@ -1065,6 +1110,7 @@
     else if (escolhidos.length >= tam.n) { b.classList.remove("treme"); void b.offsetWidth; b.classList.add("treme"); aviso("O " + tam.nome + " leva " + tam.n + " espetos"); return; }
     else escolhidos.push(i);
     desenharTabua(); atualizarPic();
+    if (p === -1 && escolhidos.length === tam.n) { var c1 = centro(tabua); faiscas.explode(c1[0], c1[1], 40); tabua.classList.remove("completa"); void tabua.offsetWidth; tabua.classList.add("completa"); }
   }
   document.querySelectorAll(".tamanho").forEach(function (t) {
     t.addEventListener("click", function () {
@@ -1127,6 +1173,102 @@
   });
   desenharGaveta();
 
+
+  /* ---------- faíscas (mouse, botões e Picadão) ---------- */
+  var reduz = matchMedia("(prefers-reduced-motion: reduce)").matches, toque = matchMedia("(hover: none)").matches;
+  var faiscas = (function () {
+    var c = document.getElementById("faiscas"), ctx = c.getContext("2d"), dpr = Math.min(window.devicePixelRatio || 1, 2), ps = [], rodando = false;
+    function tam() { c.width = innerWidth * dpr; c.height = innerHeight * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+    tam(); addEventListener("resize", tam);
+    function loop() {
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+      ctx.globalCompositeOperation = "lighter";
+      for (var i = ps.length - 1; i >= 0; i--) {
+        var p = ps[i];
+        p.vx *= .97; p.vy = p.vy * .97 + p.g; p.x += p.vx; p.y += p.vy; p.vida -= p.decai;
+        if (p.vida <= 0) { ps.splice(i, 1); continue; }
+        var r = p.r * (.5 + p.vida * .5);
+        var g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 3);
+        g.addColorStop(0, "rgba(255,236,170," + p.vida + ")"); g.addColorStop(.35, "rgba(255,140,40," + p.vida * .8 + ")"); g.addColorStop(1, "rgba(255,60,20,0)");
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, p.y, r * 3, 0, Math.PI * 2); ctx.fill();
+      }
+      if (ps.length) requestAnimationFrame(loop); else { rodando = false; ctx.clearRect(0, 0, innerWidth, innerHeight); }
+    }
+    function add(p) { if (reduz) return; ps.push(p); if (!rodando) { rodando = true; requestAnimationFrame(loop); } }
+    return {
+      rastro: function (x, y) { add({ x: x + (Math.random() - .5) * 8, y: y, vx: (Math.random() - .5) * .8, vy: -Math.random() * 1.6 - .4, g: -.015, r: Math.random() * 1.8 + 1, vida: 1, decai: .02 + Math.random() * .015 }); },
+      explode: function (x, y, n) {
+        for (var i = 0; i < (n || 22); i++) {
+          var a = Math.random() * Math.PI * 2, v = Math.random() * 6 + 2;
+          add({ x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 2.5, g: .14, r: Math.random() * 2 + 1.2, vida: 1, decai: .018 + Math.random() * .015 });
+        }
+      }
+    };
+  })();
+  function centro(el) { var r = el.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; }
+  if (!toque) {
+    var ultimo = 0;
+    document.querySelectorAll(".hero, .final, .picadao").forEach(function (sec) {
+      sec.addEventListener("mousemove", function (e) {
+        var agora = performance.now(); if (agora - ultimo < 28) return; ultimo = agora;
+        faiscas.rastro(e.clientX, e.clientY);
+      });
+    });
+  }
+
+  /* ---------- barra de progresso + faixa acelera com a rolagem ---------- */
+  (function () {
+    var barraP = document.getElementById("progresso"), faixaT = document.getElementById("trilho"), ultY = scrollY, vel = 28, t0;
+    addEventListener("scroll", function () {
+      var max = document.documentElement.scrollHeight - innerHeight;
+      barraP.style.transform = "scaleX(" + (max > 0 ? scrollY / max : 0) + ")";
+      var d = Math.abs(scrollY - ultY); ultY = scrollY;
+      vel = Math.max(9, 28 - d * .6); faixaT.style.setProperty("--vel", vel + "s");
+      clearTimeout(t0); t0 = setTimeout(function () { faixaT.style.setProperty("--vel", "28s"); }, 220);
+    }, { passive: true });
+  })();
+
+  /* ---------- parallax no palco do topo ---------- */
+  if (!toque && !reduz) {
+    var palco = document.querySelector(".palco"), hero = document.querySelector(".hero");
+    hero.addEventListener("mousemove", function (e) {
+      var r = hero.getBoundingClientRect();
+      palco.style.setProperty("--px", ((e.clientX - r.left) / r.width - .5).toFixed(3));
+      palco.style.setProperty("--py", ((e.clientY - r.top) / r.height - .5).toFixed(3));
+    });
+    hero.addEventListener("mouseleave", function () { palco.style.setProperty("--px", 0); palco.style.setProperty("--py", 0); });
+  }
+
+  /* ---------- cartões 3D + brilho que segue o mouse ---------- */
+  function inclinar(el, forca) {
+    if (toque || reduz) return;
+    el.insertAdjacentHTML("beforeend", '<span class="brilho"></span>');
+    el.addEventListener("mousemove", function (e) {
+      var r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      el.style.transition = "transform .12s ease-out, box-shadow .4s";
+      el.style.transform = "perspective(900px) rotateX(" + ((.5 - y) * forca) + "deg) rotateY(" + ((x - .5) * forca) + "deg) translateY(-8px)";
+      el.style.setProperty("--mx", x * 100 + "%"); el.style.setProperty("--my", y * 100 + "%");
+    });
+    el.addEventListener("mouseleave", function () { el.style.transition = "transform .6s cubic-bezier(.2,.8,.2,1), box-shadow .4s"; el.style.transform = ""; });
+  }
+  document.querySelectorAll(".prato").forEach(function (el) { inclinar(el, 10); });
+  document.querySelectorAll(".motivo").forEach(function (el) { inclinar(el, 14); });
+
+  /* ---------- botões magnéticos ---------- */
+  if (!toque && !reduz) document.querySelectorAll(".hero .btn, .final .btn, .bandeja .btn").forEach(function (b) {
+    b.addEventListener("mousemove", function (e) {
+      var r = b.getBoundingClientRect();
+      b.style.transform = "translate(" + (e.clientX - r.left - r.width / 2) * .22 + "px," + (e.clientY - r.top - r.height / 2) * .3 + "px)";
+    });
+    b.addEventListener("mouseleave", function () { b.style.transform = ""; });
+  });
+
+  /* ---------- títulos palavra por palavra ---------- */
+  document.querySelectorAll("section h2.display").forEach(function (h) {
+    h.innerHTML = h.textContent.trim().split(/\s+/).map(function (w, i) {
+      return '<span class="palavra"><span style="transition-delay:' + (i * 70) + 'ms">' + esc(w) + '</span></span>';
+    }).join(" ");
+  });
   /* ---------- revelar ao rolar + contadores ---------- */
   function contar(el) {
     var alvo = Number(el.dataset.conta), dec = Number(el.dataset.dec || 0), ini = performance.now(), dur = 1600;
