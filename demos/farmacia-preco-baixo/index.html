@@ -1,1022 +1,959 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Farmácia Preço Baixo | Centro de São Geraldo do Araguaia</title>
-<meta name="description" content="Medicamentos, genéricos, vitaminas, dermocosméticos e higiene com preço baixo no Centro de São Geraldo do Araguaia/PA. Envie sua receita pelo WhatsApp.">
-<meta name="robots" content="noindex">
-<meta name="theme-color" content="#0b8a55">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='11' fill='%230b8a55'/%3E%3Cpath d='M16 8h8v8h8v8h-8v8h-8v-8H8v-8h8z' fill='%23fff'/%3E%3Ccircle cx='31' cy='9' r='5' fill='%23ffd23f'/%3E%3C/svg%3E">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Farmácia Preço Baixo · São Geraldo do Araguaia</title>
+<meta name="description" content="Farmácia Preço Baixo, no Centro de São Geraldo do Araguaia (PA). Medicamentos, genéricos, vitaminas e higiene com preço baixo todo dia.">
+<meta name="theme-color" content="#f3efe6">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='20' width='56' height='24' rx='12' fill='%23f3efe6' stroke='%2312201a' stroke-width='3'/%3E%3Cpath d='M16 20h16v24H16a12 12 0 0 1 0-24z' fill='%230d7a4b'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400;1,9..144,600&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --verde: #0b8a55;
-    --verde-2: #10a866;
-    --verde-escuro: #064e33;
-    --verde-noite: #04301f;
-    --menta: #e8f7ef;
-    --menta-2: #d3f0e1;
-    --amarelo: #ffd23f;
-    --amarelo-2: #fff3c4;
-    --vermelho: #e5383b;
-    --texto: #10261c;
-    --suave: #5d7268;
-    --borda: #dcebe3;
-    --fundo: #f7fbf9;
-    --branco: #ffffff;
-    --zap: #25d366;
-    --raio: 24px;
+    --papel: #f3efe6;
+    --papel-2: #ebe5d8;
+    --papel-3: #e1d9c7;
+    --cupom: #fbfaf6;
+    --tinta: #12201a;
+    --tinta-2: #3d4a43;
+    --suave: #6f7a72;
+    --verde: #0d7a4b;
+    --verde-vivo: #19b36b;
+    --verde-noite: #07432a;
+    --amarelo: #ffd60a;
+    --vermelho: #d62839;
+    --caneta: #1f3fbf;
+    --linha: rgba(18, 32, 26, .16);
+    --serif: "Fraunces", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+    --sans: "Instrument Sans", system-ui, sans-serif;
+    --mao: "Caveat", cursive;
+    --ruido: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; overflow-x: hidden; }
-  body { font-family: "Plus Jakarta Sans", system-ui, sans-serif; color: var(--texto); background: var(--fundo); line-height: 1.6; overflow-x: clip; -webkit-font-smoothing: antialiased; }
-  img, svg { display: block; max-width: 100%; }
+  body { font-family: var(--sans); color: var(--tinta); background: var(--papel); background-image: var(--ruido); line-height: 1.55; overflow-x: clip; -webkit-font-smoothing: antialiased; }
   a { color: inherit; text-decoration: none; }
   button, input { font: inherit; color: inherit; }
-  button { background: none; border: 0; cursor: pointer; }
-  .container { width: min(1180px, 100% - 32px); margin-inline: auto; }
-  .titulo { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; letter-spacing: -.02em; line-height: 1.02; }
-  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  button { cursor: pointer; background: none; border: 0; }
+  img, svg { display: block; }
+  .embrulho { width: min(1180px, 100% - 32px); margin: 0 auto; }
+  .mono { font-family: var(--mono); font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; }
+  ::selection { background: var(--amarelo); color: var(--tinta); }
 
-  .progresso { position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 100; transform-origin: left; transform: scaleX(0); background: linear-gradient(90deg, var(--verde-2), var(--amarelo)); pointer-events: none; }
-  #particulas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 95; }
-  .demo { background: var(--verde-noite); color: #bfe8d2; font-size: .82rem; font-weight: 600; text-align: center; padding: 8px 16px; }
-  .demo a { color: var(--amarelo); text-decoration: underline; font-weight: 800; }
+  /* faixa demo */
+  .demo { background: var(--tinta); color: var(--papel); text-align: center; font-family: var(--mono); font-size: .74rem; letter-spacing: .04em; padding: 8px 16px; }
+  .demo a { color: var(--amarelo); text-decoration: underline; text-underline-offset: 3px; }
 
   /* topo */
-  header.topo { position: sticky; top: 0; z-index: 50; background: rgba(247, 251, 249, .78); backdrop-filter: blur(14px); transition: box-shadow .3s, background .3s; }
-  header.topo.rolou { background: rgba(255, 255, 255, .9); box-shadow: 0 10px 30px rgba(6, 78, 51, .08); }
-  .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; }
+  .topo { position: sticky; top: 0; z-index: 50; background: rgba(243, 239, 230, .82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--linha); }
+  .topo .embrulho { display: flex; align-items: center; gap: 24px; height: 68px; }
   .marca { display: flex; align-items: center; gap: 12px; }
-  .marca .selo { width: 46px; height: 46px; border-radius: 14px; background: var(--verde); display: grid; place-items: center; position: relative; box-shadow: 0 10px 22px rgba(11, 138, 85, .35); flex: none; }
-  .marca .selo svg { width: 24px; height: 24px; color: #fff; transition: transform .6s cubic-bezier(.34,1.56,.64,1); }
-  .marca:hover .selo svg { transform: rotate(180deg); }
-  .marca .selo::after { content: ""; position: absolute; top: -4px; right: -4px; width: 14px; height: 14px; border-radius: 50%; background: var(--amarelo); border: 3px solid var(--fundo); }
-  .marca b { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 1.25rem; letter-spacing: -.02em; display: block; line-height: 1.05; color: var(--verde-escuro); }
-  .marca b span { color: var(--verde); }
-  .marca small { font-size: .76rem; color: var(--suave); font-weight: 600; }
-  .menu { display: flex; align-items: center; gap: 26px; font-weight: 700; font-size: .93rem; }
-  .menu a.link { color: var(--suave); position: relative; transition: color .2s; }
-  .menu a.link::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; border-radius: 2px; background: var(--verde); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
-  .menu a.link:hover { color: var(--verde-escuro); }
-  .menu a.link:hover::after { transform: scaleX(1); }
-  .btn-lista { position: relative; display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 16px; border-radius: 999px; background: var(--branco); border: 1.5px solid var(--borda); font-weight: 800; font-size: .9rem; color: var(--verde-escuro); transition: border-color .2s, transform .2s; }
-  .btn-lista:hover { border-color: var(--verde); transform: translateY(-2px); }
-  .btn-lista svg { width: 20px; height: 20px; }
-  .btn-lista .qtd { min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; background: var(--verde); color: #fff; font-size: .74rem; display: grid; place-items: center; transform: scale(0); transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
-  .btn-lista .qtd.tem { transform: scale(1); }
-  .btn-lista .qtd:not(.tem) { min-width: 0; width: 0; padding: 0; margin-left: -8px; }
-  .btn-lista.pulou { animation: pulou .55s cubic-bezier(.34,1.56,.64,1); }
-  @keyframes pulou { 30% { transform: scale(1.12) rotate(-4deg); } 60% { transform: scale(.96) rotate(3deg); } }
-
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-weight: 800; border-radius: 999px; padding: 15px 26px; transition: transform .2s, box-shadow .25s, background .2s, color .2s, border-color .2s; white-space: nowrap; position: relative; }
+  .marca .selo { width: 46px; height: 22px; border-radius: 99px; border: 2px solid var(--tinta); position: relative; overflow: hidden; background: var(--cupom); transform: rotate(-24deg); transition: transform .5s cubic-bezier(.34, 1.56, .64, 1); }
+  .marca .selo::before { content: ""; position: absolute; inset: 0 50% 0 0; background: var(--verde); }
+  .marca:hover .selo { transform: rotate(156deg); }
+  .marca b { font-family: var(--serif); font-weight: 800; font-size: 1.22rem; letter-spacing: -.02em; line-height: 1; display: block; }
+  .marca small { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: var(--suave); }
+  .menu { display: flex; gap: 22px; margin-left: auto; }
+  .menu a { font-family: var(--mono); font-size: .74rem; letter-spacing: .05em; text-transform: uppercase; color: var(--tinta-2); position: relative; padding: 4px 0; }
+  .menu a i { font-style: normal; color: var(--verde); margin-right: 4px; }
+  .menu a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1.5px; background: var(--tinta); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
+  .menu a:hover::after { transform: scaleX(1); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 52px; padding: 0 24px; border-radius: 99px; font-weight: 700; font-size: .98rem; transition: transform .25s cubic-bezier(.34, 1.56, .64, 1), background .2s, box-shadow .25s; white-space: nowrap; }
   .btn svg { width: 20px; height: 20px; flex: none; }
-  .btn-verde { background: var(--verde); color: #fff; box-shadow: 0 12px 28px rgba(11, 138, 85, .32); }
-  .btn-verde:hover { background: var(--verde-2); transform: translateY(-3px); box-shadow: 0 18px 36px rgba(11, 138, 85, .42); }
-  .btn-claro { background: var(--branco); color: var(--verde-escuro); border: 1.5px solid var(--borda); }
-  .btn-claro:hover { border-color: var(--verde); transform: translateY(-3px); }
-  .btn-amarelo { background: var(--amarelo); color: var(--verde-noite); box-shadow: 0 12px 28px rgba(255, 210, 63, .35); }
-  .btn-amarelo:hover { transform: translateY(-3px); box-shadow: 0 18px 36px rgba(255, 210, 63, .5); }
+  .btn-tinta { background: var(--tinta); color: var(--papel); box-shadow: 0 6px 0 -1px var(--verde); }
+  .btn-tinta:hover { transform: translateY(-3px); box-shadow: 0 9px 0 -1px var(--verde); }
+  .btn-tinta:active { transform: translateY(2px); box-shadow: 0 2px 0 -1px var(--verde); }
+  .btn-contorno { border: 1.5px solid var(--tinta); }
+  .btn-contorno:hover { background: var(--tinta); color: var(--papel); }
+  .topo .btn { height: 42px; padding: 0 18px; font-size: .88rem; box-shadow: none; }
+  .topo .btn:hover { box-shadow: none; background: var(--verde); }
 
-  /* hero */
-  .hero { position: relative; padding: 50px 0 110px; overflow: hidden; isolation: isolate; }
-  .hero::before { content: ""; position: absolute; inset: 0; z-index: -3; background:
-    radial-gradient(45% 55% at 85% 40%, rgba(16, 168, 102, .16), transparent 70%),
-    radial-gradient(35% 40% at 0% 10%, rgba(255, 210, 63, .18), transparent 70%), var(--fundo); }
-  .ecg { position: absolute; left: 0; right: 0; top: 58%; height: 140px; z-index: -2; opacity: .5; pointer-events: none; }
-  .ecg path { fill: none; stroke: var(--verde-2); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: batimento 4.5s linear infinite; }
-  @keyframes batimento { 0% { stroke-dashoffset: 1400; opacity: 0; } 8% { opacity: 1; } 70% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
-  .hero-grid { display: grid; grid-template-columns: 1.08fr .92fr; gap: 50px; align-items: center; }
-  .etiqueta-topo { display: inline-flex; align-items: center; gap: 10px; padding: 7px 16px 7px 7px; border-radius: 999px; background: var(--branco); border: 1.5px solid var(--borda); font-size: .86rem; font-weight: 700; color: var(--verde-escuro); margin-bottom: 22px; box-shadow: 0 8px 20px rgba(6, 78, 51, .06); }
-  .etiqueta-topo b { background: var(--amarelo); color: var(--verde-noite); padding: 3px 10px; border-radius: 999px; font-size: .78rem; }
-  .hero h1 { font-size: clamp(2.6rem, 5.4vw, 4.9rem); color: var(--verde-escuro); }
-  .hero h1 .linha { display: block; overflow: hidden; padding: .06em 0 .1em; margin: -.06em 0 -.1em; }
-  .hero h1 .linha > span { display: inline-block; transform: translateY(110%); animation: sobe .9s cubic-bezier(.2,.8,.2,1) forwards; }
-  .hero h1 .linha:nth-child(2) > span { animation-delay: .12s; }
-  .hero h1 .linha:nth-child(3) > span { animation-delay: .24s; }
+  /* ---------- HERO: cápsula que abre ---------- */
+  .cena { position: relative; height: 240vh; }
+  .cena-fixa { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: flex; flex-direction: column; }
+  .grade-papel { position: absolute; inset: 0; background-image: linear-gradient(var(--linha) 1px, transparent 1px), linear-gradient(90deg, var(--linha) 1px, transparent 1px); background-size: 56px 56px; opacity: .35; mask-image: radial-gradient(ellipse at 50% 60%, #000 20%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse at 50% 60%, #000 20%, transparent 75%); pointer-events: none; }
+  .hero-texto { position: relative; z-index: 3; padding-top: calc(68px + 2vh); }
+  .rotulo-bula { display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: center; color: var(--tinta-2); margin-bottom: 18px; }
+  .rotulo-bula span::before { content: "■ "; color: var(--verde); }
+  .hero h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(2.7rem, 7.4vw, 6.6rem); line-height: .94; letter-spacing: -.025em; word-spacing: .04em; max-width: 12ch; font-variation-settings: "opsz" 144; }
+  .hero h1 em { font-style: italic; font-weight: 400; color: var(--verde); position: relative; white-space: nowrap; }
+  .hero h1 em svg { position: absolute; left: -4%; bottom: -.12em; width: 108%; height: .32em; overflow: visible; }
+  .hero h1 em path { stroke: var(--amarelo); stroke-width: 7; fill: none; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: risca 1.1s .9s cubic-bezier(.6, 0, .2, 1) forwards; }
+  @keyframes risca { to { stroke-dashoffset: 0; } }
+  .hero h1 .lin { display: block; overflow: hidden; padding-bottom: .08em; margin-bottom: -.08em; }
+  .hero h1 .lin > span { display: inline-block; transform: translateY(105%); animation: sobe 1s cubic-bezier(.2, .8, .2, 1) forwards; }
+  .hero h1 .lin:nth-child(2) > span { animation-delay: .1s; }
   @keyframes sobe { to { transform: none; } }
-  .gira { display: inline-grid; vertical-align: bottom; overflow: hidden; padding: .06em 0 .12em; margin: -.06em 0 -.12em; color: var(--verde); position: relative; }
-  .gira span { grid-area: 1 / 1; transition: transform .6s cubic-bezier(.2,.8,.2,1), opacity .4s; white-space: nowrap; }
-  .gira span.sai { transform: translateY(-70%); opacity: 0; }
-  .gira span.espera { transform: translateY(70%); opacity: 0; }
-  .marca-texto { position: relative; display: inline-block; z-index: 0; }
-  .marca-texto::after { content: ""; position: absolute; left: -4px; right: -4px; bottom: .08em; height: .32em; background: var(--amarelo); z-index: -1; border-radius: 6px; transform: scaleX(0); transform-origin: left; animation: risca .8s cubic-bezier(.2,.8,.2,1) 1s forwards; }
-  @keyframes risca { to { transform: scaleX(1); } }
-  .hero p.apoio { font-size: clamp(1.03rem, 1.5vw, 1.2rem); color: var(--suave); max-width: 520px; margin: 22px 0 30px; }
-  .acoes { display: flex; flex-wrap: wrap; gap: 12px; }
-  .busca-rapida { margin-top: 30px; max-width: 520px; background: var(--branco); border-radius: 20px; padding: 8px; display: flex; gap: 8px; box-shadow: 0 18px 40px rgba(6, 78, 51, .1); border: 1.5px solid var(--borda); transition: border-color .2s, box-shadow .2s; }
-  .busca-rapida:focus-within { border-color: var(--verde); box-shadow: 0 18px 40px rgba(11, 138, 85, .18); }
-  .busca-rapida label { flex: 1; display: flex; align-items: center; gap: 10px; padding-left: 12px; min-width: 0; }
-  .busca-rapida svg { width: 20px; height: 20px; color: var(--verde); flex: none; }
-  .busca-rapida input { border: 0; outline: none; background: none; width: 100%; font-size: 1rem; min-width: 0; }
-  .busca-rapida input::placeholder { color: #93a69c; }
-  .busca-rapida .btn { padding: 12px 20px; }
-  .dica { font-size: .8rem; color: var(--suave); margin: 8px 0 0 10px; }
-  .confianca { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 30px; }
-  .confianca div { display: flex; align-items: center; gap: 10px; font-size: .9rem; font-weight: 700; color: var(--verde-escuro); }
-  .confianca i { width: 34px; height: 34px; border-radius: 11px; background: var(--menta); display: grid; place-items: center; color: var(--verde); flex: none; }
-  .confianca i svg { width: 18px; height: 18px; }
-  .entra { opacity: 0; transform: translateY(22px); animation: entra .9s cubic-bezier(.2,.8,.2,1) forwards; }
-  @keyframes entra { to { opacity: 1; transform: none; } }
+  .hero-lado { position: absolute; right: 0; top: calc(68px + 2vh); width: min(330px, 30%); z-index: 3; }
+  .hero-lado p { font-size: 1.06rem; color: var(--tinta-2); margin-bottom: 22px; }
+  .hero-lado .btn { width: 100%; margin-bottom: 12px; }
+  .hero-lado .mono { color: var(--suave); display: block; margin-top: 6px; font-size: .66rem; }
 
-  /* celular com conversa */
-  .palco { position: relative; display: grid; place-items: center; min-height: 600px; --px: 0; --py: 0; }
-  .circulo { position: absolute; width: 470px; height: 470px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, var(--verde-2), var(--verde) 55%, var(--verde-escuro)); box-shadow: 0 40px 80px rgba(11, 138, 85, .3); translate: calc(var(--px) * -14px) calc(var(--py) * -12px); transition: translate .3s ease-out; }
-  .circulo::before { content: ""; position: absolute; inset: -26px; border-radius: 50%; border: 2px dashed rgba(11, 138, 85, .3); animation: roda 40s linear infinite; }
-  @keyframes roda { to { transform: rotate(360deg); } }
-  .celular { position: relative; width: 300px; height: 590px; border-radius: 46px; background: #0d1a14; padding: 12px; box-shadow: 0 50px 90px rgba(4, 48, 31, .45), inset 0 0 0 2px #2b3d34; translate: calc(var(--px) * 12px) calc(var(--py) * 10px); transition: translate .3s ease-out; animation: celular 7s ease-in-out infinite; }
-  @keyframes celular { 0%,100% { transform: rotate(-3deg) translateY(0); } 50% { transform: rotate(-1deg) translateY(-12px); } }
-  .tela { width: 100%; height: 100%; border-radius: 36px; overflow: hidden; background: #efe7dc; display: flex; flex-direction: column; position: relative; }
-  .tela::before { content: ""; position: absolute; inset: 0; opacity: .5; background-image: radial-gradient(rgba(6, 78, 51, .08) 1.2px, transparent 1.3px); background-size: 16px 16px; }
-  .notch { position: absolute; top: 8px; left: 50%; width: 90px; height: 24px; margin-left: -45px; border-radius: 999px; background: #0d1a14; z-index: 3; }
-  .chat-topo { position: relative; z-index: 2; background: #075e54; color: #fff; padding: 40px 14px 12px; display: flex; align-items: center; gap: 10px; }
-  .chat-topo .av { width: 36px; height: 36px; border-radius: 50%; background: #fff; display: grid; place-items: center; flex: none; }
-  .chat-topo .av svg { width: 20px; height: 20px; color: var(--verde); }
-  .chat-topo b { font-size: .86rem; display: block; line-height: 1.2; }
-  .chat-topo small { font-size: .7rem; opacity: .8; }
-  .chat { position: relative; z-index: 1; flex: 1; padding: 14px 10px; display: flex; flex-direction: column; gap: 8px; justify-content: flex-end; overflow: hidden; }
-  .bolha { max-width: 82%; padding: 8px 10px 6px; border-radius: 12px; font-size: .78rem; line-height: 1.4; box-shadow: 0 1px 1px rgba(0,0,0,.08); position: relative; opacity: 0; transform: translateY(12px) scale(.96); transition: opacity .35s, transform .45s cubic-bezier(.34,1.56,.64,1); }
-  .bolha.mostra { opacity: 1; transform: none; }
-  .bolha.eu { align-self: flex-end; background: #d9fdd3; border-top-right-radius: 3px; }
-  .bolha.ela { align-self: flex-start; background: #fff; border-top-left-radius: 3px; }
-  .bolha small { display: block; text-align: right; font-size: .6rem; color: #7a8a82; margin-top: 2px; }
-  .bolha .receita { width: 150px; height: 96px; border-radius: 8px; background: #fff; margin-bottom: 4px; padding: 10px; border: 1px solid #dfe9e3; display: grid; gap: 5px; align-content: start; }
-  .bolha .receita i { display: block; height: 5px; border-radius: 3px; background: #cfe0d6; }
-  .bolha .receita i:nth-child(1) { width: 55%; background: var(--verde); opacity: .7; }
-  .bolha .receita i:nth-child(3) { width: 80%; } .bolha .receita i:nth-child(4) { width: 65%; } .bolha .receita i:nth-child(5) { width: 40%; margin-top: 8px; background: #8aa69a; }
-  .bolha .preco-chat { font-weight: 800; color: var(--verde); }
-  .digitando { align-self: flex-start; background: #fff; border-radius: 12px; padding: 10px 12px; display: flex; gap: 4px; opacity: 0; transition: opacity .25s; }
-  .digitando.mostra { opacity: 1; }
-  .digitando i { width: 6px; height: 6px; border-radius: 50%; background: #9aaba3; animation: pontinho 1s infinite; }
-  .digitando i:nth-child(2) { animation-delay: .15s; } .digitando i:nth-child(3) { animation-delay: .3s; }
-  @keyframes pontinho { 30% { transform: translateY(-4px); background: var(--verde); } }
-  .chat-pe { position: relative; z-index: 2; display: flex; gap: 6px; padding: 8px; }
-  .chat-pe span { flex: 1; background: #fff; border-radius: 999px; font-size: .72rem; color: #93a69c; padding: 9px 12px; }
-  .chat-pe i { width: 34px; height: 34px; border-radius: 50%; background: #00a884; display: grid; place-items: center; }
-  .chat-pe i svg { width: 16px; height: 16px; color: #fff; }
+  .palco-capsula { position: relative; flex: 1; display: grid; place-items: center; z-index: 2; }
+  .capsula { --cw: min(560px, 74vw); position: relative; width: var(--cw); height: calc(var(--cw) * .38); will-change: transform; }
+  .metade { position: absolute; top: 0; height: 100%; width: 54%; will-change: transform; }
+  .metade.a { left: 0; border-radius: 999px 24px 24px 999px; background: linear-gradient(180deg, #35d58b 0%, #12985c 38%, #0b6b41 78%, #07432a 100%); box-shadow: inset 0 -10px 24px rgba(0, 0, 0, .25), 0 30px 60px -20px rgba(7, 67, 42, .55); z-index: 2; }
+  .metade.b { right: 0; border-radius: 24px 999px 999px 24px; background: linear-gradient(180deg, #fffefa 0%, #f2ecdf 40%, #d9ceb6 85%, #c3b699 100%); box-shadow: inset 0 -10px 24px rgba(80, 60, 20, .22), 0 30px 60px -20px rgba(60, 45, 15, .45); }
+  .metade::before { content: ""; position: absolute; left: 12%; right: 12%; top: 12%; height: 20%; border-radius: 99px; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, .7), rgba(255, 255, 255, 0)); }
+  .metade span { position: absolute; top: 50%; transform: translateY(-50%); font-family: var(--mono); font-weight: 600; letter-spacing: .3em; font-size: calc(var(--cw) * .042); }
+  .metade.a span { right: 18%; color: rgba(255, 255, 255, .85); }
+  .metade.b span { left: 20%; color: rgba(13, 122, 75, .75); }
+  .miolo { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; pointer-events: none; z-index: 1; }
+  .miolo b { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: clamp(1.35rem, 3.4vw, 2.9rem); letter-spacing: -.02em; line-height: 1.02; opacity: 0; transform: scale(.7); display: block; white-space: nowrap; }
+  .miolo small { display: block; margin: 12px auto 0; opacity: 0; max-width: 26ch; font-size: .64rem; }
+  .grao { position: absolute; left: 50%; top: 50%; border-radius: 50%; opacity: 0; will-change: transform, opacity; pointer-events: none; }
+  .dica-rolar { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; color: var(--suave); z-index: 3; transition: opacity .3s; }
+  .dica-rolar i { width: 18px; height: 28px; border: 1.5px solid currentColor; border-radius: 10px; position: relative; }
+  .dica-rolar i::after { content: ""; position: absolute; left: 50%; top: 5px; width: 3px; height: 6px; margin-left: -1.5px; border-radius: 2px; background: currentColor; animation: rola 1.6s infinite; }
+  @keyframes rola { 0% { opacity: 0; transform: translateY(0); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(9px); } }
 
-  .capsula { position: absolute; width: 74px; height: 30px; border-radius: 999px; overflow: hidden; display: flex; box-shadow: 0 14px 26px rgba(6, 78, 51, .22); translate: calc(var(--px) * var(--d, 30px)) calc(var(--py) * var(--d, 30px)); transition: translate .25s ease-out; z-index: 2; }
-  .capsula::before, .capsula::after { content: ""; flex: 1; }
-  .capsula::before { background: var(--c1, var(--verde)); }
-  .capsula::after { background: var(--c2, #fff); }
-  .capsula span { position: absolute; top: 5px; left: 10px; width: 24px; height: 6px; border-radius: 6px; background: rgba(255,255,255,.55); }
-  .cap1 { top: 10%; left: 6%; --c1: var(--amarelo); --d: 40px; animation: flutua 6s ease-in-out infinite; --r: -30deg; }
-  .cap2 { bottom: 16%; right: 2%; --c1: var(--vermelho); --d: 50px; animation: flutua 7s ease-in-out infinite -2s; --r: 25deg; }
-  .cap3 { bottom: 6%; left: 14%; width: 56px; height: 24px; --c1: var(--verde-2); --d: 24px; animation: flutua 5s ease-in-out infinite -1s; --r: 60deg; }
-  @keyframes flutua { 0%,100% { transform: translateY(0) rotate(var(--r)); } 50% { transform: translateY(-16px) rotate(calc(var(--r) + 12deg)); } }
-  .comprimido { position: absolute; width: 40px; height: 40px; border-radius: 50%; background: #fff; box-shadow: 0 12px 24px rgba(6, 78, 51, .2), inset 0 -4px 0 #e3efe8; z-index: 2; translate: calc(var(--px) * var(--d, 30px)) calc(var(--py) * var(--d, 30px)); transition: translate .25s ease-out; }
-  .comprimido::after { content: ""; position: absolute; left: 8px; right: 8px; top: 50%; height: 3px; margin-top: -1.5px; border-radius: 2px; background: #d3e4da; }
-  .comp1 { top: 22%; right: 6%; --d: 36px; animation: flutua 6.5s ease-in-out infinite -3s; --r: 20deg; }
-  .comp2 { top: 56%; left: 0; width: 30px; height: 30px; --d: 46px; animation: flutua 5.5s ease-in-out infinite -1.5s; --r: -10deg; }
-  .preco-flutua { position: absolute; top: 4%; right: 10%; z-index: 3; background: var(--amarelo); color: var(--verde-noite); font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; padding: 10px 16px; border-radius: 16px; box-shadow: 0 16px 30px rgba(0,0,0,.15); transform: rotate(8deg); animation: flutua 6s ease-in-out infinite -2.5s; --r: 8deg; translate: calc(var(--px) * 44px) calc(var(--py) * 36px); transition: translate .25s ease-out; line-height: 1.1; text-align: center; }
-  .preco-flutua small { display: block; font-family: "Plus Jakarta Sans", sans-serif; font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
-  .preco-flutua span { font-size: 1.4rem; }
-  .cruz-flutua { position: absolute; bottom: 8%; right: 18%; width: 58px; height: 58px; border-radius: 18px; background: #fff; display: grid; place-items: center; box-shadow: 0 16px 30px rgba(6, 78, 51, .18); z-index: 3; animation: flutua 7s ease-in-out infinite -4s; --r: -8deg; translate: calc(var(--px) * 34px) calc(var(--py) * 30px); transition: translate .25s ease-out; }
-  .cruz-flutua svg { width: 28px; height: 28px; color: var(--verde); animation: pulsa 1.4s ease-in-out infinite; }
-  @keyframes pulsa { 0%,100% { transform: scale(1); } 15% { transform: scale(1.2); } 30% { transform: scale(1); } 45% { transform: scale(1.12); } }
+  /* ---------- seções estilo bula ---------- */
+  .dobra { height: 26px; background: linear-gradient(180deg, transparent, rgba(18, 32, 26, .05) 48%, rgba(255, 255, 255, .5) 52%, transparent); position: relative; }
+  .dobra::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px dashed var(--linha); }
+  .secao { padding: 96px 0; position: relative; }
+  .cab { display: grid; grid-template-columns: 180px 1fr; gap: 24px; margin-bottom: 52px; align-items: start; }
+  .cab .num { font-family: var(--mono); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--verde); padding-top: 14px; border-top: 2px solid var(--tinta); }
+  .cab h2 { font-family: var(--serif); font-weight: 600; font-size: clamp(2.1rem, 4.6vw, 3.9rem); line-height: 1; letter-spacing: -.035em; max-width: 16ch; }
+  .cab h2 em { font-style: italic; font-weight: 400; color: var(--verde); }
+  .cab p { margin-top: 16px; max-width: 54ch; color: var(--tinta-2); font-size: 1.05rem; }
 
-  /* faixa */
-  .faixa-wrap { overflow: hidden; margin-top: -70px; padding: 50px 0 40px; position: relative; z-index: 3; }
-  .faixa { background: var(--verde); color: #fff; transform: rotate(-1.4deg); margin: 0 -80px; padding: 16px 0; box-shadow: 0 20px 40px rgba(6, 78, 51, .2); overflow: hidden; }
-  .faixa .trilho { display: flex; width: max-content; will-change: transform; }
-  .faixa span { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 1.45rem; padding: 0 22px; display: flex; align-items: center; gap: 44px; white-space: nowrap; }
-  .faixa span::after { content: "+"; color: var(--amarelo); font-size: 1.7rem; }
-
-  /* seções */
-  .secao { padding: 100px 0; position: relative; }
-  .cabeca { max-width: 680px; margin-bottom: 44px; }
-  .cabeca.centro { margin-inline: auto; text-align: center; }
-  .chapeu { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--verde); background: var(--menta); padding: 7px 14px; border-radius: 999px; margin-bottom: 16px; }
-  .chapeu::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--verde); animation: pisca 1.6s infinite; }
-  @keyframes pisca { 50% { opacity: .25; } }
-  .cabeca h2 { font-size: clamp(2.1rem, 4.4vw, 3.4rem); color: var(--verde-escuro); }
-  .cabeca p { margin-top: 14px; color: var(--suave); font-size: 1.06rem; }
-  .palavra { display: inline-block; overflow: hidden; vertical-align: top; padding: .06em 0 .1em; margin: -.06em 0 -.1em; }
-  .palavra > span { display: inline-block; transform: translateY(110%); transition: transform .85s cubic-bezier(.2,.8,.2,1); }
-  .visivel .palavra > span { transform: none; }
-
-  /* categorias */
-  .categorias { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-  .categoria { background: var(--branco); border: 1.5px solid var(--borda); border-radius: 22px; padding: 24px 22px; text-align: left; display: flex; flex-direction: column; gap: 14px; position: relative; overflow: hidden; transition: border-color .3s, box-shadow .3s; }
-  .categoria:hover { border-color: var(--verde); box-shadow: 0 24px 46px rgba(11, 138, 85, .15); }
-  .categoria .ico { width: 60px; height: 60px; border-radius: 18px; display: grid; place-items: center; background: var(--cor-fundo, var(--menta)); color: var(--cor, var(--verde)); transition: transform .5s cubic-bezier(.34,1.56,.64,1); }
-  .categoria:hover .ico { transform: rotate(-12deg) scale(1.12); }
-  .categoria .ico svg { width: 30px; height: 30px; }
-  .categoria b { font-size: 1.08rem; color: var(--verde-escuro); }
-  .categoria span { font-size: .88rem; color: var(--suave); margin-top: -8px; }
-  .categoria .seta { position: absolute; top: 22px; right: 22px; width: 34px; height: 34px; border-radius: 50%; background: var(--menta); display: grid; place-items: center; color: var(--verde); transform: translate(10px, -10px) scale(.6); opacity: 0; transition: transform .35s, opacity .35s; }
-  .categoria:hover .seta { transform: none; opacity: 1; }
-  .categoria .seta svg { width: 16px; height: 16px; }
-  .brilho { position: absolute; inset: 0; pointer-events: none; z-index: 2; opacity: 0; transition: opacity .3s; background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(16, 168, 102, .12), transparent 45%); }
-  .categoria:hover .brilho, .oferta:hover .brilho, .servico:hover .brilho { opacity: 1; }
-
-  /* ofertas */
-  .ofertas-sec { background: var(--branco); }
-  .ofertas-topo { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px; margin-bottom: 30px; }
-  .ofertas-topo .cabeca { margin-bottom: 0; }
-  .relogio { display: flex; gap: 8px; align-items: center; font-weight: 700; color: var(--suave); font-size: .86rem; }
-  .relogio b { font-family: "Bricolage Grotesque", sans-serif; font-size: 1.4rem; color: var(--verde-escuro); background: var(--menta); border-radius: 12px; padding: 6px 10px; min-width: 52px; text-align: center; display: inline-block; }
-  .filtros { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; padding: 4px 2px 18px; position: relative; }
-  .filtros::-webkit-scrollbar { display: none; }
-  .filtro { flex: none; padding: 10px 18px; border-radius: 999px; font-weight: 700; font-size: .9rem; color: var(--suave); background: var(--fundo); border: 1.5px solid var(--borda); position: relative; z-index: 1; transition: color .25s, border-color .25s; }
-  .filtro:hover { border-color: var(--verde); color: var(--verde-escuro); }
-  .filtro.ativo { color: #fff; border-color: transparent; background: transparent; }
-  .filtro-pilula { position: absolute; top: 4px; height: calc(100% - 22px); border-radius: 999px; background: var(--verde); transition: left .4s cubic-bezier(.2,.8,.2,1), width .4s cubic-bezier(.2,.8,.2,1); box-shadow: 0 10px 22px rgba(11, 138, 85, .3); }
-  .ofertas { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-  .oferta { background: var(--fundo); border: 1.5px solid var(--borda); border-radius: 24px; padding: 16px 16px 18px; display: flex; flex-direction: column; position: relative; overflow: hidden; transition: border-color .3s, box-shadow .3s; animation: entra .5s cubic-bezier(.2,.8,.2,1) both; }
-  .oferta:hover { border-color: var(--verde); box-shadow: 0 24px 46px rgba(11, 138, 85, .14); }
-  .oferta .vitrine { height: 170px; border-radius: 18px; background: var(--fundo-prod, var(--menta)); display: grid; place-items: center; position: relative; overflow: hidden; margin-bottom: 14px; }
-  .oferta .vitrine::before { content: ""; position: absolute; width: 140px; height: 140px; border-radius: 50%; background: rgba(255,255,255,.55); }
-  .oferta .vitrine svg { width: 120px; height: 130px; position: relative; transition: transform .6s cubic-bezier(.34,1.56,.64,1); filter: drop-shadow(0 14px 14px rgba(6, 78, 51, .18)); }
-  .oferta:hover .vitrine svg { transform: translateY(-8px) rotate(-6deg) scale(1.06); }
-  .desconto { position: absolute; top: 12px; left: 12px; z-index: 2; background: var(--vermelho); color: #fff; font-weight: 800; font-size: .78rem; padding: 5px 10px; border-radius: 999px; }
-  .oferta .cat { font-size: .72rem; font-weight: 800; color: var(--verde); text-transform: uppercase; letter-spacing: .08em; }
-  .oferta h3 { font-size: 1rem; font-weight: 800; color: var(--verde-escuro); line-height: 1.3; margin: 4px 0 2px; }
-  .oferta p { font-size: .82rem; color: var(--suave); }
-  .oferta .rodape { display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 14px; }
-  .oferta .de { font-size: .8rem; color: #93a69c; text-decoration: line-through; display: block; }
-  .oferta .por { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 1.55rem; color: var(--verde-escuro); line-height: 1; }
-  .oferta .por small { font-size: .85rem; margin-right: 2px; }
-  .add { width: 46px; height: 46px; border-radius: 15px; background: var(--verde); color: #fff; display: grid; place-items: center; flex: none; transition: transform .3s cubic-bezier(.34,1.56,.64,1), background .2s; }
-  .add:hover { transform: rotate(90deg) scale(1.08); background: var(--verde-2); }
-  .add.ok { background: var(--amarelo); color: var(--verde-noite); transform: none; }
-  .add svg { width: 22px; height: 22px; }
-  .aviso-preco { margin-top: 22px; font-size: .82rem; color: var(--suave); text-align: center; }
-
-  /* receita */
-  .receita-sec { background: linear-gradient(160deg, var(--verde-escuro), var(--verde-noite)); color: #e5f5ec; overflow: hidden; }
-  .receita-sec .cabeca h2 { color: #fff; }
-  .receita-sec .cabeca p { color: #a9d6bf; }
-  .receita-sec .chapeu { background: rgba(255,255,255,.1); color: var(--amarelo); }
-  .receita-sec .chapeu::before { background: var(--amarelo); }
-  .receita-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-  .passos { list-style: none; display: grid; gap: 18px; counter-reset: passo; }
-  .passos li { display: flex; gap: 16px; align-items: flex-start; counter-increment: passo; }
-  .passos li::before { content: counter(passo); font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; width: 44px; height: 44px; border-radius: 14px; background: rgba(255,255,255,.1); color: var(--amarelo); display: grid; place-items: center; flex: none; font-size: 1.2rem; }
-  .passos b { display: block; color: #fff; }
-  .passos span { color: #a9d6bf; font-size: .95rem; }
-  .envio { background: rgba(255,255,255,.06); border: 1.5px solid rgba(255,255,255,.14); border-radius: 30px; padding: 26px; backdrop-filter: blur(6px); }
-  .soltar { position: relative; border: 2px dashed rgba(255,255,255,.3); border-radius: 22px; height: 290px; display: grid; place-items: center; text-align: center; cursor: pointer; overflow: hidden; transition: border-color .25s, background .25s; }
-  .soltar:hover, .soltar.arrastando { border-color: var(--amarelo); background: rgba(255,210,63,.06); }
-  .soltar input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-  .soltar .vazio svg { width: 64px; height: 64px; margin: 0 auto 14px; color: var(--amarelo); animation: sobeDesce 2.4s ease-in-out infinite; }
-  @keyframes sobeDesce { 50% { transform: translateY(-8px); } }
-  .soltar .vazio b { display: block; color: #fff; font-size: 1.1rem; }
-  .soltar .vazio span { color: #a9d6bf; font-size: .9rem; }
-  .soltar img.previa { position: absolute; inset: 14px; width: calc(100% - 28px); height: calc(100% - 28px); object-fit: contain; border-radius: 14px; background: #fff; }
-  .soltar .papel { position: absolute; inset: 14px; border-radius: 14px; background: #fff; padding: 24px; display: grid; gap: 10px; align-content: start; }
-  .soltar .papel i { display: block; height: 9px; border-radius: 5px; background: #d9e7df; }
-  .soltar .papel i:nth-child(1) { width: 45%; background: var(--verde); opacity: .6; height: 12px; }
-  .soltar .papel i:nth-child(odd) { width: 85%; } .soltar .papel i:nth-child(4n) { width: 60%; }
-  .laser { position: absolute; left: 14px; right: 14px; height: 3px; top: 14px; background: var(--amarelo); box-shadow: 0 0 18px 4px rgba(255,210,63,.7); border-radius: 3px; opacity: 0; z-index: 2; }
-  .soltar.lendo .laser { opacity: 1; animation: varre 1.4s ease-in-out 2; }
-  @keyframes varre { 50% { top: calc(100% - 17px); } }
-  .pronto { position: absolute; z-index: 3; inset: auto 24px 24px; background: var(--verde); color: #fff; border-radius: 14px; padding: 12px 16px; font-weight: 800; font-size: .9rem; display: flex; align-items: center; gap: 10px; transform: translateY(140%); transition: transform .5s cubic-bezier(.34,1.56,.64,1); }
-  .soltar.lido .pronto { transform: none; }
-  .pronto svg { width: 20px; height: 20px; }
-  .envio .campos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 18px 0; }
-  .envio input[type=text] { width: 100%; background: rgba(255,255,255,.08); border: 1.5px solid rgba(255,255,255,.14); border-radius: 14px; padding: 13px 14px; color: #fff; outline: none; transition: border-color .2s; }
-  .envio input[type=text]::placeholder { color: #8fbfa6; }
-  .envio input[type=text]:focus { border-color: var(--amarelo); }
-  .envio .btn { width: 100%; }
-  .envio .nota { font-size: .8rem; color: #8fbfa6; margin-top: 12px; text-align: center; }
-
-  /* serviços */
-  .servicos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-  .servico { background: var(--branco); border: 1.5px solid var(--borda); border-radius: 24px; padding: 28px 24px; position: relative; overflow: hidden; transition: border-color .3s, box-shadow .3s; }
-  .servico:hover { border-color: var(--verde); box-shadow: 0 24px 46px rgba(11, 138, 85, .14); }
-  .servico .ico { width: 58px; height: 58px; border-radius: 18px; background: var(--verde); color: #fff; display: grid; place-items: center; margin-bottom: 18px; box-shadow: 0 12px 24px rgba(11, 138, 85, .3); }
-  .servico .ico svg { width: 28px; height: 28px; }
-  .servico:hover .ico svg { animation: pulsa 1.2s ease-in-out infinite; }
-  .servico h3 { font-size: 1.12rem; color: var(--verde-escuro); margin-bottom: 6px; }
-  .servico p { color: var(--suave); font-size: .93rem; }
-  .servico .ecg-mini { position: absolute; right: -10px; bottom: 14px; width: 120px; height: 40px; opacity: .14; }
-  .servico .ecg-mini path { fill: none; stroke: var(--verde); stroke-width: 3; }
-
-  /* porque */
-  .porque { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
-  .lista-porque { display: grid; gap: 14px; }
-  .item-porque { display: flex; gap: 16px; align-items: center; background: var(--branco); border: 1.5px solid var(--borda); border-radius: 20px; padding: 18px 20px; transition: transform .3s, border-color .3s; }
-  .item-porque:hover { transform: translateX(8px); border-color: var(--verde); }
-  .item-porque i { width: 48px; height: 48px; border-radius: 15px; background: var(--amarelo-2); color: #a07800; display: grid; place-items: center; flex: none; }
-  .item-porque i svg { width: 24px; height: 24px; }
-  .item-porque b { color: var(--verde-escuro); display: block; }
-  .item-porque span { color: var(--suave); font-size: .92rem; }
-  .economia { background: var(--verde); color: #fff; border-radius: 30px; padding: 34px; position: relative; overflow: hidden; }
-  .economia::after { content: ""; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px; border-radius: 50%; background: rgba(255,255,255,.08); }
-  .economia h3 { font-family: "Bricolage Grotesque", sans-serif; font-size: 1.6rem; line-height: 1.1; }
-  .economia p { color: #c9ecd9; margin: 8px 0 20px; font-size: .95rem; }
-  .regua { display: grid; gap: 14px; }
-  .regua label { font-weight: 700; font-size: .85rem; color: #c9ecd9; display: flex; justify-content: space-between; }
-  .regua input[type=range] { width: 100%; accent-color: var(--amarelo); }
-  .resultado { margin-top: 22px; background: rgba(0,0,0,.15); border-radius: 18px; padding: 18px 20px; }
-  .resultado small { color: #c9ecd9; font-weight: 700; }
-  .resultado b { display: block; font-family: "Bricolage Grotesque", sans-serif; font-size: 2.6rem; color: var(--amarelo); line-height: 1.05; }
-  .resultado span { font-size: .78rem; color: #a6d9bf; }
-
-  /* onde */
-  .onde-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 26px; }
-  .cartao-onde { background: var(--branco); border: 1.5px solid var(--borda); border-radius: 28px; padding: 30px; display: grid; gap: 20px; align-content: start; }
-  .dado { display: flex; gap: 14px; align-items: flex-start; }
-  .dado .ico { width: 46px; height: 46px; border-radius: 14px; background: var(--menta); color: var(--verde); display: grid; place-items: center; flex: none; }
-  .dado .ico svg { width: 22px; height: 22px; }
-  .dado b { display: block; color: var(--verde-escuro); }
-  .dado span, .dado a { color: var(--suave); font-size: .95rem; }
-  .dado a:hover { color: var(--verde); }
-  .mapa { border-radius: 28px; overflow: hidden; min-height: 400px; border: 1.5px solid var(--borda); background: var(--menta); }
-  .mapa iframe { width: 100%; height: 100%; min-height: 400px; border: 0; display: block; }
-
-  .final { padding: 110px 0; text-align: center; background: var(--verde); color: #fff; position: relative; overflow: hidden; }
-  .final h2 { font-size: clamp(2.4rem, 5.6vw, 4.4rem); }
-  .final p { color: #c9ecd9; font-size: 1.12rem; max-width: 520px; margin: 16px auto 32px; }
-  .final .acoes { justify-content: center; }
-  .final .capsula { --px: 0; --py: 0; }
-  .final .f1 { top: 18%; left: 8%; --c1: var(--amarelo); animation: flutua 6s ease-in-out infinite; --r: -25deg; }
-  .final .f2 { bottom: 16%; right: 9%; --c1: var(--vermelho); animation: flutua 7s ease-in-out infinite -2s; --r: 30deg; }
-  .final .f3 { top: 24%; right: 18%; width: 50px; height: 22px; --c1: #fff; --c2: var(--verde-2); animation: flutua 5s ease-in-out infinite -1s; --r: 70deg; }
-  .final .f4 { bottom: 22%; left: 16%; width: 50px; height: 22px; --c1: var(--verde-escuro); animation: flutua 6.5s ease-in-out infinite -3s; --r: -60deg; }
-  footer { background: var(--verde-noite); color: #8fbfa6; font-size: .86rem; padding: 30px 0; }
-  .rodape-flex { display: flex; flex-wrap: wrap; gap: 14px; justify-content: space-between; }
-  footer a { color: var(--amarelo); font-weight: 800; }
-
-  .zap-flutua { position: fixed; right: 22px; bottom: 22px; z-index: 40; width: 62px; height: 62px; border-radius: 50%; background: var(--zap); display: grid; place-items: center; color: #fff; box-shadow: 0 12px 30px rgba(37, 211, 102, .45); transition: transform .25s; }
-  .zap-flutua::before { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--zap); animation: onda 2s infinite; }
-  @keyframes onda { to { transform: scale(1.6); opacity: 0; } }
-  .zap-flutua:hover { transform: scale(1.1) rotate(-8deg); }
-  .zap-flutua svg { width: 32px; height: 32px; }
-  .barra-lista { position: fixed; left: 50%; bottom: 22px; z-index: 41; transform: translate(-50%, 150%); transition: transform .5s cubic-bezier(.34,1.56,.64,1); display: flex; align-items: center; gap: 14px; padding: 9px 9px 9px 20px; border-radius: 999px; background: var(--verde-noite); color: #fff; box-shadow: 0 20px 50px rgba(4, 48, 31, .4); font-weight: 800; }
-  .barra-lista.mostra { transform: translate(-50%, 0); }
-  .barra-lista .btn { padding: 11px 18px; }
-
-  .gaveta-fundo { position: fixed; inset: 0; background: rgba(4, 48, 31, .45); backdrop-filter: blur(4px); z-index: 70; opacity: 0; pointer-events: none; transition: opacity .3s; }
-  .gaveta-fundo.aberta { opacity: 1; pointer-events: auto; }
-  .gaveta { position: fixed; top: 0; right: 0; bottom: 0; width: min(430px, 100%); background: var(--branco); z-index: 71; transform: translateX(105%); transition: transform .45s cubic-bezier(.2,.8,.2,1); display: flex; flex-direction: column; }
-  .gaveta.aberta { transform: none; }
-  .gaveta-topo { display: flex; align-items: center; justify-content: space-between; padding: 22px 24px; border-bottom: 1.5px solid var(--borda); }
-  .gaveta-topo h3 { font-family: "Bricolage Grotesque", sans-serif; font-size: 1.5rem; color: var(--verde-escuro); }
-  .gaveta-topo p { font-size: .82rem; color: var(--suave); }
-  .fechar { width: 42px; height: 42px; border-radius: 50%; background: var(--menta); display: grid; place-items: center; transition: transform .25s; flex: none; }
-  .fechar:hover { transform: rotate(90deg); }
-  .fechar svg { width: 20px; height: 20px; }
-  .gaveta-lista { flex: 1; overflow-y: auto; padding: 10px 24px; }
-  .item-lista { display: flex; align-items: center; gap: 12px; padding: 14px 0; border-bottom: 1.5px dashed var(--borda); animation: entra .35s both; }
-  .item-lista .mini { width: 46px; height: 46px; border-radius: 12px; background: var(--menta); display: grid; place-items: center; flex: none; }
-  .item-lista .mini svg { width: 34px; height: 36px; }
-  .item-lista .nome { flex: 1; font-weight: 700; font-size: .92rem; }
-  .item-lista .nome small { display: block; color: var(--suave); font-weight: 600; font-size: .8rem; }
-  .qtd-ctrl { display: flex; align-items: center; gap: 8px; background: var(--menta); border-radius: 999px; padding: 4px; }
-  .qtd-ctrl button { width: 28px; height: 28px; border-radius: 50%; background: #fff; font-weight: 800; }
-  .qtd-ctrl button:hover { background: var(--amarelo); }
-  .qtd-ctrl span { min-width: 18px; text-align: center; font-weight: 800; }
-  .gaveta-vazia { text-align: center; color: var(--suave); padding: 60px 20px; }
-  .gaveta-vazia svg { width: 70px; height: 70px; margin: 0 auto 14px; color: var(--verde); opacity: .5; }
-  .gaveta-pe { padding: 20px 24px 24px; border-top: 1.5px solid var(--borda); display: grid; gap: 12px; background: var(--fundo); }
-  .tipo { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: var(--menta); border-radius: 14px; padding: 4px; position: relative; }
-  .tipo button { padding: 10px; border-radius: 10px; font-weight: 800; font-size: .9rem; position: relative; z-index: 1; color: var(--suave); transition: color .25s; }
-  .tipo button.sel { color: var(--verde-escuro); }
-  .tipo::before { content: ""; position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 6px); border-radius: 10px; background: #fff; box-shadow: 0 4px 12px rgba(6,78,51,.12); transition: transform .35s cubic-bezier(.2,.8,.2,1); }
-  .tipo.retirada::before { transform: translateX(calc(100% + 4px)); }
-  .gaveta-pe input { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid var(--borda); outline: none; background: #fff; }
-  .gaveta-pe input:focus { border-color: var(--verde); }
-  .total { display: flex; justify-content: space-between; align-items: baseline; font-weight: 800; }
-  .total b { font-family: "Bricolage Grotesque", sans-serif; font-size: 1.8rem; color: var(--verde-escuro); }
-  .btn-zap { background: var(--zap); color: #fff; }
-  .btn-zap:hover { transform: translateY(-2px); }
-
-  .aviso { position: fixed; left: 50%; top: 24px; z-index: 80; transform: translate(-50%, -260%); background: var(--verde-noite); color: #fff; padding: 12px 20px; border-radius: 999px; font-weight: 700; font-size: .92rem; box-shadow: 0 14px 34px rgba(4,48,31,.35); transition: transform .45s cubic-bezier(.34,1.56,.64,1); display: flex; align-items: center; gap: 10px; max-width: calc(100% - 32px); }
-  .aviso.mostra { transform: translate(-50%, 0); }
-  .aviso i { width: 22px; height: 22px; border-radius: 50%; background: var(--amarelo); color: var(--verde-noite); display: grid; place-items: center; flex: none; }
-  .aviso i svg { width: 14px; height: 14px; }
-  .voo { position: fixed; z-index: 90; pointer-events: none; width: 50px; height: 50px; border-radius: 14px; background: #fff; display: grid; place-items: center; box-shadow: 0 10px 24px rgba(6, 78, 51, .3); }
-  .voo svg { width: 36px; height: 38px; }
-
-  .revela { opacity: 0; transform: translateY(36px); transition: opacity .85s cubic-bezier(.2,.8,.2,1), transform .85s cubic-bezier(.2,.8,.2,1); }
+  .revela { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.2, .8, .2, 1), transform .9s cubic-bezier(.2, .8, .2, 1); }
   .revela.visivel { opacity: 1; transform: none; }
-  .revela.d1 { transition-delay: .08s; } .revela.d2 { transition-delay: .16s; } .revela.d3 { transition-delay: .24s; }
+  .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; } .d3 { transition-delay: .3s; }
+
+  /* 01 composição */
+  .composicao { border-top: 2px solid var(--tinta); }
+  .comp-linha { display: grid; grid-template-columns: 56px minmax(0, 1.1fr) minmax(0, 1fr) 40px; align-items: center; gap: 16px; padding: 20px 8px; border-bottom: 1px solid var(--linha); position: relative; width: 100%; text-align: left; isolation: isolate; transition: color .35s; }
+  .comp-linha::before { content: ""; position: absolute; inset: 0; background: var(--tinta); transform: scaleY(0); transform-origin: bottom; transition: transform .45s cubic-bezier(.7, 0, .2, 1); z-index: -1; }
+  .comp-linha:hover { color: var(--papel); }
+  .comp-linha:hover::before { transform: scaleY(1); }
+  .comp-linha .n { font-family: var(--mono); font-size: .8rem; color: var(--suave); transition: color .35s; }
+  .comp-linha:hover .n { color: var(--amarelo); }
+  .comp-linha .nome { font-family: var(--serif); font-size: clamp(1.4rem, 2.6vw, 2.1rem); font-weight: 600; letter-spacing: -.02em; line-height: 1.1; display: flex; align-items: center; gap: 14px; }
+  .comp-linha .pilula { width: 34px; height: 14px; border-radius: 99px; flex: none; position: relative; overflow: hidden; background: var(--cupom); border: 1.5px solid currentColor; transition: transform .5s cubic-bezier(.34, 1.56, .64, 1); }
+  .comp-linha .pilula::before { content: ""; position: absolute; inset: 0 50% 0 0; background: var(--cor); }
+  .comp-linha:hover .pilula { transform: rotate(180deg) translateX(-6px); }
+  .comp-linha .ind { font-family: var(--mono); font-size: .8rem; color: var(--tinta-2); transition: color .35s; }
+  .comp-linha:hover .ind { color: rgba(243, 239, 230, .75); }
+  .comp-linha .seta { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid currentColor; display: grid; place-items: center; transition: transform .35s; }
+  .comp-linha:hover .seta { transform: rotate(-45deg); background: var(--amarelo); color: var(--tinta); border-color: var(--amarelo); }
+  .comp-linha .seta svg { width: 16px; height: 16px; }
+
+  /* 02 prateleira */
+  .filtros { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
+  .filtro { font-family: var(--mono); font-size: .74rem; letter-spacing: .05em; text-transform: uppercase; padding: 9px 14px; border: 1.5px solid var(--tinta); border-radius: 6px; background: var(--cupom); transition: background .2s, color .2s, transform .2s; }
+  .filtro:hover { transform: translateY(-2px); }
+  .filtro.ativo { background: var(--tinta); color: var(--amarelo); }
+  .prateleira { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 56px; }
+  .produto { position: relative; padding: 0 14px; transition: opacity .35s, transform .35s; }
+  .produto.some { display: none; }
+  .vitrine { position: relative; height: 200px; display: flex; align-items: flex-end; justify-content: center; }
+  .vitrine .emb { width: 140px; height: 152px; transition: transform .5s cubic-bezier(.34, 1.56, .64, 1); transform-origin: 50% 100%; filter: drop-shadow(0 10px 8px rgba(18, 32, 26, .16)); }
+  .produto:hover .vitrine .emb { transform: translateY(-14px) rotate(-4deg); }
+  .tabua { height: 16px; margin: 0 -14px; background: linear-gradient(180deg, #fffdf6 0 3px, #ddd3bd 3px, #c9bd9f 100%); box-shadow: 0 14px 18px -10px rgba(60, 45, 15, .45); position: relative; }
+  .produto:first-child .tabua, .prateleira .produto.primeiro .tabua { border-radius: 4px 0 0 4px; }
+  .etiqueta { position: absolute; top: 18px; right: 8px; background: var(--amarelo); padding: 7px 10px 6px; border-radius: 3px; transform: rotate(-7deg); box-shadow: 0 3px 0 rgba(0, 0, 0, .08), 0 8px 14px -6px rgba(0, 0, 0, .3); transition: transform .4s cubic-bezier(.34, 1.56, .64, 1); text-align: right; }
+  .etiqueta::before { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, .55) 50%, transparent 60%); background-size: 250% 100%; background-position: 100% 0; transition: background-position .8s; border-radius: inherit; }
+  .produto:hover .etiqueta { transform: rotate(4deg) scale(1.06); }
+  .produto:hover .etiqueta::before { background-position: -50% 0; }
+  .etiqueta s { display: block; font-family: var(--mono); font-size: .64rem; color: rgba(18, 32, 26, .6); }
+  .etiqueta b { font-family: var(--mono); font-weight: 600; font-size: 1.2rem; letter-spacing: -.02em; line-height: 1; }
+  .etiqueta b small { font-size: .62rem; margin-right: 2px; }
+  .info { display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; padding-top: 18px; }
+  .info h3 { font-family: var(--sans); font-weight: 700; font-size: 1rem; line-height: 1.25; }
+  .info p { font-family: var(--mono); font-size: .7rem; color: var(--suave); margin-top: 4px; letter-spacing: .02em; }
+  .info .cat { font-family: var(--mono); font-size: .62rem; text-transform: uppercase; letter-spacing: .08em; color: var(--verde); display: block; margin-bottom: 4px; }
+  .pegar { width: 42px; height: 42px; border-radius: 50%; background: var(--tinta); color: var(--papel); flex: none; display: grid; place-items: center; transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), background .2s; }
+  .pegar:hover { transform: rotate(90deg) scale(1.08); background: var(--verde); }
+  .pegar svg { width: 18px; height: 18px; }
+  .aviso-precos { margin-top: 44px; font-family: var(--mono); font-size: .72rem; color: var(--suave); border-left: 3px solid var(--amarelo); padding-left: 12px; }
+  .pergunta { margin-top: 56px; display: grid; grid-template-columns: 1fr auto; gap: 0; border: 2px solid var(--tinta); border-radius: 14px; overflow: hidden; background: var(--cupom); }
+  .pergunta label { display: flex; flex-direction: column; padding: 14px 20px; }
+  .pergunta label .mono { font-size: .66rem; color: var(--verde); }
+  .pergunta input { border: 0; outline: 0; background: none; font-family: var(--serif); font-size: 1.5rem; padding-top: 2px; }
+  .pergunta input::placeholder { color: #b3ab99; font-style: italic; }
+  .pergunta button { background: var(--amarelo); padding: 0 28px; font-weight: 700; display: flex; align-items: center; gap: 10px; border-left: 2px solid var(--tinta); transition: background .2s; }
+  .pergunta button:hover { background: #ffe24d; }
+  .pergunta button svg { width: 20px; height: 20px; }
+
+  /* 03 posologia (receituário) */
+  .posologia { background: var(--verde-noite); color: var(--papel); background-image: var(--ruido); }
+  .posologia .cab .num { color: var(--amarelo); border-color: var(--papel); }
+  .posologia .cab h2 em { color: var(--amarelo); }
+  .posologia .cab p { color: rgba(243, 239, 230, .75); }
+  .receituario-grade { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: stretch; }
+  .receituario { background: #fffefb; color: var(--tinta); border-radius: 6px; padding: 36px 40px 40px; position: relative; transform: rotate(-1.2deg); box-shadow: 0 2px 0 #e9e3d4, 0 4px 0 #ddd5c2, 0 30px 60px -20px rgba(0, 0, 0, .6); background-image: repeating-linear-gradient(180deg, transparent 0 39px, rgba(31, 63, 191, .14) 39px 40px); background-position: 0 128px; }
+  .receituario::before { content: ""; position: absolute; left: 70px; top: 0; bottom: 0; border-left: 1.5px solid rgba(214, 40, 57, .35); }
+  .rec-topo { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--tinta); padding-bottom: 14px; margin-bottom: 26px; position: relative; background: #fffefb; }
+  .rec-topo b { font-family: var(--serif); font-size: 1.5rem; font-weight: 800; letter-spacing: -.02em; display: block; line-height: 1.1; }
+  .rec-topo .cruz { width: 40px; height: 40px; color: var(--verde); }
+  .escrita { font-family: var(--mao); color: var(--caneta); font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 40px; padding-left: 44px; clip-path: inset(0 100% 0 0); transition: clip-path 1.1s steps(28); }
+  .escrita b { font-weight: 700; }
+  .receituario.visivel .escrita { clip-path: inset(0 0 0 0); }
+  .receituario.visivel .escrita:nth-of-type(2) { transition-delay: .9s; }
+  .receituario.visivel .escrita:nth-of-type(3) { transition-delay: 1.8s; }
+  .receituario.visivel .escrita:nth-of-type(4) { transition-delay: 2.7s; }
+  .receituario.visivel .escrita:nth-of-type(5) { transition-delay: 3.6s; }
+  .assinatura { margin: 18px 0 0 auto; width: 220px; text-align: center; }
+  .assinatura svg { width: 200px; height: 60px; margin: 0 auto; }
+  .assinatura path { fill: none; stroke: var(--caneta); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.6s 4.4s ease-in-out; }
+  .receituario.visivel .assinatura path { stroke-dashoffset: 0; }
+  .assinatura small { display: block; border-top: 1px solid var(--tinta); padding-top: 6px; font-family: var(--mono); font-size: .64rem; letter-spacing: .06em; text-transform: uppercase; color: var(--suave); }
+
+  .anexo { border: 2px dashed rgba(243, 239, 230, .4); border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 18px; position: relative; }
+  .anexo h3 { font-family: var(--serif); font-weight: 600; font-size: 1.7rem; letter-spacing: -.02em; line-height: 1.1; }
+  .soltar { flex: 1; min-height: 220px; border-radius: 12px; background: rgba(243, 239, 230, .06); display: grid; place-items: center; text-align: center; position: relative; overflow: hidden; transition: background .25s; cursor: pointer; }
+  .soltar:hover, .soltar.arrastando { background: rgba(255, 214, 10, .1); }
+  .soltar input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .soltar .vazio svg { width: 54px; height: 54px; margin: 0 auto 12px; color: var(--amarelo); }
+  .soltar .vazio b { display: block; font-size: 1.05rem; }
+  .soltar .vazio span { font-family: var(--mono); font-size: .7rem; color: rgba(243, 239, 230, .6); }
+  .soltar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .85; }
+  .carimbo { position: absolute; left: 50%; top: 50%; padding: 10px 18px; border: 4px double var(--vermelho); color: var(--vermelho); font-family: var(--mono); font-weight: 600; font-size: 1.5rem; letter-spacing: .14em; background: rgba(255, 255, 255, .82); border-radius: 6px; transform: translate(-50%, -50%) rotate(-14deg) scale(2.4); opacity: 0; pointer-events: none; -webkit-mask-image: var(--ruido); }
+  .carimbo.bate { animation: carimba .45s cubic-bezier(.5, 0, .7, 1.4) forwards; }
+  @keyframes carimba { 60% { opacity: 1; transform: translate(-50%, -50%) rotate(-14deg) scale(.92); } 100% { opacity: .92; transform: translate(-50%, -50%) rotate(-14deg) scale(1); } }
+  .anexo .campo { display: flex; flex-direction: column; gap: 4px; }
+  .anexo .campo span { font-family: var(--mono); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; color: var(--amarelo); }
+  .anexo .campo input { background: none; border: 0; border-bottom: 1.5px solid rgba(243, 239, 230, .4); padding: 8px 0; outline: 0; font-size: 1.05rem; }
+  .anexo .campo input:focus { border-color: var(--amarelo); }
+  .anexo .btn { background: var(--amarelo); color: var(--tinta); box-shadow: 0 6px 0 -1px #b8970a; }
+  .anexo .btn:hover { transform: translateY(-3px); }
+  .anexo .obs { font-family: var(--mono); font-size: .68rem; color: rgba(243, 239, 230, .55); }
+
+  /* 04 balança genérico */
+  .balanca-grade { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
+  .balanca { width: 100%; height: auto; overflow: visible; }
+  .balanca .trave { transition: transform .8s cubic-bezier(.34, 1.4, .64, 1); transform-origin: 200px 70px; }
+  .balanca .prato { transition: transform .8s cubic-bezier(.34, 1.4, .64, 1); }
+  .painel { background: var(--cupom); border: 2px solid var(--tinta); border-radius: 18px; padding: 28px; box-shadow: 8px 8px 0 var(--tinta); }
+  .painel label { font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; display: flex; justify-content: space-between; color: var(--tinta-2); }
+  .painel label b { color: var(--tinta); font-size: .9rem; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 34px; background: none; margin: 10px 0 20px; cursor: pointer; }
+  input[type=range]::-webkit-slider-runnable-track { height: 6px; border-radius: 6px; background: linear-gradient(90deg, var(--verde) var(--p, 25%), var(--papel-3) var(--p, 25%)); }
+  input[type=range]::-moz-range-track { height: 6px; border-radius: 6px; background: var(--papel-3); }
+  input[type=range]::-moz-range-progress { height: 6px; border-radius: 6px; background: var(--verde); }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 46px; height: 22px; margin-top: -8px; border-radius: 99px; border: 2px solid var(--tinta); background: linear-gradient(90deg, var(--verde) 50%, var(--cupom) 50%); box-shadow: 0 4px 10px rgba(0, 0, 0, .2); }
+  input[type=range]::-moz-range-thumb { width: 42px; height: 18px; border-radius: 99px; border: 2px solid var(--tinta); background: linear-gradient(90deg, var(--verde) 50%, var(--cupom) 50%); }
+  .sobra { border-top: 1px dashed var(--linha); padding-top: 18px; }
+  .sobra .mono { color: var(--suave); font-size: .68rem; }
+  .sobra b { font-family: var(--serif); font-weight: 800; font-size: clamp(2.4rem, 5vw, 3.6rem); letter-spacing: -.04em; line-height: 1; color: var(--verde); display: block; margin: 6px 0; font-variant-numeric: tabular-nums; }
+  .sobra p { font-size: .92rem; color: var(--tinta-2); }
+  .lei { margin-top: 18px; font-family: var(--mono); font-size: .68rem; color: var(--suave); line-height: 1.6; }
+
+  /* 05 porta-comprimidos */
+  .organizador { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 12px; padding: 60px 22px 22px; background: linear-gradient(180deg, #e3dccb, #d4cbb5); border-radius: 26px; box-shadow: inset 0 2px 0 rgba(255, 255, 255, .6), 0 30px 50px -24px rgba(60, 45, 15, .55); perspective: 900px; }
+  .dia { position: relative; height: 170px; border-radius: 14px; text-align: center; cursor: pointer; transform-style: preserve-3d; }
+  .dia .caixa { position: absolute; inset: 0; border-radius: 14px; background: linear-gradient(180deg, color-mix(in srgb, var(--c) 55%, #fff), var(--c)); box-shadow: inset 0 -12px 20px rgba(0, 0, 0, .12), inset 0 2px 0 rgba(255, 255, 255, .7); display: flex; flex-direction: column; justify-content: flex-end; padding: 14px 8px; }
+  .dia .caixa b { font-family: var(--serif); font-weight: 800; font-size: 1.05rem; line-height: 1.15; }
+  .dia .caixa span { font-family: var(--mono); font-size: .64rem; letter-spacing: .04em; }
+  .dia .caixa i { display: flex; gap: 4px; justify-content: center; margin-bottom: auto; padding-top: 18px; }
+  .dia .caixa i::before, .dia .caixa i::after { content: ""; width: 22px; height: 10px; border-radius: 99px; background: linear-gradient(90deg, var(--verde) 50%, #fff 50%); box-shadow: 0 2px 4px rgba(0, 0, 0, .2); transform: rotate(-20deg); }
+  .dia .caixa i::after { background: linear-gradient(90deg, var(--amarelo) 50%, #fff 50%); transform: rotate(25deg) translateY(4px); }
+  .dia .tampa { position: absolute; left: -3px; right: -3px; top: -3px; bottom: -3px; border-radius: 16px; background: linear-gradient(160deg, color-mix(in srgb, var(--c) 40%, #fff) 0%, var(--c) 70%); transform-origin: 50% 0; transition: transform .7s cubic-bezier(.34, 1.3, .5, 1); display: grid; place-items: center; box-shadow: 0 6px 14px rgba(0, 0, 0, .15), inset 0 2px 0 rgba(255, 255, 255, .8); backface-visibility: hidden; }
+  .dia .tampa::after { content: ""; position: absolute; bottom: 10px; left: 50%; width: 26px; height: 6px; margin-left: -13px; border-radius: 4px; background: rgba(0, 0, 0, .12); }
+  .dia .tampa b { font-family: var(--mono); font-weight: 600; font-size: 1.15rem; letter-spacing: .1em; }
+  .dia:hover .tampa { transform: rotateX(-24deg); }
+  .dia.aberto .tampa { transform: rotateX(-112deg); }
+  .dia .hoje { position: absolute; top: -40px; left: 50%; transform: translateX(-50%); font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; background: var(--tinta); color: var(--amarelo); padding: 3px 8px; border-radius: 4px; white-space: nowrap; z-index: 2; }
+  .nota-horario { margin-top: 18px; font-family: var(--mono); font-size: .72rem; color: var(--suave); }
+
+  /* 06 onde */
+  .onde-grade { display: grid; grid-template-columns: .9fr 1.1fr; gap: 40px; align-items: stretch; }
+  .advertencia { border: 2px solid var(--tinta); border-radius: 4px; padding: 26px; position: relative; background: var(--cupom); }
+  .advertencia .tarja { position: absolute; top: -13px; left: 20px; background: var(--vermelho); color: #fff; font-family: var(--mono); font-size: .7rem; letter-spacing: .1em; padding: 4px 10px; }
+  .advertencia dl { display: grid; gap: 18px; margin-top: 6px; }
+  .advertencia dt { font-family: var(--mono); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: var(--verde); }
+  .advertencia dd { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.25; }
+  .advertencia .btn { margin-top: 24px; width: 100%; }
+  .mapa { border-radius: 4px; overflow: hidden; border: 2px solid var(--tinta); min-height: 380px; position: relative; background: var(--papel-2); box-shadow: 8px 8px 0 var(--tinta); }
+  .mapa iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: grayscale(.5) sepia(.2) contrast(1.05); }
+
+  /* rodapé estilo bula */
+  .sintomas { background: var(--amarelo); border-top: 2px solid var(--tinta); border-bottom: 2px solid var(--tinta); overflow: hidden; padding: 12px 0; }
+  .sintomas .trilho { display: flex; width: max-content; will-change: transform; }
+  .sintomas span { font-family: var(--mono); font-weight: 600; font-size: .86rem; letter-spacing: .08em; padding-right: 40px; white-space: nowrap; }
+  .sintomas span::after { content: " +"; color: var(--verde); padding-left: 40px; }
+  .rodape { background: var(--tinta); color: rgba(243, 239, 230, .75); padding: 56px 0 120px; font-size: .9rem; }
+  .rodape .embrulho { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; }
+  .rodape b { font-family: var(--serif); font-size: 1.5rem; color: var(--papel); display: block; margin-bottom: 8px; font-weight: 800; }
+  .rodape h4 { font-family: var(--mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--amarelo); font-weight: 500; margin-bottom: 10px; }
+  .rodape a { text-decoration: underline; text-underline-offset: 3px; }
+  .rodape .fim { grid-column: 1 / -1; border-top: 1px solid rgba(243, 239, 230, .15); padding-top: 20px; font-family: var(--mono); font-size: .7rem; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+  /* blister de progresso */
+  .blister { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); z-index: 40; padding: 10px 7px; border-radius: 14px; background: linear-gradient(135deg, #f4f4f2, #c9cbc8 45%, #eeeeec 60%, #b8bab7); box-shadow: 0 10px 24px rgba(0, 0, 0, .18), inset 0 1px 0 #fff; display: flex; flex-direction: column; gap: 8px; opacity: 0; pointer-events: none; transition: opacity .4s; }
+  .blister.mostra { opacity: 1; pointer-events: auto; }
+  .alveolo { width: 18px; height: 32px; border-radius: 99px; position: relative; background: radial-gradient(ellipse at 35% 30%, rgba(255, 255, 255, .9), rgba(255, 255, 255, 0) 60%), linear-gradient(180deg, var(--verde) 50%, var(--cupom) 50%); box-shadow: 0 2px 4px rgba(0, 0, 0, .25), inset 0 0 0 1px rgba(0, 0, 0, .15); transition: transform .4s cubic-bezier(.34, 1.56, .64, 1), opacity .3s; }
+  .alveolo::after { content: attr(data-nome); position: absolute; right: 30px; top: 50%; transform: translateY(-50%) translateX(6px); font-family: var(--mono); font-size: .66rem; letter-spacing: .05em; text-transform: uppercase; white-space: nowrap; background: var(--tinta); color: var(--papel); padding: 4px 8px; border-radius: 4px; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; }
+  .alveolo:hover::after { opacity: 1; transform: translateY(-50%); }
+  .alveolo.tomado { background: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, .12), rgba(0, 0, 0, 0) 70%), linear-gradient(135deg, #e7e7e5, #bdbfbc); box-shadow: inset 0 2px 4px rgba(0, 0, 0, .25); }
+  .alveolo.atual { transform: scale(1.18); }
+
+  /* impressora de cupom */
+  .impressora { position: fixed; right: 24px; bottom: 22px; z-index: 60; width: 270px; }
+  .papel-cupom { position: absolute; left: 22px; right: 22px; bottom: 20px; background: var(--cupom); font-family: var(--mono); font-size: .7rem; padding: 12px 14px 40px; box-shadow: 0 -6px 20px rgba(0, 0, 0, .12); transform: translateY(100%); transition: transform .6s cubic-bezier(.2, .8, .2, 1); z-index: -1; max-height: 0; overflow: hidden; }
+  .papel-cupom::before { content: ""; position: absolute; left: 0; right: 0; top: -8px; height: 8px; background: linear-gradient(-45deg, var(--cupom) 4px, transparent 0) 0 0 / 8px 8px, linear-gradient(45deg, var(--cupom) 4px, transparent 0) 0 0 / 8px 8px; background-repeat: repeat-x; }
+  .impressora.tem .papel-cupom { transform: none; max-height: 200px; overflow: visible; }
+  .papel-cupom .ult { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px dashed #c8c2b3; padding-bottom: 6px; margin-bottom: 6px; }
+  .papel-cupom .ult span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+  .papel-cupom .ult span + span { flex: none; }
+  .papel-cupom .tot { display: flex; justify-content: space-between; font-weight: 600; }
+  .papel-cupom.imprime { animation: imprime .5s steps(6); }
+  @keyframes imprime { 0% { transform: translateY(16px); } 100% { transform: none; } }
+  .maquina { position: relative; height: 58px; border-radius: 16px; background: linear-gradient(180deg, #2b3a33, var(--tinta)); color: var(--papel); display: flex; align-items: center; gap: 12px; padding: 0 12px 0 16px; box-shadow: 0 18px 36px -12px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .12); width: 100%; text-align: left; }
+  .maquina::before { content: ""; position: absolute; left: 18px; right: 18px; top: 6px; height: 4px; border-radius: 4px; background: #000; box-shadow: inset 0 1px 2px rgba(0, 0, 0, .8); }
+  .maquina .led { width: 8px; height: 8px; border-radius: 50%; background: #4a5a52; flex: none; transition: background .3s, box-shadow .3s; }
+  .impressora.tem .led { background: var(--verde-vivo); box-shadow: 0 0 10px var(--verde-vivo); }
+  .maquina .t { flex: 1; font-family: var(--mono); font-size: .72rem; letter-spacing: .05em; text-transform: uppercase; line-height: 1.3; padding-top: 4px; }
+  .maquina .t small { display: block; color: rgba(243, 239, 230, .55); font-size: .62rem; }
+  .maquina .ver { height: 36px; padding: 0 14px; border-radius: 99px; background: var(--amarelo); color: var(--tinta); font-weight: 700; font-size: .82rem; display: grid; place-items: center; margin-top: 4px; }
+  .impressora.pulou .maquina { animation: treme .45s; }
+  @keyframes treme { 20% { transform: translateX(-3px) rotate(-1deg); } 40% { transform: translateX(3px) rotate(1deg); } 60% { transform: translateX(-2px); } 80% { transform: translateX(2px); } }
+  .voo { position: fixed; z-index: 70; width: 90px; height: 98px; pointer-events: none; }
+
+  /* cupom aberto */
+  .fundo { position: fixed; inset: 0; background: rgba(18, 32, 26, .5); z-index: 80; opacity: 0; pointer-events: none; transition: opacity .3s; backdrop-filter: blur(3px); }
+  .fundo.aberto { opacity: 1; pointer-events: auto; }
+  .cupom { position: fixed; z-index: 90; left: 50%; top: 50%; width: min(420px, calc(100% - 32px)); max-height: calc(100svh - 60px); display: flex; flex-direction: column; background: var(--cupom); font-family: var(--mono); font-size: .8rem; transform: translate(-50%, -40%) rotate(2deg); opacity: 0; pointer-events: none; transition: transform .5s cubic-bezier(.2, .8, .2, 1), opacity .3s; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .35)); }
+  .cupom.aberto { transform: translate(-50%, -50%) rotate(-.6deg); opacity: 1; pointer-events: auto; }
+  .cupom::before, .cupom::after { content: ""; position: absolute; left: 0; right: 0; height: 10px; background-repeat: repeat-x; }
+  .cupom::before { top: -10px; background: linear-gradient(-45deg, var(--cupom) 5px, transparent 0) 0 0 / 10px 10px, linear-gradient(45deg, var(--cupom) 5px, transparent 0) 0 0 / 10px 10px; }
+  .cupom::after { bottom: -10px; background: linear-gradient(-135deg, var(--cupom) 5px, transparent 0) 0 0 / 10px 10px, linear-gradient(135deg, var(--cupom) 5px, transparent 0) 0 0 / 10px 10px; }
+  .cupom-corpo { overflow: auto; padding: 22px 24px 8px; }
+  .cupom-cab { text-align: center; border-bottom: 1px dashed #b9b2a2; padding-bottom: 12px; margin-bottom: 10px; line-height: 1.5; }
+  .cupom-cab b { font-size: .95rem; letter-spacing: .08em; }
+  .cupom-cab small { display: block; color: #777; font-size: .68rem; }
+  .fechar { position: absolute; right: 10px; top: 10px; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--papel-2); z-index: 2; }
+  .fechar svg { width: 16px; height: 16px; }
+  .item-cupom { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; padding: 8px 0; border-bottom: 1px dotted #cfc8b8; animation: linhaImpressa .4s steps(5) both; }
+  @keyframes linhaImpressa { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
+  .item-cupom .nm { font-weight: 600; text-transform: uppercase; }
+  .item-cupom .vl { text-align: right; font-weight: 600; }
+  .item-cupom .qt { display: flex; align-items: center; gap: 8px; color: #666; }
+  .item-cupom .qt button { width: 24px; height: 24px; border: 1px solid #999; border-radius: 4px; display: grid; place-items: center; font-weight: 600; }
+  .cupom-vazio { text-align: center; padding: 26px 0; color: #777; line-height: 1.6; }
+  .cupom-total { display: flex; justify-content: space-between; font-size: 1.05rem; font-weight: 600; padding: 12px 0; border-top: 2px solid var(--tinta); margin-top: 6px; }
+  .opcoes { display: flex; gap: 18px; padding: 8px 0; }
+  .opcoes label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+  .opcoes input { accent-color: var(--verde); width: 16px; height: 16px; }
+  .cupom-corpo .campo-n { display: block; margin: 8px 0 4px; }
+  .cupom-corpo .campo-n input { width: 100%; border: 0; border-bottom: 1px solid #999; background: none; padding: 6px 0; outline: 0; font-family: var(--mono); }
+  .barras { height: 44px; margin: 14px auto 4px; width: 80%; background: repeating-linear-gradient(90deg, var(--tinta) 0 2px, transparent 2px 4px, var(--tinta) 4px 5px, transparent 5px 8px, var(--tinta) 8px 11px, transparent 11px 12px); }
+  .cupom-corpo .rod { text-align: center; color: #777; font-size: .66rem; padding-bottom: 8px; }
+  .cupom-pe { padding: 14px 24px 22px; }
+  .cupom-pe .btn { width: 100%; background: #1fa855; color: #fff; }
+  .cupom-pe .btn:hover { background: #18914a; transform: translateY(-2px); }
+  .cupom-pe .btn[disabled] { opacity: .45; pointer-events: none; }
+
+  .aviso { position: fixed; left: 50%; top: 84px; z-index: 95; background: var(--tinta); color: var(--papel); font-family: var(--mono); font-size: .76rem; padding: 10px 16px; border-radius: 6px; transform: translate(-50%, -20px); opacity: 0; transition: transform .35s, opacity .35s; pointer-events: none; white-space: nowrap; }
+  .aviso.mostra { transform: translate(-50%, 0); opacity: 1; }
 
   @media (max-width: 1080px) {
-    .menu a.link { display: none; }
-    .hero-grid, .receita-grid, .porque, .onde-grid { grid-template-columns: 1fr; }
-    .categorias, .ofertas, .servicos { grid-template-columns: repeat(2, 1fr); }
-    .palco { min-height: 560px; }
+    .menu { display: none; }
+    .topo .btn { margin-left: auto; }
+    .hero-lado { position: relative; top: auto; right: auto; width: 100%; max-width: 520px; padding-top: 0; margin-top: 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+    .hero-lado p { grid-column: 1 / -1; margin-bottom: 16px; }
+    .hero-lado .mono { grid-column: 1 / -1; }
+    .blister { display: none; }
+    .receituario-grade, .balanca-grade, .onde-grade { grid-template-columns: 1fr; }
+    .prateleira { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
   @media (max-width: 640px) {
-    .secao { padding: 76px 0; }
-    .hero { padding-top: 30px; }
-    .acoes .btn { flex: 1 1 100%; }
-    .busca-rapida { flex-direction: column; }
-    .busca-rapida label { padding: 10px 8px 4px; }
-    .categorias, .servicos { grid-template-columns: 1fr 1fr; gap: 12px; }
-    .categoria { padding: 18px 16px; }
-    .categoria .ico { width: 50px; height: 50px; }
-    .ofertas { grid-template-columns: 1fr 1fr; gap: 12px; }
-    .oferta { padding: 12px; border-radius: 20px; }
-    .oferta .vitrine { height: 130px; }
-    .oferta .vitrine svg { width: 90px; height: 100px; }
-    .oferta .por { font-size: 1.3rem; }
-    .add { width: 40px; height: 40px; border-radius: 13px; }
-    .servicos { grid-template-columns: 1fr; }
-    .palco { min-height: 520px; transform: scale(.9); margin: -20px 0; }
-    .circulo { width: 340px; height: 340px; }
-    .envio .campos { grid-template-columns: 1fr; }
-    .btn-lista .txt { display: none; }
-    .btn-lista { width: 46px; padding: 0; justify-content: center; }
-    .btn-lista .qtd { position: absolute; top: -6px; right: -6px; }
-    .marca b { font-size: 1.08rem; }
-    .faixa span { font-size: 1.2rem; }
-    .barra-lista { left: 16px; right: 92px; transform: translateY(150%); justify-content: space-between; }
-    .barra-lista.mostra { transform: none; }
+    .topo .embrulho { height: 60px; gap: 12px; }
+    .marca small { display: none; }
+    .topo .btn span { display: none; }
+    .topo .btn { width: 42px; padding: 0; }
+    .cena { height: 200vh; }
+    .hero-texto { padding-top: calc(60px + 18px); }
+    .rotulo-bula { font-size: .62rem; gap: 4px 12px; margin-bottom: 12px; }
+    .hero h1 { font-size: clamp(2.5rem, 12vw, 3.4rem); }
+    .hero-lado { grid-template-columns: 1fr; margin-top: 16px; }
+    .hero-lado p { font-size: .96rem; margin-bottom: 14px; }
+    .hero-lado .btn { height: 48px; margin-bottom: 10px; }
+    .hero-lado .btn-contorno, .hero-lado .mono { display: none; }
+    .capsula { --cw: 76vw; }
+    .dica-rolar { bottom: 12px; }
+    .secao { padding: 72px 0; }
+    .cab { grid-template-columns: 1fr; gap: 14px; margin-bottom: 36px; }
+    .cab .num { padding-top: 10px; width: max-content; min-width: 120px; }
+    .filtros { flex-wrap: nowrap; overflow-x: auto; margin: 0 -16px 28px; padding: 0 16px 6px; scrollbar-width: none; }
+    .filtros::-webkit-scrollbar { display: none; }
+    .filtro { flex: none; }
+    .comp-linha { grid-template-columns: 30px minmax(0, 1fr) 32px; gap: 10px; padding: 16px 4px; }
+    .comp-linha .ind { grid-column: 2; grid-row: 2; font-size: .7rem; margin-top: -6px; }
+    .comp-linha .seta { grid-column: 3; grid-row: 1 / 3; width: 32px; height: 32px; }
+    .comp-linha .pilula { width: 26px; height: 11px; }
+    .prateleira { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 40px; }
+    .produto { padding: 0 8px; }
+    .tabua { margin: 0 -8px; }
+    .vitrine { height: 150px; }
+    .vitrine .emb { width: 100px; height: 110px; }
+    .etiqueta { top: 6px; right: 0; padding: 5px 7px 4px; }
+    .etiqueta b { font-size: 1rem; }
+    .info { flex-direction: column; gap: 10px; }
+    .info h3 { font-size: .92rem; }
+    .pegar { width: 100%; border-radius: 10px; height: 38px; }
+    .pegar:hover { transform: none; }
+    .papel-cupom { display: none; }
+    .pergunta { grid-template-columns: 1fr; }
+    .pergunta input { font-size: 1.2rem; }
+    .pergunta button { border-left: 0; border-top: 2px solid var(--tinta); height: 52px; justify-content: center; }
+    .receituario { padding: 26px 18px 28px; }
+    .receituario::before { left: 40px; }
+    .escrita { padding-left: 30px; font-size: 1.38rem; line-height: 36px; }
+    .receituario { background-image: repeating-linear-gradient(180deg, transparent 0 35px, rgba(31, 63, 191, .14) 35px 36px); }
+    .assinatura { width: 180px; }
+    .anexo { padding: 20px; }
+    .organizador { grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 50px 12px 14px; gap: 46px 8px; }
+    .dia { height: 130px; }
+    .dia .caixa b { font-size: .9rem; }
+    .dia .caixa span { font-size: .58rem; }
+    .dia .caixa i::before, .dia .caixa i::after { width: 16px; height: 8px; }
+    .mapa { min-height: 300px; }
+    .rodape .embrulho { grid-template-columns: 1fr; }
+    .impressora { left: 16px; right: 16px; width: auto; bottom: 14px; }
+    .papel-cupom { left: 30px; right: 30px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+    *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
     .revela { opacity: 1; transform: none; }
+    .cena { height: auto; }
+    .cena-fixa { position: relative; min-height: 100svh; height: auto; }
   }
 </style>
 </head>
 <body>
-<div class="progresso" id="progresso"></div>
-<canvas id="particulas" aria-hidden="true"></canvas>
-<div class="demo">Prévia criada pela SA Studio para a Farmácia Preço Baixo. <a href="https://sastudio.vercel.app/" target="_blank" rel="noopener">Conheça a SA Studio</a></div>
 
-<header class="topo" id="topo">
-  <div class="container nav">
+<div class="demo">Prévia criada pela SA Studio para a Farmácia Preço Baixo. <a href="https://sastudio.vercel.app" target="_blank" rel="noopener">Conheça a SA Studio</a></div>
+
+<header class="topo">
+  <div class="embrulho">
     <a href="#inicio" class="marca" aria-label="Farmácia Preço Baixo, início">
-      <span class="selo"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg></span>
-      <span><b>Farmácia <span>Preço Baixo</span></b><small>Centro · São Geraldo do Araguaia</small></span>
+      <span class="selo" aria-hidden="true"></span>
+      <span><b>Farmácia Preço Baixo</b><small>Centro · São Geraldo do Araguaia</small></span>
     </a>
-    <nav class="menu" aria-label="Menu principal">
-      <a class="link" href="#ofertas">Ofertas</a>
-      <a class="link" href="#receita">Enviar receita</a>
-      <a class="link" href="#servicos">Serviços</a>
-      <a class="link" href="#onde">Onde estamos</a>
-      <button class="btn-lista" id="abrirLista" aria-label="Abrir lista de compras">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="m9 14 2 2 4-4"/></svg>
-        <span class="txt">Minha lista</span><span class="qtd" id="qtdTopo">0</span>
-      </button>
+    <nav class="menu" aria-label="Seções">
+      <a href="#composicao"><i>01</i>Composição</a>
+      <a href="#prateleira"><i>02</i>Prateleira</a>
+      <a href="#posologia"><i>03</i>Receita</a>
+      <a href="#economia"><i>04</i>Genérico</a>
+      <a href="#horarios"><i>05</i>Horários</a>
+      <a href="#onde"><i>06</i>Onde</a>
     </nav>
+    <a class="btn btn-tinta" data-zap="Olá! Vim pelo site e queria tirar uma dúvida." href="#" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>
+      <span>Chamar no WhatsApp</span>
+    </a>
   </div>
 </header>
 
 <main>
-<section class="hero" id="inicio">
-  <svg class="ecg" viewBox="0 0 1400 140" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70h380l20-40 24 90 26-120 22 110 18-40h260l16-26 20 52 18-26h596"/></svg>
-  <div class="container hero-grid">
-    <div>
-      <div class="etiqueta-topo entra"><b>Novo</b> Peça pelo WhatsApp e retire sem fila</div>
-      <h1 class="titulo">
-        <span class="linha"><span>Cuidar da saúde</span></span>
-        <span class="linha"><span>com <span class="marca-texto">preço baixo</span></span></span>
-        <span class="linha"><span>de <span class="gira" id="gira"><span>verdade.</span><span class="espera">remédios.</span><span class="espera">vitaminas.</span><span class="espera">beleza.</span><span class="espera">bebês.</span></span></span></span>
-      </h1>
-      <p class="apoio entra" style="animation-delay:.4s">Medicamentos, genéricos, vitaminas, dermocosméticos e tudo para a higiene da família, no coração de São Geraldo do Araguaia. Mande sua receita e a gente responde com o orçamento.</p>
-      <div class="acoes entra" style="animation-delay:.55s">
-        <a class="btn btn-verde" href="#receita">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15h6"/></svg>
-          Enviar minha receita
-        </a>
-        <a class="btn btn-claro" href="#ofertas">Ver ofertas da semana</a>
+  <!-- HERO -->
+  <section class="cena hero" id="inicio">
+    <div class="cena-fixa">
+      <div class="grade-papel" aria-hidden="true"></div>
+      <div class="embrulho hero-texto">
+        <div class="rotulo-bula mono"><span>Bula do cliente</span><span>Uso: toda a família</span><span>Via: balcão ou WhatsApp</span></div>
+        <h1><span class="lin"><span>Saúde que cabe</span></span><span class="lin"><span>no <em>bolso.<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4 14C40 4 90 2 196 10"/></svg></em></span></span></h1>
+        <div class="hero-lado">
+          <p>Remédios, genéricos, vitaminas e higiene com preço baixo de verdade, no Centro de São Geraldo do Araguaia.</p>
+          <a class="btn btn-tinta" href="#posologia">Enviar minha receita</a>
+          <a class="btn btn-contorno" href="#prateleira">Ver a prateleira</a>
+          <span class="mono">Role a página para abrir a cápsula</span>
+        </div>
       </div>
-      <form class="busca-rapida entra" style="animation-delay:.7s" id="buscaRapida">
-        <label><span class="sr">Nome do medicamento</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="buscaTexto" placeholder="Tem na farmácia? Digite o remédio" autocomplete="off"></label>
-        <button class="btn btn-amarelo" type="submit">Perguntar</button>
+      <div class="palco-capsula" aria-hidden="true">
+        <div class="capsula" id="capsula">
+          <div class="miolo"><div><b id="mioloTxt">o essencial,<br>mais barato.</b><small class="mono" id="mioloSub">genéricos · vitaminas · higiene · bebê</small></div></div>
+          <div class="metade a" id="metA"><span>PREÇO</span></div>
+          <div class="metade b" id="metB"><span>BAIXO</span></div>
+          <div id="graos"></div>
+        </div>
+      </div>
+      <div class="dica-rolar mono" id="dicaRolar"><i></i>Role para abrir</div>
+    </div>
+  </section>
+
+  <div class="dobra"></div>
+
+  <!-- 01 COMPOSIÇÃO -->
+  <section class="secao" id="composicao">
+    <div class="embrulho">
+      <div class="cab revela">
+        <span class="num">01 · Composição</span>
+        <div><h2>O que tem <em>dentro</em> da farmácia</h2><p>Toque num item da composição para ver as ofertas dele na prateleira.</p></div>
+      </div>
+      <div class="composicao revela d1" id="composicaoLista"></div>
+    </div>
+  </section>
+
+  <div class="dobra"></div>
+
+  <!-- 02 PRATELEIRA -->
+  <section class="secao" id="prateleira">
+    <div class="embrulho">
+      <div class="cab revela">
+        <span class="num">02 · Prateleira</span>
+        <div><h2>Etiqueta amarela é <em>preço baixo</em></h2><p>Pegue o que precisa e monte seu cupom. A farmácia confirma preço e estoque pelo WhatsApp antes de separar.</p></div>
+      </div>
+      <div class="filtros revela d1" id="filtros"></div>
+      <div class="prateleira" id="prateleiraGrade"></div>
+      <p class="aviso-precos">Preços de exemplo para esta demonstração. Medicamentos vendidos conforme a legislação. Consulte o farmacêutico.</p>
+      <form class="pergunta revela" id="pergunta">
+        <label><span class="mono">Não está na prateleira? Pergunte</span><input id="perguntaTxt" type="text" placeholder="nome do remédio ou produto" autocomplete="off"></label>
+        <button type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg>Perguntar no WhatsApp</button>
       </form>
-      <p class="dica entra" style="animation-delay:.75s">A pergunta vai direto para o WhatsApp da farmácia.</p>
-      <div class="confianca entra" style="animation-delay:.85s">
-        <div><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></i>Atendimento farmacêutico</div>
-        <div><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></i>Genéricos que cabem no bolso</div>
-      </div>
     </div>
+  </section>
 
-    <div class="palco entra" id="palco" style="animation-delay:.25s" aria-hidden="true">
-      <div class="circulo"></div>
-      <div class="capsula cap1"><span></span></div>
-      <div class="capsula cap2"><span></span></div>
-      <div class="capsula cap3"><span></span></div>
-      <div class="comprimido comp1"></div>
-      <div class="comprimido comp2"></div>
-      <div class="preco-flutua"><small>Preço baixo</small><span>todo dia</span></div>
-      <div class="cruz-flutua"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.4-9.3-8.6C.9 9.1 2.6 5 6.4 5c2.1 0 3.6 1.2 4.6 2.6l1 1.3 1-1.3C14 6.2 15.5 5 17.6 5c3.8 0 5.5 4.1 3.7 7.4C19 16.6 12 21 12 21z"/></svg></div>
-      <div class="celular">
-        <div class="tela">
-          <div class="notch"></div>
-          <div class="chat-topo">
-            <div class="av"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg></div>
-            <div><b>Farmácia Preço Baixo</b><small id="statusChat">online</small></div>
+  <!-- 03 POSOLOGIA -->
+  <section class="secao posologia" id="posologia">
+    <div class="embrulho">
+      <div class="cab revela">
+        <span class="num">03 · Posologia</span>
+        <div><h2>Mande a receita, <em>a gente separa</em></h2><p>Sem fila e sem viagem perdida. Você manda a foto, recebe o orçamento e passa só para buscar.</p></div>
+      </div>
+      <div class="receituario-grade">
+        <div class="receituario revela" id="receituario">
+          <div class="rec-topo">
+            <div><span class="mono" style="color:var(--suave)">Receituário</span><b>Farmácia Preço Baixo</b></div>
+            <svg class="cruz" viewBox="0 0 40 40" fill="currentColor"><path d="M15 4h10v11h11v10H25v11H15V25H4V15h11z"/></svg>
           </div>
-          <div class="chat" id="chat">
-            <div class="bolha eu"><div class="receita"><i></i><i></i><i></i><i></i><i></i></div>Oi! Vocês têm essa receita? <small>19:02</small></div>
-            <div class="bolha ela">Oi! Temos sim, e tem o genérico 😊 <small>19:03</small></div>
-            <div class="bolha ela">Com o genérico fica <span class="preco-chat">R$ 18,90</span> no total. Quer que separe? <small>19:03</small></div>
-            <div class="bolha eu">Quero! Passo aí em 10 min 🙌 <small>19:04</small></div>
-            <div class="bolha ela">Fica separado no balcão. Até já! <small>19:04</small></div>
-            <div class="digitando" id="digitando"><i></i><i></i><i></i></div>
+          <p class="escrita"><b>Uso contínuo de economia:</b></p>
+          <p class="escrita">1. Tire 1 foto da receita, com boa luz.</p>
+          <p class="escrita">2. Envie pelo WhatsApp, a qualquer hora.</p>
+          <p class="escrita">3. Receba o orçamento com genérico.</p>
+          <p class="escrita">4. Retire no balcão ou receba em casa.</p>
+          <div class="assinatura">
+            <svg viewBox="0 0 200 60"><path pathLength="1" d="M8 44c14-26 22-34 26-30 5 5-10 30-4 31 7 1 14-28 22-26 6 2-4 22 2 22 8 0 12-16 20-16 7 0 0 14 8 14 10 0 16-20 26-20 8 0 2 16 12 16 12 0 22-10 36-12 10-1 20 2 34-2"/></svg>
+            <small>Farmacêutico responsável</small>
           </div>
-          <div class="chat-pe"><span>Mensagem</span><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5V3.5L22 12z"/></svg></i></div>
+        </div>
+        <div class="anexo revela d1">
+          <h3>Anexe a foto da receita</h3>
+          <label class="soltar" id="soltar">
+            <input type="file" id="arquivo" accept="image/*">
+            <div class="vazio" id="vazio">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <b>Toque para escolher a foto</b>
+              <span>ou arraste a imagem para cá</span>
+            </div>
+            <span class="carimbo" id="carimbo">RECEBIDA</span>
+          </label>
+          <label class="campo"><span>Seu nome</span><input id="nomeRec" type="text" placeholder="Como podemos te chamar?" autocomplete="name"></label>
+          <a class="btn" id="enviarRec" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>
+            Enviar receita pelo WhatsApp
+          </a>
+          <p class="obs">A foto fica só no seu celular. No WhatsApp é só anexar a mesma imagem na conversa.</p>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="faixa-wrap"><div class="faixa" aria-hidden="true"><div class="trilho" id="trilho">
-  <span>Medicamentos</span><span>Genéricos</span><span>Vitaminas</span><span>Dermocosméticos</span><span>Mamãe e bebê</span><span>Higiene</span><span>Primeiros socorros</span><span>Receita pelo WhatsApp</span>
-</div></div></div>
-
-<section class="secao" id="categorias">
-  <div class="container">
-    <div class="cabeca revela">
-      <span class="chapeu">Tudo num lugar só</span>
-      <h2 class="titulo">O que você procura hoje?</h2>
-      <p>Toque numa categoria para ver as ofertas dela.</p>
-    </div>
-    <div class="categorias" id="categoriasGrid"></div>
-  </div>
-</section>
-
-<section class="secao ofertas-sec" id="ofertas">
-  <div class="container">
-    <div class="ofertas-topo">
-      <div class="cabeca revela">
-        <span class="chapeu">Ofertas da semana</span>
-        <h2 class="titulo">Preço baixo de verdade</h2>
-        <p>Monte sua lista e mande para a farmácia confirmar o valor e separar tudo.</p>
+  <!-- 04 ECONOMIA -->
+  <section class="secao" id="economia">
+    <div class="embrulho">
+      <div class="cab revela">
+        <span class="num">04 · Interações</span>
+        <div><h2>Genérico na balança: <em>sobra no bolso</em></h2><p>Mesmo princípio ativo, mesma dose, mesmo efeito. Arraste e veja quanto fica com você.</p></div>
       </div>
-      <div class="relogio revela d1" aria-label="Tempo até o fim das ofertas">Acaba em <b id="rd">0d</b><b id="rh">00h</b><b id="rm">00m</b><b id="rs">00s</b></div>
-    </div>
-    <div class="filtros" id="filtros"><span class="filtro-pilula" id="filtroPilula"></span></div>
-    <div class="ofertas" id="ofertasGrid"></div>
-    <p class="aviso-preco">Preços de exemplo para a demonstração. Medicamentos vendidos conforme a legislação; consulte o farmacêutico.</p>
-  </div>
-</section>
-
-<section class="secao receita-sec" id="receita">
-  <div class="container receita-grid">
-    <div>
-      <div class="cabeca revela">
-        <span class="chapeu">Sem sair de casa</span>
-        <h2 class="titulo">Mande a foto da receita</h2>
-        <p>A gente confere, responde com o orçamento e deixa tudo separado para você.</p>
-      </div>
-      <ol class="passos revela d1">
-        <li><div><b>Tire uma foto da receita</b><span>Pode ser pelo celular mesmo, com boa luz.</span></div></li>
-        <li><div><b>Envie pelo WhatsApp</b><span>O botão abre a conversa já com a mensagem pronta.</span></div></li>
-        <li><div><b>Receba o orçamento</b><span>Com opção de genérico, quando tiver.</span></div></li>
-        <li><div><b>Retire ou receba</b><span>Passe no balcão ou combine a entrega.</span></div></li>
-      </ol>
-    </div>
-    <div class="envio revela d2">
-      <div class="soltar" id="soltar">
-        <input type="file" accept="image/*" id="arquivo" aria-label="Escolher foto da receita">
-        <div class="vazio" id="vazio">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-          <b>Toque para escolher a foto</b><span>ou arraste a imagem da receita para cá</span>
+      <div class="balanca-grade">
+        <svg class="balanca revela" id="balanca" viewBox="0 0 400 300" aria-label="Balança comparando o preço do remédio de referência com o genérico">
+          <ellipse cx="200" cy="284" rx="96" ry="10" fill="rgba(18,32,26,.12)"/>
+          <path d="M150 282h100l-14-26h-72z" fill="#12201a"/>
+          <rect x="194" y="70" width="12" height="190" rx="4" fill="#12201a"/>
+          <circle cx="200" cy="64" r="14" fill="#ffd60a" stroke="#12201a" stroke-width="3"/>
+          <g class="trave" id="trave"><rect x="56" y="64" width="288" height="10" rx="5" fill="#12201a"/><circle cx="60" cy="69" r="6" fill="#ffd60a"/><circle cx="340" cy="69" r="6" fill="#ffd60a"/></g>
+          <g class="prato" id="pratoA">
+            <path d="M60 70 22 160M60 70l38 90" stroke="#12201a" stroke-width="2"/>
+            <path d="M8 160h104a52 18 0 0 1-104 0z" fill="#d9ceb6" stroke="#12201a" stroke-width="3"/>
+            <rect x="26" y="118" width="38" height="42" rx="3" fill="#fff" stroke="#12201a" stroke-width="2.5"/><rect x="26" y="130" width="38" height="12" fill="#d62839"/>
+            <rect x="58" y="128" width="34" height="32" rx="3" fill="#fff" stroke="#12201a" stroke-width="2.5"/><rect x="58" y="138" width="34" height="10" fill="#d62839"/>
+            <text x="60" y="206" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#3d4a43" letter-spacing="1">REFERÊNCIA</text>
+            <text x="60" y="228" text-anchor="middle" font-family="Fraunces" font-weight="800" font-size="22" fill="#12201a" id="valRef">R$ 200</text>
+          </g>
+          <g class="prato" id="pratoB">
+            <path d="M340 70l-38 90M340 70l38 90" stroke="#12201a" stroke-width="2"/>
+            <path d="M288 160h104a52 18 0 0 1-104 0z" fill="#d9ceb6" stroke="#12201a" stroke-width="3"/>
+            <rect x="320" y="124" width="40" height="36" rx="3" fill="#fff" stroke="#12201a" stroke-width="2.5"/><rect x="320" y="134" width="40" height="12" fill="#0d7a4b"/>
+            <text x="340" y="206" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#3d4a43" letter-spacing="1">GENÉRICO</text>
+            <text x="340" y="228" text-anchor="middle" font-family="Fraunces" font-weight="800" font-size="22" fill="#0d7a4b" id="valGen">R$ 130</text>
+          </g>
+        </svg>
+        <div class="painel revela d1">
+          <label for="gasto">Gasto por mês com remédios <b id="gastoTxt">R$ 200</b></label>
+          <input type="range" id="gasto" min="50" max="800" step="10" value="200">
+          <div class="sobra">
+            <span class="mono">Fica no seu bolso por ano</span>
+            <b id="sobraAno">R$ 840</b>
+            <p id="sobraMes">São R$ 70 por mês trocando pelo genérico quando a receita permite.</p>
+          </div>
+          <p class="lei">Pela regra da CMED, o genérico chega ao mercado custando no mínimo 35% menos que o de referência. A conta usa esse mínimo; a economia real varia de remédio para remédio.</p>
         </div>
-        <div class="laser"></div>
-        <div class="pronto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Receita pronta para enviar</div>
       </div>
-      <div class="campos">
-        <input type="text" id="recNome" placeholder="Seu nome" autocomplete="name">
-        <input type="text" id="recObs" placeholder="Observação (opcional)">
-      </div>
-      <a class="btn btn-amarelo" id="enviarReceita" href="#">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8.2 8.2 0 0 1-4-3.5c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.8.4 3.5 3.5 0 0 0-1.1 2.6 6.1 6.1 0 0 0 1.3 3.2 13.9 13.9 0 0 0 5.3 4.7c2 .8 2.7.9 3.7.8a3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.6-.4zM12 21.8a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1 1 12 21.8zm8.4-18.2A11.8 11.8 0 0 0 1.8 17.9L.1 24l6.3-1.6A11.8 11.8 0 0 0 23.8 12a11.7 11.7 0 0 0-3.4-8.4z"/></svg>
-        Enviar receita pelo WhatsApp
-      </a>
-      <p class="nota">A foto fica só no seu celular. Na conversa, é só anexar a imagem e enviar.</p>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="secao" id="servicos">
-  <div class="container">
-    <div class="cabeca centro revela">
-      <span class="chapeu">Cuidado no balcão</span>
-      <h2 class="titulo">Serviços para a sua saúde</h2>
-      <p>Atendimento rápido, com orientação de quem entende.</p>
-    </div>
-    <div class="servicos">
-      <div class="servico revela"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><h3>Aferição de pressão</h3><p>Meça sua pressão arterial na hora, sem agendamento.</p><svg class="ecg-mini" viewBox="0 0 120 40"><path d="M0 20h40l6-12 8 24 8-30 6 18h52"/></svg></div>
-      <div class="servico revela d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7s6 6.4 6 11a6 6 0 0 1-12 0c0-4.6 6-11 6-11z"/></svg></div><h3>Teste de glicemia</h3><p>Resultado em poucos minutos para acompanhar o açúcar no sangue.</p><svg class="ecg-mini" viewBox="0 0 120 40"><path d="M0 20h40l6-12 8 24 8-30 6 18h52"/></svg></div>
-      <div class="servico revela d2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 2 4 4M17 7l3-3M19 9 8.7 19.3a2 2 0 0 1-2.8 0l-1.2-1.2a2 2 0 0 1 0-2.8L15 5M9 11l4 4M5 19l-3 3M14 4l6 6"/></svg></div><h3>Aplicação de injetáveis</h3><p>Com receita, aplicada por profissional em sala reservada.</p><svg class="ecg-mini" viewBox="0 0 120 40"><path d="M0 20h40l6-12 8 24 8-30 6 18h52"/></svg></div>
-      <div class="servico revela d3"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></svg></div><h3>Orientação farmacêutica</h3><p>Tire dúvidas sobre horários, doses e interações dos remédios.</p><svg class="ecg-mini" viewBox="0 0 120 40"><path d="M0 20h40l6-12 8 24 8-30 6 18h52"/></svg></div>
-    </div>
-  </div>
-</section>
+  <div class="dobra"></div>
 
-<section class="secao" style="padding-top:0">
-  <div class="container porque">
-    <div>
-      <div class="cabeca revela">
-        <span class="chapeu">Por que a Preço Baixo</span>
-        <h2 class="titulo">Economia que você sente no fim do mês</h2>
+  <!-- 05 HORÁRIOS -->
+  <section class="secao" id="horarios">
+    <div class="embrulho">
+      <div class="cab revela">
+        <span class="num">05 · Modo de usar</span>
+        <div><h2>Um horário <em>para cada dia</em></h2><p>Abra o compartimento do dia para ver quando estamos de portas abertas.</p></div>
       </div>
-      <div class="lista-porque">
-        <div class="item-porque revela"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></i><div><b>Genérico sempre que der</b><span>A gente oferece a opção mais em conta da sua receita.</span></div></div>
-        <div class="item-porque revela d1"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></i><div><b>No Centro da cidade</b><span>Fácil de chegar, para passar no caminho de casa.</span></div></div>
-        <div class="item-porque revela d2"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 21l2-5.2a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 8.4-9 8.4 8.4 0 0 1 8.5 8.5z"/></svg></i><div><b>Atendimento pelo WhatsApp</b><span>Pergunte, orce e reserve sem precisar ligar.</span></div></div>
-      </div>
+      <div class="organizador revela d1" id="organizador"></div>
+      <p class="nota-horario">* Horários de exemplo nesta demonstração. Os horários reais entram na versão final.</p>
     </div>
-    <div class="economia revela d1">
-      <h3>Quanto você economiza com genérico?</h3>
-      <p>Arraste e veja uma estimativa.</p>
-      <div class="regua">
-        <label for="gasto">Gasto por mês com remédios <span id="gastoTxt">R$ 150</span></label>
-        <input type="range" id="gasto" min="30" max="600" step="10" value="150">
-      </div>
-      <div class="resultado"><small>Economia estimada por ano</small><b id="economiaTxt">R$ 0</b><span>Estimativa considerando 35% de desconto médio do genérico em relação ao de referência. O valor real depende de cada remédio.</span></div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section class="secao" id="onde" style="background:var(--branco)">
-  <div class="container">
-    <div class="cabeca revela">
-      <span class="chapeu">Venha nos visitar</span>
-      <h2 class="titulo">Onde estamos</h2>
-    </div>
-    <div class="onde-grid">
-      <div class="cartao-onde revela">
-        <div class="dado"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><b>Endereço</b><span id="endTxt">Centro, São Geraldo do Araguaia/PA</span></div></div>
-        <div class="dado"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div><b>Horário</b><span id="horTxt">Segunda a sábado, horário comercial</span></div></div>
-        <div class="dado"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 21l2-5.2a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 8.4-9 8.4 8.4 0 0 1 8.5 8.5z"/></svg></div><div><b>WhatsApp</b><a href="#" data-zap="Olá! Vim pelo site da Farmácia Preço Baixo." id="zapTxt">Falar com a farmácia</a></div></div>
-        <div class="dado"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div><div><b>Pagamento</b><span>Pix, dinheiro e cartões</span></div></div>
-        <a class="btn btn-verde" href="#" data-zap="Olá! Vim pelo site e quero fazer um pedido.">Chamar no WhatsApp</a>
-      </div>
-      <div class="mapa revela d1"><iframe title="Mapa da Farmácia Preço Baixo" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Centro%2C%20S%C3%A3o%20Geraldo%20do%20Araguaia%20-%20PA&z=15&output=embed"></iframe></div>
-    </div>
-  </div>
-</section>
+  <div class="dobra"></div>
 
-<section class="final">
-  <div class="capsula f1"><span></span></div><div class="capsula f2"><span></span></div><div class="capsula f3"><span></span></div><div class="capsula f4"><span></span></div>
-  <div class="container" style="position:relative">
-    <h2 class="titulo revela">Precisa de um remédio agora?</h2>
-    <p class="revela d1">Chama no WhatsApp. A gente responde rapidinho e deixa tudo separado.</p>
-    <div class="acoes revela d2">
-      <a class="btn btn-amarelo" href="#" data-zap="Olá! Vim pelo site e preciso de um remédio.">Chamar no WhatsApp</a>
-      <a class="btn btn-claro" href="#receita">Enviar receita</a>
+  <!-- 06 ONDE -->
+  <section class="secao" id="onde">
+    <div class="embrulho">
+      <div class="cab revela">
+        <span class="num">06 · Onde encontrar</span>
+        <div><h2>No <em>Centro</em>, pertinho de você</h2></div>
+      </div>
+      <div class="onde-grade">
+        <div class="advertencia revela">
+          <span class="tarja">ADVERTÊNCIA</span>
+          <dl>
+            <div><dt>Endereço</dt><dd id="endTxt">Centro, São Geraldo do Araguaia, PA</dd></div>
+            <div><dt>Atendimento</dt><dd>No balcão e pelo WhatsApp</dd></div>
+            <div><dt>Em caso de dúvida</dt><dd>Fale com o farmacêutico antes de tomar qualquer remédio.</dd></div>
+          </dl>
+          <a class="btn btn-tinta" data-zap="Olá! Queria saber como chegar na farmácia." href="#" target="_blank" rel="noopener">Pedir a localização no WhatsApp</a>
+        </div>
+        <div class="mapa revela d1"><iframe title="Mapa da Farmácia Preço Baixo" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Centro%2C%20S%C3%A3o%20Geraldo%20do%20Araguaia%20-%20PA&z=15&output=embed"></iframe></div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 </main>
 
-<footer>
-  <div class="container rodape-flex">
-    <span>© Farmácia Preço Baixo · Centro, São Geraldo do Araguaia/PA</span>
-    <span>Site demonstração criado por <a href="https://sastudio.vercel.app/" target="_blank" rel="noopener">SA Studio</a></span>
+<div class="sintomas" aria-hidden="true"><div class="trilho" id="trilho"></div></div>
+<footer class="rodape">
+  <div class="embrulho">
+    <div><b>Farmácia Preço Baixo</b>Centro, São Geraldo do Araguaia, Pará. Preço baixo todo dia, com atendimento de quem conhece a cidade.</div>
+    <div><h4>Informações</h4>Farmacêutico responsável: a informar<br>CRF-PA: a informar</div>
+    <div><h4>Atalhos</h4><a href="#prateleira">Prateleira</a> · <a href="#posologia">Receita</a> · <a href="#horarios">Horários</a></div>
+    <div class="fim"><span>© Farmácia Preço Baixo</span><span>Esta bula foi escrita pela <a href="https://sastudio.vercel.app" target="_blank" rel="noopener">SA Studio</a></span></div>
   </div>
 </footer>
 
-<a class="zap-flutua" href="#" data-zap="Olá! Vim pelo site da Farmácia Preço Baixo." aria-label="Falar no WhatsApp">
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8.2 8.2 0 0 1-4-3.5c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.8.4 3.5 3.5 0 0 0-1.1 2.6 6.1 6.1 0 0 0 1.3 3.2 13.9 13.9 0 0 0 5.3 4.7c2 .8 2.7.9 3.7.8a3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.6-.4zM12 21.8a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1 1 12 21.8zm8.4-18.2A11.8 11.8 0 0 0 1.8 17.9L.1 24l6.3-1.6A11.8 11.8 0 0 0 23.8 12a11.7 11.7 0 0 0-3.4-8.4z"/></svg>
-</a>
-<div class="barra-lista" id="barraLista"><span id="barraTxt">1 item</span><button class="btn btn-amarelo" id="verLista">Ver lista</button></div>
+<nav class="blister" id="blister" aria-label="Progresso da página"></nav>
 
-<div class="gaveta-fundo" id="gavetaFundo"></div>
-<aside class="gaveta" id="gaveta" aria-label="Minha lista">
-  <div class="gaveta-topo"><div><h3>Minha lista</h3><p>A farmácia confirma preço e estoque.</p></div><button class="fechar" id="fecharGaveta" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
-  <div class="gaveta-lista" id="gavetaLista"></div>
-  <div class="gaveta-pe" id="gavetaPe">
-    <div class="tipo" id="tipo"><button class="sel" data-tipo="Retirada no balcão">Retirar</button><button data-tipo="Entrega">Entrega</button></div>
-    <input id="nome" placeholder="Seu nome" autocomplete="name">
-    <input id="endereco" placeholder="Endereço para entrega" hidden autocomplete="street-address">
-    <div class="total"><span>Total estimado</span><b id="totalLista">R$ 0,00</b></div>
-    <button class="btn btn-zap" id="enviarLista">Enviar lista pelo WhatsApp</button>
+<div class="impressora" id="impressora">
+  <div class="papel-cupom" id="papelCupom"><div class="ult"><span id="ultNome">-</span><span id="ultValor"></span></div><div class="tot"><span>TOTAL</span><span id="ultTotal">R$ 0,00</span></div></div>
+  <button class="maquina" id="abrirCupom" aria-label="Abrir meu cupom">
+    <span class="led"></span>
+    <span class="t">Meu cupom<small id="maqSub">Nenhum item ainda</small></span>
+    <span class="ver">Ver</span>
+  </button>
+</div>
+
+<div class="fundo" id="fundo"></div>
+<aside class="cupom" id="cupom" aria-label="Meu cupom" aria-hidden="true">
+  <button class="fechar" id="fecharCupom" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <div class="cupom-corpo">
+    <div class="cupom-cab"><b>FARMÁCIA PREÇO BAIXO</b><small>CENTRO · SÃO GERALDO DO ARAGUAIA/PA</small><small>CUPOM DE PEDIDO · NÃO É DOCUMENTO FISCAL</small><small id="cupomData"></small></div>
+    <div id="itensCupom"></div>
+    <div class="cupom-total"><span>TOTAL ESTIMADO</span><span id="totalCupom">R$ 0,00</span></div>
+    <div class="opcoes"><label><input type="radio" name="modo" value="retirar" checked> Retirar</label><label><input type="radio" name="modo" value="entrega"> Entrega</label></div>
+    <label class="campo-n">NOME<input id="nomeCupom" type="text" autocomplete="name" placeholder="seu nome"></label>
+    <div class="barras" aria-hidden="true"></div>
+    <p class="rod">PREÇO E ESTOQUE CONFIRMADOS PELA FARMÁCIA</p>
   </div>
+  <div class="cupom-pe"><a class="btn" id="enviarCupom" href="#" target="_blank" rel="noopener">Enviar cupom pelo WhatsApp</a></div>
 </aside>
-<div class="aviso" id="aviso" role="status" aria-live="polite"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></i><span id="avisoTxt"></span></div>
+
+<div class="aviso" id="aviso" role="status"></div>
 
 <script>
 (function () {
   "use strict";
-  // Trocar pelo número da farmácia (só dígitos, com 55 e DDD). Vazio = o WhatsApp pergunta para quem enviar.
-  var ZAP = "";
-  var reduz = matchMedia("(prefers-reduced-motion: reduce)").matches, toque = matchMedia("(hover: none)").matches;
-  var MAIS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
-  var OK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+  var ZAP = ""; // número da farmácia com DDI e DDD, ex.: 5594999999999
+  var reduz = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function zap(msg) { return "https://wa.me/" + ZAP + "?text=" + encodeURIComponent(msg); }
-  function brl(v) { return "R$ " + v.toFixed(2).replace(".", ","); }
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
-  document.querySelectorAll("[data-zap]").forEach(function (a) { a.href = zap(a.dataset.zap); a.target = "_blank"; a.rel = "noopener"; });
+  function brl(v) { return "R$ " + v.toFixed(2).replace(".", ","); }
+  function brl0(v) { return "R$ " + Math.round(v).toLocaleString("pt-BR"); }
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function ease(t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  document.querySelectorAll("[data-zap]").forEach(function (a) { a.href = zap(a.getAttribute("data-zap")); });
 
-  /* ---------- ilustrações de produto ---------- */
-  function produto(tipo, cor, rotulo) {
-    var c = cor, r = esc(rotulo || "");
-    if (tipo === "caixa") return '<svg viewBox="0 0 120 130"><path d="M22 34 60 22l38 12v74l-38 12-38-12z" fill="#fff"/><path d="M60 46v84l38-12V34z" fill="#e6efe9"/><path d="M22 34 60 46l38-12-38-12z" fill="#f6faf7"/><path d="M22 52 60 64v30L22 82z" fill="' + c + '"/><path d="M36 60h6v6h6v6h-6v6h-6v-6h-6v-6h6z" fill="#fff" transform="translate(2 4) skewY(18)"/><text x="40" y="104" font-family="Plus Jakarta Sans" font-size="8" font-weight="800" fill="#10261c" transform="skewY(18) translate(0 -14)">' + r + '</text></svg>';
-    if (tipo === "frasco") return '<svg viewBox="0 0 120 130"><rect x="44" y="10" width="32" height="18" rx="4" fill="' + c + '"/><rect x="48" y="26" width="24" height="8" fill="#d6e4dc"/><path d="M38 40c0-6 6-8 22-8s22 2 22 8v76a8 8 0 0 1-8 8H46a8 8 0 0 1-8-8z" fill="#fff"/><rect x="38" y="60" width="44" height="40" fill="' + c + '" opacity=".9"/><text x="60" y="84" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" font-weight="800" fill="#fff">' + r + '</text><rect x="44" y="44" width="6" height="66" rx="3" fill="#fff" opacity=".6"/></svg>';
-    if (tipo === "tubo") return '<svg viewBox="0 0 120 130"><rect x="48" y="104" width="24" height="18" rx="3" fill="' + c + '"/><path d="M34 14h52l-8 90H42z" fill="#fff"/><path d="M34 14h52v8H34z" fill="#dfe9e3"/><path d="M38 44h44l-3 36H41z" fill="' + c + '"/><text x="60" y="66" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" font-weight="800" fill="#fff">' + r + '</text></svg>';
-    if (tipo === "pote") return '<svg viewBox="0 0 120 130"><rect x="30" y="18" width="60" height="20" rx="6" fill="' + c + '"/><rect x="26" y="36" width="68" height="84" rx="14" fill="#fff"/><rect x="26" y="58" width="68" height="40" fill="' + c + '" opacity=".9"/><text x="60" y="82" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" font-weight="800" fill="#fff">' + r + '</text><rect x="34" y="42" width="8" height="72" rx="4" fill="#fff" opacity=".5"/></svg>';
-    if (tipo === "pacote") return '<svg viewBox="0 0 120 130"><path d="M20 26c0-6 4-10 10-10h60c6 0 10 4 10 10v84c0 6-4 10-10 10H30c-6 0-10-4-10-10z" fill="' + c + '"/><path d="M20 30h80" stroke="#fff" stroke-width="3" opacity=".5"/><circle cx="60" cy="66" r="24" fill="#fff"/><path d="M50 64c0-6 5-10 10-10s10 4 10 10c0 8-10 12-10 12s-10-4-10-12z" fill="' + c + '" opacity=".6"/><text x="60" y="106" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" font-weight="800" fill="#fff">' + r + '</text></svg>';
-    return '<svg viewBox="0 0 120 130"><rect x="24" y="30" width="72" height="74" rx="10" fill="#fff"/><rect x="24" y="30" width="72" height="22" rx="10" fill="' + c + '"/><path d="M54 66h12v10h10v12H66v10H54V88H44V76h10z" fill="' + c + '"/></svg>';
+  var avisoT;
+  function aviso(txt) { var el = document.getElementById("aviso"); el.textContent = txt; el.classList.add("mostra"); clearTimeout(avisoT); avisoT = setTimeout(function () { el.classList.remove("mostra"); }, 1800); }
+
+  /* ---------- embalagens desenhadas ---------- */
+  function emb(tipo, c, r) {
+    r = esc(r);
+    if (tipo === "caixa") return '<svg class="emb" viewBox="0 0 120 130"><path d="M22 34 60 22l38 12v74l-38 12-38-12z" fill="#fff"/><path d="M60 46v84l38-12V34z" fill="#e8e2d4"/><path d="M22 34 60 46l38-12-38-12z" fill="#faf8f2"/><path d="M22 54 60 66v28L22 82z" fill="' + c + '"/><path d="M60 66l38-12v28L60 94z" fill="' + c + '" opacity=".75"/><text x="41" y="106" text-anchor="middle" font-family="IBM Plex Mono" font-size="7" font-weight="600" fill="#12201a" transform="skewY(17) translate(0 -12)">' + r + '</text></svg>';
+    if (tipo === "frasco") return '<svg class="emb" viewBox="0 0 120 130"><rect x="44" y="8" width="32" height="18" rx="4" fill="' + c + '"/><rect x="48" y="24" width="24" height="8" fill="#ddd5c2"/><path d="M38 40c0-6 6-8 22-8s22 2 22 8v78a8 8 0 0 1-8 8H46a8 8 0 0 1-8-8z" fill="#fff"/><rect x="38" y="62" width="44" height="40" fill="' + c + '"/><text x="60" y="86" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" font-weight="600" fill="#fff">' + r + '</text><rect x="44" y="44" width="6" height="70" rx="3" fill="#fff" opacity=".6"/></svg>';
+    if (tipo === "tubo") return '<svg class="emb" viewBox="0 0 120 130"><rect x="48" y="104" width="24" height="22" rx="3" fill="' + c + '"/><path d="M34 10h52l-8 94H42z" fill="#fff"/><path d="M34 10h52v8H34z" fill="#e1d9c7"/><path d="M38 42h44l-3 38H41z" fill="' + c + '"/><text x="60" y="65" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" font-weight="600" fill="#fff">' + r + '</text></svg>';
+    if (tipo === "pote") return '<svg class="emb" viewBox="0 0 120 130"><rect x="30" y="14" width="60" height="22" rx="6" fill="' + c + '"/><rect x="26" y="34" width="68" height="92" rx="14" fill="#fff"/><rect x="26" y="58" width="68" height="42" fill="' + c + '"/><text x="60" y="83" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" font-weight="600" fill="#fff">' + r + '</text><rect x="34" y="40" width="8" height="80" rx="4" fill="#fff" opacity=".5"/></svg>';
+    return '<svg class="emb" viewBox="0 0 120 130"><path d="M20 22c0-6 4-10 10-10h60c6 0 10 4 10 10v94c0 6-4 10-10 10H30c-6 0-10-4-10-10z" fill="' + c + '"/><path d="M20 26h80" stroke="#fff" stroke-width="3" opacity=".5"/><circle cx="60" cy="68" r="24" fill="#fff"/><path d="M50 66c0-6 5-10 10-10s10 4 10 10c0 8-10 12-10 12s-10-4-10-12z" fill="' + c + '" opacity=".6"/><text x="60" y="112" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" font-weight="600" fill="#fff">' + r + '</text></svg>';
   }
 
   var CATS = [
-    { id: "medicamentos", nome: "Medicamentos", sub: "Dor, febre, gripe e mais", cor: "#0b8a55", fundo: "#e8f7ef", ico: '<path d="M10.5 20.5 3.5 13.5a5 5 0 0 1 7-7l7 7a5 5 0 0 1-7 7zM7 10l7 7"/>' },
-    { id: "vitaminas", nome: "Vitaminas", sub: "Imunidade e energia", cor: "#d97706", fundo: "#fff3c4", ico: '<circle cx="12" cy="12" r="5"/><path d="M12 1v3M12 20v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M1 12h3M20 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>' },
-    { id: "derma", nome: "Dermocosméticos", sub: "Protetor, hidratante, pele", cor: "#c2416c", fundo: "#fde7ef", ico: '<path d="M12 2.7s6 6.4 6 11a6 6 0 0 1-12 0c0-4.6 6-11 6-11z"/>' },
-    { id: "bebe", nome: "Mamãe e bebê", sub: "Fraldas, lenços, cuidados", cor: "#2563eb", fundo: "#e6eefe", ico: '<circle cx="12" cy="8" r="5"/><path d="M3 21c1-4 5-6 9-6s8 2 9 6"/><path d="M10 7h.01M14 7h.01M10 10c1 1 3 1 4 0"/>' },
-    { id: "higiene", nome: "Higiene", sub: "Dia a dia da família", cor: "#0891b2", fundo: "#e0f5fa", ico: '<path d="M7 21h10M12 21V11M8 7a4 4 0 0 1 8 0v4H8z"/>' },
-    { id: "socorros", nome: "Primeiros socorros", sub: "Curativos, soro, álcool", cor: "#e5383b", fundo: "#fde8e8", ico: '<rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M12 11v6M9 14h6"/>' },
-    { id: "genericos", nome: "Genéricos", sub: "Mesmo efeito, menor preço", cor: "#7c3aed", fundo: "#efe7fe", ico: '<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/>' },
-    { id: "bem", nome: "Bem-estar", sub: "Sono, estômago, alergia", cor: "#059669", fundo: "#dcf7ec", ico: '<path d="M12 21s-7-4.4-9.3-8.6C.9 9.1 2.6 5 6.4 5c2.1 0 3.6 1.2 4.6 2.6l1 1.3 1-1.3C14 6.2 15.5 5 17.6 5c3.8 0 5.5 4.1 3.7 7.4C19 16.6 12 21 12 21z"/>' }
+    { id: "medicamentos", nome: "Medicamentos", ind: "Dor, febre, gripe e o que a receita pedir", cor: "#0d7a4b" },
+    { id: "genericos", nome: "Genéricos", ind: "Mesmo efeito, pelo menos 35% mais barato", cor: "#6d3fd6" },
+    { id: "vitaminas", nome: "Vitaminas", ind: "Imunidade, energia e suplementos", cor: "#e08a00" },
+    { id: "derma", nome: "Dermocosméticos", ind: "Protetor solar, hidratante e pele", cor: "#c2416c" },
+    { id: "bebe", nome: "Mamãe e bebê", ind: "Fraldas, lenços e cuidados", cor: "#2563eb" },
+    { id: "higiene", nome: "Higiene", ind: "O dia a dia da família inteira", cor: "#0891b2" },
+    { id: "socorros", nome: "Primeiros socorros", ind: "Curativos, soro e antissépticos", cor: "#d62839" },
+    { id: "bem", nome: "Bem-estar", ind: "Estômago, sono e alergia", cor: "#059669" }
   ];
-  var OFERTAS = [
-    { n: "Dipirona 1g", d: "Genérico · 10 comprimidos", c: "medicamentos", t: "caixa", cor: "#0b8a55", r: "DIPIRONA", de: 9.9, por: 5.99 },
-    { n: "Paracetamol 750mg", d: "Genérico · 20 comprimidos", c: "genericos", t: "caixa", cor: "#7c3aed", r: "PARACETAMOL", de: 12.9, por: 7.49 },
-    { n: "Vitamina C 1g", d: "Efervescente · 10 unidades", c: "vitaminas", t: "pote", cor: "#f59e0b", r: "VIT C", de: 19.9, por: 12.9 },
+  var ITENS = [
+    { n: "Dipirona 1g", d: "Genérico · 10 comprimidos", c: "medicamentos", t: "caixa", cor: "#0d7a4b", r: "DIPIRONA", de: 9.9, por: 5.99 },
+    { n: "Paracetamol 750mg", d: "Genérico · 20 comprimidos", c: "genericos", t: "caixa", cor: "#6d3fd6", r: "PARACET.", de: 12.9, por: 7.49 },
+    { n: "Vitamina C 1g", d: "Efervescente · 10 un.", c: "vitaminas", t: "pote", cor: "#f2a100", r: "VIT C", de: 19.9, por: 12.9 },
     { n: "Protetor solar FPS 50", d: "Corpo e rosto · 200 ml", c: "derma", t: "tubo", cor: "#c2416c", r: "FPS 50", de: 69.9, por: 49.9 },
-    { n: "Fralda infantil G", d: "Pacote com 30 unidades", c: "bebe", t: "pacote", cor: "#2563eb", r: "TAM. G", de: 54.9, por: 39.9 },
+    { n: "Fralda infantil G", d: "Pacote · 30 unidades", c: "bebe", t: "pacote", cor: "#2563eb", r: "TAM. G", de: 54.9, por: 39.9 },
     { n: "Hidratante corporal", d: "Pele seca · 400 ml", c: "derma", t: "frasco", cor: "#db2777", r: "HIDRATA", de: 29.9, por: 19.9 },
     { n: "Polivitamínico A-Z", d: "60 cápsulas", c: "vitaminas", t: "pote", cor: "#d97706", r: "A-Z", de: 39.9, por: 27.9 },
-    { n: "Soro fisiológico 0,9%", d: "Frasco 500 ml", c: "socorros", t: "frasco", cor: "#0891b2", r: "SORO", de: 9.9, por: 6.49 },
+    { n: "Soro fisiológico 0,9%", d: "Frasco · 500 ml", c: "socorros", t: "frasco", cor: "#0891b2", r: "SORO", de: 9.9, por: 6.49 },
     { n: "Escova dental macia", d: "Leve 2 unidades", c: "higiene", t: "tubo", cor: "#0e7490", r: "MACIA", de: 14.9, por: 8.99 },
-    { n: "Curativos adesivos", d: "Caixa com 40 unidades", c: "socorros", t: "caixa", cor: "#e5383b", r: "CURATIVO", de: 11.9, por: 7.9 },
-    { n: "Lenço umedecido", d: "Pacote com 100 unidades", c: "bebe", t: "pacote", cor: "#60a5fa", r: "LENÇOS", de: 15.9, por: 9.99 },
-    { n: "Antiácido em pó", d: "Caixa com 6 envelopes", c: "bem", t: "caixa", cor: "#059669", r: "ANTIÁCIDO", de: 13.9, por: 8.49 }
+    { n: "Curativos adesivos", d: "Caixa · 40 unidades", c: "socorros", t: "caixa", cor: "#d62839", r: "CURATIVO", de: 11.9, por: 7.9 },
+    { n: "Lenço umedecido", d: "Pacote · 100 unidades", c: "bebe", t: "pacote", cor: "#5b8def", r: "LENÇOS", de: 15.9, por: 9.99 },
+    { n: "Antiácido em pó", d: "Caixa · 6 envelopes", c: "bem", t: "caixa", cor: "#059669", r: "ANTIÁCIDO", de: 13.9, por: 8.49 }
   ];
-  function catDe(id) { for (var i = 0; i < CATS.length; i++) if (CATS[i].id === id) return CATS[i]; }
+  function cat(id) { for (var i = 0; i < CATS.length; i++) if (CATS[i].id === id) return CATS[i]; }
 
-  /* ---------- categorias ---------- */
-  document.getElementById("categoriasGrid").innerHTML = CATS.map(function (c, i) {
-    return '<button class="categoria revela' + (i % 4 ? " d" + (i % 4) : "") + '" data-cat="' + c.id + '" style="--cor:' + c.cor + ';--cor-fundo:' + c.fundo + '">' +
-      '<span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + c.ico + '</svg></span>' +
-      '<b>' + c.nome + '</b><span>' + c.sub + '</span><span class="seta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>';
+  /* ---------- 01 composição ---------- */
+  var seta = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  document.getElementById("composicaoLista").innerHTML = CATS.map(function (c, i) {
+    return '<button class="comp-linha" data-cat="' + c.id + '" style="--cor:' + c.cor + '"><span class="n">' + String(i + 1).padStart(2, "0") + '</span><span class="nome"><span class="pilula"></span>' + c.nome + '</span><span class="ind">' + c.ind + '</span><span class="seta">' + seta + '</span></button>';
   }).join("");
-
-  /* ---------- ofertas + filtros ---------- */
-  var filtros = document.getElementById("filtros"), pilula = document.getElementById("filtroPilula"), grade = document.getElementById("ofertasGrid"), filtroAtual = "todas";
-  [{ id: "todas", nome: "Todas" }].concat(CATS).forEach(function (c) {
-    if (c.id !== "todas" && !OFERTAS.some(function (o) { return o.c === c.id; })) return;
-    var b = document.createElement("button"); b.className = "filtro"; b.textContent = c.nome; b.dataset.id = c.id;
-    b.addEventListener("click", function () { filtrar(c.id); });
-    filtros.appendChild(b);
-  });
-  function moverPilula() { var a = filtros.querySelector(".filtro.ativo"); if (!a) return; pilula.style.left = a.offsetLeft + "px"; pilula.style.width = a.offsetWidth + "px"; }
-  function cartaoOferta(o, i) {
-    var c = catDe(o.c), pct = Math.round((1 - o.por / o.de) * 100);
-    return '<article class="oferta" style="animation-delay:' + i * 45 + 'ms;--fundo-prod:' + c.fundo + '">' +
-      '<div class="vitrine"><span class="desconto">-' + pct + '%</span>' + produto(o.t, o.cor, o.r) + '</div>' +
-      '<span class="cat">' + c.nome + '</span><h3>' + esc(o.n) + '</h3><p>' + esc(o.d) + '</p>' +
-      '<div class="rodape"><div><span class="de">' + brl(o.de) + '</span><span class="por"><small>R$</small>' + o.por.toFixed(2).replace(".", ",") + '</span></div>' +
-      '<button class="add" data-i="' + OFERTAS.indexOf(o) + '" aria-label="Adicionar ' + esc(o.n) + ' à lista">' + MAIS + '</button></div></article>';
-  }
-  function filtrar(id) {
-    filtroAtual = id;
-    filtros.querySelectorAll(".filtro").forEach(function (f) { f.classList.toggle("ativo", f.dataset.id === id); });
-    var lista = OFERTAS.filter(function (o) { return id === "todas" || o.c === id; });
-    grade.innerHTML = lista.map(cartaoOferta).join("");
-    grade.querySelectorAll(".oferta").forEach(function (el) { inclinar(el, 8); });
-    moverPilula();
-  }
-  document.getElementById("categoriasGrid").addEventListener("click", function (e) {
-    var b = e.target.closest(".categoria"); if (!b) return;
-    var id = b.dataset.cat;
-    if (!OFERTAS.some(function (o) { return o.c === id; })) id = "todas";
-    filtrar(id);
-    document.getElementById("ofertas").scrollIntoView({ behavior: "smooth" });
+  document.querySelectorAll(".comp-linha").forEach(function (b) {
+    b.addEventListener("click", function () { filtrar(b.getAttribute("data-cat")); document.getElementById("prateleira").scrollIntoView({ behavior: reduz ? "auto" : "smooth" }); });
   });
 
-  /* ---------- relógio das ofertas (até domingo 23:59) ---------- */
-  function relogio() {
-    var agora = new Date(), fim = new Date(agora);
-    fim.setDate(agora.getDate() + ((7 - agora.getDay()) % 7)); fim.setHours(23, 59, 59, 999);
-    var s = Math.max(0, Math.floor((fim - agora) / 1000));
-    function p(n) { return String(n).padStart(2, "0"); }
-    document.getElementById("rd").textContent = Math.floor(s / 86400) + "d";
-    document.getElementById("rh").textContent = p(Math.floor(s % 86400 / 3600)) + "h";
-    document.getElementById("rm").textContent = p(Math.floor(s % 3600 / 60)) + "m";
-    document.getElementById("rs").textContent = p(s % 60) + "s";
+  /* ---------- 02 prateleira ---------- */
+  var filtrosEl = document.getElementById("filtros");
+  filtrosEl.innerHTML = '<button class="filtro ativo" data-f="todos">Todos</button>' + CATS.map(function (c) { return '<button class="filtro" data-f="' + c.id + '">' + c.nome + '</button>'; }).join("");
+  var grade = document.getElementById("prateleiraGrade");
+  grade.innerHTML = ITENS.map(function (o, i) {
+    return '<article class="produto revela" data-c="' + o.c + '"><div class="vitrine">' + emb(o.t, o.cor, o.r) +
+      '<span class="etiqueta"><s>de ' + brl(o.de) + '</s><b><small>R$</small>' + o.por.toFixed(2).replace(".", ",") + '</b></span></div><div class="tabua"></div>' +
+      '<div class="info"><div><span class="cat">' + cat(o.c).nome + '</span><h3>' + esc(o.n) + '</h3><p>' + esc(o.d) + '</p></div>' +
+      '<button class="pegar" data-i="' + i + '" aria-label="Adicionar ' + esc(o.n) + ' ao cupom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div></article>';
+  }).join("");
+  function filtrar(f) {
+    filtrosEl.querySelectorAll(".filtro").forEach(function (b) { b.classList.toggle("ativo", b.getAttribute("data-f") === f); });
+    grade.querySelectorAll(".produto").forEach(function (p) {
+      var mostra = f === "todos" || p.getAttribute("data-c") === f || (f === "genericos" && /Genérico/.test(p.querySelector("p").textContent));
+      p.classList.toggle("some", !mostra);
+      if (mostra) p.classList.add("visivel");
+    });
   }
-  relogio(); setInterval(relogio, 1000);
-
-  /* ---------- palavra que gira no título ---------- */
-  (function () {
-    var spans = document.querySelectorAll("#gira span"), i = 0;
-    if (reduz) return;
-    setInterval(function () {
-      var atual = spans[i]; i = (i + 1) % spans.length; var prox = spans[i];
-      atual.classList.add("sai");
-      prox.classList.remove("espera", "sai");
-      setTimeout(function () { atual.classList.remove("sai"); atual.classList.add("espera"); }, 600);
-    }, 2200);
-  })();
-
-  /* ---------- conversa no celular ---------- */
-  (function () {
-    var bolhas = document.querySelectorAll("#chat .bolha"), dig = document.getElementById("digitando"), st = document.getElementById("statusChat");
-    var roteiro = [[0, 700], [1, 1700], [2, 1500], [3, 1500], [4, 1600]];
-    function rodar() {
-      bolhas.forEach(function (b) { b.classList.remove("mostra"); });
-      var t = 400;
-      roteiro.forEach(function (r) {
-        var b = bolhas[r[0]], ela = b.classList.contains("ela");
-        if (ela) { setTimeout(function () { dig.classList.add("mostra"); st.textContent = "digitando..."; }, t); t += 900; }
-        setTimeout(function () { dig.classList.remove("mostra"); st.textContent = "online"; b.classList.add("mostra"); }, t);
-        t += r[1];
-      });
-      setTimeout(rodar, t + 2600);
-    }
-    if (reduz) bolhas.forEach(function (b) { b.classList.add("mostra"); }); else rodar();
-  })();
-
-  /* ---------- busca rápida ---------- */
-  document.getElementById("buscaRapida").addEventListener("submit", function (e) {
+  filtrosEl.addEventListener("click", function (e) { var b = e.target.closest(".filtro"); if (b) filtrar(b.getAttribute("data-f")); });
+  document.getElementById("pergunta").addEventListener("submit", function (e) {
     e.preventDefault();
-    var q = document.getElementById("buscaTexto").value.trim();
-    if (!q) { document.getElementById("buscaTexto").focus(); aviso("Digite o nome do remédio"); return; }
-    window.open(zap("Olá! Vocês têm " + q + "? Qual o valor?"), "_blank", "noopener");
+    var v = document.getElementById("perguntaTxt").value.trim();
+    if (!v) { document.getElementById("perguntaTxt").focus(); return; }
+    window.open(zap("Olá! Vocês têm " + v + "? Qual o preço?"), "_blank", "noopener");
   });
 
-  /* ---------- partículas (cruzes e bolinhas) ---------- */
-  var part = (function () {
-    var c = document.getElementById("particulas"), ctx = c.getContext("2d"), dpr = Math.min(devicePixelRatio || 1, 2), ps = [], roda = false;
-    var CORES = ["#0b8a55", "#10a866", "#ffd23f", "#e5383b", "#ffffff"];
-    function tam() { c.width = innerWidth * dpr; c.height = innerHeight * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
-    tam(); addEventListener("resize", tam);
-    function cruz(x, y, s) { ctx.fillRect(x - s, y - s / 3, s * 2, s / 1.5); ctx.fillRect(x - s / 3, y - s, s / 1.5, s * 2); }
-    function loop() {
-      ctx.clearRect(0, 0, innerWidth, innerHeight);
-      for (var i = ps.length - 1; i >= 0; i--) {
-        var p = ps[i]; p.vx *= .97; p.vy = p.vy * .97 + p.g; p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.vida -= p.decai;
-        if (p.vida <= 0) { ps.splice(i, 1); continue; }
-        ctx.save(); ctx.globalAlpha = Math.min(1, p.vida * 1.4); ctx.fillStyle = p.cor; ctx.translate(p.x, p.y); ctx.rotate(p.rot);
-        if (p.forma) cruz(0, 0, p.s); else { ctx.beginPath(); ctx.arc(0, 0, p.s * .7, 0, Math.PI * 2); ctx.fill(); }
-        ctx.restore();
-      }
-      if (ps.length) requestAnimationFrame(loop); else { roda = false; ctx.clearRect(0, 0, innerWidth, innerHeight); }
+  /* ---------- cupom ---------- */
+  var cupom = [];
+  var imp = document.getElementById("impressora");
+  function total() { return cupom.reduce(function (s, l) { return s + l.o.por * l.q; }, 0); }
+  function qtdTotal() { return cupom.reduce(function (s, l) { return s + l.q; }, 0); }
+  function adicionar(i, origem) {
+    var o = ITENS[i], l = cupom.filter(function (x) { return x.o === o; })[0];
+    if (l) l.q++; else cupom.push({ o: o, q: 1 });
+    if (origem && !reduz) voar(origem);
+    setTimeout(function () {
+      atualizar(o);
+      imp.classList.remove("pulou"); void imp.offsetWidth; imp.classList.add("pulou");
+      var pc = document.getElementById("papelCupom"); pc.classList.remove("imprime"); void pc.offsetWidth; pc.classList.add("imprime");
+    }, origem && !reduz ? 620 : 0);
+    aviso(o.n + " no cupom");
+  }
+  function voar(svg) {
+    var r = svg.getBoundingClientRect(), alvo = document.getElementById("abrirCupom").getBoundingClientRect();
+    var c = svg.cloneNode(true); c.classList.add("voo"); c.style.left = r.left + "px"; c.style.top = r.top + "px"; c.style.width = r.width + "px"; c.style.height = r.height + "px";
+    document.body.appendChild(c);
+    var dx = alvo.left + alvo.width / 2 - (r.left + r.width / 2), dy = alvo.top - (r.top + r.height / 2);
+    c.animate([
+      { transform: "translate(0,0) scale(1) rotate(0)", opacity: 1 },
+      { transform: "translate(" + dx * .5 + "px," + (Math.min(dy * .5, 0) - 120) + "px) scale(.75) rotate(-20deg)", opacity: 1, offset: .45 },
+      { transform: "translate(" + dx + "px," + dy + "px) scale(.2) rotate(30deg)", opacity: .4 }
+    ], { duration: 640, easing: "cubic-bezier(.4,0,.6,1)" }).onfinish = function () { c.remove(); };
+  }
+  function atualizar(ult) {
+    var n = qtdTotal(), t = total();
+    imp.classList.toggle("tem", n > 0);
+    document.getElementById("maqSub").textContent = n ? n + (n > 1 ? " itens · " : " item · ") + brl(t) : "Nenhum item ainda";
+    if (ult) { document.getElementById("ultNome").textContent = ult.n.toUpperCase(); document.getElementById("ultValor").textContent = brl(ult.por); }
+    document.getElementById("ultTotal").textContent = brl(t);
+    desenharCupom();
+  }
+  function desenharCupom() {
+    var el = document.getElementById("itensCupom");
+    el.innerHTML = cupom.length ? cupom.map(function (l, k) {
+      return '<div class="item-cupom" style="animation-delay:' + k * 60 + 'ms"><span class="nm">' + esc(l.o.n) + '</span><span class="vl">' + brl(l.o.por * l.q) + '</span><span class="qt"><button data-m="' + k + '" aria-label="Tirar um">-</button>' + l.q + ' x ' + brl(l.o.por) + '<button data-p="' + k + '" aria-label="Pôr mais um">+</button></span></div>';
+    }).join("") : '<p class="cupom-vazio">CUPOM VAZIO<br>Pegue os produtos na prateleira<br>com o botão +</p>';
+    document.getElementById("totalCupom").textContent = brl(total());
+    document.getElementById("enviarCupom").toggleAttribute("disabled", !cupom.length);
+    montarMsg();
+  }
+  function montarMsg() {
+    var modo = document.querySelector("input[name=modo]:checked").value, nome = document.getElementById("nomeCupom").value.trim();
+    var msg = "Olá! Montei este pedido pelo site da Farmácia Preço Baixo:\n\n" + cupom.map(function (l) { return "• " + l.q + "x " + l.o.n + " (" + brl(l.o.por * l.q) + ")"; }).join("\n") +
+      "\n\nTotal estimado: " + brl(total()) + "\nVou " + (modo === "retirar" ? "retirar na farmácia" : "querer entrega") + "." + (nome ? "\nNome: " + nome : "") + "\n\nPode confirmar preço e estoque?";
+    document.getElementById("enviarCupom").href = zap(msg);
+  }
+  document.getElementById("itensCupom").addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    var k = +(b.getAttribute("data-m") || b.getAttribute("data-p"));
+    if (b.hasAttribute("data-m")) { cupom[k].q--; if (!cupom[k].q) cupom.splice(k, 1); } else cupom[k].q++;
+    atualizar();
+  });
+  document.querySelectorAll("input[name=modo]").forEach(function (r) { r.addEventListener("change", montarMsg); });
+  document.getElementById("nomeCupom").addEventListener("input", montarMsg);
+  grade.addEventListener("click", function (e) {
+    var b = e.target.closest(".pegar"); if (!b) return;
+    adicionar(+b.getAttribute("data-i"), b.closest(".produto").querySelector(".emb"));
+  });
+  var fundo = document.getElementById("fundo"), cupomEl = document.getElementById("cupom");
+  function abrir(v) {
+    fundo.classList.toggle("aberto", v); cupomEl.classList.toggle("aberto", v); cupomEl.setAttribute("aria-hidden", !v);
+    if (v) { var d = new Date(); document.getElementById("cupomData").textContent = d.toLocaleDateString("pt-BR") + " " + d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }); desenharCupom(); }
+  }
+  document.getElementById("abrirCupom").addEventListener("click", function () { abrir(true); });
+  document.getElementById("fecharCupom").addEventListener("click", function () { abrir(false); });
+  fundo.addEventListener("click", function () { abrir(false); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") abrir(false); });
+  desenharCupom();
+
+  /* ---------- 03 receita ---------- */
+  var arq = document.getElementById("arquivo"), soltar = document.getElementById("soltar");
+  function mostrarFoto(f) {
+    if (!f || !/^image\//.test(f.type)) return;
+    var url = URL.createObjectURL(f), img = soltar.querySelector("img") || document.createElement("img");
+    img.src = url; img.alt = "Foto da receita"; soltar.insertBefore(img, soltar.firstChild.nextSibling);
+    document.getElementById("vazio").style.visibility = "hidden";
+    var c = document.getElementById("carimbo"); c.classList.remove("bate"); void c.offsetWidth; c.classList.add("bate");
+    aviso("Receita pronta para enviar");
+  }
+  arq.addEventListener("change", function () { mostrarFoto(arq.files[0]); });
+  ["dragenter", "dragover"].forEach(function (ev) { soltar.addEventListener(ev, function (e) { e.preventDefault(); soltar.classList.add("arrastando"); }); });
+  ["dragleave", "drop"].forEach(function (ev) { soltar.addEventListener(ev, function () { soltar.classList.remove("arrastando"); }); });
+  soltar.addEventListener("drop", function (e) { e.preventDefault(); mostrarFoto(e.dataTransfer.files[0]); });
+  function msgRec() { var n = document.getElementById("nomeRec").value.trim(); document.getElementById("enviarRec").href = zap("Olá! " + (n ? "Sou " + n + ". " : "") + "Vou mandar a foto da minha receita para orçamento, de preferência com genérico."); }
+  document.getElementById("nomeRec").addEventListener("input", msgRec); msgRec();
+
+  /* ---------- 04 balança ---------- */
+  var gasto = document.getElementById("gasto");
+  function contar(el, de, ate, fmt) {
+    if (reduz) { el.textContent = fmt(ate); return; }
+    var t0 = performance.now();
+    (function passo(t) { var k = Math.min((t - t0) / 500, 1); el.textContent = fmt(de + (ate - de) * ease(k)); if (k < 1) requestAnimationFrame(passo); })(t0);
+  }
+  var ultAno = 840;
+  function balanca() {
+    var v = +gasto.value, gen = v * .65, ano = (v - gen) * 12;
+    gasto.style.setProperty("--p", ((v - 50) / 750 * 100) + "%");
+    document.getElementById("gastoTxt").textContent = brl0(v);
+    document.getElementById("valRef").textContent = brl0(v);
+    document.getElementById("valGen").textContent = brl0(gen);
+    document.getElementById("sobraMes").textContent = "São " + brl0(v - gen) + " por mês trocando pelo genérico quando a receita permite.";
+    contar(document.getElementById("sobraAno"), ultAno, ano, brl0); ultAno = ano;
+    var a = -(5 + (v - 50) / 750 * 9), rad = a * Math.PI / 180;
+    document.getElementById("trave").style.transform = "rotate(" + a + "deg)";
+    var dxA = 140 - Math.cos(rad) * 140, dyA = -Math.sin(rad) * 140;
+    document.getElementById("pratoA").style.transform = "translate(" + dxA + "px," + dyA + "px)";
+    document.getElementById("pratoB").style.transform = "translate(" + (-dxA) + "px," + (-dyA) + "px)";
+  }
+  gasto.addEventListener("input", balanca); balanca();
+
+  /* ---------- 05 porta-comprimidos ---------- */
+  var DIAS = [
+    { d: "DOM", nome: "Domingo", h: "08h às 12h", c: "#ff9fb2" },
+    { d: "SEG", nome: "Segunda", h: "07h30 às 21h", c: "#ffd166" },
+    { d: "TER", nome: "Terça", h: "07h30 às 21h", c: "#8fdcc8" },
+    { d: "QUA", nome: "Quarta", h: "07h30 às 21h", c: "#a9c8ff" },
+    { d: "QUI", nome: "Quinta", h: "07h30 às 21h", c: "#c6f0a8" },
+    { d: "SEX", nome: "Sexta", h: "07h30 às 21h", c: "#ffb4a2" },
+    { d: "SÁB", nome: "Sábado", h: "08h às 20h", c: "#c9b8ff" }
+  ];
+  var hoje = new Date().getDay(), org = document.getElementById("organizador");
+  org.innerHTML = DIAS.map(function (x, i) {
+    return '<button class="dia' + (i === hoje ? " aberto" : "") + '" style="--c:' + x.c + '" aria-label="' + x.nome + ': ' + x.h + '">' + (i === hoje ? '<span class="hoje">HOJE</span>' : "") +
+      '<span class="caixa"><i></i><b>' + x.nome + '</b><span>' + x.h + '*</span></span><span class="tampa"><b>' + x.d + '</b></span></button>';
+  }).join("");
+  org.addEventListener("click", function (e) { var b = e.target.closest(".dia"); if (b) b.classList.toggle("aberto"); });
+
+  /* ---------- faixa "se persistirem os sintomas" ---------- */
+  var trilho = document.getElementById("trilho"), frase = "<span>SE PERSISTIREM OS SINTOMAS, O MÉDICO DEVERÁ SER CONSULTADO</span><span>PREÇO BAIXO TODO DIA NO CENTRO DE SÃO GERALDO DO ARAGUAIA</span>";
+  trilho.innerHTML = frase + frase + frase + frase;
+  var tx = 0, tUlt = performance.now();
+  function faixa(t) { var dt = Math.min((t - tUlt) / 1000, .05); tUlt = t; tx -= 40 * dt; var w = trilho.scrollWidth / 2; if (-tx >= w) tx += w; trilho.style.transform = "translate3d(" + tx + "px,0,0)"; requestAnimationFrame(faixa); }
+  if (!reduz) requestAnimationFrame(faixa);
+
+  /* ---------- hero: cápsula que abre no scroll ---------- */
+  var cena = document.querySelector(".cena"), metA = document.getElementById("metA"), metB = document.getElementById("metB"), capsula = document.getElementById("capsula");
+  var mioloTxt = document.getElementById("mioloTxt"), mioloSub = document.getElementById("mioloSub"), dica = document.getElementById("dicaRolar");
+  var graosEl = document.getElementById("graos"), GRAOS = [], cores = ["#ffd60a", "#ffffff", "#19b36b", "#0d7a4b", "#ffe680"];
+  for (var g = 0; g < (innerWidth < 640 ? 38 : 64); g++) {
+    var s = document.createElement("span"), tam = 4 + Math.random() * 10, ang = Math.random() * Math.PI * 2;
+    s.className = "grao"; s.style.width = s.style.height = tam + "px"; s.style.margin = (-tam / 2) + "px 0 0 " + (-tam / 2) + "px";
+    s.style.background = cores[g % cores.length]; s.style.boxShadow = "0 2px 4px rgba(0,0,0,.18)";
+    graosEl.appendChild(s);
+    GRAOS.push({ el: s, vx: Math.cos(ang) * (0.25 + Math.random() * .75), vy: Math.sin(ang) * (0.25 + Math.random() * .6) - .45, g: .6 + Math.random() * .6 });
+  }
+  function seg(p, a, b) { return clamp((p - a) / (b - a), 0, 1); }
+  function cenaPasso() {
+    var r = cena.getBoundingClientRect(), total = r.height - innerHeight;
+    var p = reduz ? .8 : clamp(-r.top / (total || 1), 0, 1);
+    var cw = capsula.offsetWidth, giro = ease(seg(p, 0, .35)), abre = ease(seg(p, .22, .62)), sep = abre * cw * (innerWidth < 640 ? .4 : .44);
+    var flutua = reduz ? 0 : Math.sin(performance.now() / 900) * 6 * (1 - abre);
+    capsula.style.transform = "translateY(" + flutua + "px) rotate(" + (-22 + giro * 22) + "deg) scale(" + (1 - abre * .08) + ")";
+    metA.style.transform = "translateX(" + (-sep) + "px) rotate(" + (-abre * 10) + "deg)";
+    metB.style.transform = "translateX(" + sep + "px) rotate(" + (abre * 10) + "deg)";
+    var mostra = seg(p, .4, .7);
+    mioloTxt.style.opacity = mostra; mioloTxt.style.transform = "scale(" + (.7 + mostra * .3) + ")";
+    mioloSub.style.opacity = seg(p, .55, .8);
+    dica.style.opacity = 1 - seg(p, .05, .2);
+    var t = seg(p, .25, 1), alcance = cw * (innerWidth < 640 ? .9 : .75);
+    for (var i = 0; i < GRAOS.length; i++) {
+      var q = GRAOS[i], x = q.vx * alcance * t, y = (q.vy * alcance * t) + q.g * alcance * .9 * t * t;
+      q.el.style.opacity = t > 0 ? Math.min(1, t * 6) * (1 - seg(t, .82, 1)) : 0;
+      q.el.style.transform = "translate(" + x + "px," + y + "px) scale(" + (.4 + Math.min(t * 3, 1) * .6) + ")";
     }
-    function add(p) { if (reduz) return; ps.push(p); if (!roda) { roda = true; requestAnimationFrame(loop); } }
-    return {
-      rastro: function (x, y) { add({ x: x, y: y, vx: (Math.random() - .5) * 1.2, vy: -Math.random() * 1.2 - .3, g: -.01, s: Math.random() * 3 + 2.5, rot: Math.random() * 3, vr: (Math.random() - .5) * .1, vida: 1, decai: .022, forma: Math.random() > .5, cor: CORES[Math.random() * 3 | 0] }); },
-      explode: function (x, y, n) {
-        for (var i = 0; i < (n || 20); i++) { var a = Math.random() * Math.PI * 2, v = Math.random() * 6 + 2;
-          add({ x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 3, g: .16, s: Math.random() * 3 + 3, rot: Math.random() * 3, vr: (Math.random() - .5) * .3, vida: 1, decai: .016 + Math.random() * .01, forma: Math.random() > .4, cor: CORES[Math.random() * CORES.length | 0] }); }
-      }
-    };
-  })();
-  function centro(el) { var r = el.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; }
-  if (!toque) {
-    var ult = 0;
-    document.querySelectorAll(".hero, .final").forEach(function (s) {
-      s.addEventListener("mousemove", function (e) { var t = performance.now(); if (t - ult < 45) return; ult = t; part.rastro(e.clientX, e.clientY); });
-    });
   }
 
-  /* ---------- lista de compras ---------- */
-  var lista = [], gaveta = document.getElementById("gaveta"), fundo = document.getElementById("gavetaFundo"), barra = document.getElementById("barraLista");
-  var avisoEl = document.getElementById("aviso"), avisoT;
-  function aviso(t) { document.getElementById("avisoTxt").textContent = t; avisoEl.classList.add("mostra"); clearTimeout(avisoT); avisoT = setTimeout(function () { avisoEl.classList.remove("mostra"); }, 1800); }
-  function totais() { var q = 0, t = 0; lista.forEach(function (l) { q += l.qtd; t += l.o.por * l.qtd; }); return { q: q, t: t }; }
-  function voar(btn, o) {
-    if (reduz) return;
-    var r = btn.getBoundingClientRect(), alvo = (barra.classList.contains("mostra") ? barra : document.getElementById("abrirLista")).getBoundingClientRect();
-    var v = document.createElement("div"); v.className = "voo"; v.innerHTML = produto(o.t, o.cor, "");
-    v.style.left = (r.left + r.width / 2 - 25) + "px"; v.style.top = (r.top + r.height / 2 - 25) + "px"; document.body.appendChild(v);
-    var dx = alvo.left + alvo.width / 2 - (r.left + r.width / 2), dy = alvo.top + alvo.height / 2 - (r.top + r.height / 2);
-    v.animate([{ transform: "translate(0,0) rotate(0) scale(1)" }, { transform: "translate(" + dx * .5 + "px," + (dy * .5 - 110) + "px) rotate(-20deg) scale(1.15)", offset: .5 }, { transform: "translate(" + dx + "px," + dy + "px) rotate(10deg) scale(.3)", opacity: .3 }], { duration: 750, easing: "cubic-bezier(.5,0,.5,1)" }).onfinish = function () { v.remove(); };
-  }
-  function atualizar(pular) {
-    var s = totais(), q = document.getElementById("qtdTopo");
-    q.textContent = s.q; q.classList.toggle("tem", s.q > 0);
-    document.getElementById("barraTxt").textContent = s.q + (s.q === 1 ? " item · " : " itens · ") + brl(s.t);
-    barra.classList.toggle("mostra", s.q > 0 && !gaveta.classList.contains("aberta"));
-    if (pular) { var b = document.getElementById("abrirLista"); b.classList.remove("pulou"); void b.offsetWidth; b.classList.add("pulou"); }
-    var el = document.getElementById("gavetaLista"), pe = document.getElementById("gavetaPe");
-    if (!lista.length) { el.innerHTML = '<div class="gaveta-vazia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg><b>Sua lista está vazia</b><p>Toque no + das ofertas para montar.</p></div>'; pe.hidden = true; return; }
-    pe.hidden = false;
-    el.innerHTML = lista.map(function (l, i) {
-      return '<div class="item-lista"><span class="mini">' + produto(l.o.t, l.o.cor, "") + '</span><div class="nome">' + esc(l.o.n) + '<small>' + brl(l.o.por * l.qtd) + '</small></div>' +
-        '<div class="qtd-ctrl"><button data-i="' + i + '" data-d="-1" aria-label="Diminuir">−</button><span>' + l.qtd + '</span><button data-i="' + i + '" data-d="1" aria-label="Aumentar">+</button></div></div>';
-    }).join("");
-    document.getElementById("totalLista").textContent = brl(s.t);
-  }
-  document.addEventListener("click", function (e) {
-    var b = e.target.closest(".add"); if (!b) return;
-    var o = OFERTAS[Number(b.dataset.i)], l = lista.filter(function (x) { return x.o === o; })[0];
-    if (l) l.qtd++; else lista.push({ o: o, qtd: 1 });
-    voar(b, o); var c = centro(b); part.explode(c[0], c[1], 18);
-    b.classList.add("ok"); b.innerHTML = OK; setTimeout(function () { b.classList.remove("ok"); b.innerHTML = MAIS; }, 1100);
-    atualizar(true); aviso(o.n + " na sua lista");
-  });
-  document.getElementById("gavetaLista").addEventListener("click", function (e) {
-    var b = e.target.closest("button[data-i]"); if (!b) return;
-    var l = lista[Number(b.dataset.i)]; l.qtd += Number(b.dataset.d); if (l.qtd <= 0) lista.splice(Number(b.dataset.i), 1); atualizar(false);
-  });
-  function abrir() { gaveta.classList.add("aberta"); fundo.classList.add("aberta"); barra.classList.remove("mostra"); }
-  function fechar() { gaveta.classList.remove("aberta"); fundo.classList.remove("aberta"); atualizar(false); }
-  document.getElementById("abrirLista").addEventListener("click", abrir);
-  document.getElementById("verLista").addEventListener("click", abrir);
-  document.getElementById("fecharGaveta").addEventListener("click", fechar);
-  fundo.addEventListener("click", fechar);
-  addEventListener("keydown", function (e) { if (e.key === "Escape") fechar(); });
-  var tipo = "Retirada no balcão", tipoEl = document.getElementById("tipo");
-  tipoEl.querySelectorAll("button").forEach(function (b) {
-    b.addEventListener("click", function () {
-      tipo = b.dataset.tipo; tipoEl.querySelectorAll("button").forEach(function (x) { x.classList.toggle("sel", x === b); });
-      tipoEl.classList.toggle("retirada", tipo === "Entrega"); document.getElementById("endereco").hidden = tipo !== "Entrega";
-    });
-  });
-  document.getElementById("enviarLista").addEventListener("click", function () {
-    var nome = document.getElementById("nome").value.trim(), end = document.getElementById("endereco").value.trim();
-    var m = "Olá, Farmácia Preço Baixo! Montei esta lista pelo site:\n\n";
-    lista.forEach(function (l) { m += l.qtd + "x " + l.o.n + " (" + l.o.d + ") - " + brl(l.o.por * l.qtd) + "\n"; });
-    m += "\nTotal estimado: " + brl(totais().t) + "\n" + tipo + (tipo === "Entrega" && end ? ": " + end : "") + (nome ? "\nNome: " + nome : "") + "\n\nPodem confirmar preço e estoque?";
-    window.open(zap(m), "_blank", "noopener");
-  });
-  atualizar(false);
-
-  /* ---------- envio de receita ---------- */
-  (function () {
-    var zona = document.getElementById("soltar"), inp = document.getElementById("arquivo"), vazio = document.getElementById("vazio");
-    function mostrar(arq) {
-      zona.querySelectorAll(".previa, .papel").forEach(function (x) { x.remove(); });
-      vazio.style.display = "none";
-      if (arq && arq.type.indexOf("image") === 0) { var img = document.createElement("img"); img.className = "previa"; img.alt = "Prévia da receita"; img.src = URL.createObjectURL(arq); zona.insertBefore(img, zona.querySelector(".laser")); }
-      else { zona.insertAdjacentHTML("afterbegin", '<div class="papel"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>'); }
-      zona.classList.remove("lido"); zona.classList.add("lendo");
-      setTimeout(function () { zona.classList.remove("lendo"); zona.classList.add("lido"); var c = centro(zona); part.explode(c[0], c[1], 30); }, 2800);
-    }
-    inp.addEventListener("change", function () { if (inp.files[0]) mostrar(inp.files[0]); });
-    ["dragenter", "dragover"].forEach(function (ev) { zona.addEventListener(ev, function (e) { e.preventDefault(); zona.classList.add("arrastando"); }); });
-    ["dragleave", "drop"].forEach(function (ev) { zona.addEventListener(ev, function () { zona.classList.remove("arrastando"); }); });
-    zona.addEventListener("drop", function (e) { e.preventDefault(); if (e.dataTransfer.files[0]) mostrar(e.dataTransfer.files[0]); });
-    document.getElementById("enviarReceita").addEventListener("click", function (e) {
-      e.preventDefault();
-      var nome = document.getElementById("recNome").value.trim(), obs = document.getElementById("recObs").value.trim();
-      var m = "Olá, Farmácia Preço Baixo! Quero um orçamento desta receita (vou mandar a foto aqui na conversa)." + (nome ? "\nNome: " + nome : "") + (obs ? "\nObservação: " + obs : "");
-      window.open(zap(m), "_blank", "noopener");
-    });
-  })();
-
-  /* ---------- calculadora de economia ---------- */
-  (function () {
-    var r = document.getElementById("gasto"), g = document.getElementById("gastoTxt"), e = document.getElementById("economiaTxt"), atual = 0, raf;
-    function calc() {
-      var v = Number(r.value), alvo = Math.round(v * .35 * 12);
-      g.textContent = "R$ " + v;
-      r.style.background = "";
-      cancelAnimationFrame(raf); var ini = atual, t0 = performance.now();
-      (function passo(t) { var p = Math.min((t - t0) / 500, 1), k = 1 - Math.pow(1 - p, 3); atual = Math.round(ini + (alvo - ini) * k); e.textContent = "R$ " + atual.toLocaleString("pt-BR"); if (p < 1) raf = requestAnimationFrame(passo); })(t0);
-    }
-    r.addEventListener("input", calc); calc();
-  })();
-
-  /* ---------- topo, progresso, faixa ---------- */
-  var topo = document.getElementById("topo"), prog = document.getElementById("progresso"), trilho = document.getElementById("trilho");
-  trilho.innerHTML += trilho.innerHTML;
-  var x = 0, extra = 0, ultY = scrollY, ultT = performance.now();
-  addEventListener("scroll", function () {
-    topo.classList.toggle("rolou", scrollY > 20);
-    var max = document.documentElement.scrollHeight - innerHeight; prog.style.transform = "scaleX(" + (max > 0 ? scrollY / max : 0) + ")";
-    extra = Math.min(extra + Math.abs(scrollY - ultY) * 1.5, 260); ultY = scrollY;
-  }, { passive: true });
-  if (!reduz) (function anda(t) {
-    var dt = Math.min((t - ultT) / 1000, .05); ultT = t; extra *= Math.pow(.04, dt); x -= (70 + extra) * dt;
-    var metade = trilho.scrollWidth / 2; if (metade > 0 && -x >= metade) x += metade;
-    trilho.style.transform = "translate3d(" + x + "px,0,0)"; requestAnimationFrame(anda);
-  })(ultT);
-
-  /* ---------- parallax do celular ---------- */
-  if (!toque && !reduz) {
-    var palco = document.getElementById("palco"), hero = document.querySelector(".hero");
-    hero.addEventListener("mousemove", function (e) { var r = hero.getBoundingClientRect(); palco.style.setProperty("--px", ((e.clientX - r.left) / r.width - .5).toFixed(3)); palco.style.setProperty("--py", ((e.clientY - r.top) / r.height - .5).toFixed(3)); });
-    hero.addEventListener("mouseleave", function () { palco.style.setProperty("--px", 0); palco.style.setProperty("--py", 0); });
+  /* ---------- blister de progresso ---------- */
+  var SECOES = [["composicao", "Composição"], ["prateleira", "Prateleira"], ["posologia", "Receita"], ["economia", "Genérico"], ["horarios", "Horários"], ["onde", "Onde"]];
+  var blister = document.getElementById("blister");
+  blister.innerHTML = SECOES.map(function (s) { return '<a class="alveolo" href="#' + s[0] + '" data-nome="' + s[1] + '" aria-label="' + s[1] + '"></a>'; }).join("");
+  var alv = blister.querySelectorAll(".alveolo");
+  function blisterPasso() {
+    var meio = innerHeight * .45, atual = -1;
+    SECOES.forEach(function (s, i) { var el = document.getElementById(s[0]); if (el.getBoundingClientRect().top < meio) atual = i; });
+    blister.classList.toggle("mostra", atual >= 0 || scrollY > innerHeight);
+    alv.forEach(function (a, i) { a.classList.toggle("tomado", i < atual); a.classList.toggle("atual", i === atual); });
   }
 
-  /* ---------- cartões 3D ---------- */
-  function inclinar(el, f) {
-    if (toque || reduz || el.dataset.tilt) return; el.dataset.tilt = 1;
-    el.insertAdjacentHTML("beforeend", '<span class="brilho"></span>');
-    el.addEventListener("mousemove", function (e) {
-      var r = el.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
-      el.style.transition = "transform .12s ease-out, border-color .3s, box-shadow .3s";
-      el.style.transform = "perspective(900px) rotateX(" + (.5 - py) * f + "deg) rotateY(" + (px - .5) * f + "deg) translateY(-6px)";
-      el.style.setProperty("--mx", px * 100 + "%"); el.style.setProperty("--my", py * 100 + "%");
-    });
-    el.addEventListener("mouseleave", function () { el.style.transition = "transform .6s cubic-bezier(.2,.8,.2,1), border-color .3s, box-shadow .3s"; el.style.transform = ""; });
-  }
-  document.querySelectorAll(".categoria, .servico").forEach(function (el) { inclinar(el, 10); });
-  filtrar("todas");
-  addEventListener("resize", moverPilula);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(moverPilula);
+  function quadro() { cenaPasso(); blisterPasso(); requestAnimationFrame(quadro); }
+  requestAnimationFrame(quadro);
 
-  /* ---------- botões magnéticos ---------- */
-  if (!toque && !reduz) document.querySelectorAll(".hero .acoes .btn, .final .btn").forEach(function (b) {
-    b.addEventListener("mousemove", function (e) { var r = b.getBoundingClientRect(); b.style.transform = "translate(" + (e.clientX - r.left - r.width / 2) * .22 + "px," + (e.clientY - r.top - r.height / 2) * .3 + "px)"; });
-    b.addEventListener("mouseleave", function () { b.style.transform = ""; });
-  });
-
-  /* ---------- títulos palavra por palavra + revelar ---------- */
-  document.querySelectorAll("section h2.titulo").forEach(function (h) {
-    h.innerHTML = h.textContent.trim().split(/\s+/).map(function (w, i) { return '<span class="palavra"><span style="transition-delay:' + i * 70 + 'ms">' + esc(w) + '</span></span>'; }).join(" ");
-  });
-  if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("visivel"); io.unobserve(en.target); } }); }, { threshold: .15 });
-    document.querySelectorAll(".revela").forEach(function (el) { io.observe(el); });
-  } else document.querySelectorAll(".revela").forEach(function (el) { el.classList.add("visivel"); });
+  /* ---------- revelar ---------- */
+  var revs = document.querySelectorAll(".revela");
+  if ("IntersectionObserver" in window && !reduz) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("visivel"); io.unobserve(en.target); } }); }, { threshold: .12, rootMargin: "0px 0px -6% 0px" });
+    revs.forEach(function (el, i) { if (el.classList.contains("produto")) el.style.transitionDelay = (i % 4) * 80 + "ms"; io.observe(el); });
+  } else revs.forEach(function (el) { el.classList.add("visivel"); });
 })();
 </script>
 </body>
