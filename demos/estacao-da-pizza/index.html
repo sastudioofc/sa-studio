@@ -1,0 +1,1456 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<!--
+  MODELO DE SITE PARA PIZZARIA · SA Studio
+  Para adaptar a outra pizzaria:
+    1. Troque o título, a descrição e o theme-color logo abaixo.
+    2. Edite o objeto PIZZARIA no começo do <script> (nome, contato, horários, sabores, preços).
+    3. As cores ficam em :root (--tinta é a cor principal da marca).
+  As pizzas são desenhadas pelo próprio código a partir dos ingredientes de cada sabor,
+  então um sabor novo já aparece com a cobertura certa, sem precisar de foto.
+-->
+<title>Estação da Pizza · Rodízio e tele entrega em Biguaçu</title>
+<meta name="description" content="Estação da Pizza, no Centro de Biguaçu (SC). Rodízio de pizza e tele entrega. Monte sua pizza meio a meio e peça pelo WhatsApp.">
+<meta name="theme-color" content="#d4a066">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 58 6 12a52 30 0 0 1 52 0z' fill='%23f5c04e' stroke='%23b8692a' stroke-width='5' stroke-linejoin='round'/%3E%3Ccircle cx='26' cy='24' r='5' fill='%23b3141c'/%3E%3Ccircle cx='40' cy='28' r='4.5' fill='%23b3141c'/%3E%3Ccircle cx='32' cy='41' r='4' fill='%23b3141c'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Shrikhand&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --kraft: #d4a066;
+    --kraft-2: #c68f55;
+    --kraft-3: #a8723c;
+    --kraft-claro: #e6c393;
+    --creme: #fbf3e4;
+    --creme-2: #f4e7cf;
+    --tinta: #b3141c;
+    --tinta-2: #8a0d13;
+    --carvao: #24150c;
+    --carvao-2: #3a2416;
+    --queijo: #f6c64e;
+    --manjericao: #2f7d32;
+    --texto: #2b1a0e;
+    --texto-2: #5c4330;
+    --linha: rgba(43, 26, 14, .18);
+    --display: "Shrikhand", Georgia, serif;
+    --sans: "Archivo", system-ui, sans-serif;
+    --mola: cubic-bezier(.34, 1.56, .64, 1);
+    --ruido: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .2 0 0 0 0 .08 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    --fibras: repeating-linear-gradient(92deg, rgba(110, 60, 20, .045) 0 1px, transparent 1px 6px), repeating-linear-gradient(-3deg, rgba(255, 240, 210, .05) 0 2px, transparent 2px 11px);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; overflow-x: hidden; scroll-padding-top: 80px; }
+  body { font-family: var(--sans); color: var(--texto); background: var(--kraft); background-image: var(--ruido), var(--fibras); line-height: 1.55; overflow-x: clip; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  button, input, textarea, select { font: inherit; color: inherit; }
+  button { cursor: pointer; background: none; border: 0; }
+  img, svg { display: block; }
+  .embrulho { width: min(1200px, 100% - 32px); margin: 0 auto; }
+  .largo { font-stretch: 125%; text-transform: uppercase; letter-spacing: .04em; font-weight: 800; }
+  ::selection { background: var(--queijo); color: var(--texto); }
+  .defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+  /* faixa demo */
+  .demo { background: var(--carvao); color: var(--creme); text-align: center; font-size: .78rem; padding: 8px 16px; }
+  .demo a { color: var(--queijo); text-decoration: underline; text-underline-offset: 3px; }
+
+  /* ---------- topo ---------- */
+  .topo { position: sticky; top: 0; z-index: 60; transition: background .3s, box-shadow .3s; }
+  .topo.rolou { background: rgba(212, 160, 102, .9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 1px 0 var(--linha), 0 10px 30px -18px rgba(43, 26, 14, .6); }
+  .topo .embrulho { display: flex; align-items: center; gap: 22px; height: 72px; }
+  .marca { display: flex; align-items: center; gap: 10px; }
+  .marca svg { width: 44px; height: 44px; transition: transform .8s var(--mola); }
+  .marca:hover svg { transform: rotate(200deg); }
+  .marca b { font-family: var(--display); font-weight: 400; font-size: 1.35rem; color: var(--tinta); line-height: 1; display: block; letter-spacing: .01em; }
+  .marca small { font-size: .62rem; font-stretch: 125%; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--texto-2); }
+  .menu { display: flex; gap: 24px; margin-left: auto; align-items: center; }
+  .menu a { font-size: .74rem; font-stretch: 125%; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; position: relative; padding: 4px 0; }
+  .menu a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 3px; border-radius: 3px; background: var(--tinta); transform: scaleX(0); transform-origin: right; transition: transform .35s var(--mola); }
+  .menu a:hover::after { transform: scaleX(1); transform-origin: left; }
+  .aberto { display: inline-flex; align-items: center; gap: 8px; font-size: .78rem; font-weight: 700; padding: 6px 12px; border-radius: 99px; background: rgba(251, 243, 228, .55); border: 1px solid var(--linha); white-space: nowrap; }
+  .aberto i { width: 8px; height: 8px; border-radius: 50%; background: #9a8b7c; }
+  .aberto.sim i { background: #2e9b47; box-shadow: 0 0 0 0 rgba(46, 155, 71, .6); animation: pulso 1.8s infinite; }
+  @keyframes pulso { 70% { box-shadow: 0 0 0 9px rgba(46, 155, 71, 0); } 100% { box-shadow: 0 0 0 0 rgba(46, 155, 71, 0); } }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 54px; padding: 0 26px; border-radius: 14px; font-weight: 800; font-size: 1rem; white-space: nowrap; transition: transform .3s var(--mola), box-shadow .3s, background .2s, color .2s; position: relative; }
+  .btn svg { width: 20px; height: 20px; flex: none; }
+  .btn-tinta { background: var(--tinta); color: var(--creme); box-shadow: 0 5px 0 var(--tinta-2), 0 14px 24px -12px rgba(138, 13, 19, .8); }
+  .btn-tinta:hover { transform: translateY(-3px); box-shadow: 0 8px 0 var(--tinta-2), 0 20px 30px -14px rgba(138, 13, 19, .8); }
+  .btn-tinta:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--tinta-2); }
+  .btn-papel { background: var(--creme); color: var(--texto); box-shadow: 0 5px 0 var(--kraft-3); }
+  .btn-papel:hover { transform: translateY(-3px); box-shadow: 0 8px 0 var(--kraft-3); }
+  .btn-papel:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--kraft-3); }
+  .btn-zap { background: #1faa53; color: #fff; box-shadow: 0 5px 0 #13753a; }
+  .btn-zap:hover { transform: translateY(-3px); box-shadow: 0 8px 0 #13753a; }
+  .sacola-btn { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px; border-radius: 12px; background: var(--carvao); color: var(--creme); font-weight: 800; font-size: .9rem; transition: transform .3s var(--mola); }
+  .sacola-btn:hover { transform: translateY(-2px); }
+  .sacola-btn svg { width: 20px; height: 20px; }
+  .sacola-btn .n { min-width: 22px; height: 22px; border-radius: 11px; background: var(--queijo); color: var(--texto); font-size: .75rem; display: grid; place-items: center; padding: 0 6px; }
+  .pula { animation: pula .6s var(--mola); }
+  @keyframes pula { 30% { transform: scale(1.25) rotate(-6deg); } 60% { transform: scale(.94) rotate(3deg); } }
+
+  /* ---------- hero ---------- */
+  .hero { position: relative; min-height: calc(100svh - 72px - 33px); display: flex; align-items: center; padding: 30px 0 90px; overflow: hidden; }
+  .hero-grade { display: grid; grid-template-columns: 1.02fr 1fr; gap: 20px; align-items: center; }
+  .hero-texto { position: relative; z-index: 3; }
+  .etiqueta-hero { display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px 7px 8px; background: var(--creme); border-radius: 99px; font-size: .8rem; font-weight: 700; box-shadow: 0 3px 0 var(--kraft-3); margin-bottom: 22px; }
+  .etiqueta-hero b { white-space: nowrap; background: var(--tinta); color: var(--creme); border-radius: 99px; padding: 2px 10px; font-size: .68rem; font-stretch: 125%; letter-spacing: .08em; text-transform: uppercase; }
+  .hero h1 { font-family: var(--display); font-weight: 400; color: var(--tinta); font-size: clamp(3rem, 7.4vw, 6.6rem); line-height: .94; letter-spacing: -.005em; text-shadow: 0 1px 0 rgba(255, 230, 190, .35); }
+  .hero h1 .l { display: block; overflow: hidden; padding: .04em .1em .12em 0; margin-bottom: -.12em; }
+  .hero h1 .l > span { display: inline-block; transform: translateY(110%) rotate(6deg); animation: sobe 1s var(--mola) forwards; }
+  .hero h1 em { font-style: normal; color: var(--texto); position: relative; }
+  @keyframes sobe { to { transform: none; } }
+  .hero .apoio { font-size: clamp(1.02rem, 1.4vw, 1.2rem); max-width: 30em; margin: 22px 0 30px; color: var(--texto-2); opacity: 0; animation: aparece .8s .7s forwards; }
+  .hero .apoio b { color: var(--texto); }
+  .hero .acoes { display: flex; flex-wrap: wrap; gap: 14px; opacity: 0; animation: aparece .8s .85s forwards; }
+  @keyframes aparece { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  .hero-fatos { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 34px; opacity: 0; animation: aparece .8s 1s forwards; }
+  .hero-fatos div { display: flex; align-items: center; gap: 10px; font-size: .9rem; font-weight: 600; }
+  .hero-fatos svg { width: 30px; height: 30px; color: var(--tinta); flex: none; }
+
+  .hero-pizza { position: relative; aspect-ratio: 1; width: min(46vw, 640px); justify-self: end; margin-right: -4vw; }
+  .disco { position: absolute; inset: -5%; border-radius: 50%; background: radial-gradient(circle, var(--kraft-claro) 0 62%, #c48c51 62.4% 63%, var(--kraft-claro) 63.4% 100%); box-shadow: 0 50px 70px -30px rgba(60, 30, 8, .7), inset 0 0 0 1px rgba(110, 60, 20, .25); opacity: 0; transform: scale(.7); animation: disco 1s .1s var(--mola) forwards; }
+  .disco::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--ruido); opacity: .7; }
+  @keyframes disco { to { opacity: 1; transform: none; } }
+  #heroSvg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; cursor: grab; touch-action: pan-y; }
+  #heroSvg .fatia { transition: filter .3s; }
+  #heroSvg .fatia.erguida { filter: drop-shadow(0 14px 10px rgba(50, 20, 0, .45)); }
+  .brilho-hero { position: absolute; inset: 6%; border-radius: 50%; background: radial-gradient(circle at 34% 28%, rgba(255, 255, 255, .28), transparent 42%); pointer-events: none; mix-blend-mode: soft-light; }
+  .vapor { position: absolute; left: 50%; top: -10%; width: 60%; height: 60%; transform: translateX(-50%); pointer-events: none; z-index: 4; }
+  .vapor path { fill: none; stroke: rgba(255, 250, 240, .75); stroke-width: 7; stroke-linecap: round; filter: blur(5px); opacity: 0; animation: vapor 5.5s ease-in-out infinite; }
+  .vapor path:nth-child(2) { animation-delay: 1.8s; }
+  .vapor path:nth-child(3) { animation-delay: 3.6s; }
+  @keyframes vapor { 0% { opacity: 0; transform: translateY(60px) scaleX(.8); } 25% { opacity: .8; } 70% { opacity: .35; } 100% { opacity: 0; transform: translateY(-70px) scaleX(1.3); } }
+  .selo-giro { position: absolute; width: 27%; aspect-ratio: 1; left: -6%; bottom: 4%; z-index: 5; filter: drop-shadow(0 8px 10px rgba(60, 30, 8, .35)); opacity: 0; animation: aparece .7s 1.2s forwards; }
+  .selo-giro svg { width: 100%; height: 100%; }
+  .selo-giro .gira { transform-origin: 50% 50%; animation: gira 22s linear infinite; }
+  @keyframes gira { to { transform: rotate(360deg); } }
+  .dica-fatia { position: absolute; right: 18%; top: 2%; z-index: 6; background: var(--carvao); color: var(--creme); font-size: .78rem; font-weight: 700; padding: 8px 12px; border-radius: 10px; opacity: 0; transform: translateY(8px); transition: opacity .4s, transform .4s var(--mola); pointer-events: none; }
+  .dica-fatia::after { content: ""; position: absolute; left: 22px; bottom: -6px; border: 6px solid transparent; border-bottom: 0; border-top-color: var(--carvao); }
+  .dica-fatia.on { opacity: 1; transform: none; }
+  .flutua { position: absolute; z-index: 2; pointer-events: none; }
+  .flutua svg { width: 100%; height: 100%; overflow: visible; animation: boia 6s ease-in-out infinite; }
+  @keyframes boia { 50% { transform: translateY(-14px) rotate(14deg); } }
+
+  /* fita adesiva */
+  .fitas { position: relative; height: 130px; margin-top: -70px; z-index: 4; pointer-events: none; }
+  .fita { position: absolute; left: -5%; right: -5%; overflow: hidden; white-space: nowrap; padding: 14px 0; }
+  .fita.a { top: 18px; background: var(--tinta); color: var(--creme); transform: rotate(-2.2deg); box-shadow: 0 10px 20px -10px rgba(60, 10, 10, .6); z-index: 2; }
+  .fita.b { top: 40px; background: var(--creme); color: var(--tinta); transform: rotate(1.6deg); opacity: .95; }
+  .fita .trilho { display: inline-flex; gap: 0; animation: corre 38s linear infinite; }
+  .fita.b .trilho { animation-direction: reverse; animation-duration: 46s; }
+  .fita span { font-size: 1.05rem; font-stretch: 125%; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; padding: 0 22px; display: inline-flex; align-items: center; gap: 44px; }
+  .fita span::after { content: ""; width: 14px; height: 14px; background: currentColor; clip-path: polygon(50% 0, 100% 100%, 0 100%); transform: rotate(180deg); }
+  @keyframes corre { to { transform: translateX(-50%); } }
+
+  /* ---------- seções ---------- */
+  .secao { position: relative; padding: 110px 0; }
+  .cab { max-width: 760px; margin-bottom: 52px; }
+  .cab.centro { margin-inline: auto; text-align: center; }
+  .carimbo { display: inline-block; border: 2.5px solid var(--tinta); color: var(--tinta); border-radius: 6px; padding: 5px 12px 4px; font-size: .74rem; font-stretch: 125%; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; transform: rotate(-3deg); filter: url(#tinta); margin-bottom: 18px; }
+  .revela .carimbo { opacity: 0; transform: scale(1.9) rotate(-14deg); }
+  .revela.visto .carimbo { animation: carimba .55s cubic-bezier(.2, .9, .3, 1.2) forwards; }
+  @keyframes carimba { 60% { opacity: 1; transform: scale(.93) rotate(-2deg); } 100% { opacity: 1; transform: rotate(-3deg); } }
+  .cab h2 { font-family: var(--display); font-weight: 400; font-size: clamp(2.3rem, 5vw, 4rem); line-height: 1; color: var(--texto); }
+  .cab h2 em { font-style: normal; color: var(--tinta); }
+  .cab p { margin-top: 16px; font-size: 1.08rem; color: var(--texto-2); }
+  .surge { opacity: 0; transform: translateY(34px); transition: opacity .8s, transform .9s var(--mola); }
+  .surge.visto { opacity: 1; transform: none; }
+
+  /* borda ondulada de papelão */
+  .ondas { height: 26px; background: radial-gradient(circle at 50% 0, transparent 9px, var(--cor, var(--creme)) 9.5px) 0 0 / 26px 26px repeat-x; margin-bottom: -1px; position: relative; z-index: 2; }
+  .ondas.baixo { transform: scaleY(-1); margin: -1px 0 0; }
+
+  /* ---------- painel de partidas (mais pedidos) ---------- */
+  .partidas { background: var(--creme); --cor: var(--creme); }
+  .placa { background: #1b120c; border-radius: 22px; padding: 26px; box-shadow: 0 30px 60px -30px rgba(30, 15, 5, .8), inset 0 0 0 6px #2c1d13, inset 0 0 0 7px #4a3222; color: #f3e6cf; position: relative; }
+  .placa-topo { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 0 6px 18px; border-bottom: 1px dashed rgba(243, 230, 207, .2); margin-bottom: 14px; flex-wrap: wrap; }
+  .placa-topo h3 { font-size: 1.05rem; font-stretch: 125%; font-weight: 900; letter-spacing: .18em; color: var(--queijo); display: flex; align-items: center; gap: 12px; }
+  .placa-topo h3 svg { width: 26px; height: 26px; }
+  .relogio { font-variant-numeric: tabular-nums; font-weight: 800; font-size: 1.4rem; letter-spacing: .08em; color: #ffd27a; text-shadow: 0 0 12px rgba(255, 180, 60, .5); }
+  .linha-placa { display: grid; grid-template-columns: 74px 1fr 120px 150px; gap: 14px; align-items: center; padding: 10px 6px; border-bottom: 1px solid rgba(243, 230, 207, .07); }
+  .linha-placa.cab-placa { font-size: .66rem; font-stretch: 125%; font-weight: 800; letter-spacing: .16em; color: rgba(243, 230, 207, .5); padding-top: 0; }
+  .flaps { display: flex; gap: 2px; flex-wrap: nowrap; overflow: hidden; }
+  .flap { position: relative; width: 1.1em; height: 1.55em; background: linear-gradient(#2e2119 50%, #241912 50%); border-radius: 3px; display: grid; place-items: center; font-weight: 800; font-size: clamp(.8rem, 1.6vw, 1.15rem); color: #f7ecd8; text-transform: uppercase; box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .5); flex: none; }
+  .flap::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgba(0, 0, 0, .65); }
+  .flap.vira { animation: vira .09s linear; }
+  @keyframes vira { 50% { transform: scaleY(.15); filter: brightness(.6); } }
+  .forno-n { font-weight: 900; font-size: 1.5rem; color: var(--queijo); text-align: center; }
+  .st { font-size: .72rem; font-stretch: 125%; font-weight: 900; letter-spacing: .1em; padding: 6px 10px; border-radius: 6px; text-align: center; }
+  .st.saindo { background: #2e9b47; color: #fff; animation: pisca 1.2s steps(2) infinite; }
+  .st.forno { background: #e2681f; color: #fff; }
+  .st.prep { background: rgba(243, 230, 207, .12); color: #f3e6cf; }
+  @keyframes pisca { 50% { opacity: .55; } }
+  .preco-placa { font-weight: 800; color: #ffd27a; font-variant-numeric: tabular-nums; }
+  .trilhos { position: relative; height: 46px; margin: 16px 6px 0; border-bottom: 3px solid rgba(243, 230, 207, .25); background: repeating-linear-gradient(90deg, transparent 0 14px, rgba(243, 230, 207, .14) 14px 18px) bottom / 100% 8px no-repeat; overflow: hidden; }
+  .trem { position: absolute; bottom: 2px; left: 0; width: 230px; animation: piui 14s linear infinite; }
+  .trem svg { width: 100%; overflow: visible; }
+  .trem .roda { transform-box: fill-box; transform-origin: center; animation: gira 1s linear infinite; }
+  .trem .fumaca circle { animation: fumaca 1.6s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+  .trem .fumaca circle:nth-child(2) { animation-delay: .5s; }
+  .trem .fumaca circle:nth-child(3) { animation-delay: 1s; }
+  @keyframes piui { from { transform: translateX(-240px); } to { transform: translateX(calc(100vw)); } }
+  @keyframes fumaca { from { opacity: .8; transform: translate(0, 0) scale(.4); } to { opacity: 0; transform: translate(-30px, -16px) scale(1.4); } }
+  .placa-rodape { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 18px; padding: 0 6px; font-size: .86rem; color: rgba(243, 230, 207, .7); }
+
+  /* ---------- monte sua pizza ---------- */
+  .montar { background: var(--creme); }
+  .montar-grade { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: start; }
+  .mesa { position: sticky; top: 96px; border-radius: 28px; padding: 46px 30px 34px; background-color: #fbf3e4; background-image: linear-gradient(90deg, rgba(179, 20, 28, .5) 50%, transparent 50%), linear-gradient(rgba(179, 20, 28, .5) 50%, transparent 50%); background-size: 44px 44px; box-shadow: inset 0 0 80px rgba(60, 10, 10, .35), 0 30px 50px -30px rgba(60, 20, 10, .6); display: grid; justify-items: center; overflow: hidden; }
+  .mundo { perspective: 1500px; perspective-origin: 50% -20%; width: min(420px, 100%); }
+  .caixa { position: relative; width: 100%; aspect-ratio: 1; transform-style: preserve-3d; transform: rotateX(24deg); }
+  .caixa-fundo { position: absolute; inset: 0; border-radius: 6px; background: var(--kraft-2); background-image: var(--ruido), var(--fibras); box-shadow: inset 0 0 0 12px #b67f45, inset 0 0 0 13px rgba(80, 40, 10, .35), inset 0 14px 30px rgba(60, 30, 5, .45), 0 34px 40px -18px rgba(40, 10, 5, .7); display: grid; place-items: center; }
+  .parede { position: absolute; left: 0; right: 0; bottom: 0; height: 9%; transform-origin: 50% 100%; transform: rotateX(-90deg); background: #b47a40; background-image: var(--ruido); border-radius: 0 0 4px 4px; }
+  .pz-montar { width: 86%; aspect-ratio: 1; transition: transform .7s var(--mola); }
+  .pz-montar svg { width: 100%; height: 100%; overflow: visible; }
+  .tampa { position: absolute; inset: 0; transform-origin: 50% 0; transform: rotateX(104deg); transition: transform .8s cubic-bezier(.65, 0, .3, 1.15); transform-style: preserve-3d; }
+  .tampa.fecha { transform: rotateX(0deg); }
+  .tampa .face { position: absolute; inset: 0; border-radius: 6px; backface-visibility: hidden; -webkit-backface-visibility: hidden; display: grid; place-items: center; text-align: center; background: var(--kraft); background-image: var(--ruido), var(--fibras); }
+  .tampa .frente { box-shadow: inset 0 0 0 2px rgba(110, 60, 20, .35), 0 20px 30px -10px rgba(40, 10, 5, .5); color: var(--tinta); }
+  .tampa .frente .logo-tampa { font-family: var(--display); font-size: clamp(1.6rem, 4vw, 2.5rem); line-height: 1; filter: url(#tinta); }
+  .tampa .frente small { display: block; font-size: .7rem; font-stretch: 125%; font-weight: 900; letter-spacing: .2em; margin-top: 10px; }
+  .tampa .frente .circ { width: 52%; aspect-ratio: 1; border: 3px solid currentColor; border-radius: 50%; display: grid; place-items: center; padding: 10px; filter: url(#tinta); }
+  .tampa .verso { transform: rotateX(180deg); background-color: #c99359; color: rgba(110, 50, 15, .55); font-family: var(--display); font-size: 1.6rem; box-shadow: inset 0 -20px 40px rgba(60, 30, 5, .3); }
+  .ticket-montar { margin-top: 28px; background: var(--creme); border-radius: 10px; padding: 10px 18px; font-weight: 800; font-size: .86rem; box-shadow: 0 4px 0 rgba(90, 20, 20, .35); text-align: center; position: relative; z-index: 2; }
+  .ticket-montar span { color: var(--tinta); }
+  .painel { display: grid; gap: 30px; }
+  .passo h3 { display: flex; align-items: center; gap: 12px; font-size: 1.12rem; font-weight: 800; margin-bottom: 14px; }
+  .passo h3 i { font-style: normal; width: 32px; height: 32px; border-radius: 50%; background: var(--tinta); color: var(--creme); display: grid; place-items: center; font-size: .9rem; flex: none; }
+  .passo h3 small { font-weight: 500; color: var(--texto-2); font-size: .86rem; margin-left: auto; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip { border: 2px solid var(--linha); background: #fffaf1; border-radius: 14px; padding: 10px 16px; text-align: left; transition: border-color .2s, background .2s, transform .3s var(--mola), box-shadow .2s; display: flex; flex-direction: column; line-height: 1.2; }
+  .chip:hover { transform: translateY(-2px); border-color: var(--kraft-3); }
+  .chip b { font-weight: 800; font-size: .95rem; }
+  .chip small { color: var(--texto-2); font-size: .76rem; margin-top: 3px; }
+  .chip[aria-pressed="true"] { border-color: var(--tinta); background: #fff; box-shadow: 0 4px 0 var(--tinta); }
+  .chip[aria-pressed="true"] b { color: var(--tinta); }
+  .chip:disabled { opacity: .4; pointer-events: none; }
+  .chip.tamanho { min-width: 104px; align-items: center; text-align: center; }
+  .chip.tamanho svg { width: 34px; height: 34px; margin-bottom: 6px; transition: transform .5s var(--mola); }
+  .chip.tamanho[aria-pressed="true"] svg { transform: rotate(-35deg) scale(1.08); }
+  .vagas { display: grid; gap: 8px; margin-bottom: 14px; }
+  .vaga { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 12px; border: 2px dashed var(--linha); background: rgba(255, 250, 241, .6); text-align: left; transition: border-color .2s, background .2s; }
+  .vaga.ativa { border-style: solid; border-color: var(--tinta); background: #fff; }
+  .vaga .frac { font-weight: 900; color: var(--tinta); min-width: 56px; flex: none; }
+  .vaga .nome { font-weight: 700; flex: 1; }
+  .vaga .nome.vazio { color: var(--texto-2); font-weight: 500; }
+  .vaga .p { font-size: .85rem; color: var(--texto-2); font-variant-numeric: tabular-nums; }
+  .busca-sabor { width: 100%; height: 46px; border-radius: 12px; border: 2px solid var(--linha); background: #fffaf1; padding: 0 14px 0 40px; font-size: .95rem; outline: none; transition: border-color .2s; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235c4330' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: 12px 50%; background-size: 18px; }
+  .busca-sabor:focus { border-color: var(--tinta); }
+  .lista-sabores { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; max-height: 300px; overflow: auto; margin-top: 10px; padding: 2px 4px 8px 2px; scrollbar-width: thin; }
+  .sabor-opcao { display: flex; align-items: center; gap: 8px; padding: 6px 10px 6px 6px; border-radius: 12px; background: #fffaf1; border: 2px solid transparent; text-align: left; font-size: .86rem; font-weight: 700; line-height: 1.15; transition: border-color .2s, transform .3s var(--mola); }
+  .sabor-opcao:hover { border-color: var(--kraft-3); transform: translateY(-2px); }
+  .sabor-opcao.usado { border-color: var(--tinta); }
+  .sabor-opcao svg { width: 38px; height: 38px; flex: none; transition: transform .6s var(--mola); }
+  .sabor-opcao:hover svg { transform: rotate(90deg); }
+  .obs { width: 100%; min-height: 60px; border-radius: 12px; border: 2px solid var(--linha); background: #fffaf1; padding: 10px 14px; resize: vertical; outline: none; }
+  .obs:focus { border-color: var(--tinta); }
+  .fechar-montar { position: sticky; bottom: 12px; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 14px 14px 22px; border-radius: 18px; background: var(--carvao); color: var(--creme); box-shadow: 0 20px 40px -20px rgba(30, 10, 0, .8); }
+  .fechar-montar .total small { display: block; font-size: .74rem; opacity: .7; }
+  .fechar-montar .total b { font-size: 1.6rem; font-weight: 900; font-variant-numeric: tabular-nums; }
+
+  /* ---------- cardápio ---------- */
+  .cardapio { background: var(--kraft); }
+  .menu-papel { background: var(--creme); border-radius: 6px; padding: 40px clamp(18px, 4vw, 54px) 50px; position: relative; box-shadow: 0 2px 0 rgba(110, 60, 20, .25), 0 40px 60px -40px rgba(60, 30, 8, .8); background-image: var(--ruido); }
+  .menu-papel::before, .menu-papel::after { content: ""; position: absolute; top: -14px; width: 110px; height: 34px; background: rgba(251, 243, 228, .55); box-shadow: 0 1px 3px rgba(0, 0, 0, .1); backdrop-filter: blur(1px); }
+  .menu-papel::before { left: 8%; transform: rotate(-5deg); }
+  .menu-papel::after { right: 8%; transform: rotate(4deg); }
+  .abas { display: flex; gap: 6px; flex-wrap: wrap; border-bottom: 2px solid var(--texto); padding-bottom: 14px; margin-bottom: 8px; align-items: center; }
+  .aba { padding: 9px 16px; border-radius: 10px; font-weight: 800; font-size: .92rem; transition: background .2s, color .2s; }
+  .aba:hover { background: var(--creme-2); }
+  .aba[aria-selected="true"] { background: var(--texto); color: var(--creme); }
+  .abas .busca-sabor { width: 240px; margin-left: auto; height: 42px; }
+  .itens { display: grid; grid-template-columns: 1fr 1fr; column-gap: 54px; }
+  .item { display: grid; grid-template-columns: 74px 1fr auto; gap: 16px; align-items: center; padding: 18px 0; border-bottom: 1px dashed var(--linha); cursor: pointer; }
+  .item .mini { width: 74px; height: 74px; transition: transform .8s var(--mola); }
+  .item:hover .mini { transform: rotate(120deg) scale(1.08); }
+  .item .topo-item { display: flex; align-items: baseline; gap: 8px; }
+  .item h4 { font-size: 1.08rem; font-weight: 800; line-height: 1.2; }
+  .item .pontos { flex: 1; border-bottom: 2px dotted rgba(43, 26, 14, .35); transform: translateY(-4px); min-width: 20px; }
+  .item .preco s { color: var(--texto-2); font-weight: 600; font-size: .82em; margin-right: 4px; }
+  .item .preco { font-weight: 900; color: var(--tinta); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .item p { font-size: .88rem; color: var(--texto-2); margin-top: 3px; line-height: 1.4; }
+  .item .tams { font-size: .74rem; color: var(--texto-2); margin-top: 6px; font-variant-numeric: tabular-nums; }
+  .item .tams b { color: var(--texto); }
+  .mais { width: 42px; height: 42px; border-radius: 12px; background: var(--tinta); color: var(--creme); display: grid; place-items: center; transition: transform .3s var(--mola), background .2s; flex: none; }
+  .mais:hover { transform: rotate(90deg) scale(1.08); background: var(--tinta-2); }
+  .mais svg { width: 20px; height: 20px; }
+  .item.bebida { grid-template-columns: 54px 1fr auto; }
+  .item.bebida .lata { width: 54px; height: 54px; }
+  .tag { display: inline-block; font-size: .62rem; font-stretch: 125%; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; background: var(--queijo); color: var(--texto); padding: 2px 7px; border-radius: 5px; margin-left: 6px; vertical-align: 2px; }
+  .nada { padding: 40px 0; text-align: center; color: var(--texto-2); grid-column: 1 / -1; }
+  .nota-menu { margin-top: 26px; font-size: .84rem; color: var(--texto-2); text-align: center; }
+
+  /* ---------- rodízio ---------- */
+  .rodizio { background: var(--kraft); padding-top: 30px; }
+  .bilhete { display: grid; grid-template-columns: 1.4fr .8fr; background: var(--creme); border-radius: 22px; position: relative; filter: drop-shadow(0 30px 30px rgba(60, 30, 8, .45)); -webkit-mask: radial-gradient(circle at calc(63.6%) 0, transparent 20px, #000 20.5px) top / 100% 51% no-repeat, radial-gradient(circle at calc(63.6%) 100%, transparent 20px, #000 20.5px) bottom / 100% 51% no-repeat; mask: radial-gradient(circle at calc(63.6%) 0, transparent 20px, #000 20.5px) top / 100% 51% no-repeat, radial-gradient(circle at calc(63.6%) 100%, transparent 20px, #000 20.5px) bottom / 100% 51% no-repeat; }
+  .bilhete .esq { padding: clamp(26px, 4vw, 50px); }
+  .bilhete .dir { padding: clamp(26px, 4vw, 50px); border-left: 3px dashed rgba(43, 26, 14, .25); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 14px; background: linear-gradient(135deg, rgba(179, 20, 28, .06), transparent); }
+  .bilhete h2 { font-family: var(--display); font-weight: 400; font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1; color: var(--tinta); }
+  .bilhete .de-para { display: flex; align-items: center; gap: 16px; margin: 20px 0 24px; flex-wrap: wrap; }
+  .bilhete .de-para div small { display: block; font-size: .66rem; font-stretch: 125%; font-weight: 800; letter-spacing: .16em; color: var(--texto-2); }
+  .bilhete .de-para div b { font-size: 1.25rem; font-weight: 900; }
+  .bilhete .de-para .seta { flex: 1; min-width: 60px; height: 2px; background: repeating-linear-gradient(90deg, var(--texto) 0 8px, transparent 8px 14px); position: relative; }
+  .bilhete .de-para .seta::after { content: ""; position: absolute; right: -2px; top: -6px; border: 7px solid transparent; border-right: 0; border-left: 11px solid var(--texto); }
+  .inclui { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; }
+  .inclui li { list-style: none; display: flex; gap: 10px; align-items: flex-start; font-weight: 600; }
+  .inclui li::before { content: ""; width: 18px; height: 18px; border-radius: 50%; flex: none; margin-top: 3px; background: var(--tinta) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fbf3e4' stroke-width='4'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center / 12px no-repeat; }
+  .bilhete .valor small { display: block; font-size: .7rem; font-stretch: 125%; font-weight: 800; letter-spacing: .16em; color: var(--texto-2); }
+  .bilhete .valor b { font-size: clamp(2.4rem, 5vw, 3.4rem); font-weight: 900; line-height: 1; color: var(--texto); font-variant-numeric: tabular-nums; }
+  .bilhete .valor span { font-size: .9rem; color: var(--texto-2); }
+  .codigo { width: 100%; height: 44px; background: repeating-linear-gradient(90deg, var(--texto) 0 2px, transparent 2px 4px, var(--texto) 4px 7px, transparent 7px 9px, var(--texto) 9px 10px, transparent 10px 14px); opacity: .8; border-radius: 2px; }
+
+  /* ---------- fotos ---------- */
+  .fotos { background: var(--kraft); overflow: hidden; padding-bottom: 130px; }
+  .varal { display: flex; gap: 26px; width: max-content; padding: 20px 0 10px; animation: corre 60s linear infinite; }
+  .varal:hover { animation-play-state: paused; }
+  .polaroid { width: clamp(210px, 22vw, 280px); background: #fffdf8; padding: 12px 12px 0; box-shadow: 0 2px 0 rgba(110, 60, 20, .2), 0 24px 30px -18px rgba(60, 30, 8, .7); transform: rotate(var(--r)); transition: transform .5s var(--mola); position: relative; flex: none; }
+  .polaroid:hover { transform: rotate(0) scale(1.06) translateY(-8px); z-index: 2; }
+  .polaroid::before { content: ""; position: absolute; top: -12px; left: 50%; width: 90px; height: 26px; transform: translateX(-50%) rotate(-3deg); background: rgba(251, 243, 228, .6); box-shadow: 0 1px 2px rgba(0, 0, 0, .1); }
+  .polaroid img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; filter: saturate(1.12) contrast(1.04); }
+  .polaroid figcaption { font-family: var(--display); color: var(--tinta); font-size: 1.02rem; text-align: center; padding: 10px 4px 14px; line-height: 1.2; }
+
+  /* ---------- do forno à porta ---------- */
+  .entrega { background: var(--carvao); color: var(--creme); overflow: hidden; --cor: var(--carvao); }
+  .entrega::before { content: ""; position: absolute; left: 50%; bottom: -40%; width: 120%; height: 80%; transform: translateX(-50%); background: radial-gradient(ellipse at 50% 100%, rgba(255, 120, 30, .35), rgba(255, 80, 20, .1) 40%, transparent 70%); animation: chama 3s ease-in-out infinite alternate; pointer-events: none; }
+  @keyframes chama { to { opacity: .6; transform: translateX(-50%) scale(1.05); } }
+  .entrega .cab h2 { color: var(--creme); }
+  .entrega .cab h2 em { color: var(--queijo); }
+  .entrega .cab p { color: rgba(251, 243, 228, .7); }
+  .entrega .carimbo { border-color: var(--queijo); color: var(--queijo); }
+  .rota { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding-top: 70px; }
+  .estrada { position: absolute; top: 28px; left: 12.5%; right: 12.5%; height: 6px; border-radius: 3px; background: rgba(251, 243, 228, .12); }
+  .estrada i { position: absolute; inset: 0; border-radius: 3px; background: linear-gradient(90deg, var(--queijo), #ff7a2a); transform-origin: left; transform: scaleX(var(--p, 0)); transition: transform 1.2s cubic-bezier(.6, 0, .3, 1); }
+  .moto { position: absolute; top: -10px; left: calc(12.5% + (75% * var(--p, 0))); width: 64px; transform: translateX(-50%); transition: left 1.2s cubic-bezier(.6, 0, .3, 1); z-index: 2; }
+  .moto svg { width: 100%; overflow: visible; }
+  .moto.anda svg { animation: treme .18s linear infinite; }
+  @keyframes treme { 50% { transform: translateY(-1.5px) rotate(-1deg); } }
+  .etapa { text-align: center; position: relative; }
+  .etapa .bola { width: 64px; height: 64px; border-radius: 50%; margin: -70px auto 18px; background: #3a2618; border: 3px solid rgba(251, 243, 228, .15); display: grid; place-items: center; transition: background .4s, border-color .4s, transform .5s var(--mola); position: relative; z-index: 1; }
+  .etapa .bola svg { width: 30px; height: 30px; color: rgba(251, 243, 228, .5); transition: color .4s; }
+  .etapa.on .bola { background: var(--tinta); border-color: var(--queijo); transform: scale(1.1); }
+  .etapa.on .bola svg { color: var(--creme); }
+  .etapa h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 6px; }
+  .etapa p { font-size: .9rem; color: rgba(251, 243, 228, .65); max-width: 17em; margin: 0 auto; }
+  .etapa .grande { display: block; font-size: 1.8rem; font-weight: 900; color: var(--queijo); font-variant-numeric: tabular-nums; margin-bottom: 4px; }
+  .segredos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 90px; }
+  .segredo { background: rgba(251, 243, 228, .05); border: 1px solid rgba(251, 243, 228, .12); border-radius: 20px; padding: 26px; transition: transform .5s var(--mola), background .3s; }
+  .segredo:hover { transform: translateY(-6px) rotate(-1deg); background: rgba(251, 243, 228, .09); }
+  .segredo svg { width: 44px; height: 44px; color: var(--queijo); margin-bottom: 16px; }
+  .segredo h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
+  .segredo p { font-size: .92rem; color: rgba(251, 243, 228, .68); }
+
+  /* ---------- onde ---------- */
+  .onde { background: var(--creme); }
+  .onde-grade { display: grid; grid-template-columns: 1fr 1.15fr; gap: 40px; align-items: stretch; }
+  .cartao-onde { background: #fffaf1; border-radius: 24px; padding: 32px; border: 2px solid var(--linha); }
+  .cartao-onde h3 { font-size: .74rem; font-stretch: 125%; font-weight: 900; letter-spacing: .16em; color: var(--tinta); margin: 22px 0 8px; }
+  .cartao-onde h3:first-child { margin-top: 0; }
+  .cartao-onde p, .cartao-onde a.l { font-size: 1.02rem; font-weight: 600; }
+  .cartao-onde a.l { display: inline-flex; gap: 8px; align-items: center; border-bottom: 2px solid var(--queijo); }
+  .horas { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  .horas td { padding: 7px 0; border-bottom: 1px dashed var(--linha); }
+  .horas td:last-child { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .horas tr.hoje td { color: var(--tinta); font-weight: 800; }
+  .horas tr.hoje td:first-child::after { content: "hoje"; font-size: .62rem; font-stretch: 125%; letter-spacing: .1em; text-transform: uppercase; background: var(--tinta); color: var(--creme); padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: 2px; }
+  .mapa { border-radius: 24px; overflow: hidden; border: 8px solid #fff; box-shadow: 0 30px 50px -30px rgba(60, 30, 8, .6); transform: rotate(1.2deg); min-height: 380px; background: var(--creme-2); position: relative; }
+  .mapa iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+  /* ---------- final ---------- */
+  .final { position: relative; background: var(--tinta); color: var(--creme); text-align: center; overflow: hidden; --cor: var(--tinta); padding: 120px 0 130px; }
+  .final .bg-xadrez { position: absolute; inset: 0; background-image: linear-gradient(90deg, rgba(255, 255, 255, .06) 50%, transparent 50%), linear-gradient(rgba(255, 255, 255, .06) 50%, transparent 50%); background-size: 60px 60px; }
+  .final h2 { font-family: var(--display); font-weight: 400; font-size: clamp(3rem, 10vw, 8rem); line-height: .9; position: relative; }
+  .final p { font-size: 1.15rem; max-width: 32em; margin: 22px auto 34px; opacity: .9; position: relative; }
+  .final .acoes { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
+  .final .fatia-voa { position: absolute; width: clamp(110px, 16vw, 210px); opacity: .95; pointer-events: none; }
+  .final .fatia-voa svg { width: 100%; height: auto; overflow: visible; }
+  .final .fv1 { left: 4%; top: 16%; animation: boia 7s ease-in-out infinite; }
+  .final .fv2 { right: 5%; bottom: 10%; animation: boia 8s 1s ease-in-out infinite reverse; }
+  .final .btn-papel { box-shadow: 0 5px 0 var(--tinta-2); }
+
+  footer { background: var(--carvao); color: rgba(251, 243, 228, .7); padding: 34px 0; font-size: .86rem; }
+  footer .embrulho { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  footer b { color: var(--creme); }
+  footer a { color: var(--queijo); }
+
+  /* ---------- sacola ---------- */
+  .sacola-flutua { position: fixed; right: 18px; bottom: 18px; z-index: 70; transform: translateY(140%); transition: transform .5s var(--mola); }
+  .sacola-flutua.on { transform: none; }
+  .sacola-flutua .sacola-btn { height: 58px; padding: 0 20px; border-radius: 18px; box-shadow: 0 18px 30px -12px rgba(30, 10, 0, .7); background: var(--tinta); }
+  .gaveta { position: fixed; inset: 0; z-index: 90; pointer-events: none; }
+  .gaveta .fundo { position: absolute; inset: 0; background: rgba(30, 15, 5, .55); opacity: 0; transition: opacity .3s; }
+  .gaveta .lado { position: absolute; top: 0; right: 0; bottom: 0; width: min(440px, 100%); background: var(--creme); display: flex; flex-direction: column; transform: translateX(100%); transition: transform .45s cubic-bezier(.6, 0, .25, 1); box-shadow: -20px 0 50px rgba(30, 15, 5, .3); }
+  .gaveta.on { pointer-events: auto; }
+  .gaveta.on .fundo { opacity: 1; }
+  .gaveta.on .lado { transform: none; }
+  .gaveta header { display: flex; align-items: center; justify-content: space-between; padding: 20px 22px; border-bottom: 2px solid var(--texto); }
+  .gaveta header h3 { font-family: var(--display); font-weight: 400; font-size: 1.7rem; color: var(--tinta); }
+  .x { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--creme-2); font-size: 1.4rem; line-height: 1; }
+  .gaveta .rolagem { flex: 1; overflow: auto; padding: 8px 22px 22px; }
+  .linha-item { display: grid; grid-template-columns: 52px 1fr auto; gap: 12px; padding: 14px 0; border-bottom: 1px dashed var(--linha); align-items: center; }
+  .linha-item .mini { width: 52px; height: 52px; }
+  .linha-item b { display: block; font-weight: 800; font-size: .95rem; line-height: 1.25; }
+  .linha-item small { display: block; color: var(--texto-2); font-size: .8rem; line-height: 1.35; }
+  .qtd { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
+  .qtd button { width: 28px; height: 28px; border-radius: 8px; background: var(--creme-2); font-weight: 900; }
+  .linha-item .v { font-weight: 800; font-variant-numeric: tabular-nums; align-self: start; }
+  .vazio-sacola { text-align: center; padding: 50px 10px; color: var(--texto-2); }
+  .vazio-sacola svg { width: 90px; margin: 0 auto 14px; opacity: .8; }
+  .form-pedido { display: grid; gap: 12px; margin-top: 20px; }
+  .form-pedido label { font-size: .78rem; font-weight: 800; letter-spacing: .04em; }
+  .form-pedido input, .form-pedido select { width: 100%; height: 46px; border-radius: 12px; border: 2px solid var(--linha); background: #fffaf1; padding: 0 14px; outline: none; margin-top: 4px; }
+  .form-pedido input:focus, .form-pedido select:focus { border-color: var(--tinta); }
+  .alterna { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: var(--creme-2); padding: 5px; border-radius: 14px; }
+  .alterna button { height: 42px; border-radius: 10px; font-weight: 800; transition: background .2s, color .2s; }
+  .alterna button[aria-pressed="true"] { background: var(--texto); color: var(--creme); }
+  .resumo { border-top: 2px solid var(--texto); padding: 16px 22px; display: grid; gap: 6px; background: var(--creme); }
+  .resumo div { display: flex; justify-content: space-between; font-size: .92rem; }
+  .resumo .t { font-size: 1.2rem; font-weight: 900; }
+  .resumo .btn { width: 100%; margin-top: 8px; }
+  .aviso { position: fixed; left: 50%; bottom: 96px; z-index: 95; transform: translate(-50%, 30px); opacity: 0; background: var(--carvao); color: var(--creme); padding: 12px 18px; border-radius: 12px; font-weight: 700; font-size: .9rem; transition: opacity .3s, transform .4s var(--mola); pointer-events: none; white-space: nowrap; }
+  .aviso.on { opacity: 1; transform: translate(-50%, 0); }
+  .voador { position: fixed; z-index: 100; pointer-events: none; }
+  .voador svg { width: 100%; height: 100%; }
+
+  /* ---------- responsivo ---------- */
+  @media (max-width: 1020px) {
+    .menu a { display: none; }
+    .hero-grade { grid-template-columns: 1fr; }
+    .hero { padding-top: 0; }
+    .hero-pizza { order: -1; width: min(92vw, 560px); justify-self: center; margin: 10px 0 10px; }
+    .selo-giro { left: -2%; bottom: -2%; }
+    .montar-grade { grid-template-columns: 1fr; gap: 40px; }
+    .mesa { position: relative; top: 0; }
+    .itens { grid-template-columns: 1fr; }
+    .onde-grade { grid-template-columns: 1fr; }
+    .segredos { grid-template-columns: 1fr; }
+    .bilhete { grid-template-columns: 1fr; -webkit-mask: none; mask: none; }
+    .bilhete .dir { border-left: 0; border-top: 3px dashed rgba(43, 26, 14, .25); }
+  }
+  @media (max-width: 700px) {
+    .topo .embrulho { height: 62px; gap: 10px; }
+    .marca svg { width: 36px; height: 36px; }
+    .marca b { font-size: 1.1rem; }
+    .marca small { display: none; }
+    .aberto span { display: none; }
+    .aberto { padding: 9px; }
+    .sacola-btn .rot { display: none; }
+    .secao { padding: 80px 0; }
+    .hero { min-height: 0; padding-bottom: 80px; }
+    .hero h1 { font-size: clamp(2.7rem, 13vw, 4rem); }
+    .hero .acoes .btn { flex: 1 1 100%; }
+    .fitas { margin-top: -60px; height: 110px; }
+    .linha-placa { grid-template-columns: 1fr 84px; gap: 8px 8px; }
+    .st { font-size: .58rem; padding: 6px 4px; letter-spacing: .04em; }
+    .linha-placa .forno-n, .linha-placa.cab-placa span:nth-child(1), .linha-placa.cab-placa span:nth-child(3) { display: none; }
+    .linha-placa .preco-placa { display: none; }
+    .linha-placa .flaps { grid-column: 1; }
+    .flap { width: 14px; font-size: .7rem; }
+    .placa { padding: 16px 12px; }
+    .rota { grid-template-columns: 1fr; gap: 34px; padding: 0 0 0 86px; }
+    .estrada { top: 10px; bottom: 10px; left: 30px; right: auto; width: 6px; height: auto; }
+    .estrada i { transform: scaleY(var(--p, 0)); transform-origin: top; }
+    .moto { top: calc(10px + (100% - 20px) * var(--p, 0)); left: 33px; width: 50px; transform: translate(-50%, -50%) rotate(90deg); transition: top 1.2s cubic-bezier(.6, 0, .3, 1); }
+    .etapa { text-align: left; }
+    .etapa .bola { position: absolute; left: -86px; top: -6px; margin: 0; width: 56px; height: 56px; }
+    .etapa p { margin: 0; }
+    .inclui { grid-template-columns: 1fr; }
+    .abas .busca-sabor { width: 100%; margin: 6px 0 0; }
+    .item { grid-template-columns: 60px 1fr auto; gap: 12px; }
+    .item .mini { width: 60px; height: 60px; }
+    .item .pontos { display: none; }
+    .item .topo-item { flex-direction: column; gap: 2px; }
+    .mesa { padding: 34px 16px 26px; }
+    .fechar-montar .total b { font-size: 1.3rem; }
+    .fechar-montar .btn { padding: 0 18px; }
+    .sacola-flutua { left: 12px; right: 12px; bottom: 12px; }
+    .sacola-flutua .sacola-btn { width: 100%; justify-content: center; }
+    .final .fatia-voa { opacity: .35; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+    .surge { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- gradientes e filtros usados por todas as pizzas desenhadas -->
+<svg class="defs" aria-hidden="true">
+  <defs>
+    <radialGradient id="gMassa"><stop offset=".6" stop-color="#f0c27c"/><stop offset=".86" stop-color="#d98f42"/><stop offset=".95" stop-color="#b8692a"/><stop offset="1" stop-color="#8e4a1c"/></radialGradient>
+    <radialGradient id="gMolho"><stop offset=".7" stop-color="#c3341f"/><stop offset="1" stop-color="#8f1f10"/></radialGradient>
+    <radialGradient id="gQueijo" fx=".42" fy=".4"><stop offset="0" stop-color="#fde49a"/><stop offset=".6" stop-color="#f7c955"/><stop offset="1" stop-color="#e8a536"/></radialGradient>
+    <radialGradient id="gChoco" fx=".4" fy=".38"><stop offset="0" stop-color="#7a4022"/><stop offset=".7" stop-color="#4f2512"/><stop offset="1" stop-color="#341607"/></radialGradient>
+    <radialGradient id="gBranco" fx=".4" fy=".38"><stop offset="0" stop-color="#fffaf0"/><stop offset=".7" stop-color="#f6e8cc"/><stop offset="1" stop-color="#e8d2a8"/></radialGradient>
+    <radialGradient id="gCatupiryBase" fx=".4" fy=".38"><stop offset="0" stop-color="#fffdf6"/><stop offset=".7" stop-color="#f9efd9"/><stop offset="1" stop-color="#efd9ae"/></radialGradient>
+    <radialGradient id="gCal" fx=".38" fy=".35"><stop offset="0" stop-color="#c9573a"/><stop offset=".8" stop-color="#a23a22"/><stop offset="1" stop-color="#7a2412"/></radialGradient>
+    <radialGradient id="gPep" fx=".38" fy=".35"><stop offset="0" stop-color="#d8442a"/><stop offset=".75" stop-color="#b02a18"/><stop offset="1" stop-color="#6e160a"/></radialGradient>
+    <radialGradient id="gTom"><stop offset=".55" stop-color="#f2603c"/><stop offset=".8" stop-color="#e2402a"/><stop offset="1" stop-color="#b52817"/></radialGradient>
+    <radialGradient id="gBrilho" cx=".35" cy=".3" r=".6"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gSombra"><stop offset=".86" stop-color="#3a1a05" stop-opacity=".5"/><stop offset="1" stop-color="#3a1a05" stop-opacity="0"/></radialGradient>
+    <filter id="tinta" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="r"/><feDisplacementMap in="SourceGraphic" in2="r" scale="2.4"/></filter>
+  </defs>
+</svg>
+
+<div class="demo">Prévia criada pela SA Studio para a <span data-c="nome"></span>. <a href="https://sastudio.vercel.app/" target="_blank" rel="noopener">Conheça a SA Studio</a></div>
+
+<header class="topo" id="topo">
+  <div class="embrulho">
+    <a href="#inicio" class="marca" aria-label="Início">
+      <svg viewBox="-100 -100 200 200" id="marcaSvg" aria-hidden="true"></svg>
+      <span><b data-c="nome"></b><small data-c="tipo"></small></span>
+    </a>
+    <nav class="menu" aria-label="Menu principal">
+      <a href="#monte">Monte a sua</a>
+      <a href="#cardapio">Cardápio</a>
+      <a href="#rodizio" data-se="rodizio">Rodízio</a>
+      <a href="#onde">Onde estamos</a>
+      <span class="aberto" id="aberto"><i></i><span>...</span></span>
+      <button class="sacola-btn" data-abrir-sacola aria-label="Abrir pedido">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 9h18l-2 11H5z"/><path d="M8 9V7a4 4 0 0 1 8 0v2"/></svg>
+        <span class="rot">Pedido</span><span class="n" data-qtd>0</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ================= HERO ================= -->
+<section class="hero" id="inicio">
+  <div class="embrulho hero-grade">
+    <div class="hero-texto">
+      <div class="etiqueta-hero"><b data-c="cidadeCurta"></b><span data-c="chamadaTopo"></span></div>
+      <h1 id="titulo"></h1>
+      <p class="apoio" id="subtitulo"></p>
+      <div class="acoes">
+        <a href="#monte" class="btn btn-tinta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 21 3 5a15 8 0 0 1 18 0z"/><circle cx="10" cy="9" r="1.3" fill="currentColor"/><circle cx="14" cy="11" r="1.3" fill="currentColor"/></svg>
+          Montar minha pizza
+        </a>
+        <a href="#cardapio" class="btn btn-papel">Ver o cardápio</a>
+      </div>
+      <div class="hero-fatos" id="fatos"></div>
+    </div>
+    <div class="hero-pizza" id="heroPizza">
+      <div class="disco"></div>
+      <svg id="heroSvg" viewBox="-100 -100 200 200" role="img" aria-label="Pizza girando. Toque numa fatia para puxar."></svg>
+      <div class="brilho-hero"></div>
+      <svg class="vapor" viewBox="0 0 200 200" aria-hidden="true">
+        <path d="M70 190 C50 150 95 130 75 90 C60 60 90 40 80 10"/>
+        <path d="M105 190 C125 150 85 125 108 85 C125 55 98 35 110 5"/>
+        <path d="M138 190 C120 155 155 130 135 95 C122 70 148 50 140 20"/>
+      </svg>
+      <div class="selo-giro" aria-hidden="true">
+        <svg viewBox="0 0 200 200">
+          <defs><path id="circSelo" d="M100 100 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0"/></defs>
+          <circle cx="100" cy="100" r="96" fill="#b3141c"/>
+          <circle cx="100" cy="100" r="88" fill="none" stroke="#fbf3e4" stroke-width="1.5" stroke-dasharray="3 5"/>
+          <g class="gira"><text font-family="Archivo" font-stretch="125%" font-weight="900" font-size="17" letter-spacing="4.2" fill="#fbf3e4"><textPath href="#circSelo" id="seloTexto"></textPath></text></g>
+          <g transform="translate(100 100)"><path d="M0 34 -30 -20a62 36 0 0 1 60 0z" fill="#f6c64e" stroke="#fbf3e4" stroke-width="5" stroke-linejoin="round"/><circle cx="-8" cy="-9" r="6" fill="#b3141c"/><circle cx="9" cy="-4" r="5" fill="#b3141c"/><circle cx="0" cy="13" r="4.5" fill="#b3141c"/></g>
+        </svg>
+      </div>
+      <div class="dica-fatia" id="dicaFatia">Puxa uma fatia!</div>
+    </div>
+  </div>
+  <div id="flutuantes"></div>
+</section>
+
+<div class="fitas" aria-hidden="true">
+  <div class="fita a"><div class="trilho" id="fitaA"></div></div>
+  <div class="fita b"><div class="trilho" id="fitaB"></div></div>
+</div>
+
+<!-- ================= PAINEL ================= -->
+<div class="ondas" style="--cor: var(--creme)"></div>
+<section class="secao partidas revela" id="saindo">
+  <div class="embrulho">
+    <div class="cab">
+      <span class="carimbo">Mais pedidos</span>
+      <h2>Saindo do forno <em>agora</em></h2>
+      <p>Os sabores que mais embarcam por aqui. Toque em um para montar a sua.</p>
+    </div>
+    <div class="placa surge">
+      <div class="placa-topo">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 22l2-4M16 22l-2-4"/></svg>PARTIDAS DO FORNO</h3>
+        <span class="relogio" id="relogio">00:00</span>
+      </div>
+      <div class="linha-placa cab-placa"><span>FORNO</span><span>SABOR</span><span id="precoCab">PREÇO</span><span>STATUS</span></div>
+      <div id="placaLinhas"></div>
+      <div class="trilhos" aria-hidden="true"><div class="trem" id="trem"></div></div>
+      <div class="placa-rodape"><span>Painel ilustrativo. Os sabores vêm do cardápio da casa.</span><a href="#cardapio" class="btn btn-papel" style="height:42px;padding:0 18px;font-size:.88rem">Ver todos os sabores</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MONTE ================= -->
+<section class="secao montar revela" id="monte">
+  <div class="embrulho">
+    <div class="cab">
+      <span class="carimbo">Do seu jeito</span>
+      <h2>Monte a sua, <em>meio a meio</em> se quiser</h2>
+      <p>Escolha o tamanho, os sabores e a borda. A pizza vai se montando na caixa, e o pedido chega pronto no nosso WhatsApp.</p>
+    </div>
+    <div class="montar-grade">
+      <div class="mesa surge">
+        <div class="mundo">
+          <div class="caixa" id="caixa">
+            <div class="caixa-fundo"><div class="pz-montar" id="pzMontar"></div></div>
+            <div class="parede"></div>
+            <div class="tampa" id="tampa">
+              <div class="face frente"><div class="circ"><div><div class="logo-tampa" data-c="nome"></div><small>QUENTINHA PRA VOCÊ</small></div></div></div>
+              <div class="face verso">Bom apetite!</div>
+            </div>
+          </div>
+        </div>
+        <div class="ticket-montar" id="ticketMontar"></div>
+      </div>
+      <div class="painel surge">
+        <div class="passo">
+          <h3><i>1</i>Tamanho</h3>
+          <div class="chips" id="chipsTamanho"></div>
+        </div>
+        <div class="passo">
+          <h3><i>2</i>Sabores <small id="regraSabores"></small></h3>
+          <div class="chips" id="chipsQtd" style="margin-bottom:14px"></div>
+          <div class="vagas" id="vagas"></div>
+          <input class="busca-sabor" id="buscaMontar" type="search" placeholder="Buscar sabor ou ingrediente" aria-label="Buscar sabor">
+          <div class="lista-sabores" id="listaSabores"></div>
+        </div>
+        <div class="passo">
+          <h3><i>3</i>Borda</h3>
+          <div class="chips" id="chipsBorda"></div>
+        </div>
+        <div class="passo">
+          <h3><i>4</i>Alguma observação?</h3>
+          <textarea class="obs" id="obsMontar" placeholder="Ex.: sem cebola, bem assada..."></textarea>
+        </div>
+        <div class="fechar-montar">
+          <div class="total"><small>Sua pizza</small><b id="precoMontar">R$ 0,00</b></div>
+          <button class="btn btn-tinta" id="addMontar">Colocar na caixa</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CARDÁPIO ================= -->
+<div class="ondas baixo" style="--cor: var(--creme)"></div>
+<section class="secao cardapio revela" id="cardapio">
+  <div class="embrulho">
+    <div class="cab centro">
+      <span class="carimbo">Cardápio</span>
+      <h2>Escolha o seu <em>sabor</em></h2>
+      <p>Toque em uma pizza para montar com ela, ou no + para levar direto.</p>
+    </div>
+    <div class="menu-papel surge">
+      <div class="abas" role="tablist" id="abas"></div>
+      <div class="itens" id="itens"></div>
+      <p class="nota-menu" id="notaMenu"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RODÍZIO ================= -->
+<section class="secao rodizio revela" id="rodizio" data-se="rodizio">
+  <div class="embrulho">
+    <div class="bilhete surge">
+      <div class="esq">
+        <span class="carimbo">Bilhete de rodízio</span>
+        <h2>Pizza à vontade, <br>passando na mesa</h2>
+        <div class="de-para">
+          <div><small>EMBARQUE</small><b id="rodDias"></b></div>
+          <div class="seta"></div>
+          <div><small>DESTINO</small><b>Barriga cheia</b></div>
+        </div>
+        <ul class="inclui" id="rodInclui"></ul>
+      </div>
+      <div class="dir">
+        <div class="valor"><small>VALOR POR PESSOA</small><b id="rodPreco"></b><br><span id="rodObs"></span></div>
+        <div class="codigo" aria-hidden="true"></div>
+        <a class="btn btn-tinta" id="rodReserva" target="_blank" rel="noopener">Reservar mesa</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOTOS ================= -->
+<section class="secao fotos revela" id="fotos" style="padding-top:40px">
+  <div class="embrulho">
+    <div class="cab centro">
+      <span class="carimbo">Direto da cozinha</span>
+      <h2>Deu fome só de <em>olhar</em></h2>
+    </div>
+  </div>
+  <div class="varal" id="varal"></div>
+</section>
+
+<!-- ================= ENTREGA ================= -->
+<div class="ondas" style="--cor: var(--carvao)"></div>
+<section class="secao entrega revela" id="entrega">
+  <div class="embrulho">
+    <div class="cab centro">
+      <span class="carimbo">Tele entrega</span>
+      <h2>Do forno até <em>a sua porta</em></h2>
+      <p id="entregaTexto"></p>
+    </div>
+    <div class="rota" id="rota">
+      <div class="estrada"><i></i></div>
+      <div class="moto" id="moto">
+        <svg viewBox="0 0 80 50" aria-hidden="true">
+          <circle cx="16" cy="38" r="9" fill="#1b120c" stroke="#fbf3e4" stroke-width="3"/>
+          <circle cx="64" cy="38" r="9" fill="#1b120c" stroke="#fbf3e4" stroke-width="3"/>
+          <path d="M16 38h14l8-12h16l10 12" fill="none" stroke="#fbf3e4" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M52 26 58 12h7" fill="none" stroke="#fbf3e4" stroke-width="4" stroke-linecap="round"/>
+          <rect x="6" y="8" width="26" height="20" rx="3" fill="#b3141c" stroke="#fbf3e4" stroke-width="2.5"/>
+          <path d="M11 18h16" stroke="#f6c64e" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="44" cy="12" r="6" fill="#f6c64e"/>
+        </svg>
+      </div>
+      <div class="etapa"><div class="bola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></div><h3>Pedido recebido</h3><p>Chega no WhatsApp da casa já com sabores, borda e endereço.</p></div>
+      <div class="etapa"><div class="bola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20h18M5 20V10a7 7 0 0 1 14 0v10"/><path d="M9 16c0-2 3-2 3-4 0 2 3 2 3 4"/></svg></div><span class="grande" id="graus">0°C</span><h3>No forno</h3><p>Massa assada na hora, com o queijo borbulhando.</p></div>
+      <div class="etapa"><div class="bola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M6 17h5l3-5h4l2 5M14 12l2-5h3"/></svg></div><h3>Saiu para entrega</h3><p>Caixa fechada e quentinha, direto para o seu endereço.</p></div>
+      <div class="etapa"><div class="bola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11 12 4l9 7v9H3z"/><path d="M10 20v-5h4v5"/></svg></div><span class="grande" id="tempoEntrega"></span><h3>Chegou quentinha</h3><p>É só abrir a caixa e puxar a primeira fatia.</p></div>
+    </div>
+    <div class="segredos" id="segredos"></div>
+  </div>
+</section>
+<div class="ondas baixo" style="--cor: var(--carvao)"></div>
+
+<!-- ================= ONDE ================= -->
+<section class="secao onde revela" id="onde" style="padding-top:80px">
+  <div class="embrulho">
+    <div class="cab">
+      <span class="carimbo">Onde estamos</span>
+      <h2>Venha pra <em>estação</em></h2>
+    </div>
+    <div class="onde-grade">
+      <div class="cartao-onde surge">
+        <h3>ENDEREÇO</h3>
+        <p data-c="endereco"></p>
+        <p style="margin-top:8px"><a class="l" id="linkMapa" target="_blank" rel="noopener">Abrir no Google Maps →</a></p>
+        <h3>PEDIDOS E RESERVAS</h3>
+        <p id="contatos"></p>
+        <h3>HORÁRIO</h3>
+        <table class="horas" id="horas"></table>
+      </div>
+      <div class="mapa surge" id="mapa"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL ================= -->
+<section class="final">
+  <div class="bg-xadrez"></div>
+  <div class="fatia-voa fv1" id="fv1"></div>
+  <div class="fatia-voa fv2" id="fv2"></div>
+  <div class="embrulho">
+    <h2>Bateu a fome?</h2>
+    <p>Monte a sua pizza aqui no site e mande o pedido pronto. Sem app, sem taxa de aplicativo, direto com a gente.</p>
+    <div class="acoes">
+      <a href="#monte" class="btn btn-papel">Montar minha pizza</a>
+      <a class="btn btn-zap" id="zapFinal" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3z"/></svg>
+          Chamar no WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="embrulho">
+    <span><b data-c="nome"></b> · <span data-c="endereco"></span></span>
+    <span>Site demonstração feito pela <a href="https://sastudio.vercel.app/" target="_blank" rel="noopener">SA Studio</a></span>
+  </div>
+</footer>
+
+<div class="sacola-flutua" id="sacolaFlutua">
+  <button class="sacola-btn" data-abrir-sacola>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 9h18l-2 11H5z"/><path d="M8 9V7a4 4 0 0 1 8 0v2"/></svg>
+    Ver pedido <span class="n" data-qtd>0</span> <span data-total>R$ 0,00</span>
+  </button>
+</div>
+
+<div class="gaveta" id="gaveta" aria-hidden="true">
+  <div class="fundo" data-fechar></div>
+  <div class="lado" role="dialog" aria-modal="true" aria-label="Seu pedido">
+    <header><h3>Seu pedido</h3><button class="x" data-fechar aria-label="Fechar">×</button></header>
+    <div class="rolagem">
+      <div id="sacolaItens"></div>
+      <form class="form-pedido" id="formPedido">
+        <div class="alterna" id="modo">
+          <button type="button" data-modo="entrega" aria-pressed="true">Tele entrega</button>
+          <button type="button" data-modo="retirada" aria-pressed="false">Vou buscar</button>
+        </div>
+        <div><label for="fNome">Seu nome</label><input id="fNome" required autocomplete="name"></div>
+        <div id="campoEnd"><label for="fEnd">Endereço com número e bairro</label><input id="fEnd" autocomplete="street-address"></div>
+        <div><label for="fPag">Pagamento</label>
+          <select id="fPag"><option>Pix</option><option>Cartão na entrega</option><option>Dinheiro</option></select></div>
+        <div id="campoTroco" hidden><label for="fTroco">Troco para quanto?</label><input id="fTroco" inputmode="decimal" placeholder="Ex.: 100"></div>
+      </form>
+    </div>
+    <div class="resumo">
+      <div><span>Subtotal</span><span id="rSub">R$ 0,00</span></div>
+      <div><span>Entrega</span><span id="rEnt"></span></div>
+      <div class="t"><span>Total</span><span id="rTot">R$ 0,00</span></div>
+      <button class="btn btn-zap" id="enviar">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>
+        Enviar pedido no WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+<div class="aviso" id="aviso"></div>
+
+<script>
+/* =====================================================================
+   DADOS DA PIZZARIA: para usar o modelo em outra pizzaria, edite aqui.
+   ===================================================================== */
+const PIZZARIA = {
+  nome: "Estação da Pizza",
+  tipo: "Rodízio e tele entrega",
+  cidadeCurta: "Biguaçu · SC",
+  chamadaTopo: "A pizza mais saborosa de Biguaçu",
+  titulo: ["Próxima parada:", "<em>pizza</em> quentinha"],
+  subtitulo: "Pizza gigante de 12 fatias, queijo puxando e borda recheada. <b>Venha para o rodízio no salão</b> ou monte a sua aqui e receba em casa.",
+  selo: "A PIZZA MAIS SABOROSA DE BIGUAÇU • ",
+  endereco: "R. Francisco Roberto da Silva, 411, Centro, Biguaçu - SC, 88160-286",
+  mapsBusca: "ESTAÇÃO DA PIZZA (Rodizio e tele entrega), R. Francisco Roberto da Silva, 411, Biguaçu - SC",
+  whatsapp: "5548999610483",        // só números, com 55 e DDD
+  telefones: ["(48) 99961-0483", "(48) 3243-6881"],
+  instagram: "",                     // ex.: "nomedaconta" (sem @)
+  nota: { valor: 4.3, total: "1.158" }, // nota do Google, ou null
+  notaIfood: 4.8,                    // ou null
+  tempoEntrega: "40–60 min",
+  taxaEntrega: null,                 // número em reais, ou null para "a combinar"
+  // horários por dia da semana, 0 = domingo. null = fechado. Fechamento depois da meia-noite funciona ("00:30").
+  horarios: [["19:00", "23:30"], ["19:00", "23:30"], ["19:00", "23:30"], ["19:00", "23:30"], ["19:00", "23:30"], ["19:00", "23:30"], ["19:00", "23:30"]],
+  rodizio: { preco: null, dias: "Todo dia, 19h", obs: "Média de R$ 40 a R$ 60 por pessoa, segundo o Google.", inclui: ["Pizzas salgadas e doces", "Salão amplo e climatizado", "Sabores novos a cada volta", "Pizzas doces de sobremesa"] },
+  segredos: [
+    { icone: "massa", titulo: "Gigante de verdade", texto: "A pizza gigante tem 12 fatias e borda recheada. Dá para a família inteira." },
+    { icone: "forno", titulo: "Assada na hora", texto: "Sai do forno quando o pedido chega, para o queijo ainda estar puxando na sua casa." },
+    { icone: "caixa", titulo: "Direto com a gente", texto: "Pedindo pelo site ou pelo WhatsApp, o pedido chega na cozinha sem taxa de aplicativo." }
+  ],
+  // regra de preço para pizza de mais de um sabor: "maior" (cobra o sabor mais caro) ou "media"
+  regraSabores: "maior",
+  tamanhoPadrao: 1,                  // índice do tamanho usado no botão "+" do cardápio
+  tamanhos: [
+    { nome: "Broto", fatias: 4, info: "4 fatias", maxSabores: 2, escala: .66 },
+    { nome: "Grande", fatias: 8, info: "8 fatias", maxSabores: 2, escala: .84 },
+    { nome: "Gigante", fatias: 12, info: "12 fatias", maxSabores: 3, escala: 1 }
+  ],
+  bordas: [
+    { nome: "Sem borda", preco: 0 },
+    { nome: "Catupiry", preco: 10, cor: "#fffaf0" },
+    { nome: "Cheddar", preco: 10, cor: "#f2a22c" },
+    { nome: "Chocolate", preco: 12, cor: "#4f2512" }
+  ],
+  // preços na ordem dos tamanhos acima
+  // cobertura: ingredientes que o desenho mostra. Opções: calabresa, pepperoni, presunto, lombo, bacon, frango, atum,
+  // tomate, cebola, pimentao, azeitona, milho, ervilha, ovo, palmito, champignon, brocolis, manjericao, catupiry,
+  // provolone, gorgonzola, parmesao, morango, banana, granulado, confete, coco, goiabada, canela, camarao
+  // base: "queijo" (padrão), "chocolate", "branco" ou "catupiry"
+  categorias: ["Combos", "Tradicionais", "Especiais", "Doces"],
+  combos: [
+    { nome: "Gigante + broto doce + refri", desc: "Pizza gigante de 12 fatias com borda recheada, broto doce de 4 fatias e refri 1,5 L.", preco: 119.9, de: 189.9, serve: 4, sabores: ["Calabresa", "Chocolate"] },
+    { nome: "Gigante + batata frita + refri", desc: "Pizza gigante de 12 fatias com borda recheada, porção de batata frita (cerca de 500 g) e refri 1,5 L.", preco: 112.8, de: 179.9, serve: 4, sabores: ["Portuguesa"] }
+  ],
+  sabores: [
+    { nome: "Mussarela", cat: "Tradicionais", desc: "Molho de tomate, mussarela, tomate e orégano.", cobertura: ["tomate", "azeitona"], precos: [66.9, 76.9, 89.9], top: 1 },
+    { nome: "Calabresa", cat: "Tradicionais", desc: "Calabresa fatiada, cebola, mussarela e azeitonas.", cobertura: ["calabresa", "cebola", "azeitona"], precos: [66.9, 76.9, 89.9], top: 2 },
+    { nome: "Portuguesa", cat: "Tradicionais", desc: "Presunto, ovos, cebola, ervilha, mussarela e azeitonas.", cobertura: ["presunto", "ovo", "cebola", "ervilha", "azeitona"], precos: [66.9, 76.9, 89.9], top: 3 },
+    { nome: "Frango com Catupiry", cat: "Tradicionais", desc: "Frango desfiado temperado com Catupiry e milho.", cobertura: ["frango", "catupiry", "milho"], precos: [66.9, 76.9, 89.9], top: 4 },
+    { nome: "Marguerita", cat: "Tradicionais", desc: "Mussarela, tomate, manjericão fresco e parmesão.", cobertura: ["tomate", "manjericao", "parmesao"], precos: [66.9, 76.9, 89.9] },
+    { nome: "Presunto e Mussarela", cat: "Tradicionais", desc: "Presunto, mussarela, azeitonas e orégano.", cobertura: ["presunto", "azeitona"], precos: [66.9, 76.9, 89.9] },
+    { nome: "Milho com Bacon", cat: "Tradicionais", desc: "Mussarela, milho verde e bacon crocante.", cobertura: ["bacon", "milho"], precos: [66.9, 76.9, 89.9] },
+    { nome: "Napolitana", cat: "Tradicionais", desc: "Mussarela, tomate, parmesão e alho dourado.", cobertura: ["tomate", "parmesao", "azeitona"], precos: [66.9, 76.9, 89.9] },
+    { nome: "Pepperoni", cat: "Especiais", desc: "Pepperoni fatiado fininho sobre bastante mussarela.", cobertura: ["pepperoni"], precos: [72.9, 84.9, 99.9], top: 5 },
+    { nome: "Estação", cat: "Especiais", desc: "A da casa: calabresa, bacon, champignon, cebola e Catupiry.", cobertura: ["calabresa", "bacon", "champignon", "catupiry", "cebola"], precos: [72.9, 84.9, 99.9], tag: "Da casa" },
+    { nome: "Quatro Queijos", cat: "Especiais", desc: "Mussarela, provolone, gorgonzola e parmesão.", cobertura: ["provolone", "gorgonzola", "parmesao"], precos: [72.9, 84.9, 99.9] },
+    { nome: "Lombo com Catupiry", cat: "Especiais", desc: "Lombo canadense, Catupiry e cebola.", cobertura: ["lombo", "catupiry", "cebola"], precos: [72.9, 84.9, 99.9] },
+    { nome: "Brócolis com Bacon", cat: "Especiais", desc: "Brócolis, bacon, alho e mussarela.", cobertura: ["brocolis", "bacon"], precos: [72.9, 84.9, 99.9] },
+    { nome: "Palmito", cat: "Especiais", desc: "Palmito, mussarela, tomate e azeitonas.", cobertura: ["palmito", "tomate", "azeitona"], precos: [72.9, 84.9, 99.9] },
+    { nome: "Camarão", cat: "Especiais", desc: "Camarão ao alho, Catupiry e mussarela.", cobertura: ["camarao", "catupiry", "manjericao"], precos: [79.9, 92.9, 109.9], tag: "Litoral" },
+    { nome: "Chocolate", cat: "Doces", desc: "Chocolate ao leite com granulado.", cobertura: ["granulado"], base: "chocolate", precos: [66.9, 76.9, 89.9], top: 6 },
+    { nome: "Morango com Chocolate Branco", cat: "Doces", desc: "Chocolate branco coberto de morango picado.", cobertura: ["morango"], base: "branco", precos: [72.9, 84.9, 99.9], tag: "Queridinha" },
+    { nome: "Confete", cat: "Doces", desc: "Chocolate ao leite, leite condensado e confeitos coloridos.", cobertura: ["confete"], base: "chocolate", precos: [72.9, 84.9, 99.9] },
+    { nome: "Prestígio", cat: "Doces", desc: "Chocolate ao leite e coco ralado.", cobertura: ["coco"], base: "chocolate", precos: [66.9, 76.9, 89.9] },
+    { nome: "Banana com Canela", cat: "Doces", desc: "Banana, açúcar, canela e leite condensado.", cobertura: ["banana", "canela"], base: "branco", precos: [66.9, 76.9, 89.9] },
+    { nome: "Romeu e Julieta", cat: "Doces", desc: "Mussarela com goiabada cremosa.", cobertura: ["goiabada"], precos: [66.9, 76.9, 89.9] }
+  ],
+  bebidas: [
+    { nome: "Coca-Cola 1,5 L", preco: 15, cor: "#d01c1f" },
+    { nome: "Coca-Cola Zero 1,5 L", preco: 15, cor: "#222" },
+    { nome: "Pureza 1,5 L", preco: 13, cor: "#7a1f1a" },
+    { nome: "H2O Limão 1,5 L", preco: 13, cor: "#6fbf3a" },
+    { nome: "Suco Del Valle Laranja 1,5 L", preco: 12, cor: "#f29a1f" },
+    { nome: "Suco Del Valle Uva 1,5 L", preco: 12, cor: "#5a2266" }
+  ],
+  // fotos da casa (caminho relativo a esta página). Deixe [] para esconder a seção.
+  fotos: [
+    { src: "img/queijo.jpg", legenda: "Queijo puxando" },
+    { src: "img/salao.jpg", legenda: "Nosso salão" },
+    { src: "img/morango.jpg", legenda: "Morango com chocolate branco" },
+    { src: "img/caixa.jpg", legenda: "Gigante na caixa" },
+    { src: "img/confete.jpg", legenda: "Confete e chocolate branco" },
+    { src: "img/fachada.jpg", legenda: "A nossa estação" },
+    { src: "img/portuguesa.jpg", legenda: "Sábado de pizza" },
+    { src: "img/chocolate.jpg", legenda: "Chocolate na hora" }
+  ],
+  // sabores da pizza girando no topo (até 4)
+  hero: ["Calabresa", "Marguerita", "Portuguesa", "Pepperoni"],
+  avisoCardapio: "Combos, tamanhos e bebidas do iFood da casa. Sabores e preços por sabor são ilustrativos."
+};
+
+/* ===================================================================== */
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const brl = v => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const toque = matchMedia("(hover: none)").matches;
+const sabor = nome => PIZZARIA.sabores.find(s => s.nome === nome);
+const linkZap = txt => `https://wa.me/${PIZZARIA.whatsapp}?text=${encodeURIComponent(txt)}`;
+function semente(str) { let h = 2166136261; for (const c of String(str)) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
+function sorteio(seed) { let s = seed || 1; return () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; }; }
+const f1 = n => +n.toFixed(1);
+const TP = PIZZARIA.tamanhoPadrao ?? 0;
+
+/* ---------- ingredientes desenhados (centrados em 0,0) ---------- */
+const ING = {
+  presunto: { r: 8, n: 9, c: 1, d: R => `<path d="M-8 -5 Q-2 -7 7 -5 Q9 0 7 5 Q0 7 -7 5 Q-9 0 -8 -5Z" fill="#f0a39b"/><path d="M-5 -1 Q0 -3 5 0 M-4 2.5 Q1 1 5 3" stroke="#fbd5cf" stroke-width="1.3" fill="none" stroke-linecap="round"/>` },
+  lombo: { r: 7.5, n: 9, c: 1, d: R => `<ellipse rx="8" ry="6" fill="#d9967a" stroke="#b56d4c" stroke-width="1.2"/><ellipse rx="4.5" ry="3.2" fill="#e8b19a"/>` },
+  tomate: { r: 8, n: 8, c: 1, d: R => `<circle r="8" fill="url(#gTom)"/><circle r="5.6" fill="none" stroke="#f78a63" stroke-width="1"/>${[0, 1, 2, 3].map(i => { const a = i * 1.57 + R() * .4; return `<ellipse cx="${f1(Math.cos(a) * 3.6)}" cy="${f1(Math.sin(a) * 3.6)}" rx="1.6" ry="1" transform="rotate(${f1(a * 57.3)} ${f1(Math.cos(a) * 3.6)} ${f1(Math.sin(a) * 3.6)})" fill="#f9c15b"/>`; }).join("")}<circle r="1.4" fill="#c7301f"/>` },
+  calabresa: { r: 7.2, n: 12, c: 1, d: R => `<circle r="7.2" fill="url(#gCal)"/><circle r="7.2" fill="none" stroke="#6e1e0e" stroke-width=".9"/>${pontos(R, 6, 5, "#eaa784", .9)}` },
+  pepperoni: { r: 6.2, n: 18, c: 1, d: R => `<circle r="6.2" fill="url(#gPep)"/><circle r="4.8" fill="none" stroke="#8c1c0d" stroke-width="1.6" opacity=".55"/>${pontos(R, 4, 4, "#f08a5f", .7)}` },
+  bacon: { r: 8, n: 11, c: 1, d: R => `<path d="M-9 -2 Q-5 -5 -1 -2 T7 -2 Q9 1 8 3 Q4 0 0 3 T-8 3 Q-10 0 -9 -2Z" fill="#b9473a"/><path d="M-7 0 Q-3 -2 1 0 T7 0" stroke="#f3c6b3" stroke-width="1.4" fill="none"/>` },
+  frango: { r: 5, n: 24, c: 1, d: R => `<path d="M-4 -3 Q0 -6 4 -3 Q6 1 3 4 Q-1 6 -4 3 Q-6 0 -4 -3Z" fill="#edca95" stroke="#c99a5c" stroke-width=".7" transform="scale(${f1(.8 + R() * .5)})"/>` },
+  atum: { r: 5, n: 20, c: 1, d: R => `<path d="M-5 -2 Q-1 -6 4 -3 Q6 1 2 4 Q-3 5 -5 -2Z" fill="#cfae9e"/><path d="M-3 0 L3 -1 M-2 2 L2 1.5" stroke="#efdccf" stroke-width=".9"/>` },
+  camarao: { r: 6.5, n: 10, c: 1, d: R => `<path d="M5 -3 A6 6 0 1 1 -4 -4" fill="none" stroke="#f08a5a" stroke-width="4.2" stroke-linecap="round"/><path d="M5 -3 A6 6 0 1 1 -4 -4" fill="none" stroke="#ffc09a" stroke-width="1.2" stroke-dasharray="1.5 2" stroke-linecap="round"/>` },
+  provolone: { r: 6, n: 10, c: 2, d: R => `<path d="M-6 -3 Q-2 -7 4 -5 Q7 0 4 5 Q-2 7 -6 3 Q-8 0 -6 -3Z" fill="#f6dc93" stroke="#e5be62" stroke-width=".8"/>` },
+  gorgonzola: { r: 5, n: 11, c: 2, d: R => `<path d="M-5 -3 Q0 -6 5 -2 Q5 3 1 5 Q-4 5 -5 -3Z" fill="#f6f2e6"/>${pontos(R, 4, 3, "#6d8fa6", .9)}` },
+  catupiry: { r: 6, n: 11, c: 2, d: R => `<g><circle cx="1" cy="1.5" r="6" fill="rgba(120,80,20,.12)"/><circle r="4.5" fill="#fffdf6"/><circle cx="3.5" cy="1" r="3.4" fill="#fffdf6"/><circle cx="-2.5" cy="2.5" r="3" fill="#fff9ea"/><circle cx="-1" cy="-1.5" r="1.4" fill="#fff"/></g>` },
+  champignon: { r: 6, n: 12, c: 2, d: R => `<path d="M-6 1 Q-6 -6 0 -6 Q6 -6 6 1 L2.5 1 L2.5 6 L-2.5 6 L-2.5 1Z" fill="#e1cba8" stroke="#a88a64" stroke-width=".9"/><path d="M-4 0 Q0 -2 4 0" stroke="#c8ad86" stroke-width=".8" fill="none"/>` },
+  palmito: { r: 4.8, n: 13, c: 2, d: R => `<circle r="4.6" fill="#f5eed3" stroke="#d6c891" stroke-width="1"/><circle r="2.2" fill="none" stroke="#e2d8a8" stroke-width=".8"/>` },
+  brocolis: { r: 5.5, n: 12, c: 2, d: R => `<path d="M0 2 L0 6" stroke="#7aa84a" stroke-width="2.4"/>${[[-2.5, -1], [2.5, -1], [0, -3.5], [0, 0]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="2.8" fill="${R() > .5 ? "#3d7d2c" : "#4f9a37"}"/>`).join("")}` },
+  goiabada: { r: 6.5, n: 9, c: 2, d: R => `<rect x="-6" y="-5" width="12" height="10" rx="3" fill="#b8243c"/><rect x="-4" y="-3.5" width="5" height="2" rx="1" fill="#e2566c" opacity=".7"/>` },
+  cebola: { r: 6, n: 12, c: 3, d: R => `<path d="M-6 0 A6 6 0 0 1 6 0" stroke="#f7efe0" stroke-width="1.9" fill="none" stroke-linecap="round"/><path d="M-3.6 .5 A3.6 3.6 0 0 1 3.6 .5" stroke="#efe2cc" stroke-width="1.4" fill="none" stroke-linecap="round"/>` },
+  pimentao: { r: 6, n: 10, c: 3, d: R => `<path d="M-6 0 A6 6 0 1 1 3 5.2" stroke="#3e8a2e" stroke-width="2.4" fill="none" stroke-linecap="round"/>` },
+  milho: { r: 2, n: 46, c: 3, d: R => `<ellipse rx="2" ry="1.6" fill="#f8c92f" stroke="#d9a118" stroke-width=".5"/>` },
+  ervilha: { r: 1.9, n: 32, c: 3, d: R => `<circle r="1.9" fill="#78b33f"/><circle cx="-.6" cy="-.6" r=".6" fill="#b5dc7d"/>` },
+  ovo: { r: 6, n: 9, c: 3, d: R => `<ellipse rx="6.2" ry="4.6" fill="#fffdf7" stroke="#eee3cc" stroke-width=".6"/><circle cx=".5" r="2.7" fill="#f6b40e"/>` },
+  azeitona: { r: 3.4, n: 14, c: 3, d: R => `<circle r="3.4" fill="#2a221d"/><circle r="1.25" fill="#6e5038"/><circle cx="-1.4" cy="-1.5" r=".8" fill="#fff" opacity=".35"/>` },
+  manjericao: { r: 7, n: 8, c: 4, d: R => `<path d="M0 -8 C6 -4 6 4 0 8 C-6 4 -6 -4 0 -8Z" fill="#2e7d32"/><path d="M0 -7 L0 7" stroke="#57a85b" stroke-width=".9"/><path d="M0 -8 C3 -4 3 0 0 2" fill="#3f9443" opacity=".6"/>` },
+  morango: { r: 6.5, n: 11, c: 3, d: R => `<path d="M0 6.5 C-7.5 1 -6.5 -6.5 0 -5.5 C6.5 -6.5 7.5 1 0 6.5Z" fill="#e2263c"/><path d="M0 4.4 C-4.2 1 -4 -3.3 0 -3.2 C4 -3.3 4.2 1 0 4.4Z" fill="#f45a6c"/><path d="M0 -3 L0 3" stroke="#ffc2c8" stroke-width=".8"/>` },
+  banana: { r: 5.2, n: 12, c: 3, d: R => `<circle r="5.2" fill="#f7e6a3" stroke="#e8cf7a" stroke-width="1"/>${[0, 2.1, 4.2].map(a => `<circle cx="${f1(Math.cos(a) * 1.5)}" cy="${f1(Math.sin(a) * 1.5)}" r=".55" fill="#9a7a3c"/>`).join("")}` },
+  granulado: { r: 1.6, n: 70, c: 4, d: R => `<rect x="-1.5" y="-.5" width="3" height="1" rx=".5" fill="#2b1206"/>` },
+  confete: { r: 2.4, n: 30, c: 4, d: R => `<circle r="2.4" fill="${["#e94b6a", "#f5c518", "#3aa0e0", "#45b649", "#ff7a2a", "#8e5bd8"][Math.floor(R() * 6)]}"/><circle cx="-.8" cy="-.8" r=".7" fill="#fff" opacity=".5"/>` },
+  coco: { r: 1.5, n: 70, c: 4, d: R => `<path d="M-1.6 0 Q0 -1 1.6 .4" stroke="#fffdf7" stroke-width=".9" fill="none" stroke-linecap="round"/>` },
+  canela: { r: 1, n: 90, c: 4, d: R => `<circle r=".7" fill="#8a4b1c" opacity=".75"/>` },
+  parmesao: { r: 1.3, n: 50, c: 4, d: R => `<path d="M-1.3 -.6 L1.2 -.9 L.6 .9 Z" fill="#fff8e2"/>` }
+};
+function pontos(R, n, raio, cor, tam) { let s = ""; for (let i = 0; i < n; i++) { const a = R() * 6.283, d = Math.sqrt(R()) * raio; s += `<circle cx="${f1(Math.cos(a) * d)}" cy="${f1(Math.sin(a) * d)}" r="${f1(tam * (.5 + R() * .6))}" fill="${cor}"/>`; } return s; }
+
+/* ---------- gerador de pizza em SVG ---------- */
+let uid = 0;
+const setorPath = (a0, a1, r) => {
+  if (a1 - a0 >= 6.2831) return `M${r} 0A${r} ${r} 0 1 1 ${-r} 0A${r} ${r} 0 1 1 ${r} 0Z`;
+  const x0 = f1(Math.cos(a0) * r), y0 = f1(Math.sin(a0) * r), x1 = f1(Math.cos(a1) * r), y1 = f1(Math.sin(a1) * r);
+  return `M0 0L${x0} ${y0}A${r} ${r} 0 ${a1 - a0 > Math.PI ? 1 : 0} 1 ${x1} ${y1}Z`;
+};
+function blob(R, raio, var_, pts = 40) {
+  const p = []; const ph = R() * 6, ph2 = R() * 6;
+  for (let i = 0; i < pts; i++) { const a = i / pts * 6.2832; const r = raio + Math.sin(a * 5 + ph) * var_ + Math.sin(a * 9 + ph2) * var_ * .6; p.push([Math.cos(a) * r, Math.sin(a) * r]); }
+  let d = ""; for (let i = 0; i < pts; i++) { const [x, y] = p[i], [nx, ny] = p[(i + 1) % pts]; const mx = (x + nx) / 2, my = (y + ny) / 2; d += i ? `Q${f1(x)} ${f1(y)} ${f1(mx)} ${f1(my)}` : `M${f1(mx)} ${f1(my)}`; }
+  return d + "Z";
+}
+/* opções: setores (lista de sabores), fatias, borda, animar (índice do setor que cai, -1 nenhum, "todos"), detalhe (0..1) */
+function pizzaPartes({ setores, fatias = 8, borda = null, animar = -1, detalhe = 1, cortes = true }) {
+  const id = "p" + (++uid);
+  const R = sorteio(semente(setores.map(s => s ? s.nome : "-").join("|") + fatias));
+  let defs = "", corpo = "";
+  corpo += `<circle r="100" fill="url(#gSombra)"/>`;
+  corpo += `<circle r="95" fill="url(#gMassa)"/>`;
+  for (let i = 0; i < 34 * detalhe; i++) { const a = R() * 6.283, d = 86 + R() * 7; corpo += `<ellipse cx="${f1(Math.cos(a) * d)}" cy="${f1(Math.sin(a) * d)}" rx="${f1(3 + R() * 5)}" ry="${f1(2 + R() * 2)}" transform="rotate(${f1(a * 57.3 + 90)} ${f1(Math.cos(a) * d)} ${f1(Math.sin(a) * d)})" fill="${R() > .7 ? "#7a3a12" : "#c98038"}" opacity="${f1(.25 + R() * .35)}"/>`; }
+  corpo += `<circle r="91.5" fill="none" stroke="rgba(255,236,190,.35)" stroke-width="1.4"/>`;
+  if (borda && borda.cor) corpo += `<circle r="88.5" fill="none" stroke="${borda.cor}" stroke-width="3.4" stroke-dasharray="10 7 4 9" stroke-linecap="round" opacity=".95"/>`;
+  corpo += `<circle r="84.5" fill="url(#gMolho)"/>`;
+  const n = setores.length, passo = 6.2832 / n, inicio = n === 1 ? 0 : -Math.PI / 2;
+  setores.forEach((s, i) => {
+    const a0 = inicio + i * passo, a1 = a0 + passo;
+    const base = s ? (s.base || "queijo") : "vazio";
+    const fill = { queijo: "url(#gQueijo)", chocolate: "url(#gChoco)", branco: "url(#gBranco)", catupiry: "url(#gCatupiryBase)", vazio: "url(#gMolho)" }[base];
+    const clip = `${id}c${i}`;
+    if (n > 1) defs += `<clipPath id="${clip}"><path d="${setorPath(a0, a1, 100)}"/></clipPath>`;
+    let g = `<path d="${blob(R, 80, 1.8)}" fill="${fill}"/>`;
+    if (base === "queijo") for (let k = 0; k < 22 * detalhe; k++) { const a = R() * 6.283, d = Math.sqrt(R()) * 76; g += `<ellipse cx="${f1(Math.cos(a) * d)}" cy="${f1(Math.sin(a) * d)}" rx="${f1(2 + R() * 4)}" ry="${f1(1.5 + R() * 2.5)}" fill="#cf8a2c" opacity="${f1(.18 + R() * .3)}"/>`; }
+    if (base === "chocolate") for (let k = 0; k < 10; k++) { const a = R() * 6.283, d = Math.sqrt(R()) * 70; g += `<ellipse cx="${f1(Math.cos(a) * d)}" cy="${f1(Math.sin(a) * d)}" rx="${f1(4 + R() * 6)}" ry="${f1(1 + R() * 1.5)}" fill="#a0603a" opacity=".35"/>`; }
+    if (base === "vazio") g = `<path d="${blob(R, 80, 1.8)}" fill="#e7b04a" opacity=".35"/>`;
+    corpo += n > 1 ? `<g clip-path="url(#${clip})">${g}</g>` : g;
+    if (!s) return;
+    // ingredientes
+    const lista = [...(s.cobertura || [])];
+    if ((!s.base || s.base === "queijo") && s.cat !== "Doces") lista.push("oregano");
+    const camadas = lista.map(t => t === "oregano" ? { t, ing: { r: .8, n: 70, c: 5, d: R => `<rect x="-.8" y="-.4" width="1.6" height=".8" fill="#4f6125" opacity=".85"/>` } } : { t, ing: ING[t] }).filter(x => x.ing).sort((a, b) => a.ing.c - b.ing.c);
+    const frac = passo / 6.2832;
+    const anima = animar === "todos" || animar === i;
+    let atraso = 0;
+    camadas.forEach(({ t, ing }) => {
+      const qtd = Math.max(1, Math.round(ing.n * frac * (n > 1 ? 1.15 : 1) * (ing.r < 2.5 ? detalhe : 1)));
+      const pos = [];
+      for (let k = 0; k < qtd; k++) {
+        for (let tent = 0; tent < 26; tent++) {
+          const a = a0 + R() * passo, d = Math.sqrt(R()) * (76 - ing.r);
+          const x = Math.cos(a) * d, y = Math.sin(a) * d;
+          if (n > 1) { const marg = ing.r * .8; const da0 = Math.abs(Math.sin(a - a0) * d), da1 = Math.abs(Math.sin(a1 - a) * d); if ((da0 < marg) || (da1 < marg)) continue; }
+          if (pos.some(([px, py]) => (px - x) ** 2 + (py - y) ** 2 < (ing.r * 1.7) ** 2)) continue;
+          pos.push([x, y]); break;
+        }
+      }
+      pos.forEach(([x, y]) => {
+        const rot = f1(R() * 360);
+        const st = anima && !reduz ? ` class="cai" style="animation-delay:${f1(atraso)}s"` : "";
+        if (anima) atraso += ing.r < 2.5 ? .004 : .028;
+        corpo += `<g transform="translate(${f1(x)} ${f1(y)}) rotate(${rot})"><g${st}>${ing.d(R)}</g></g>`;
+      });
+    });
+  });
+  if (cortes) {
+    for (let k = 0; k < fatias; k++) { const a = k * 6.2832 / fatias + (fatias % 2 ? 0 : 0); const x = f1(Math.cos(a) * 92), y = f1(Math.sin(a) * 92); corpo += `<line x1="0" y1="0" x2="${x}" y2="${y}" stroke="rgba(110,50,10,.42)" stroke-width="1.3"/><line x1=".8" y1=".8" x2="${f1(x + .8)}" y2="${f1(y + .8)}" stroke="rgba(255,240,200,.18)" stroke-width=".8"/>`; }
+  }
+  return { defs, corpo, id };
+}
+function pizzaSVG(opts, attrs = "") {
+  const { defs, corpo } = pizzaPartes(opts);
+  return `<svg viewBox="-100 -100 200 200" ${attrs}><defs>${defs}</defs>${corpo}<circle r="84" fill="url(#gBrilho)" pointer-events="none"/></svg>`;
+}
+const miniCache = new Map();
+function mini(s, cls = "mini") {
+  if (!miniCache.has(s.nome)) miniCache.set(s.nome, pizzaSVG({ setores: [s], fatias: 8, detalhe: .55 }, `aria-hidden="true"`));
+  return miniCache.get(s.nome).replace("<svg ", `<svg class="${cls}" `);
+}
+
+/* estilos da queda dos ingredientes */
+document.head.insertAdjacentHTML("beforeend", `<style>.cai{animation:cai .55s cubic-bezier(.3,1.5,.5,1) both;transform-box:fill-box;transform-origin:center}@keyframes cai{from{opacity:0;transform:translateY(-26px) scale(1.9) rotate(-40deg)}}</style>`);
+
+/* ---------- textos simples ---------- */
+$$("[data-c]").forEach(el => { const v = PIZZARIA[el.dataset.c]; if (v != null) el.textContent = v; });
+$("#titulo").innerHTML = PIZZARIA.titulo.map((l, i) => `<span class="l"><span style="animation-delay:${.15 + i * .14}s">${l}</span></span>`).join("");
+$("#subtitulo").innerHTML = PIZZARIA.subtitulo;
+$("#seloTexto").textContent = PIZZARIA.selo.repeat(2).slice(0, 52);
+$("#marcaSvg").innerHTML = pizzaPartes({ setores: [sabor(PIZZARIA.hero[0]) || PIZZARIA.sabores[0]], fatias: 6, detalhe: .4 }).corpo;
+const fitaTxt = PIZZARIA.sabores.map(s => `<span>${s.nome}</span>`).join("");
+$("#fitaA").innerHTML = fitaTxt + fitaTxt;
+const fitaB = ["Rodízio", "Tele entrega", "Meio a meio", "Borda recheada", "Quentinha", "Sem taxa de app"].map(t => `<span>${t}</span>`).join("");
+$("#fitaB").innerHTML = (fitaB + fitaB) + (fitaB + fitaB);
+if (!PIZZARIA.rodizio) $$("[data-se=rodizio]").forEach(e => e.remove());
+
+/* ---------- horário ---------- */
+const DIAS = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+const hm = s => { const [h, m] = s.split(":").map(Number); return h * 60 + m; };
+const fh = s => { const [h, m] = s.split(":"); return `${+h}h${m !== "00" ? m : ""}`; };
+function status(d = new Date()) {
+  const H = PIZZARIA.horarios, min = d.getHours() * 60 + d.getMinutes(), dia = d.getDay();
+  const ont = H[(dia + 6) % 7];
+  if (ont && hm(ont[1]) <= hm(ont[0]) && min < hm(ont[1])) return { aberto: true, txt: `Aberto até ${fh(ont[1])}` };
+  const hj = H[dia];
+  if (hj) {
+    const a = hm(hj[0]), f = hm(hj[1]) <= a ? hm(hj[1]) + 1440 : hm(hj[1]);
+    if (min >= a && min < f) return { aberto: true, txt: `Aberto até ${fh(hj[1])}` };
+    if (min < a) return { aberto: false, txt: `Abre hoje às ${fh(hj[0])}` };
+  }
+  for (let i = 1; i <= 7; i++) { const k = (dia + i) % 7; if (H[k]) return { aberto: false, txt: `Abre ${i === 1 ? "amanhã" : DIAS[k].toLowerCase()} às ${fh(H[k][0])}` }; }
+  return { aberto: false, txt: "Fechado" };
+}
+function pintaStatus() { const s = status(); const el = $("#aberto"); el.classList.toggle("sim", s.aberto); el.querySelector("span").textContent = s.txt; el.title = s.txt; return s; }
+const st0 = pintaStatus(); setInterval(pintaStatus, 60000);
+$("#horas").innerHTML = [1, 2, 3, 4, 5, 6, 0].map(d => { const h = PIZZARIA.horarios[d]; return `<tr class="${d === new Date().getDay() ? "hoje" : ""}"><td>${DIAS[d]}</td><td>${h ? `${fh(h[0])} às ${fh(h[1])}` : "Fechado"}</td></tr>`; }).join("");
+
+/* ---------- fatos do hero ---------- */
+const ic = {
+  relogio: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>`,
+  moto: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M6 17h5l3-5h4l2 5M14 12l2-5h3"/></svg>`,
+  estrela: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg>`,
+  mesa: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9h18M6 9v11M18 9v11M8 9a4 4 0 0 1 8 0"/></svg>`
+};
+const fatos = [[ic.relogio, st0.txt], [ic.moto, `Entrega em ${PIZZARIA.tempoEntrega}`]];
+if (PIZZARIA.rodizio) fatos.push([ic.mesa, "Rodízio no salão"]);
+if (PIZZARIA.notaIfood) fatos.unshift([ic.estrela, `${String(PIZZARIA.notaIfood).replace(".", ",")} no iFood`]);
+if (PIZZARIA.nota) fatos.unshift([ic.estrela, `${String(PIZZARIA.nota.valor).replace(".", ",")} no Google · ${PIZZARIA.nota.total} avaliações`]);
+$("#fatos").innerHTML = fatos.map(([i, t]) => `<div>${i}<span>${t}</span></div>`).join("");
+
+/* ---------- HERO: pizza que gira e solta fatia ---------- */
+const heroSabores = PIZZARIA.hero.map(sabor).filter(Boolean);
+const HF = 8;
+(function montaHero() {
+  const svg = $("#heroSvg");
+  const { defs, corpo } = pizzaPartes({ setores: heroSabores, fatias: HF, animar: "todos", cortes: false });
+  let clips = "", fatiasG = "";
+  for (let i = 0; i < HF; i++) {
+    const a0 = i * 6.2832 / HF, a1 = a0 + 6.2832 / HF;
+    clips += `<clipPath id="hc${i}"><path d="${setorPath(a0 - .004, a1 + .004, 101)}"/></clipPath>`;
+    fatiasG += `<g class="fatia" data-i="${i}"><g clip-path="url(#hc${i})"><use href="#heroCorpo"/></g></g>`;
+  }
+  svg.innerHTML = `<defs>${defs}${clips}<g id="heroCorpo">${corpo}</g></defs><g id="giro">${fatiasG}<g id="fios"></g></g>`;
+})();
+const giro = $("#giro"), fatiasEls = $$("#heroSvg .fatia"), fios = $("#fios");
+const fatiasEstado = fatiasEls.map(() => ({ d: 0, alvo: 0 }));
+let angulo = -12, vel = reduz ? 0 : 5, velAlvo = vel, ultimoY = scrollY, heroVisivel = true;
+// ingredientes de fora caem só no carregamento; depois disso desligamos a animação
+setTimeout(() => $$("#heroSvg .cai").forEach(e => e.classList.remove("cai")), 2600);
+function ergue(i) { fatiasEstado.forEach((f, k) => f.alvo = k === i ? 1 : 0); }
+function fatiaNoPonto(ev) {
+  const r = $("#heroSvg").getBoundingClientRect();
+  const x = ev.clientX - (r.left + r.width / 2), y = ev.clientY - (r.top + r.height / 2);
+  if (Math.hypot(x, y) > r.width / 2) return -1;
+  let a = Math.atan2(y, x) * 57.2958 - angulo; a = ((a % 360) + 360) % 360;
+  return Math.floor(a / (360 / HF));
+}
+const heroSvg = $("#heroSvg");
+if (!toque) {
+  heroSvg.addEventListener("pointermove", e => ergue(fatiaNoPonto(e)));
+  heroSvg.addEventListener("pointerleave", () => ergue(-1));
+}
+heroSvg.addEventListener("click", e => { const i = fatiaNoPonto(e); if (toque) ergue(fatiasEstado[i] && fatiasEstado[i].alvo ? -1 : i); $("#dicaFatia").classList.remove("on"); });
+setTimeout(() => { if (fatiasEstado.every(f => !f.alvo)) { ergue(1); $("#dicaFatia").classList.add("on"); setTimeout(() => { ergue(-1); $("#dicaFatia").classList.remove("on"); }, 2600); } }, 2400);
+new IntersectionObserver(([e]) => heroVisivel = e.isIntersecting).observe($("#heroPizza"));
+let tAnt = performance.now();
+function quadroHero(t) {
+  const dt = Math.min(.05, (t - tAnt) / 1000); tAnt = t;
+  if (heroVisivel) {
+    const algumaErguida = fatiasEstado.some(f => f.alvo);
+    velAlvo = reduz ? 0 : (algumaErguida ? 0 : 5);
+    vel += (velAlvo - vel) * Math.min(1, dt * 3);
+    angulo += vel * dt;
+    giro.setAttribute("transform", `rotate(${angulo.toFixed(2)})`);
+    let fiosD = "";
+    fatiasEstado.forEach((f, i) => {
+      f.d += (f.alvo - f.d) * Math.min(1, dt * 7);
+      const meio = (i + .5) * 6.2832 / HF, dist = f.d * 24;
+      fatiasEls[i].setAttribute("transform", `translate(${(Math.cos(meio) * dist).toFixed(2)} ${(Math.sin(meio) * dist).toFixed(2)})`);
+      fatiasEls[i].classList.toggle("erguida", f.d > .15);
+      if (f.d > .04) {
+        // fios de queijo entre a fatia e o resto da pizza
+        const h = Math.PI / HF;
+        [-1, 1].forEach(lado => [.12, .3, .5, .7].forEach((tq, k) => {
+          const ang = meio + lado * h, r0 = tq * 80;
+          const x0 = Math.cos(ang) * r0, y0 = Math.sin(ang) * r0;
+          const x1 = x0 + Math.cos(meio) * dist, y1 = y0 + Math.sin(meio) * dist;
+          const qx = (x0 + x1) / 2 - Math.sin(meio) * lado * 2, qy = (y0 + y1) / 2 + Math.cos(meio) * lado * 2 + 3 * f.d;
+          const w = Math.max(.4, (2.8 - k * .5) * (1.2 - f.d * .7));
+          fiosD += `<path d="M${x0.toFixed(1)} ${y0.toFixed(1)}Q${qx.toFixed(1)} ${qy.toFixed(1)} ${x1.toFixed(1)} ${y1.toFixed(1)}" stroke="#f7cf5c" stroke-width="${w.toFixed(2)}" fill="none" stroke-linecap="round"/>`;
+        }));
+        const tx = Math.cos(meio) * dist, ty = Math.sin(meio) * dist;
+        fiosD += `<path d="M0 0Q${(tx / 2).toFixed(1)} ${(ty / 2 + 4 * f.d).toFixed(1)} ${tx.toFixed(1)} ${ty.toFixed(1)}" stroke="#fbe08f" stroke-width="${(3.4 * (1.2 - f.d * .6)).toFixed(2)}" fill="none" stroke-linecap="round"/>`;
+      }
+    });
+    fios.innerHTML = fiosD;
+  }
+  requestAnimationFrame(quadroHero);
+}
+requestAnimationFrame(quadroHero);
+addEventListener("scroll", () => { const dy = scrollY - ultimoY; ultimoY = scrollY; if (!reduz) angulo += dy * .12; $("#topo").classList.toggle("rolou", scrollY > 10); }, { passive: true });
+
+/* ingredientes flutuando ao redor */
+(function flutuantes() {
+  const itens = [["manjericao", 2, 4, 46, -20], ["tomate", 43, 3, 40, 10], ["champignon", 50, 90, 34, 30], ["azeitona", 3, 94, 22, 0], ["manjericao", 97, 6, 36, 60], ["pepperoni", 47, 66, 30, 0]];
+  const R = sorteio(7);
+  $("#flutuantes").innerHTML = itens.map(([t, x, y, tam, rot], i) => `<div class="flutua" data-p="${.4 + i * .15}" style="left:${x}%;top:${y}%;width:${tam}px;height:${tam}px"><svg viewBox="-10 -10 20 20" style="animation-delay:${-i * 1.3}s"><g transform="rotate(${rot})">${ING[t].d(R)}</g></svg></div>`).join("");
+  if (toque || reduz) return;
+  const els = $$("#flutuantes .flutua");
+  addEventListener("pointermove", e => { const cx = e.clientX / innerWidth - .5, cy = e.clientY / innerHeight - .5; els.forEach(el => { const p = +el.dataset.p; el.style.transform = `translate(${cx * -40 * p}px, ${cy * -40 * p}px)`; }); }, { passive: true });
+})();
+
+/* ---------- painel de partidas ---------- */
+const destaques = PIZZARIA.sabores.filter(s => s.top).sort((a, b) => a.top - b.top).slice(0, 6);
+const LARG = innerWidth < 700 ? 13 : 20;
+const statusLista = [["saindo", "SAINDO"], ["forno", "NO FORNO"], ["prep", "PREPARANDO"]];
+$("#placaLinhas").innerHTML = destaques.map((s, i) => `<div class="linha-placa" data-sabor="${s.nome}" style="cursor:pointer"><span class="forno-n">${String(i + 1).padStart(2, "0")}</span><div class="flaps" data-alvo="${s.nome}">${"<span class='flap'> </span>".repeat(LARG)}</div><span class="preco-placa">${brl(s.precos[TP])}</span><span class="st ${statusLista[i % 3][0]}">${statusLista[i % 3][1]}</span></div>`).join("");
+const LETRAS = " ABCDEFGHIJKLMNOPQRSTUVWXYZÇÃÕÁÉÍÓÚÂÊÔ0123456789";
+function viraPlaca(el, texto) {
+  const alvo = texto.toUpperCase().padEnd(LARG).slice(0, LARG);
+  [...el.children].forEach((f, k) => {
+    const fim = alvo[k]; let voltas = reduz ? 0 : 4 + Math.floor(Math.random() * 6) + k % 4;
+    const passo = () => {
+      if (voltas-- <= 0) { f.textContent = fim; return; }
+      f.textContent = LETRAS[Math.floor(Math.random() * LETRAS.length)];
+      f.classList.remove("vira"); void f.offsetWidth; f.classList.add("vira");
+      setTimeout(passo, 70);
+    };
+    setTimeout(passo, k * 25);
+  });
+}
+let placaIniciada = false;
+new IntersectionObserver(([e], o) => { if (!e.isIntersecting) return; o.disconnect(); placaIniciada = true; $$("#placaLinhas .flaps").forEach((el, i) => setTimeout(() => viraPlaca(el, el.dataset.alvo), i * 260)); }, { threshold: .3 }).observe($("#placaLinhas"));
+// a cada alguns segundos um status muda e uma linha vira de novo
+setInterval(() => {
+  if (!placaIniciada || document.hidden) return;
+  const linhas = $$("#placaLinhas .linha-placa"); const st = linhas.map(l => l.querySelector(".st"));
+  const ultimo = st.pop(); st.unshift(ultimo);
+  const classes = st.map(s => [s.className, s.textContent]);
+  linhas.forEach((l, i) => { const s = l.querySelector(".st"); [s.className, s.textContent] = classes[(i + 1) % linhas.length]; });
+  const l = linhas[Math.floor(Math.random() * linhas.length)]; viraPlaca(l.querySelector(".flaps"), l.dataset.sabor);
+}, 5200);
+setInterval(() => { const d = new Date(); $("#relogio").textContent = `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`; }, 1000);
+$("#relogio").textContent = new Date().toTimeString().slice(0, 5);
+$("#precoCab").textContent = `PREÇO (${PIZZARIA.tamanhos[TP].nome.toUpperCase()})`;
+$$("#placaLinhas .linha-placa").forEach(l => l.onclick = () => irMontar(l.dataset.sabor));
+
+/* trenzinho com rodas de pizza */
+(function () {
+  const roda = (x) => `<g class="roda" transform="translate(${x} 38)"><g transform="scale(.075)">${pizzaPartes({ setores: [sabor(PIZZARIA.hero[0]) || PIZZARIA.sabores[0]], fatias: 6, detalhe: .3 }).corpo}</g></g>`;
+  const vagao = (x, cor, s) => `<g transform="translate(${x} 0)"><rect x="0" y="12" width="62" height="22" rx="4" fill="${cor}"/><rect x="6" y="16" width="50" height="8" rx="2" fill="#fbf3e4" opacity=".9"/><text x="31" y="23" text-anchor="middle" font-family="Archivo" font-weight="900" font-size="6.5" fill="#24150c">${s}</text>${roda(14)}${roda(48)}</g>`;
+  $("#trem").innerHTML = `<svg viewBox="0 0 240 50">${vagao(0, "#f6c64e", "MUSSARELA")}<rect x="62" y="26" width="8" height="3" fill="#7a5a40"/>${vagao(70, "#e2681f", "CALABRESA")}<rect x="132" y="26" width="8" height="3" fill="#7a5a40"/>
+    <g transform="translate(140 0)"><g class="fumaca" fill="#f3e6cf"><circle cx="72" cy="2" r="5"/><circle cx="72" cy="2" r="5"/><circle cx="72" cy="2" r="5"/></g><rect x="66" y="4" width="12" height="12" rx="2" fill="#24150c"/><rect x="0" y="6" width="34" height="28" rx="4" fill="#b3141c"/><rect x="6" y="11" width="22" height="11" rx="2" fill="#fbf3e4"/><path d="M34 14h44a10 10 0 0 1 10 10v10H34z" fill="#b3141c"/><circle cx="88" cy="26" r="4" fill="#f6c64e"/>${roda(14)}${roda(52)}${roda(78)}</g></svg>`;
+})();
+
+/* ---------- MONTE A SUA ---------- */
+const M = { tam: TP, qtd: 1, vagas: [sabor(PIZZARIA.hero[0]) || PIZZARIA.sabores[0]], ativa: 0, borda: 0 };
+const iconeTam = f => `<svg viewBox="-100 -100 200 200"><circle r="92" fill="#f6c64e" stroke="#b8692a" stroke-width="12"/>${Array.from({ length: f }, (_, k) => { const a = k * 6.2832 / f; return `<line x1="0" y1="0" x2="${f1(Math.cos(a) * 92)}" y2="${f1(Math.sin(a) * 92)}" stroke="#b8692a" stroke-width="7"/>`; }).join("")}</svg>`;
+$("#chipsTamanho").innerHTML = PIZZARIA.tamanhos.map((t, i) => `<button class="chip tamanho" data-i="${i}">${iconeTam(t.fatias)}<b>${t.nome}</b><small>${t.info}</small></button>`).join("");
+$("#chipsBorda").innerHTML = PIZZARIA.bordas.map((b, i) => `<button class="chip" data-i="${i}"><b>${b.nome}</b><small>${b.preco ? "+ " + brl(b.preco) : "sem custo"}</small></button>`).join("");
+$("#regraSabores").textContent = PIZZARIA.regraSabores === "maior" ? "Cobramos o sabor de maior valor" : "Cobramos a média dos sabores";
+function precoPizza(st) {
+  const ps = st.vagas.filter(Boolean).map(s => s.precos[st.tam]);
+  if (!ps.length) return 0;
+  const base = PIZZARIA.regraSabores === "maior" ? Math.max(...ps) : ps.reduce((a, b) => a + b, 0) / ps.length;
+  return Math.round((base + PIZZARIA.bordas[st.borda].preco) * 100) / 100;
+}
+const fracNome = q => ["", "Inteira", "1/2", "1/3", "1/4"][q];
+function pintaMontar(animar = -1) {
+  const t = PIZZARIA.tamanhos[M.tam];
+  if (M.qtd > t.maxSabores) { M.qtd = t.maxSabores; M.vagas.length = M.qtd; }
+  while (M.vagas.length < M.qtd) M.vagas.push(null);
+  M.vagas.length = M.qtd; if (M.ativa >= M.qtd) M.ativa = M.qtd - 1;
+  $$("#chipsTamanho .chip").forEach((c, i) => c.setAttribute("aria-pressed", i === M.tam));
+  $$("#chipsBorda .chip").forEach((c, i) => c.setAttribute("aria-pressed", i === M.borda));
+  $("#chipsQtd").innerHTML = [1, 2, 3, 4].map(q => `<button class="chip" data-q="${q}" aria-pressed="${q === M.qtd}" ${q > t.maxSabores ? "disabled" : ""}><b>${q === 1 ? "1 sabor" : q + " sabores"}</b></button>`).join("");
+  $("#vagas").innerHTML = M.vagas.map((s, i) => `<button class="vaga ${i === M.ativa ? "ativa" : ""}" data-v="${i}"><span class="frac">${fracNome(M.qtd)}</span><span class="nome ${s ? "" : "vazio"}">${s ? s.nome : "Escolha o sabor abaixo"}</span><span class="p">${s ? brl(s.precos[M.tam]) : ""}</span></button>`).join("");
+  $("#pzMontar").innerHTML = pizzaSVG({ setores: M.vagas, fatias: t.fatias, borda: PIZZARIA.bordas[M.borda], animar });
+  $("#pzMontar").style.transform = `scale(${t.escala / .9 * .9})`;
+  $("#precoMontar").textContent = brl(precoPizza(M));
+  $("#ticketMontar").innerHTML = `<span>${t.nome}</span> · ${t.info} · ${M.vagas.filter(Boolean).map(s => s.nome).join(" + ") || "escolha os sabores"}${M.borda ? ` · borda ${PIZZARIA.bordas[M.borda].nome.toLowerCase()}` : ""}`;
+  $$("#listaSabores .sabor-opcao").forEach(b => b.classList.toggle("usado", M.vagas.some(s => s && s.nome === b.dataset.n)));
+}
+function listaSabores(filtro = "") {
+  const f = filtro.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  const lista = PIZZARIA.sabores.filter(s => !f || (s.nome + " " + s.desc).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().includes(f));
+  $("#listaSabores").innerHTML = lista.map(s => `<button class="sabor-opcao" data-n="${s.nome}">${mini(s, "")}<span>${s.nome}</span></button>`).join("") || `<p class="nada">Nenhum sabor com "${filtro}".</p>`;
+  pintaMontar();
+}
+$("#chipsTamanho").onclick = e => { const b = e.target.closest(".chip"); if (!b) return; M.tam = +b.dataset.i; pintaMontar(); };
+$("#chipsBorda").onclick = e => { const b = e.target.closest(".chip"); if (!b) return; M.borda = +b.dataset.i; pintaMontar(); };
+$("#chipsQtd").onclick = e => { const b = e.target.closest(".chip"); if (!b) return; const q = +b.dataset.q; const antes = M.qtd; M.qtd = q; const v = M.vagas.slice(0, q); while (v.length < q) v.push(null); M.vagas = v; M.ativa = q > antes ? antes : 0; pintaMontar(); };
+$("#vagas").onclick = e => { const b = e.target.closest(".vaga"); if (!b) return; M.ativa = +b.dataset.v; pintaMontar(); };
+$("#listaSabores").onclick = e => {
+  const b = e.target.closest(".sabor-opcao"); if (!b) return;
+  M.vagas[M.ativa] = sabor(b.dataset.n);
+  const caiu = M.ativa;
+  const prox = M.vagas.findIndex(s => !s); M.ativa = prox >= 0 ? prox : M.ativa;
+  pintaMontar(caiu);
+};
+$("#buscaMontar").oninput = e => listaSabores(e.target.value);
+function irMontar(nome) {
+  M.qtd = 1; M.vagas = [sabor(nome)]; M.ativa = 0; if (M.tam < TP) M.tam = TP;
+  pintaMontar(0);
+  $("#monte").scrollIntoView({ behavior: reduz ? "auto" : "smooth" });
+}
+listaSabores();
+pintaMontar("todos");
+
+/* colocar na caixa: tampa fecha, caixa voa para o pedido */
+let fechando = false;
+$("#addMontar").onclick = () => {
+  if (fechando) return;
+  if (M.vagas.some(s => !s)) { avisar(`Falta escolher ${M.vagas.filter(s => !s).length > 1 ? "os sabores" : "um sabor"}`); M.ativa = M.vagas.findIndex(s => !s); pintaMontar(); return; }
+  fechando = true;
+  const t = PIZZARIA.tamanhos[M.tam];
+  const item = { tipo: "pizza", tam: M.tam, vagas: [...M.vagas], borda: M.borda, obs: $("#obsMontar").value.trim(), preco: precoPizza(M), qtd: 1 };
+  item.nome = `Pizza ${t.nome}`; item.desc = `${M.vagas.map(s => (M.qtd > 1 ? fracNome(M.qtd) + " " : "") + s.nome).join(", ")}${M.borda ? ` · Borda ${PIZZARIA.bordas[M.borda].nome}` : ""}`;
+  $("#tampa").classList.add("fecha");
+  setTimeout(() => {
+    const r = $("#caixa").getBoundingClientRect();
+    voar(r, `<div style="width:100%;height:100%;border-radius:8px;background:#d4a066;box-shadow:0 10px 30px rgba(0,0,0,.35),inset 0 0 0 2px rgba(110,60,20,.35);display:grid;place-items:center;font-family:Shrikhand;color:#b3141c;font-size:${Math.round(r.width / 9)}px;text-align:center;line-height:1">${PIZZARIA.nome}</div>`, () => {
+      adicionar(item);
+      $("#obsMontar").value = "";
+      setTimeout(() => { $("#tampa").classList.remove("fecha"); fechando = false; }, 250);
+    });
+  }, reduz ? 0 : 850);
+};
+
+/* ---------- CARDÁPIO ---------- */
+const cats = [...PIZZARIA.categorias, "Bebidas"];
+let catAtual = cats[0];
+$("#abas").innerHTML = cats.map(c => `<button class="aba" role="tab" data-c="${c}" aria-selected="${c === catAtual}">${c}</button>`).join("") + `<input class="busca-sabor" id="buscaMenu" type="search" placeholder="Buscar no cardápio" aria-label="Buscar no cardápio">`;
+const iconeLata = cor => `<svg class="lata" viewBox="0 0 60 60" aria-hidden="true"><rect x="20" y="6" width="20" height="48" rx="6" fill="${cor}"/><rect x="24" y="2" width="12" height="6" rx="2" fill="${cor}" opacity=".7"/><rect x="20" y="22" width="20" height="14" fill="#fff" opacity=".85"/><rect x="24" y="10" width="3" height="40" rx="1.5" fill="#fff" opacity=".25"/></svg>`;
+const mais = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>`;
+function pintaCardapio() {
+  const f = ($("#buscaMenu").value || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  const casa = s => (s.nome + " " + (s.desc || "")).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().includes(f);
+  let html = "";
+  if (f) {
+    html = PIZZARIA.sabores.filter(casa).map(itemPizza).join("") + PIZZARIA.bebidas.filter(casa).map(itemBebida).join("");
+  } else if (catAtual === "Bebidas") html = PIZZARIA.bebidas.map(itemBebida).join("");
+  else if (catAtual === "Combos") html = (PIZZARIA.combos || []).map(itemCombo).join("");
+  else html = PIZZARIA.sabores.filter(s => s.cat === catAtual).map(itemPizza).join("");
+  $("#itens").innerHTML = html || `<p class="nada">Nada encontrado.</p>`;
+  $$("#itens .surgir").forEach((el, i) => { el.animate([{ opacity: 0, transform: "translateY(14px)" }, { opacity: 1, transform: "none" }], { duration: reduz ? 1 : 500, delay: i * 40, easing: "cubic-bezier(.34,1.56,.64,1)", fill: "backwards" }); });
+}
+function itemPizza(s) {
+  return `<div class="item surgir" data-sabor="${s.nome}">${mini(s)}<div><div class="topo-item"><h4>${s.nome}${s.tag ? `<span class="tag">${s.tag}</span>` : ""}</h4><span class="pontos"></span><span class="preco">${brl(s.precos[TP])}</span></div><p>${s.desc}</p><div class="tams">${PIZZARIA.tamanhos.map((t, i) => `${t.nome} <b>${brl(s.precos[i]).replace("R$", "").trim()}</b>`).join(" · ")}</div></div><button class="mais" data-rapido="${s.nome}" aria-label="Adicionar ${s.nome} ${PIZZARIA.tamanhos[TP].nome.toLowerCase()}">${mais}</button></div>`;
+}
+function itemCombo(c, i) {
+  const s = c.sabores.map(sabor).filter(Boolean);
+  return `<div class="item combo surgir">${pizzaSVG({ setores: s.slice(0, 1), fatias: 12, detalhe: .55 }, 'class="mini" aria-hidden="true"')}<div><div class="topo-item"><h4>${c.nome}${c.de ? `<span class="tag">-${Math.round((1 - c.preco / c.de) * 100)}%</span>` : ""}</h4><span class="pontos"></span><span class="preco">${c.de ? `<s>${brl(c.de)}</s> ` : ""}${brl(c.preco)}</span></div><p>${c.desc}</p>${c.serve ? `<div class="tams">Serve <b>${c.serve} pessoas</b></div>` : ""}</div><button class="mais" data-combo="${i}" aria-label="Adicionar ${c.nome}">${mais}</button></div>`;
+}
+function itemBebida(b, i) {
+  return `<div class="item bebida surgir">${iconeLata(b.cor || "#b3141c")}<div><div class="topo-item"><h4>${b.nome}</h4><span class="pontos"></span><span class="preco">${brl(b.preco)}</span></div></div><button class="mais" data-bebida="${b.nome}" aria-label="Adicionar ${b.nome}">${mais}</button></div>`;
+}
+$("#abas").onclick = e => { const b = e.target.closest(".aba"); if (!b) return; catAtual = b.dataset.c; $("#buscaMenu").value = ""; $$("#abas .aba").forEach(a => a.setAttribute("aria-selected", a === b)); pintaCardapio(); };
+$("#buscaMenu").oninput = pintaCardapio;
+$("#itens").onclick = e => {
+  const r = e.target.closest("[data-rapido]"), bb = e.target.closest("[data-bebida]");
+  if (r) { const s = sabor(r.dataset.rapido); const it = { tipo: "pizza", tam: TP, vagas: [s], borda: 0, obs: "", qtd: 1, preco: s.precos[TP], nome: `Pizza ${PIZZARIA.tamanhos[TP].nome}`, desc: s.nome }; voar(r.closest(".item").querySelector(".mini").getBoundingClientRect(), mini(s, ""), () => adicionar(it)); return; }
+  if (bb) { const b = PIZZARIA.bebidas.find(x => x.nome === bb.dataset.bebida); voar(bb.closest(".item").querySelector(".lata").getBoundingClientRect(), iconeLata(b.cor), () => adicionar({ tipo: "bebida", nome: b.nome, desc: "", preco: b.preco, qtd: 1, cor: b.cor })); return; }
+  const cb = e.target.closest("[data-combo]");
+  if (cb) { const c = PIZZARIA.combos[+cb.dataset.combo]; const el = cb.closest(".item").querySelector(".mini"); voar(el.getBoundingClientRect(), el.outerHTML, () => adicionar({ tipo: "combo", nome: "Combo " + c.nome, desc: "", preco: c.preco, qtd: 1, sabores: c.sabores })); return; }
+  const it = e.target.closest(".item[data-sabor]"); if (it) irMontar(it.dataset.sabor);
+};
+pintaCardapio();
+$("#notaMenu").textContent = PIZZARIA.avisoCardapio || "";
+
+/* ---------- RODÍZIO ---------- */
+if (PIZZARIA.rodizio) {
+  const r = PIZZARIA.rodizio;
+  $("#rodDias").textContent = r.dias;
+  $("#rodPreco").textContent = r.preco ? brl(r.preco) : "Consulte";
+  $("#rodObs").textContent = r.obs || "";
+  $("#rodInclui").innerHTML = r.inclui.map(t => `<li>${t}</li>`).join("");
+  $("#rodReserva").href = linkZap(`Olá, ${PIZZARIA.nome}! Quero reservar uma mesa para o rodízio. Somos __ pessoas, para o dia __ às __h.`);
+}
+
+/* ---------- FOTOS ---------- */
+if (PIZZARIA.fotos && PIZZARIA.fotos.length) {
+  const fig = PIZZARIA.fotos.map((f, i) => `<figure class="polaroid" style="--r:${[-3, 2.5, -1.5, 3.5, -2.5, 1.5][i % 6]}deg"><img src="${f.src}" alt="${f.legenda}" loading="lazy"><figcaption>${f.legenda}</figcaption></figure>`).join("");
+  $("#varal").innerHTML = fig + fig.replace(/alt="[^"]*"/g, 'alt="" aria-hidden="true"');
+} else $("#fotos").remove();
+
+/* ---------- ENTREGA ---------- */
+$("#entregaTexto").textContent = `Pedido feito aqui no site chega direto na nossa cozinha. Entrega em ${PIZZARIA.tempoEntrega}${PIZZARIA.taxaEntrega != null ? `, taxa de ${brl(PIZZARIA.taxaEntrega)}` : ""}.`;
+$("#tempoEntrega").textContent = PIZZARIA.tempoEntrega;
+const icSeg = {
+  massa: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 30c0-8 8-14 18-14s18 6 18 14"/><path d="M4 30h40v4a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/><path d="M18 16c0-5 3-8 6-8s6 3 6 8"/></svg>`,
+  forno: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M4 42h40M8 42V24a16 16 0 0 1 32 0v18"/><path d="M18 42V32a6 6 0 0 1 12 0v10"/><path d="M24 10V4M14 13l-3-4M34 13l3-4"/></svg>`,
+  caixa: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"><path d="M4 18h40v20H4z"/><path d="M4 18 10 8h28l6 10"/><path d="M16 28h16"/></svg>`
+};
+$("#segredos").innerHTML = PIZZARIA.segredos.map((s, i) => `<div class="segredo surge" style="transition-delay:${i * .12}s">${icSeg[s.icone] || icSeg.forno}<h3>${s.titulo}</h3><p>${s.texto}</p></div>`).join("");
+new IntersectionObserver(([e], o) => {
+  if (!e.isIntersecting) return; o.disconnect();
+  const rota = $("#rota"), etapas = $$(".etapa", rota), moto = $("#moto");
+  etapas[0].classList.add("on");
+  const passos = [0, 1 / 3, 2 / 3, 1];
+  passos.forEach((p, i) => setTimeout(() => {
+    rota.style.setProperty("--p", p);
+    moto.classList.add("anda");
+    setTimeout(() => { etapas[i].classList.add("on"); if (i === 3) moto.classList.remove("anda"); }, i ? 1100 : 0);
+    if (i === 1) { const g = $("#graus"); const t0 = performance.now(); const sobe = t => { const k = Math.min(1, (t - t0) / 1400); g.textContent = Math.round(380 * (1 - (1 - k) ** 3)) + "°C"; if (k < 1) requestAnimationFrame(sobe); }; requestAnimationFrame(sobe); }
+  }, reduz ? 0 : i * 1500));
+}, { threshold: .35 }).observe($("#rota"));
+
+/* ---------- ONDE ---------- */
+$("#linkMapa").href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(PIZZARIA.mapsBusca)}`;
+$("#contatos").innerHTML = [
+  `<a class="l" href="${linkZap(`Olá, ${PIZZARIA.nome}!`)}" target="_blank" rel="noopener">WhatsApp ${PIZZARIA.telefones[0]}</a>`,
+  ...PIZZARIA.telefones.slice(1).map(t => `<a class="l" href="tel:+55${t.replace(/\D/g, "")}">${t}</a>`),
+  PIZZARIA.instagram ? `<a class="l" href="https://instagram.com/${PIZZARIA.instagram}" target="_blank" rel="noopener">@${PIZZARIA.instagram}</a>` : ""
+].filter(Boolean).join("<br>");
+new IntersectionObserver(([e], o) => { if (!e.isIntersecting) return; o.disconnect(); $("#mapa").innerHTML = `<iframe title="Mapa" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=${encodeURIComponent(PIZZARIA.mapsBusca)}&output=embed"></iframe>`; }, { rootMargin: "400px" }).observe($("#mapa"));
+$("#zapFinal").href = linkZap(`Olá, ${PIZZARIA.nome}! Quero fazer um pedido.`);
+
+/* ---------- FINAL: fatias voando ---------- */
+function fatiaSVG(s) {
+  const { defs, corpo } = pizzaPartes({ setores: [s], fatias: 8, cortes: false, detalhe: .8 });
+  return `<svg viewBox="-10 -100 105 110" aria-hidden="true"><defs>${defs}<clipPath id="fc${s.nome.length}x"><path d="${setorPath(-Math.PI / 2, -Math.PI / 2 + Math.PI / 3.2, 100)}"/></clipPath></defs><g clip-path="url(#fc${s.nome.length}x)">${corpo}</g><path d="M2 -40 q2 22 -1 34" stroke="#f7cf5c" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`;
+}
+$("#fv1").innerHTML = fatiaSVG(heroSabores[0]);
+$("#fv2").innerHTML = fatiaSVG(heroSabores[3] || heroSabores[0]);
+
+/* ---------- SACOLA ---------- */
+let sacola = [], modo = "entrega";
+function adicionar(item) {
+  const chave = JSON.stringify([item.nome, item.desc, item.obs, item.preco]);
+  const ja = sacola.find(i => i.chave === chave);
+  if (ja) ja.qtd++; else sacola.push({ ...item, chave });
+  pintaSacola(true);
+  avisar(`${item.tipo === "pizza" ? item.nome + " · " + item.desc : item.nome} no pedido`);
+}
+function pintaSacola(pulo) {
+  const qtd = sacola.reduce((a, i) => a + i.qtd, 0), sub = sacola.reduce((a, i) => a + i.qtd * i.preco, 0);
+  $$("[data-qtd]").forEach(e => e.textContent = qtd);
+  $$("[data-total]").forEach(e => e.textContent = brl(sub));
+  $("#sacolaFlutua").classList.toggle("on", qtd > 0);
+  if (pulo) $$(".sacola-btn").forEach(b => { b.classList.remove("pula"); void b.offsetWidth; b.classList.add("pula"); });
+  $("#sacolaItens").innerHTML = sacola.length ? sacola.map((i, k) => `<div class="linha-item">${i.tipo === "combo" ? pizzaSVG({ setores: [sabor(i.sabores[0])], fatias: 12, detalhe: .5 }, 'class="mini"') : i.tipo === "pizza" ? pizzaSVG({ setores: i.vagas, fatias: PIZZARIA.tamanhos[i.tam].fatias, borda: PIZZARIA.bordas[i.borda], detalhe: .5 }, 'class="mini"') : iconeLata(i.cor).replace('class="lata"', 'class="mini"')}<div><b>${i.nome}</b><small>${i.desc}${i.obs ? `<br>Obs.: ${i.obs}` : ""}</small><div class="qtd"><button data-menos="${k}" aria-label="Menos">−</button><span>${i.qtd}</span><button data-mais="${k}" aria-label="Mais">+</button></div></div><span class="v">${brl(i.preco * i.qtd)}</span></div>`).join("")
+    : `<div class="vazio-sacola">${iconeTam(8)}<p>Seu pedido está vazio.<br>Que tal montar uma pizza?</p></div>`;
+  const ent = modo === "entrega" ? PIZZARIA.taxaEntrega : 0;
+  $("#rSub").textContent = brl(sub);
+  $("#rEnt").textContent = modo === "retirada" ? "Retirada no balcão" : (ent != null ? brl(ent) : "A combinar");
+  $("#rTot").textContent = brl(sub + (ent || 0));
+}
+$("#sacolaItens").onclick = e => {
+  const m = e.target.closest("[data-mais]"), n = e.target.closest("[data-menos]");
+  if (m) sacola[+m.dataset.mais].qtd++;
+  if (n) { const k = +n.dataset.menos; if (--sacola[k].qtd <= 0) sacola.splice(k, 1); }
+  if (m || n) pintaSacola();
+};
+const gaveta = $("#gaveta");
+const abrir = () => { gaveta.classList.add("on"); gaveta.setAttribute("aria-hidden", "false"); };
+const fechar = () => { gaveta.classList.remove("on"); gaveta.setAttribute("aria-hidden", "true"); };
+$$("[data-abrir-sacola]").forEach(b => b.onclick = abrir);
+$$("[data-fechar]").forEach(b => b.onclick = fechar);
+addEventListener("keydown", e => { if (e.key === "Escape") fechar(); });
+$("#modo").onclick = e => { const b = e.target.closest("button"); if (!b) return; modo = b.dataset.modo; $$("#modo button").forEach(x => x.setAttribute("aria-pressed", x === b)); $("#campoEnd").hidden = modo !== "entrega"; pintaSacola(); };
+$("#fPag").onchange = e => $("#campoTroco").hidden = e.target.value !== "Dinheiro";
+$("#enviar").onclick = () => {
+  if (!sacola.length) { avisar("Adicione algo ao pedido primeiro"); return; }
+  const nome = $("#fNome").value.trim(), end = $("#fEnd").value.trim();
+  if (!nome) { $("#fNome").focus(); avisar("Qual é o seu nome?"); return; }
+  if (modo === "entrega" && !end) { $("#fEnd").focus(); avisar("Falta o endereço de entrega"); return; }
+  const sub = sacola.reduce((a, i) => a + i.qtd * i.preco, 0);
+  const ent = modo === "entrega" ? PIZZARIA.taxaEntrega : 0;
+  const linhas = [`*Pedido pelo site · ${PIZZARIA.nome}* 🍕`, ""];
+  sacola.forEach(i => { linhas.push(`${i.qtd}x ${i.nome}${i.desc ? ` (${i.desc})` : ""} · ${brl(i.preco * i.qtd)}`); if (i.obs) linhas.push(`   Obs.: ${i.obs}`); });
+  linhas.push("", `Subtotal: ${brl(sub)}`);
+  if (modo === "entrega") linhas.push(`Entrega: ${ent != null ? brl(ent) : "a combinar"}`);
+  linhas.push(`*Total: ${brl(sub + (ent || 0))}*`, "", `Nome: ${nome}`, modo === "entrega" ? `Entregar em: ${end}` : "Vou retirar no balcão", `Pagamento: ${$("#fPag").value}${$("#fPag").value === "Dinheiro" && $("#fTroco").value ? ` (troco para R$ ${$("#fTroco").value})` : ""}`);
+  window.open(linkZap(linhas.join("\n")), "_blank", "noopener");
+};
+pintaSacola();
+
+/* ---------- utilidades visuais ---------- */
+let avisoT;
+function avisar(t) { const a = $("#aviso"); a.textContent = t; a.classList.add("on"); clearTimeout(avisoT); avisoT = setTimeout(() => a.classList.remove("on"), 2200); }
+function voar(rect, html, fim) {
+  const alvoBtn = $("#sacolaFlutua").classList.contains("on") ? $("#sacolaFlutua .sacola-btn") : $(".topo .sacola-btn");
+  const alvo = alvoBtn.getBoundingClientRect();
+  if (reduz) { fim(); return; }
+  const v = document.createElement("div"); v.className = "voador"; v.innerHTML = html;
+  Object.assign(v.style, { left: rect.left + "px", top: rect.top + "px", width: rect.width + "px", height: rect.height + "px" });
+  document.body.appendChild(v);
+  const dx = alvo.left + alvo.width / 2 - (rect.left + rect.width / 2), dy = alvo.top + alvo.height / 2 - (rect.top + rect.height / 2);
+  const esc = Math.max(.08, 40 / rect.width);
+  v.animate([
+    { transform: "translate(0,0) scale(1) rotate(0)", opacity: 1 },
+    { transform: `translate(${dx * .5}px, ${dy * .5 - 120}px) scale(${(1 + esc) / 2}) rotate(-20deg)`, opacity: 1, offset: .5 },
+    { transform: `translate(${dx}px, ${dy}px) scale(${esc}) rotate(-40deg)`, opacity: .6 }
+  ], { duration: 800, easing: "cubic-bezier(.5,0,.6,1)" }).onfinish = () => { v.remove(); fim(); };
+}
+const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visto"); obs.unobserve(e.target); } }), { threshold: .15 });
+$$(".revela, .surge").forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
