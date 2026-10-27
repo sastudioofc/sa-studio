@@ -66,12 +66,17 @@
   .marca { display: flex; align-items: center; gap: 10px; }
   .marca svg { width: 44px; height: 44px; transition: transform .8s var(--mola); }
   .marca:hover svg { transform: rotate(200deg); }
-  .marca b { font-family: var(--display); font-weight: 400; font-size: 1.35rem; color: var(--tinta); line-height: 1; display: block; letter-spacing: .01em; }
-  .marca small { font-size: .62rem; font-stretch: 125%; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--texto-2); }
-  .menu { display: flex; gap: 24px; margin-left: auto; align-items: center; }
-  .menu a { font-size: .74rem; font-stretch: 125%; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; position: relative; padding: 4px 0; }
+  .marca b { white-space: nowrap; font-family: var(--display); font-weight: 400; font-size: 1.35rem; color: var(--tinta); line-height: 1; display: block; letter-spacing: .01em; }
+  .marca small { white-space: nowrap; font-size: .62rem; font-stretch: 125%; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--texto-2); }
+  .menu { display: flex; gap: 20px; margin-left: auto; align-items: center; }
+  .menu a { white-space: nowrap; font-size: .74rem; font-stretch: 125%; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; position: relative; padding: 4px 0; }
   .menu a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 3px; border-radius: 3px; background: var(--tinta); transform: scaleX(0); transform-origin: right; transition: transform .35s var(--mola); }
   .menu a:hover::after { transform: scaleX(1); transform-origin: left; }
+  .idiomas { display: inline-flex; gap: 2px; padding: 3px; border-radius: 99px; background: rgba(251, 243, 228, .55); border: 1px solid var(--linha); }
+  .idiomas a { font-size: .72rem; font-weight: 800; letter-spacing: .04em; padding: 5px 9px; border-radius: 99px; color: var(--texto-2); transition: background .2s, color .2s; }
+  .idiomas a::after { display: none; }
+  .idiomas a:hover { color: var(--tinta); }
+  .idiomas a[aria-current] { background: var(--tinta); color: var(--creme); }
   .aberto { display: inline-flex; align-items: center; gap: 8px; font-size: .78rem; font-weight: 700; padding: 6px 12px; border-radius: 99px; background: rgba(251, 243, 228, .55); border: 1px solid var(--linha); white-space: nowrap; }
   .aberto i { width: 8px; height: 8px; border-radius: 50%; background: #9a8b7c; }
   .aberto.sim i { background: #2e9b47; box-shadow: 0 0 0 0 rgba(46, 155, 71, .6); animation: pulso 1.8s infinite; }
@@ -356,7 +361,7 @@
   .horas td { padding: 7px 0; border-bottom: 1px dashed var(--linha); }
   .horas td:last-child { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
   .horas tr.hoje td { color: var(--tinta); font-weight: 800; }
-  .horas tr.hoje td:first-child::after { content: "hoje"; font-size: .62rem; font-stretch: 125%; letter-spacing: .1em; text-transform: uppercase; background: var(--tinta); color: var(--creme); padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: 2px; }
+  .horas tr.hoje td:first-child::after { content: attr(data-hoje); font-size: .62rem; font-stretch: 125%; letter-spacing: .1em; text-transform: uppercase; background: var(--tinta); color: var(--creme); padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: 2px; }
   .mapa { border-radius: 24px; overflow: hidden; border: 8px solid #fff; box-shadow: 0 30px 50px -30px rgba(60, 30, 8, .6); transform: rotate(1.2deg); min-height: 380px; background: var(--creme-2); position: relative; }
   .mapa iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
@@ -417,8 +422,10 @@
   .voador svg { width: 100%; height: 100%; }
 
   /* ---------- responsivo ---------- */
+  @media (max-width: 1240px) {
+    .menu > a { display: none; }
+  }
   @media (max-width: 1020px) {
-    .menu a { display: none; }
     .hero-grade { grid-template-columns: 1fr; }
     .hero { padding-top: 0; }
     .hero-pizza { order: -1; width: min(92vw, 560px); justify-self: center; margin: 10px 0 10px; }
@@ -436,8 +443,9 @@
     .marca svg { width: 36px; height: 36px; }
     .marca b { font-size: 1.1rem; }
     .marca small { display: none; }
-    .aberto span { display: none; }
-    .aberto { padding: 9px; }
+    .aberto { display: none; }
+    .menu .sacola-btn { display: none; }
+    .idiomas a { padding: 5px 8px; }
     .sacola-btn .rot { display: none; }
     .secao { padding: 80px 0; }
     .hero { min-height: 0; padding-bottom: 80px; }
@@ -510,6 +518,7 @@
       <a href="#cardapio">Cardápio</a>
       <a href="#rodizio" data-se="rodizio">Rodízio</a>
       <a href="#onde">Onde estamos</a>
+      <span class="idiomas" id="idiomas" aria-label="Idioma"></span>
       <span class="aberto" id="aberto"><i></i><span>...</span></span>
       <button class="sacola-btn" data-abrir-sacola aria-label="Abrir pedido">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 9h18l-2 11H5z"/><path d="M8 9V7a4 4 0 0 1 8 0v2"/></svg>
@@ -550,7 +559,7 @@
           <defs><path id="circSelo" d="M100 100 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0"/></defs>
           <circle cx="100" cy="100" r="96" fill="#b3141c"/>
           <circle cx="100" cy="100" r="88" fill="none" stroke="#fbf3e4" stroke-width="1.5" stroke-dasharray="3 5"/>
-          <g class="gira"><text font-family="Archivo" font-stretch="125%" font-weight="900" font-size="17" letter-spacing="4.2" fill="#fbf3e4"><textPath href="#circSelo" id="seloTexto"></textPath></text></g>
+          <g class="gira"><text font-family="Archivo" font-stretch="125%" font-weight="900" font-size="17" fill="#fbf3e4"><textPath href="#circSelo" id="seloTexto"></textPath></text></g>
           <g transform="translate(100 100)"><path d="M0 34 -30 -20a62 36 0 0 1 60 0z" fill="#f6c64e" stroke="#fbf3e4" stroke-width="5" stroke-linejoin="round"/><circle cx="-8" cy="-9" r="6" fill="#b3141c"/><circle cx="9" cy="-4" r="5" fill="#b3141c"/><circle cx="0" cy="13" r="4.5" fill="#b3141c"/></g>
         </svg>
       </div>
@@ -790,7 +799,7 @@
         <div><label for="fNome">Seu nome</label><input id="fNome" required autocomplete="name"></div>
         <div id="campoEnd"><label for="fEnd">Endereço com número e bairro</label><input id="fEnd" autocomplete="street-address"></div>
         <div><label for="fPag">Pagamento</label>
-          <select id="fPag"><option>Pix</option><option>Cartão na entrega</option><option>Dinheiro</option></select></div>
+          <select id="fPag"><option value="Pix">Pix</option><option value="Cartão">Cartão na entrega</option><option value="Dinheiro">Dinheiro</option></select></div>
         <div id="campoTroco" hidden><label for="fTroco">Troco para quanto?</label><input id="fTroco" inputmode="decimal" placeholder="Ex.: 100"></div>
       </form>
     </div>
@@ -810,15 +819,26 @@
 <script>
 /* =====================================================================
    DADOS DA PIZZARIA: para usar o modelo em outra pizzaria, edite aqui.
+   Textos podem ser uma frase só ("Calabresa") ou ter versão por idioma:
+   { pt: "...", en: "...", es: "..." }. O que não tiver tradução aparece em português.
    ===================================================================== */
 const PIZZARIA = {
   nome: "Estação da Pizza",
-  tipo: "Rodízio e tele entrega",
+  idiomas: ["pt", "en", "es"],       // idiomas do seletor no topo
+  seo: {
+    titulo: { pt: "Estação da Pizza · Rodízio e tele entrega em Biguaçu", en: "Estação da Pizza · All-you-can-eat pizza and delivery in Biguaçu", es: "Estação da Pizza · Pizza libre y delivery en Biguaçu" },
+    descricao: { pt: "Estação da Pizza, no Centro de Biguaçu (SC). Rodízio de pizza e tele entrega. Monte sua pizza meio a meio e peça pelo WhatsApp.", en: "Estação da Pizza in downtown Biguaçu, Brazil. All-you-can-eat pizza and delivery. Build a half-and-half pizza and order on WhatsApp.", es: "Estação da Pizza, en el centro de Biguaçu (Brasil). Pizza libre y delivery. Arma tu pizza mitad y mitad y pide por WhatsApp." }
+  },
+  tipo: { pt: "Rodízio e tele entrega", en: "All-you-can-eat & delivery", es: "Pizza libre y delivery" },
   cidadeCurta: "Biguaçu · SC",
-  chamadaTopo: "A pizza mais saborosa de Biguaçu",
-  titulo: ["Próxima parada:", "<em>pizza</em> quentinha"],
-  subtitulo: "Pizza gigante de 12 fatias, queijo puxando e borda recheada. <b>Venha para o rodízio no salão</b> ou monte a sua aqui e receba em casa.",
-  selo: "A PIZZA MAIS SABOROSA DE BIGUAÇU • ",
+  chamadaTopo: { pt: "A pizza mais saborosa de Biguaçu", en: "The tastiest pizza in Biguaçu", es: "La pizza más sabrosa de Biguaçu" },
+  titulo: { pt: ["Próxima parada:", "<em>pizza</em> quentinha"], en: ["Next stop:", "<em>hot</em> pizza"], es: ["Próxima parada:", "pizza <em>calentita</em>"] },
+  subtitulo: {
+    pt: "Pizza gigante de 12 fatias, queijo puxando e borda recheada. <b>Venha para o rodízio no salão</b> ou monte a sua aqui e receba em casa.",
+    en: "Giant 12-slice pizza, stretchy cheese and stuffed crust. <b>Come for the all-you-can-eat</b> or build yours here and get it delivered.",
+    es: "Pizza gigante de 12 porciones, queso que se estira y borde relleno. <b>Ven a la pizza libre en el salón</b> o arma la tuya aquí y recíbela en casa."
+  },
+  selo: { pt: "A PIZZA MAIS SABOROSA DE BIGUAÇU • ", en: "THE TASTIEST PIZZA IN BIGUAÇU • ", es: "LA PIZZA MÁS SABROSA DE BIGUAÇU • " },
   endereco: "R. Francisco Roberto da Silva, 411, Centro, Biguaçu - SC, 88160-286",
   mapsBusca: "ESTAÇÃO DA PIZZA (Rodizio e tele entrega), R. Francisco Roberto da Silva, 411, Biguaçu - SC",
   whatsapp: "5548999610483",        // só números, com 55 e DDD
@@ -830,22 +850,31 @@ const PIZZARIA = {
   taxaEntrega: null,                 // número em reais, ou null para "a combinar"
   // horários por dia da semana, 0 = domingo. null = fechado. Fechamento depois da meia-noite funciona ("00:30").
   horarios: [["19:00", "23:30"], ["19:00", "23:30"], ["19:00", "23:30"], ["19:00", "23:30"], ["19:00", "23:30"], ["19:00", "23:30"], ["19:00", "23:30"]],
-  rodizio: { preco: null, dias: "Todo dia, 19h", obs: "Média de R$ 40 a R$ 60 por pessoa, segundo o Google.", inclui: ["Pizzas salgadas e doces", "Salão amplo e climatizado", "Sabores novos a cada volta", "Pizzas doces de sobremesa"] },
+  rodizio: {
+    preco: null,
+    dias: { pt: "Todo dia, 19h", en: "Every day, 7 PM", es: "Todos los días, 19h" },
+    obs: { pt: "Média de R$ 40 a R$ 60 por pessoa, segundo o Google.", en: "Around R$ 40 to R$ 60 per person, according to Google.", es: "Promedio de R$ 40 a R$ 60 por persona, según Google." },
+    inclui: {
+      pt: ["Pizzas salgadas e doces", "Salão amplo e climatizado", "Sabores novos a cada volta", "Pizzas doces de sobremesa"],
+      en: ["Savory and sweet pizzas", "Spacious air-conditioned dining room", "New flavors every round", "Sweet pizzas for dessert"],
+      es: ["Pizzas saladas y dulces", "Salón amplio y climatizado", "Sabores nuevos en cada vuelta", "Pizzas dulces de postre"]
+    }
+  },
   segredos: [
-    { icone: "massa", titulo: "Gigante de verdade", texto: "A pizza gigante tem 12 fatias e borda recheada. Dá para a família inteira." },
-    { icone: "forno", titulo: "Assada na hora", texto: "Sai do forno quando o pedido chega, para o queijo ainda estar puxando na sua casa." },
-    { icone: "caixa", titulo: "Direto com a gente", texto: "Pedindo pelo site ou pelo WhatsApp, o pedido chega na cozinha sem taxa de aplicativo." }
+    { icone: "massa", titulo: { pt: "Gigante de verdade", en: "Truly giant", es: "Gigante de verdad" }, texto: { pt: "A pizza gigante tem 12 fatias e borda recheada. Dá para a família inteira.", en: "The giant pizza has 12 slices and a stuffed crust. Enough for the whole family.", es: "La pizza gigante tiene 12 porciones y borde relleno. Alcanza para toda la familia." } },
+    { icone: "forno", titulo: { pt: "Assada na hora", en: "Baked to order", es: "Horneada al momento" }, texto: { pt: "Sai do forno quando o pedido chega, para o queijo ainda estar puxando na sua casa.", en: "It leaves the oven when your order comes in, so the cheese is still stretching at your door.", es: "Sale del horno cuando llega el pedido, para que el queso siga estirándose en tu casa." } },
+    { icone: "caixa", titulo: { pt: "Direto com a gente", en: "Straight from us", es: "Directo con nosotros" }, texto: { pt: "Pedindo pelo site ou pelo WhatsApp, o pedido chega na cozinha sem taxa de aplicativo.", en: "Order on the website or WhatsApp and it goes straight to the kitchen, with no app fees.", es: "Pidiendo por la web o por WhatsApp, el pedido llega a la cocina sin comisión de app." } }
   ],
   // regra de preço para pizza de mais de um sabor: "maior" (cobra o sabor mais caro) ou "media"
   regraSabores: "maior",
   tamanhoPadrao: 1,                  // índice do tamanho usado no botão "+" do cardápio
   tamanhos: [
-    { nome: "Broto", fatias: 4, info: "4 fatias", maxSabores: 2, escala: .66 },
-    { nome: "Grande", fatias: 8, info: "8 fatias", maxSabores: 2, escala: .84 },
-    { nome: "Gigante", fatias: 12, info: "12 fatias", maxSabores: 3, escala: 1 }
+    { nome: { pt: "Broto", en: "Small", es: "Chica" }, fatias: 4, info: { pt: "4 fatias", en: "4 slices", es: "4 porciones" }, maxSabores: 2, escala: .66 },
+    { nome: { pt: "Grande", en: "Large", es: "Grande" }, fatias: 8, info: { pt: "8 fatias", en: "8 slices", es: "8 porciones" }, maxSabores: 2, escala: .84 },
+    { nome: { pt: "Gigante", en: "Giant", es: "Gigante" }, fatias: 12, info: { pt: "12 fatias", en: "12 slices", es: "12 porciones" }, maxSabores: 3, escala: 1 }
   ],
   bordas: [
-    { nome: "Sem borda", preco: 0 },
+    { nome: { pt: "Sem borda", en: "No filling", es: "Sin relleno" }, preco: 0 },
     { nome: "Catupiry", preco: 10, cor: "#fffaf0" },
     { nome: "Cheddar", preco: 10, cor: "#f2a22c" },
     { nome: "Chocolate", preco: 12, cor: "#4f2512" }
@@ -855,57 +884,198 @@ const PIZZARIA = {
   // tomate, cebola, pimentao, azeitona, milho, ervilha, ovo, palmito, champignon, brocolis, manjericao, catupiry,
   // provolone, gorgonzola, parmesao, morango, banana, granulado, confete, coco, goiabada, canela, camarao
   // base: "queijo" (padrão), "chocolate", "branco" ou "catupiry"
+  // categorias: os nomes abaixo são a chave usada em cada sabor (cat); a tradução fica em TRADUCOES.
   categorias: ["Combos", "Tradicionais", "Especiais", "Doces"],
   combos: [
-    { nome: "Gigante + broto doce + refri", desc: "Pizza gigante de 12 fatias com borda recheada, broto doce de 4 fatias e refri 1,5 L.", preco: 119.9, de: 189.9, serve: 4, sabores: ["Calabresa", "Chocolate"] },
-    { nome: "Gigante + batata frita + refri", desc: "Pizza gigante de 12 fatias com borda recheada, porção de batata frita (cerca de 500 g) e refri 1,5 L.", preco: 112.8, de: 179.9, serve: 4, sabores: ["Portuguesa"] }
+    { nome: { pt: "Gigante + broto doce + refri", en: "Giant + small sweet pizza + soda", es: "Gigante + chica dulce + gaseosa" }, desc: { pt: "Pizza gigante de 12 fatias com borda recheada, broto doce de 4 fatias e refri 1,5 L.", en: "12-slice giant pizza with stuffed crust, 4-slice sweet pizza and a 1.5 L soda.", es: "Pizza gigante de 12 porciones con borde relleno, pizza dulce chica de 4 porciones y gaseosa de 1,5 L." }, preco: 119.9, de: 189.9, serve: 4, sabores: ["Calabresa", "Chocolate"] },
+    { nome: { pt: "Gigante + batata frita + refri", en: "Giant + fries + soda", es: "Gigante + papas fritas + gaseosa" }, desc: { pt: "Pizza gigante de 12 fatias com borda recheada, porção de batata frita (cerca de 500 g) e refri 1,5 L.", en: "12-slice giant pizza with stuffed crust, a portion of fries (about 500 g) and a 1.5 L soda.", es: "Pizza gigante de 12 porciones con borde relleno, porción de papas fritas (unos 500 g) y gaseosa de 1,5 L." }, preco: 112.8, de: 179.9, serve: 4, sabores: ["Portuguesa"] }
   ],
   sabores: [
-    { nome: "Mussarela", cat: "Tradicionais", desc: "Molho de tomate, mussarela, tomate e orégano.", cobertura: ["tomate", "azeitona"], precos: [66.9, 76.9, 89.9], top: 1 },
-    { nome: "Calabresa", cat: "Tradicionais", desc: "Calabresa fatiada, cebola, mussarela e azeitonas.", cobertura: ["calabresa", "cebola", "azeitona"], precos: [66.9, 76.9, 89.9], top: 2 },
-    { nome: "Portuguesa", cat: "Tradicionais", desc: "Presunto, ovos, cebola, ervilha, mussarela e azeitonas.", cobertura: ["presunto", "ovo", "cebola", "ervilha", "azeitona"], precos: [66.9, 76.9, 89.9], top: 3 },
-    { nome: "Frango com Catupiry", cat: "Tradicionais", desc: "Frango desfiado temperado com Catupiry e milho.", cobertura: ["frango", "catupiry", "milho"], precos: [66.9, 76.9, 89.9], top: 4 },
-    { nome: "Marguerita", cat: "Tradicionais", desc: "Mussarela, tomate, manjericão fresco e parmesão.", cobertura: ["tomate", "manjericao", "parmesao"], precos: [66.9, 76.9, 89.9] },
-    { nome: "Presunto e Mussarela", cat: "Tradicionais", desc: "Presunto, mussarela, azeitonas e orégano.", cobertura: ["presunto", "azeitona"], precos: [66.9, 76.9, 89.9] },
-    { nome: "Milho com Bacon", cat: "Tradicionais", desc: "Mussarela, milho verde e bacon crocante.", cobertura: ["bacon", "milho"], precos: [66.9, 76.9, 89.9] },
-    { nome: "Napolitana", cat: "Tradicionais", desc: "Mussarela, tomate, parmesão e alho dourado.", cobertura: ["tomate", "parmesao", "azeitona"], precos: [66.9, 76.9, 89.9] },
-    { nome: "Pepperoni", cat: "Especiais", desc: "Pepperoni fatiado fininho sobre bastante mussarela.", cobertura: ["pepperoni"], precos: [72.9, 84.9, 99.9], top: 5 },
-    { nome: "Estação", cat: "Especiais", desc: "A da casa: calabresa, bacon, champignon, cebola e Catupiry.", cobertura: ["calabresa", "bacon", "champignon", "catupiry", "cebola"], precos: [72.9, 84.9, 99.9], tag: "Da casa" },
-    { nome: "Quatro Queijos", cat: "Especiais", desc: "Mussarela, provolone, gorgonzola e parmesão.", cobertura: ["provolone", "gorgonzola", "parmesao"], precos: [72.9, 84.9, 99.9] },
-    { nome: "Lombo com Catupiry", cat: "Especiais", desc: "Lombo canadense, Catupiry e cebola.", cobertura: ["lombo", "catupiry", "cebola"], precos: [72.9, 84.9, 99.9] },
-    { nome: "Brócolis com Bacon", cat: "Especiais", desc: "Brócolis, bacon, alho e mussarela.", cobertura: ["brocolis", "bacon"], precos: [72.9, 84.9, 99.9] },
-    { nome: "Palmito", cat: "Especiais", desc: "Palmito, mussarela, tomate e azeitonas.", cobertura: ["palmito", "tomate", "azeitona"], precos: [72.9, 84.9, 99.9] },
-    { nome: "Camarão", cat: "Especiais", desc: "Camarão ao alho, Catupiry e mussarela.", cobertura: ["camarao", "catupiry", "manjericao"], precos: [79.9, 92.9, 109.9], tag: "Litoral" },
-    { nome: "Chocolate", cat: "Doces", desc: "Chocolate ao leite com granulado.", cobertura: ["granulado"], base: "chocolate", precos: [66.9, 76.9, 89.9], top: 6 },
-    { nome: "Morango com Chocolate Branco", cat: "Doces", desc: "Chocolate branco coberto de morango picado.", cobertura: ["morango"], base: "branco", precos: [72.9, 84.9, 99.9], tag: "Queridinha" },
-    { nome: "Confete", cat: "Doces", desc: "Chocolate ao leite, leite condensado e confeitos coloridos.", cobertura: ["confete"], base: "chocolate", precos: [72.9, 84.9, 99.9] },
-    { nome: "Prestígio", cat: "Doces", desc: "Chocolate ao leite e coco ralado.", cobertura: ["coco"], base: "chocolate", precos: [66.9, 76.9, 89.9] },
-    { nome: "Banana com Canela", cat: "Doces", desc: "Banana, açúcar, canela e leite condensado.", cobertura: ["banana", "canela"], base: "branco", precos: [66.9, 76.9, 89.9] },
-    { nome: "Romeu e Julieta", cat: "Doces", desc: "Mussarela com goiabada cremosa.", cobertura: ["goiabada"], precos: [66.9, 76.9, 89.9] }
+    { nome: { pt: "Mussarela", en: "Mozzarella", es: "Mozzarella" }, cat: "Tradicionais", desc: { pt: "Molho de tomate, mussarela, tomate e orégano.", en: "Tomato sauce, mozzarella, tomato and oregano.", es: "Salsa de tomate, mozzarella, tomate y orégano." }, cobertura: ["tomate", "azeitona"], precos: [66.9, 76.9, 89.9], top: 1 },
+    { nome: "Calabresa", cat: "Tradicionais", desc: { pt: "Calabresa fatiada, cebola, mussarela e azeitonas.", en: "Sliced Brazilian smoked sausage, onion, mozzarella and olives.", es: "Longaniza calabresa en rodajas, cebolla, mozzarella y aceitunas." }, cobertura: ["calabresa", "cebola", "azeitona"], precos: [66.9, 76.9, 89.9], top: 2 },
+    { nome: { pt: "Portuguesa", en: "Portuguese", es: "Portuguesa" }, cat: "Tradicionais", desc: { pt: "Presunto, ovos, cebola, ervilha, mussarela e azeitonas.", en: "Ham, eggs, onion, peas, mozzarella and olives.", es: "Jamón, huevo, cebolla, arvejas, mozzarella y aceitunas." }, cobertura: ["presunto", "ovo", "cebola", "ervilha", "azeitona"], precos: [66.9, 76.9, 89.9], top: 3 },
+    { nome: { pt: "Frango com Catupiry", en: "Chicken & Catupiry", es: "Pollo con Catupiry" }, cat: "Tradicionais", desc: { pt: "Frango desfiado temperado com Catupiry e milho.", en: "Seasoned shredded chicken with Catupiry cream cheese and corn.", es: "Pollo desmenuzado con queso crema Catupiry y choclo." }, cobertura: ["frango", "catupiry", "milho"], precos: [66.9, 76.9, 89.9], top: 4 },
+    { nome: { pt: "Marguerita", en: "Margherita", es: "Margarita" }, cat: "Tradicionais", desc: { pt: "Mussarela, tomate, manjericão fresco e parmesão.", en: "Mozzarella, tomato, fresh basil and parmesan.", es: "Mozzarella, tomate, albahaca fresca y parmesano." }, cobertura: ["tomate", "manjericao", "parmesao"], precos: [66.9, 76.9, 89.9] },
+    { nome: { pt: "Presunto e Mussarela", en: "Ham & Mozzarella", es: "Jamón y Mozzarella" }, cat: "Tradicionais", desc: { pt: "Presunto, mussarela, azeitonas e orégano.", en: "Ham, mozzarella, olives and oregano.", es: "Jamón, mozzarella, aceitunas y orégano." }, cobertura: ["presunto", "azeitona"], precos: [66.9, 76.9, 89.9] },
+    { nome: { pt: "Milho com Bacon", en: "Corn & Bacon", es: "Choclo y Panceta" }, cat: "Tradicionais", desc: { pt: "Mussarela, milho verde e bacon crocante.", en: "Mozzarella, sweet corn and crispy bacon.", es: "Mozzarella, choclo y panceta crocante." }, cobertura: ["bacon", "milho"], precos: [66.9, 76.9, 89.9] },
+    { nome: { pt: "Napolitana", en: "Neapolitan", es: "Napolitana" }, cat: "Tradicionais", desc: { pt: "Mussarela, tomate, parmesão e alho dourado.", en: "Mozzarella, tomato, parmesan and golden garlic.", es: "Mozzarella, tomate, parmesano y ajo dorado." }, cobertura: ["tomate", "parmesao", "azeitona"], precos: [66.9, 76.9, 89.9] },
+    { nome: "Pepperoni", cat: "Especiais", desc: { pt: "Pepperoni fatiado fininho sobre bastante mussarela.", en: "Thin-sliced pepperoni over plenty of mozzarella.", es: "Pepperoni en rodajas finas sobre mucha mozzarella." }, cobertura: ["pepperoni"], precos: [72.9, 84.9, 99.9], top: 5 },
+    { nome: { pt: "Estação", en: "Station Special", es: "Estación" }, cat: "Especiais", desc: { pt: "A da casa: calabresa, bacon, champignon, cebola e Catupiry.", en: "The house pizza: smoked sausage, bacon, mushrooms, onion and Catupiry.", es: "La de la casa: calabresa, panceta, champiñones, cebolla y Catupiry." }, cobertura: ["calabresa", "bacon", "champignon", "catupiry", "cebola"], precos: [72.9, 84.9, 99.9], tag: { pt: "Da casa", en: "House", es: "De la casa" } },
+    { nome: { pt: "Quatro Queijos", en: "Four Cheese", es: "Cuatro Quesos" }, cat: "Especiais", desc: { pt: "Mussarela, provolone, gorgonzola e parmesão.", en: "Mozzarella, provolone, gorgonzola and parmesan.", es: "Mozzarella, provolone, gorgonzola y parmesano." }, cobertura: ["provolone", "gorgonzola", "parmesao"], precos: [72.9, 84.9, 99.9] },
+    { nome: { pt: "Lombo com Catupiry", en: "Pork Loin & Catupiry", es: "Lomo con Catupiry" }, cat: "Especiais", desc: { pt: "Lombo canadense, Catupiry e cebola.", en: "Canadian bacon, Catupiry and onion.", es: "Lomo canadiense, Catupiry y cebolla." }, cobertura: ["lombo", "catupiry", "cebola"], precos: [72.9, 84.9, 99.9] },
+    { nome: { pt: "Brócolis com Bacon", en: "Broccoli & Bacon", es: "Brócoli y Panceta" }, cat: "Especiais", desc: { pt: "Brócolis, bacon, alho e mussarela.", en: "Broccoli, bacon, garlic and mozzarella.", es: "Brócoli, panceta, ajo y mozzarella." }, cobertura: ["brocolis", "bacon"], precos: [72.9, 84.9, 99.9] },
+    { nome: { pt: "Palmito", en: "Heart of Palm", es: "Palmito" }, cat: "Especiais", desc: { pt: "Palmito, mussarela, tomate e azeitonas.", en: "Heart of palm, mozzarella, tomato and olives.", es: "Palmito, mozzarella, tomate y aceitunas." }, cobertura: ["palmito", "tomate", "azeitona"], precos: [72.9, 84.9, 99.9] },
+    { nome: { pt: "Camarão", en: "Shrimp", es: "Camarón" }, cat: "Especiais", desc: { pt: "Camarão ao alho, Catupiry e mussarela.", en: "Garlic shrimp, Catupiry and mozzarella.", es: "Camarón al ajillo, Catupiry y mozzarella." }, cobertura: ["camarao", "catupiry", "manjericao"], precos: [79.9, 92.9, 109.9], tag: { pt: "Litoral", en: "Seaside", es: "Del mar" } },
+    { nome: "Chocolate", cat: "Doces", desc: { pt: "Chocolate ao leite com granulado.", en: "Milk chocolate with chocolate sprinkles.", es: "Chocolate con leche y granas de chocolate." }, cobertura: ["granulado"], base: "chocolate", precos: [66.9, 76.9, 89.9], top: 6 },
+    { nome: { pt: "Morango com Chocolate Branco", en: "Strawberry & White Chocolate", es: "Frutilla con Chocolate Blanco" }, cat: "Doces", desc: { pt: "Chocolate branco coberto de morango picado.", en: "White chocolate topped with chopped strawberries.", es: "Chocolate blanco cubierto de frutillas picadas." }, cobertura: ["morango"], base: "branco", precos: [72.9, 84.9, 99.9], tag: { pt: "Queridinha", en: "Fan favorite", es: "La favorita" } },
+    { nome: { pt: "Confete", en: "Candy Buttons", es: "Confites" }, cat: "Doces", desc: { pt: "Chocolate ao leite, leite condensado e confeitos coloridos.", en: "Milk chocolate, condensed milk and colorful candies.", es: "Chocolate con leche, leche condensada y confites de colores." }, cobertura: ["confete"], base: "chocolate", precos: [72.9, 84.9, 99.9] },
+    { nome: { pt: "Prestígio", en: "Chocolate Coconut", es: "Chocolate y Coco" }, cat: "Doces", desc: { pt: "Chocolate ao leite e coco ralado.", en: "Milk chocolate and grated coconut.", es: "Chocolate con leche y coco rallado." }, cobertura: ["coco"], base: "chocolate", precos: [66.9, 76.9, 89.9] },
+    { nome: { pt: "Banana com Canela", en: "Banana & Cinnamon", es: "Banana con Canela" }, cat: "Doces", desc: { pt: "Banana, açúcar, canela e leite condensado.", en: "Banana, sugar, cinnamon and condensed milk.", es: "Banana, azúcar, canela y leche condensada." }, cobertura: ["banana", "canela"], base: "branco", precos: [66.9, 76.9, 89.9] },
+    { nome: { pt: "Romeu e Julieta", en: "Romeo & Juliet", es: "Romeo y Julieta" }, cat: "Doces", desc: { pt: "Mussarela com goiabada cremosa.", en: "Mozzarella with creamy guava paste.", es: "Mozzarella con dulce de guayaba cremoso." }, cobertura: ["goiabada"], precos: [66.9, 76.9, 89.9] }
   ],
   bebidas: [
     { nome: "Coca-Cola 1,5 L", preco: 15, cor: "#d01c1f" },
     { nome: "Coca-Cola Zero 1,5 L", preco: 15, cor: "#222" },
     { nome: "Pureza 1,5 L", preco: 13, cor: "#7a1f1a" },
-    { nome: "H2O Limão 1,5 L", preco: 13, cor: "#6fbf3a" },
-    { nome: "Suco Del Valle Laranja 1,5 L", preco: 12, cor: "#f29a1f" },
-    { nome: "Suco Del Valle Uva 1,5 L", preco: 12, cor: "#5a2266" }
+    { nome: { pt: "H2O Limão 1,5 L", en: "H2O Lemon 1.5 L", es: "H2O Limón 1,5 L" }, preco: 13, cor: "#6fbf3a" },
+    { nome: { pt: "Suco Del Valle Laranja 1,5 L", en: "Del Valle Orange Juice 1.5 L", es: "Jugo Del Valle Naranja 1,5 L" }, preco: 12, cor: "#f29a1f" },
+    { nome: { pt: "Suco Del Valle Uva 1,5 L", en: "Del Valle Grape Juice 1.5 L", es: "Jugo Del Valle Uva 1,5 L" }, preco: 12, cor: "#5a2266" }
   ],
   // fotos da casa (caminho relativo a esta página). Deixe [] para esconder a seção.
   fotos: [
-    { src: "img/queijo.jpg", legenda: "Queijo puxando" },
-    { src: "img/salao.jpg", legenda: "Nosso salão" },
-    { src: "img/morango.jpg", legenda: "Morango com chocolate branco" },
-    { src: "img/caixa.jpg", legenda: "Gigante na caixa" },
-    { src: "img/confete.jpg", legenda: "Confete e chocolate branco" },
-    { src: "img/fachada.jpg", legenda: "A nossa estação" },
-    { src: "img/portuguesa.jpg", legenda: "Sábado de pizza" },
-    { src: "img/chocolate.jpg", legenda: "Chocolate na hora" }
+    { src: "img/queijo.jpg", legenda: { pt: "Queijo puxando", en: "Cheese pull", es: "Queso que se estira" } },
+    { src: "img/salao.jpg", legenda: { pt: "Nosso salão", en: "Our dining room", es: "Nuestro salón" } },
+    { src: "img/morango.jpg", legenda: { pt: "Morango com chocolate branco", en: "Strawberry & white chocolate", es: "Frutilla con chocolate blanco" } },
+    { src: "img/caixa.jpg", legenda: { pt: "Gigante na caixa", en: "Giant in the box", es: "Gigante en la caja" } },
+    { src: "img/confete.jpg", legenda: { pt: "Confete e chocolate branco", en: "Candies & white chocolate", es: "Confites y chocolate blanco" } },
+    { src: "img/fachada.jpg", legenda: { pt: "A nossa estação", en: "Our station", es: "Nuestra estación" } },
+    { src: "img/portuguesa.jpg", legenda: { pt: "Sábado de pizza", en: "Pizza Saturday", es: "Sábado de pizza" } },
+    { src: "img/chocolate.jpg", legenda: { pt: "Chocolate na hora", en: "Fresh chocolate pizza", es: "Chocolate al momento" } }
   ],
-  // sabores da pizza girando no topo (até 4)
+  // sabores da pizza girando no topo (até 4), pelo nome em português
   hero: ["Calabresa", "Marguerita", "Portuguesa", "Pepperoni"],
-  avisoCardapio: "Combos, tamanhos e bebidas do iFood da casa. Sabores e preços por sabor são ilustrativos."
+  avisoCardapio: { pt: "Combos, tamanhos e bebidas do iFood da casa. Sabores e preços por sabor são ilustrativos.", en: "Combos, sizes and drinks from the restaurant's iFood page. Flavors and per-flavor prices are illustrative. Prices in Brazilian reais (R$).", es: "Combos, tamaños y bebidas del iFood de la casa. Sabores y precios por sabor son ilustrativos. Precios en reales brasileños (R$)." }
 };
+
+/* =====================================================================
+   TRADUÇÕES DOS TEXTOS FIXOS DO SITE (iguais para qualquer pizzaria).
+   A chave é o texto em português; {x} é trocado pelo valor.
+   ===================================================================== */
+const TRADUCOES = {
+  en: {
+    "Prévia criada pela SA Studio para a": "Preview made by SA Studio for", "Conheça a SA Studio": "Meet SA Studio",
+    "Início": "Home", "Menu principal": "Main menu", "Abrir pedido": "Open order", "Idioma": "Language",
+    "Monte a sua": "Build yours", "Cardápio": "Menu", "Rodízio": "All-you-can-eat", "Onde estamos": "Find us", "Pedido": "Order",
+    "Montar minha pizza": "Build my pizza", "Ver o cardápio": "See the menu", "Puxa uma fatia!": "Grab a slice!",
+    "Pizza girando. Toque numa fatia para puxar.": "Spinning pizza. Tap a slice to pull it out.",
+    "Mais pedidos": "Most ordered", "Saindo do forno": "Fresh out of the oven", "agora": "now",
+    "Os sabores que mais embarcam por aqui. Toque em um para montar a sua.": "The flavors that board most often around here. Tap one to build yours.",
+    "PARTIDAS DO FORNO": "OVEN DEPARTURES", "FORNO": "OVEN", "SABOR": "FLAVOR", "STATUS": "STATUS",
+    "Painel ilustrativo. Os sabores vêm do cardápio da casa.": "Illustrative board. Flavors come from the house menu.", "Ver todos os sabores": "See all flavors",
+    "Do seu jeito": "Your way", "Monte a sua,": "Build yours,", "meio a meio": "half and half", "se quiser": "if you like",
+    "Escolha o tamanho, os sabores e a borda. A pizza vai se montando na caixa, e o pedido chega pronto no nosso WhatsApp.": "Pick the size, the flavors and the crust. The pizza comes together in the box, and the order reaches our WhatsApp ready to go.",
+    "QUENTINHA PRA VOCÊ": "HOT AND FRESH FOR YOU", "Bom apetite!": "Enjoy!",
+    "Tamanho": "Size", "Sabores": "Flavors", "Borda": "Stuffed crust", "Alguma observação?": "Any notes?",
+    "Buscar sabor ou ingrediente": "Search flavor or ingredient", "Buscar sabor": "Search flavor", "Ex.: sem cebola, bem assada...": "E.g.: no onion, well done...",
+    "Sua pizza": "Your pizza", "Colocar na caixa": "Put it in the box",
+    "Escolha o seu": "Pick your", "sabor": "flavor", "Toque em uma pizza para montar com ela, ou no + para levar direto.": "Tap a pizza to build with it, or tap + to add it right away.",
+    "Bilhete de rodízio": "All-you-can-eat ticket", "Pizza à vontade,": "All the pizza you want,", "passando na mesa": "served at your table",
+    "EMBARQUE": "BOARDING", "DESTINO": "DESTINATION", "Barriga cheia": "Full belly", "VALOR POR PESSOA": "PRICE PER PERSON", "Reservar mesa": "Book a table",
+    "Direto da cozinha": "Straight from the kitchen", "Deu fome só de": "Hungry just from", "olhar": "looking",
+    "Tele entrega": "Delivery", "Do forno até": "From the oven", "a sua porta": "to your door",
+    "Pedido recebido": "Order received", "Chega no WhatsApp da casa já com sabores, borda e endereço.": "It reaches our WhatsApp with the flavors, crust and address.",
+    "No forno": "In the oven", "Massa assada na hora, com o queijo borbulhando.": "Dough baked to order, with bubbling cheese.",
+    "Saiu para entrega": "Out for delivery", "Caixa fechada e quentinha, direto para o seu endereço.": "Box closed and hot, straight to your address.",
+    "Chegou quentinha": "Arrived hot", "É só abrir a caixa e puxar a primeira fatia.": "Just open the box and grab the first slice.",
+    "Venha pra": "Come to the", "estação": "station", "ENDEREÇO": "ADDRESS", "Abrir no Google Maps →": "Open in Google Maps →",
+    "PEDIDOS E RESERVAS": "ORDERS AND BOOKINGS", "HORÁRIO": "HOURS",
+    "Bateu a fome?": "Hungry?", "Monte a sua pizza aqui no site e mande o pedido pronto. Sem app, sem taxa de aplicativo, direto com a gente.": "Build your pizza right here and send the order ready to go. No app, no app fees, straight to us.",
+    "Chamar no WhatsApp": "Message us on WhatsApp", "Site demonstração feito pela": "Demo website made by",
+    "Ver pedido": "View order", "Seu pedido": "Your order", "Fechar": "Close", "Vou buscar": "Pick up", "Seu nome": "Your name",
+    "Endereço com número e bairro": "Address with number and neighborhood", "Pagamento": "Payment", "Cartão na entrega": "Card on delivery", "Dinheiro": "Cash",
+    "Troco para quanto?": "Change for how much?", "Ex.: 100": "E.g.: 100", "Entrega": "Delivery", "Enviar pedido no WhatsApp": "Send order on WhatsApp",
+    "Meio a meio": "Half and half", "Borda recheada": "Stuffed crust", "Quentinha": "Piping hot", "Sem taxa de app": "No app fees",
+    "Aberto até {h}": "Open until {h}", "Abre hoje às {h}": "Opens today at {h}", "Abre amanhã às {h}": "Opens tomorrow at {h}", "Abre {d} às {h}": "Opens {d} at {h}",
+    "Fechado": "Closed", "hoje": "today", "{a} às {b}": "{a} to {b}",
+    "Entrega em {t}": "Delivery in {t}", "Rodízio no salão": "All-you-can-eat dining room", "{n} no iFood": "{n} on iFood", "{n} no Google · {t} avaliações": "{n} on Google · {t} reviews",
+    "SAINDO": "BOARDING", "NO FORNO": "IN OVEN", "PREPARANDO": "PREPARING", "PREÇO ({t})": "PRICE ({t})",
+    "sem custo": "free", "Cobramos o sabor de maior valor": "We charge the highest-priced flavor", "Cobramos a média dos sabores": "We charge the average of the flavors",
+    "Inteira": "Whole", "1 sabor": "1 flavor", "{n} sabores": "{n} flavors", "Escolha o sabor abaixo": "Pick a flavor below", "escolha os sabores": "pick the flavors",
+    "borda {b}": "{b} crust", "Borda {b}": "{b} crust", "Nenhum sabor com \"{f}\".": "No flavor matches \"{f}\".",
+    "Falta escolher os sabores": "Pick the remaining flavors", "Falta escolher um sabor": "Pick one more flavor", "Pizza {t}": "{t} pizza",
+    "Bebidas": "Drinks", "Combos": "Combos", "Tradicionais": "Classics", "Especiais": "Specials", "Doces": "Sweet",
+    "Buscar no cardápio": "Search the menu", "Nada encontrado.": "Nothing found.", "Serve <b>{n} pessoas</b>": "Serves <b>{n} people</b>", "Adicionar {x}": "Add {x}",
+    "Consulte": "Ask us", "Olá, {n}! Quero reservar uma mesa para o rodízio. Somos __ pessoas, para o dia __ às __h.": "Hi, {n}! I'd like to book a table for the all-you-can-eat. We are __ people, on __ at __.",
+    "Pedido feito aqui no site chega direto na nossa cozinha. Entrega em {t}{taxa}.": "Orders placed here go straight to our kitchen. Delivery in {t}{taxa}.", ", taxa de {v}": ", fee {v}",
+    "Olá, {n}!": "Hi, {n}!", "Olá, {n}! Quero fazer um pedido.": "Hi, {n}! I'd like to place an order.", "Mapa": "Map",
+    "{x} no pedido": "{x} added to your order", "Obs.: {o}": "Note: {o}", "Menos": "Less", "Mais": "More",
+    "Seu pedido está vazio.<br>Que tal montar uma pizza?": "Your order is empty.<br>How about building a pizza?",
+    "Retirada no balcão": "Pickup at the counter", "A combinar": "To be arranged", "a combinar": "to be arranged",
+    "Adicione algo ao pedido primeiro": "Add something to your order first", "Qual é o seu nome?": "What's your name?", "Falta o endereço de entrega": "Missing the delivery address",
+    "*Pedido pelo site · {n}* 🍕": "*Website order · {n}* 🍕", "Entrega: {v}": "Delivery: {v}", "Nome: {n}": "Name: {n}", "Entregar em: {e}": "Deliver to: {e}",
+    "Vou retirar no balcão": "I'll pick it up at the counter", "Pagamento: {p}": "Payment: {p}", " (troco para R$ {v})": " (change for R$ {v})"
+  },
+  es: {
+    "Prévia criada pela SA Studio para a": "Vista previa creada por SA Studio para", "Conheça a SA Studio": "Conoce SA Studio",
+    "Início": "Inicio", "Menu principal": "Menú principal", "Abrir pedido": "Abrir pedido", "Idioma": "Idioma",
+    "Monte a sua": "Arma la tuya", "Cardápio": "Menú", "Rodízio": "Pizza libre", "Onde estamos": "Dónde estamos", "Pedido": "Pedido",
+    "Montar minha pizza": "Armar mi pizza", "Ver o cardápio": "Ver el menú", "Puxa uma fatia!": "¡Saca una porción!",
+    "Pizza girando. Toque numa fatia para puxar.": "Pizza girando. Toca una porción para sacarla.",
+    "Mais pedidos": "Los más pedidos", "Saindo do forno": "Saliendo del horno", "agora": "ahora",
+    "Os sabores que mais embarcam por aqui. Toque em um para montar a sua.": "Los sabores que más se suben por aquí. Toca uno para armar la tuya.",
+    "PARTIDAS DO FORNO": "SALIDAS DEL HORNO", "FORNO": "HORNO", "SABOR": "SABOR", "STATUS": "ESTADO",
+    "Painel ilustrativo. Os sabores vêm do cardápio da casa.": "Panel ilustrativo. Los sabores vienen del menú de la casa.", "Ver todos os sabores": "Ver todos los sabores",
+    "Do seu jeito": "A tu manera", "Monte a sua,": "Arma la tuya,", "meio a meio": "mitad y mitad", "se quiser": "si quieres",
+    "Escolha o tamanho, os sabores e a borda. A pizza vai se montando na caixa, e o pedido chega pronto no nosso WhatsApp.": "Elige el tamaño, los sabores y el borde. La pizza se va armando en la caja y el pedido llega listo a nuestro WhatsApp.",
+    "QUENTINHA PRA VOCÊ": "CALENTITA PARA TI", "Bom apetite!": "¡Buen provecho!",
+    "Tamanho": "Tamaño", "Sabores": "Sabores", "Borda": "Borde relleno", "Alguma observação?": "¿Alguna observación?",
+    "Buscar sabor ou ingrediente": "Buscar sabor o ingrediente", "Buscar sabor": "Buscar sabor", "Ex.: sem cebola, bem assada...": "Ej.: sin cebolla, bien cocida...",
+    "Sua pizza": "Tu pizza", "Colocar na caixa": "Meter en la caja",
+    "Escolha o seu": "Elige tu", "sabor": "sabor", "Toque em uma pizza para montar com ela, ou no + para levar direto.": "Toca una pizza para armar con ella, o el + para llevarla directo.",
+    "Bilhete de rodízio": "Boleto de pizza libre", "Pizza à vontade,": "Pizza sin límite,", "passando na mesa": "pasando por tu mesa",
+    "EMBARQUE": "EMBARQUE", "DESTINO": "DESTINO", "Barriga cheia": "Panza llena", "VALOR POR PESSOA": "PRECIO POR PERSONA", "Reservar mesa": "Reservar mesa",
+    "Direto da cozinha": "Directo de la cocina", "Deu fome só de": "Da hambre solo de", "olhar": "mirar",
+    "Tele entrega": "Delivery", "Do forno até": "Del horno", "a sua porta": "a tu puerta",
+    "Pedido recebido": "Pedido recibido", "Chega no WhatsApp da casa já com sabores, borda e endereço.": "Llega al WhatsApp de la casa con sabores, borde y dirección.",
+    "No forno": "En el horno", "Massa assada na hora, com o queijo borbulhando.": "Masa horneada al momento, con el queso burbujeando.",
+    "Saiu para entrega": "Salió a entrega", "Caixa fechada e quentinha, direto para o seu endereço.": "Caja cerrada y calentita, directo a tu dirección.",
+    "Chegou quentinha": "Llegó calentita", "É só abrir a caixa e puxar a primeira fatia.": "Solo abre la caja y saca la primera porción.",
+    "Venha pra": "Ven a la", "estação": "estación", "ENDEREÇO": "DIRECCIÓN", "Abrir no Google Maps →": "Abrir en Google Maps →",
+    "PEDIDOS E RESERVAS": "PEDIDOS Y RESERVAS", "HORÁRIO": "HORARIO",
+    "Bateu a fome?": "¿Te dio hambre?", "Monte a sua pizza aqui no site e mande o pedido pronto. Sem app, sem taxa de aplicativo, direto com a gente.": "Arma tu pizza aquí y manda el pedido listo. Sin app, sin comisiones, directo con nosotros.",
+    "Chamar no WhatsApp": "Escríbenos por WhatsApp", "Site demonstração feito pela": "Sitio de demostración hecho por",
+    "Ver pedido": "Ver pedido", "Seu pedido": "Tu pedido", "Fechar": "Cerrar", "Vou buscar": "Retiro en local", "Seu nome": "Tu nombre",
+    "Endereço com número e bairro": "Dirección con número y barrio", "Pagamento": "Pago", "Cartão na entrega": "Tarjeta al recibir", "Dinheiro": "Efectivo",
+    "Troco para quanto?": "¿Cambio para cuánto?", "Ex.: 100": "Ej.: 100", "Entrega": "Envío", "Enviar pedido no WhatsApp": "Enviar pedido por WhatsApp",
+    "Meio a meio": "Mitad y mitad", "Borda recheada": "Borde relleno", "Quentinha": "Calentita", "Sem taxa de app": "Sin comisión de app",
+    "Aberto até {h}": "Abierto hasta las {h}", "Abre hoje às {h}": "Abre hoy a las {h}", "Abre amanhã às {h}": "Abre mañana a las {h}", "Abre {d} às {h}": "Abre el {d} a las {h}",
+    "Fechado": "Cerrado", "hoje": "hoy", "{a} às {b}": "{a} a {b}",
+    "Entrega em {t}": "Entrega en {t}", "Rodízio no salão": "Pizza libre en el salón", "{n} no iFood": "{n} en iFood", "{n} no Google · {t} avaliações": "{n} en Google · {t} reseñas",
+    "SAINDO": "SALIENDO", "NO FORNO": "EN HORNO", "PREPARANDO": "PREPARANDO", "PREÇO ({t})": "PRECIO ({t})",
+    "sem custo": "sin costo", "Cobramos o sabor de maior valor": "Cobramos el sabor de mayor valor", "Cobramos a média dos sabores": "Cobramos el promedio de los sabores",
+    "Inteira": "Entera", "1 sabor": "1 sabor", "{n} sabores": "{n} sabores", "Escolha o sabor abaixo": "Elige el sabor abajo", "escolha os sabores": "elige los sabores",
+    "borda {b}": "borde {b}", "Borda {b}": "Borde {b}", "Nenhum sabor com \"{f}\".": "Ningún sabor con \"{f}\".",
+    "Falta escolher os sabores": "Faltan elegir los sabores", "Falta escolher um sabor": "Falta elegir un sabor", "Pizza {t}": "Pizza {t}",
+    "Bebidas": "Bebidas", "Combos": "Combos", "Tradicionais": "Tradicionales", "Especiais": "Especiales", "Doces": "Dulces",
+    "Buscar no cardápio": "Buscar en el menú", "Nada encontrado.": "No se encontró nada.", "Serve <b>{n} pessoas</b>": "Para <b>{n} personas</b>", "Adicionar {x}": "Agregar {x}",
+    "Consulte": "Consultar", "Olá, {n}! Quero reservar uma mesa para o rodízio. Somos __ pessoas, para o dia __ às __h.": "¡Hola, {n}! Quiero reservar una mesa para la pizza libre. Somos __ personas, para el día __ a las __.",
+    "Pedido feito aqui no site chega direto na nossa cozinha. Entrega em {t}{taxa}.": "El pedido hecho aquí llega directo a nuestra cocina. Entrega en {t}{taxa}.", ", taxa de {v}": ", costo de {v}",
+    "Olá, {n}!": "¡Hola, {n}!", "Olá, {n}! Quero fazer um pedido.": "¡Hola, {n}! Quiero hacer un pedido.", "Mapa": "Mapa",
+    "{x} no pedido": "{x} en tu pedido", "Obs.: {o}": "Obs.: {o}", "Menos": "Menos", "Mais": "Más",
+    "Seu pedido está vazio.<br>Que tal montar uma pizza?": "Tu pedido está vacío.<br>¿Qué tal armar una pizza?",
+    "Retirada no balcão": "Retiro en el mostrador", "A combinar": "A convenir", "a combinar": "a convenir",
+    "Adicione algo ao pedido primeiro": "Agrega algo a tu pedido primero", "Qual é o seu nome?": "¿Cuál es tu nombre?", "Falta o endereço de entrega": "Falta la dirección de entrega",
+    "*Pedido pelo site · {n}* 🍕": "*Pedido por la web · {n}* 🍕", "Entrega: {v}": "Envío: {v}", "Nome: {n}": "Nombre: {n}", "Entregar em: {e}": "Entregar en: {e}",
+    "Vou retirar no balcão": "Retiro en el mostrador", "Pagamento: {p}": "Pago: {p}", " (troco para R$ {v})": " (cambio para R$ {v})"
+  }
+};
+const DIAS_IDIOMA = {
+  pt: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
+  en: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+  es: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
+};
+
+/* ---------- idioma: ?lang=en, depois o último escolhido, depois o do navegador ---------- */
+const IDIOMA = (() => {
+  const ok = l => l && PIZZARIA.idiomas.includes(l);
+  const url = new URLSearchParams(location.search).get("lang");
+  if (ok(url)) return url;
+  let salvo = null; try { salvo = localStorage.getItem("idioma"); } catch (e) {}
+  if (ok(salvo)) return salvo;
+  const nav = (navigator.languages || [navigator.language || ""]).map(l => l.slice(0, 2).toLowerCase()).find(ok);
+  return nav || "pt";
+})();
+const t = (txt, vars = {}) => {
+  const base = (TRADUCOES[IDIOMA] && TRADUCOES[IDIOMA][txt]) || txt;
+  return base.replace(/\{(\w+)\}/g, (m, k) => k in vars ? vars[k] : m);
+};
+// troca { pt, en, es } pelo texto do idioma atual em todo o objeto PIZZARIA
+(function traduz() {
+  const ehTexto = o => o && typeof o === "object" && !Array.isArray(o) && "pt" in o;
+  const resolve = o => ehTexto(o) ? (o[IDIOMA] ?? o.pt) : Array.isArray(o) ? o.map(resolve) : (o && typeof o === "object") ? Object.fromEntries(Object.entries(o).map(([k, v]) => [k, resolve(v)])) : o;
+  PIZZARIA.sabores.forEach(s => s.id = ehTexto(s.nome) ? s.nome.pt : s.nome);
+  for (const k of Object.keys(PIZZARIA)) PIZZARIA[k] = resolve(PIZZARIA[k]);
+})();
 
 /* ===================================================================== */
 const $ = (s, el = document) => el.querySelector(s);
@@ -913,7 +1083,7 @@ const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const brl = v => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const toque = matchMedia("(hover: none)").matches;
-const sabor = nome => PIZZARIA.sabores.find(s => s.nome === nome);
+const sabor = id => PIZZARIA.sabores.find(s => s.id === id);
 const linkZap = txt => `https://wa.me/${PIZZARIA.whatsapp}?text=${encodeURIComponent(txt)}`;
 function semente(str) { let h = 2166136261; for (const c of String(str)) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
 function sorteio(seed) { let s = seed || 1; return () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; }; }
@@ -1037,38 +1207,62 @@ function mini(s, cls = "mini") {
 /* estilos da queda dos ingredientes */
 document.head.insertAdjacentHTML("beforeend", `<style>.cai{animation:cai .55s cubic-bezier(.3,1.5,.5,1) both;transform-box:fill-box;transform-origin:center}@keyframes cai{from{opacity:0;transform:translateY(-26px) scale(1.9) rotate(-40deg)}}</style>`);
 
+/* ---------- idioma da página ---------- */
+document.documentElement.lang = { pt: "pt-BR", en: "en", es: "es" }[IDIOMA] || IDIOMA;
+document.title = PIZZARIA.seo.titulo;
+$('meta[name="description"]').content = PIZZARIA.seo.descricao;
+if (IDIOMA !== "pt") {
+  const anda = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  for (let n; (n = anda.nextNode());) {
+    const txt = n.nodeValue.trim();
+    if (txt && TRADUCOES[IDIOMA][txt]) n.nodeValue = n.nodeValue.replace(txt, TRADUCOES[IDIOMA][txt]);
+  }
+  $$("[placeholder], [aria-label], [title]").forEach(el => ["placeholder", "aria-label", "title"].forEach(a => { if (el.hasAttribute(a)) el.setAttribute(a, t(el.getAttribute(a))); }));
+}
+$("#idiomas").innerHTML = PIZZARIA.idiomas.length > 1 ? PIZZARIA.idiomas.map(l => `<a href="?lang=${l}${location.hash}" hreflang="${l}" ${l === IDIOMA ? 'aria-current="true"' : ""}>${l.toUpperCase()}</a>`).join("") : "";
+$$("#idiomas a").forEach(a => a.onclick = () => { try { localStorage.setItem("idioma", a.hreflang); } catch (e) {} });
+
 /* ---------- textos simples ---------- */
 $$("[data-c]").forEach(el => { const v = PIZZARIA[el.dataset.c]; if (v != null) el.textContent = v; });
 $("#titulo").innerHTML = PIZZARIA.titulo.map((l, i) => `<span class="l"><span style="animation-delay:${.15 + i * .14}s">${l}</span></span>`).join("");
 $("#subtitulo").innerHTML = PIZZARIA.subtitulo;
-$("#seloTexto").textContent = PIZZARIA.selo.repeat(2).slice(0, 52);
+{
+  // o texto do selo dá a volta inteira no círculo, seja curto ou longo
+  let selo = PIZZARIA.selo; while (selo.length < 24) selo += PIZZARIA.selo;
+  $("#seloTexto").textContent = selo;
+  $("#seloTexto").setAttribute("textLength", "455"); $("#seloTexto").setAttribute("lengthAdjust", "spacingAndGlyphs");
+}
 $("#marcaSvg").innerHTML = pizzaPartes({ setores: [sabor(PIZZARIA.hero[0]) || PIZZARIA.sabores[0]], fatias: 6, detalhe: .4 }).corpo;
 const fitaTxt = PIZZARIA.sabores.map(s => `<span>${s.nome}</span>`).join("");
 $("#fitaA").innerHTML = fitaTxt + fitaTxt;
-const fitaB = ["Rodízio", "Tele entrega", "Meio a meio", "Borda recheada", "Quentinha", "Sem taxa de app"].map(t => `<span>${t}</span>`).join("");
+const fitaB = ["Rodízio", "Tele entrega", "Meio a meio", "Borda recheada", "Quentinha", "Sem taxa de app"].map(x => `<span>${t(x)}</span>`).join("");
 $("#fitaB").innerHTML = (fitaB + fitaB) + (fitaB + fitaB);
 if (!PIZZARIA.rodizio) $$("[data-se=rodizio]").forEach(e => e.remove());
 
 /* ---------- horário ---------- */
-const DIAS = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+const DIAS = DIAS_IDIOMA[IDIOMA] || DIAS_IDIOMA.pt;
 const hm = s => { const [h, m] = s.split(":").map(Number); return h * 60 + m; };
-const fh = s => { const [h, m] = s.split(":"); return `${+h}h${m !== "00" ? m : ""}`; };
+const fh = s => {
+  const [h, m] = s.split(":");
+  if (IDIOMA === "en") return `${(+h % 12) || 12}${m !== "00" ? ":" + m : ""} ${+h < 12 ? "AM" : "PM"}`;
+  return IDIOMA === "pt" ? `${+h}h${m !== "00" ? m : ""}` : `${+h}:${m}`;
+};
 function status(d = new Date()) {
   const H = PIZZARIA.horarios, min = d.getHours() * 60 + d.getMinutes(), dia = d.getDay();
   const ont = H[(dia + 6) % 7];
-  if (ont && hm(ont[1]) <= hm(ont[0]) && min < hm(ont[1])) return { aberto: true, txt: `Aberto até ${fh(ont[1])}` };
+  if (ont && hm(ont[1]) <= hm(ont[0]) && min < hm(ont[1])) return { aberto: true, txt: t("Aberto até {h}", { h: fh(ont[1]) }) };
   const hj = H[dia];
   if (hj) {
     const a = hm(hj[0]), f = hm(hj[1]) <= a ? hm(hj[1]) + 1440 : hm(hj[1]);
-    if (min >= a && min < f) return { aberto: true, txt: `Aberto até ${fh(hj[1])}` };
-    if (min < a) return { aberto: false, txt: `Abre hoje às ${fh(hj[0])}` };
+    if (min >= a && min < f) return { aberto: true, txt: t("Aberto até {h}", { h: fh(hj[1]) }) };
+    if (min < a) return { aberto: false, txt: t("Abre hoje às {h}", { h: fh(hj[0]) }) };
   }
-  for (let i = 1; i <= 7; i++) { const k = (dia + i) % 7; if (H[k]) return { aberto: false, txt: `Abre ${i === 1 ? "amanhã" : DIAS[k].toLowerCase()} às ${fh(H[k][0])}` }; }
-  return { aberto: false, txt: "Fechado" };
+  for (let i = 1; i <= 7; i++) { const k = (dia + i) % 7; if (H[k]) return { aberto: false, txt: i === 1 ? t("Abre amanhã às {h}", { h: fh(H[k][0]) }) : t("Abre {d} às {h}", { d: IDIOMA === "en" ? DIAS[k] : DIAS[k].toLowerCase(), h: fh(H[k][0]) }) }; }
+  return { aberto: false, txt: t("Fechado") };
 }
 function pintaStatus() { const s = status(); const el = $("#aberto"); el.classList.toggle("sim", s.aberto); el.querySelector("span").textContent = s.txt; el.title = s.txt; return s; }
 const st0 = pintaStatus(); setInterval(pintaStatus, 60000);
-$("#horas").innerHTML = [1, 2, 3, 4, 5, 6, 0].map(d => { const h = PIZZARIA.horarios[d]; return `<tr class="${d === new Date().getDay() ? "hoje" : ""}"><td>${DIAS[d]}</td><td>${h ? `${fh(h[0])} às ${fh(h[1])}` : "Fechado"}</td></tr>`; }).join("");
+$("#horas").innerHTML = [1, 2, 3, 4, 5, 6, 0].map(d => { const h = PIZZARIA.horarios[d]; return `<tr class="${d === new Date().getDay() ? "hoje" : ""}"><td data-hoje="${t("hoje")}">${DIAS[d]}</td><td>${h ? t("{a} às {b}", { a: fh(h[0]), b: fh(h[1]) }) : t("Fechado")}</td></tr>`; }).join("");
 
 /* ---------- fatos do hero ---------- */
 const ic = {
@@ -1077,10 +1271,11 @@ const ic = {
   estrela: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg>`,
   mesa: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9h18M6 9v11M18 9v11M8 9a4 4 0 0 1 8 0"/></svg>`
 };
-const fatos = [[ic.relogio, st0.txt], [ic.moto, `Entrega em ${PIZZARIA.tempoEntrega}`]];
-if (PIZZARIA.rodizio) fatos.push([ic.mesa, "Rodízio no salão"]);
-if (PIZZARIA.notaIfood) fatos.unshift([ic.estrela, `${String(PIZZARIA.notaIfood).replace(".", ",")} no iFood`]);
-if (PIZZARIA.nota) fatos.unshift([ic.estrela, `${String(PIZZARIA.nota.valor).replace(".", ",")} no Google · ${PIZZARIA.nota.total} avaliações`]);
+const num = v => IDIOMA === "en" ? String(v) : String(v).replace(".", ",");
+const fatos = [[ic.relogio, st0.txt], [ic.moto, t("Entrega em {t}", { t: PIZZARIA.tempoEntrega })]];
+if (PIZZARIA.rodizio) fatos.push([ic.mesa, t("Rodízio no salão")]);
+if (PIZZARIA.notaIfood) fatos.unshift([ic.estrela, t("{n} no iFood", { n: num(PIZZARIA.notaIfood) })]);
+if (PIZZARIA.nota) fatos.unshift([ic.estrela, t("{n} no Google · {t} avaliações", { n: num(PIZZARIA.nota.valor), t: PIZZARIA.nota.total })]);
 $("#fatos").innerHTML = fatos.map(([i, t]) => `<div>${i}<span>${t}</span></div>`).join("");
 
 /* ---------- HERO: pizza que gira e solta fatia ---------- */
@@ -1168,8 +1363,8 @@ addEventListener("scroll", () => { const dy = scrollY - ultimoY; ultimoY = scrol
 /* ---------- painel de partidas ---------- */
 const destaques = PIZZARIA.sabores.filter(s => s.top).sort((a, b) => a.top - b.top).slice(0, 6);
 const LARG = innerWidth < 700 ? 13 : 20;
-const statusLista = [["saindo", "SAINDO"], ["forno", "NO FORNO"], ["prep", "PREPARANDO"]];
-$("#placaLinhas").innerHTML = destaques.map((s, i) => `<div class="linha-placa" data-sabor="${s.nome}" style="cursor:pointer"><span class="forno-n">${String(i + 1).padStart(2, "0")}</span><div class="flaps" data-alvo="${s.nome}">${"<span class='flap'> </span>".repeat(LARG)}</div><span class="preco-placa">${brl(s.precos[TP])}</span><span class="st ${statusLista[i % 3][0]}">${statusLista[i % 3][1]}</span></div>`).join("");
+const statusLista = [["saindo", t("SAINDO")], ["forno", t("NO FORNO")], ["prep", t("PREPARANDO")]];
+$("#placaLinhas").innerHTML = destaques.map((s, i) => `<div class="linha-placa" data-sabor="${s.id}" style="cursor:pointer"><span class="forno-n">${String(i + 1).padStart(2, "0")}</span><div class="flaps" data-alvo="${s.nome}">${"<span class='flap'> </span>".repeat(LARG)}</div><span class="preco-placa">${brl(s.precos[TP])}</span><span class="st ${statusLista[i % 3][0]}">${statusLista[i % 3][1]}</span></div>`).join("");
 const LETRAS = " ABCDEFGHIJKLMNOPQRSTUVWXYZÇÃÕÁÉÍÓÚÂÊÔ0123456789";
 function viraPlaca(el, texto) {
   const alvo = texto.toUpperCase().padEnd(LARG).slice(0, LARG);
@@ -1193,18 +1388,18 @@ setInterval(() => {
   const ultimo = st.pop(); st.unshift(ultimo);
   const classes = st.map(s => [s.className, s.textContent]);
   linhas.forEach((l, i) => { const s = l.querySelector(".st"); [s.className, s.textContent] = classes[(i + 1) % linhas.length]; });
-  const l = linhas[Math.floor(Math.random() * linhas.length)]; viraPlaca(l.querySelector(".flaps"), l.dataset.sabor);
+  const l = linhas[Math.floor(Math.random() * linhas.length)]; viraPlaca(l.querySelector(".flaps"), l.querySelector(".flaps").dataset.alvo);
 }, 5200);
 setInterval(() => { const d = new Date(); $("#relogio").textContent = `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`; }, 1000);
 $("#relogio").textContent = new Date().toTimeString().slice(0, 5);
-$("#precoCab").textContent = `PREÇO (${PIZZARIA.tamanhos[TP].nome.toUpperCase()})`;
+$("#precoCab").textContent = t("PREÇO ({t})", { t: PIZZARIA.tamanhos[TP].nome.toUpperCase() });
 $$("#placaLinhas .linha-placa").forEach(l => l.onclick = () => irMontar(l.dataset.sabor));
 
 /* trenzinho com rodas de pizza */
 (function () {
   const roda = (x) => `<g class="roda" transform="translate(${x} 38)"><g transform="scale(.075)">${pizzaPartes({ setores: [sabor(PIZZARIA.hero[0]) || PIZZARIA.sabores[0]], fatias: 6, detalhe: .3 }).corpo}</g></g>`;
   const vagao = (x, cor, s) => `<g transform="translate(${x} 0)"><rect x="0" y="12" width="62" height="22" rx="4" fill="${cor}"/><rect x="6" y="16" width="50" height="8" rx="2" fill="#fbf3e4" opacity=".9"/><text x="31" y="23" text-anchor="middle" font-family="Archivo" font-weight="900" font-size="6.5" fill="#24150c">${s}</text>${roda(14)}${roda(48)}</g>`;
-  $("#trem").innerHTML = `<svg viewBox="0 0 240 50">${vagao(0, "#f6c64e", "MUSSARELA")}<rect x="62" y="26" width="8" height="3" fill="#7a5a40"/>${vagao(70, "#e2681f", "CALABRESA")}<rect x="132" y="26" width="8" height="3" fill="#7a5a40"/>
+  $("#trem").innerHTML = `<svg viewBox="0 0 240 50">${vagao(0, "#f6c64e", PIZZARIA.sabores[0].nome.toUpperCase().slice(0, 12))}<rect x="62" y="26" width="8" height="3" fill="#7a5a40"/>${vagao(70, "#e2681f", PIZZARIA.sabores[1].nome.toUpperCase().slice(0, 12))}<rect x="132" y="26" width="8" height="3" fill="#7a5a40"/>
     <g transform="translate(140 0)"><g class="fumaca" fill="#f3e6cf"><circle cx="72" cy="2" r="5"/><circle cx="72" cy="2" r="5"/><circle cx="72" cy="2" r="5"/></g><rect x="66" y="4" width="12" height="12" rx="2" fill="#24150c"/><rect x="0" y="6" width="34" height="28" rx="4" fill="#b3141c"/><rect x="6" y="11" width="22" height="11" rx="2" fill="#fbf3e4"/><path d="M34 14h44a10 10 0 0 1 10 10v10H34z" fill="#b3141c"/><circle cx="88" cy="26" r="4" fill="#f6c64e"/>${roda(14)}${roda(52)}${roda(78)}</g></svg>`;
 })();
 
@@ -1212,34 +1407,34 @@ $$("#placaLinhas .linha-placa").forEach(l => l.onclick = () => irMontar(l.datase
 const M = { tam: TP, qtd: 1, vagas: [sabor(PIZZARIA.hero[0]) || PIZZARIA.sabores[0]], ativa: 0, borda: 0 };
 const iconeTam = f => `<svg viewBox="-100 -100 200 200"><circle r="92" fill="#f6c64e" stroke="#b8692a" stroke-width="12"/>${Array.from({ length: f }, (_, k) => { const a = k * 6.2832 / f; return `<line x1="0" y1="0" x2="${f1(Math.cos(a) * 92)}" y2="${f1(Math.sin(a) * 92)}" stroke="#b8692a" stroke-width="7"/>`; }).join("")}</svg>`;
 $("#chipsTamanho").innerHTML = PIZZARIA.tamanhos.map((t, i) => `<button class="chip tamanho" data-i="${i}">${iconeTam(t.fatias)}<b>${t.nome}</b><small>${t.info}</small></button>`).join("");
-$("#chipsBorda").innerHTML = PIZZARIA.bordas.map((b, i) => `<button class="chip" data-i="${i}"><b>${b.nome}</b><small>${b.preco ? "+ " + brl(b.preco) : "sem custo"}</small></button>`).join("");
-$("#regraSabores").textContent = PIZZARIA.regraSabores === "maior" ? "Cobramos o sabor de maior valor" : "Cobramos a média dos sabores";
+$("#chipsBorda").innerHTML = PIZZARIA.bordas.map((b, i) => `<button class="chip" data-i="${i}"><b>${b.nome}</b><small>${b.preco ? "+ " + brl(b.preco) : t("sem custo")}</small></button>`).join("");
+$("#regraSabores").textContent = t(PIZZARIA.regraSabores === "maior" ? "Cobramos o sabor de maior valor" : "Cobramos a média dos sabores");
 function precoPizza(st) {
   const ps = st.vagas.filter(Boolean).map(s => s.precos[st.tam]);
   if (!ps.length) return 0;
   const base = PIZZARIA.regraSabores === "maior" ? Math.max(...ps) : ps.reduce((a, b) => a + b, 0) / ps.length;
   return Math.round((base + PIZZARIA.bordas[st.borda].preco) * 100) / 100;
 }
-const fracNome = q => ["", "Inteira", "1/2", "1/3", "1/4"][q];
+const fracNome = q => ["", t("Inteira"), "1/2", "1/3", "1/4"][q];
 function pintaMontar(animar = -1) {
-  const t = PIZZARIA.tamanhos[M.tam];
-  if (M.qtd > t.maxSabores) { M.qtd = t.maxSabores; M.vagas.length = M.qtd; }
+  const tam = PIZZARIA.tamanhos[M.tam];
+  if (M.qtd > tam.maxSabores) { M.qtd = tam.maxSabores; M.vagas.length = M.qtd; }
   while (M.vagas.length < M.qtd) M.vagas.push(null);
   M.vagas.length = M.qtd; if (M.ativa >= M.qtd) M.ativa = M.qtd - 1;
   $$("#chipsTamanho .chip").forEach((c, i) => c.setAttribute("aria-pressed", i === M.tam));
   $$("#chipsBorda .chip").forEach((c, i) => c.setAttribute("aria-pressed", i === M.borda));
-  $("#chipsQtd").innerHTML = [1, 2, 3, 4].map(q => `<button class="chip" data-q="${q}" aria-pressed="${q === M.qtd}" ${q > t.maxSabores ? "disabled" : ""}><b>${q === 1 ? "1 sabor" : q + " sabores"}</b></button>`).join("");
-  $("#vagas").innerHTML = M.vagas.map((s, i) => `<button class="vaga ${i === M.ativa ? "ativa" : ""}" data-v="${i}"><span class="frac">${fracNome(M.qtd)}</span><span class="nome ${s ? "" : "vazio"}">${s ? s.nome : "Escolha o sabor abaixo"}</span><span class="p">${s ? brl(s.precos[M.tam]) : ""}</span></button>`).join("");
-  $("#pzMontar").innerHTML = pizzaSVG({ setores: M.vagas, fatias: t.fatias, borda: PIZZARIA.bordas[M.borda], animar });
-  $("#pzMontar").style.transform = `scale(${t.escala / .9 * .9})`;
+  $("#chipsQtd").innerHTML = [1, 2, 3, 4].map(q => `<button class="chip" data-q="${q}" aria-pressed="${q === M.qtd}" ${q > tam.maxSabores ? "disabled" : ""}><b>${q === 1 ? t("1 sabor") : t("{n} sabores", { n: q })}</b></button>`).join("");
+  $("#vagas").innerHTML = M.vagas.map((s, i) => `<button class="vaga ${i === M.ativa ? "ativa" : ""}" data-v="${i}"><span class="frac">${fracNome(M.qtd)}</span><span class="nome ${s ? "" : "vazio"}">${s ? s.nome : t("Escolha o sabor abaixo")}</span><span class="p">${s ? brl(s.precos[M.tam]) : ""}</span></button>`).join("");
+  $("#pzMontar").innerHTML = pizzaSVG({ setores: M.vagas, fatias: tam.fatias, borda: PIZZARIA.bordas[M.borda], animar });
+  $("#pzMontar").style.transform = `scale(${tam.escala / .9 * .9})`;
   $("#precoMontar").textContent = brl(precoPizza(M));
-  $("#ticketMontar").innerHTML = `<span>${t.nome}</span> · ${t.info} · ${M.vagas.filter(Boolean).map(s => s.nome).join(" + ") || "escolha os sabores"}${M.borda ? ` · borda ${PIZZARIA.bordas[M.borda].nome.toLowerCase()}` : ""}`;
-  $$("#listaSabores .sabor-opcao").forEach(b => b.classList.toggle("usado", M.vagas.some(s => s && s.nome === b.dataset.n)));
+  $("#ticketMontar").innerHTML = `<span>${tam.nome}</span> · ${tam.info} · ${M.vagas.filter(Boolean).map(s => s.nome).join(" + ") || t("escolha os sabores")}${M.borda ? ` · ${t("borda {b}", { b: PIZZARIA.bordas[M.borda].nome.toLowerCase() })}` : ""}`;
+  $$("#listaSabores .sabor-opcao").forEach(b => b.classList.toggle("usado", M.vagas.some(s => s && s.id === b.dataset.n)));
 }
 function listaSabores(filtro = "") {
   const f = filtro.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
   const lista = PIZZARIA.sabores.filter(s => !f || (s.nome + " " + s.desc).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().includes(f));
-  $("#listaSabores").innerHTML = lista.map(s => `<button class="sabor-opcao" data-n="${s.nome}">${mini(s, "")}<span>${s.nome}</span></button>`).join("") || `<p class="nada">Nenhum sabor com "${filtro}".</p>`;
+  $("#listaSabores").innerHTML = lista.map(s => `<button class="sabor-opcao" data-n="${s.id}">${mini(s, "")}<span>${s.nome}</span></button>`).join("") || `<p class="nada">${t("Nenhum sabor com \"{f}\".", { f: filtro })}</p>`;
   pintaMontar();
 }
 $("#chipsTamanho").onclick = e => { const b = e.target.closest(".chip"); if (!b) return; M.tam = +b.dataset.i; pintaMontar(); };
@@ -1266,11 +1461,11 @@ pintaMontar("todos");
 let fechando = false;
 $("#addMontar").onclick = () => {
   if (fechando) return;
-  if (M.vagas.some(s => !s)) { avisar(`Falta escolher ${M.vagas.filter(s => !s).length > 1 ? "os sabores" : "um sabor"}`); M.ativa = M.vagas.findIndex(s => !s); pintaMontar(); return; }
+  if (M.vagas.some(s => !s)) { avisar(t(M.vagas.filter(s => !s).length > 1 ? "Falta escolher os sabores" : "Falta escolher um sabor")); M.ativa = M.vagas.findIndex(s => !s); pintaMontar(); return; }
   fechando = true;
-  const t = PIZZARIA.tamanhos[M.tam];
+  const tam = PIZZARIA.tamanhos[M.tam];
   const item = { tipo: "pizza", tam: M.tam, vagas: [...M.vagas], borda: M.borda, obs: $("#obsMontar").value.trim(), preco: precoPizza(M), qtd: 1 };
-  item.nome = `Pizza ${t.nome}`; item.desc = `${M.vagas.map(s => (M.qtd > 1 ? fracNome(M.qtd) + " " : "") + s.nome).join(", ")}${M.borda ? ` · Borda ${PIZZARIA.bordas[M.borda].nome}` : ""}`;
+  item.nome = t("Pizza {t}", { t: tam.nome }); item.desc = `${M.vagas.map(s => (M.qtd > 1 ? fracNome(M.qtd) + " " : "") + s.nome).join(", ")}${M.borda ? ` · ${t("Borda {b}", { b: PIZZARIA.bordas[M.borda].nome })}` : ""}`;
   $("#tampa").classList.add("fecha");
   setTimeout(() => {
     const r = $("#caixa").getBoundingClientRect();
@@ -1285,7 +1480,7 @@ $("#addMontar").onclick = () => {
 /* ---------- CARDÁPIO ---------- */
 const cats = [...PIZZARIA.categorias, "Bebidas"];
 let catAtual = cats[0];
-$("#abas").innerHTML = cats.map(c => `<button class="aba" role="tab" data-c="${c}" aria-selected="${c === catAtual}">${c}</button>`).join("") + `<input class="busca-sabor" id="buscaMenu" type="search" placeholder="Buscar no cardápio" aria-label="Buscar no cardápio">`;
+$("#abas").innerHTML = cats.map(c => `<button class="aba" role="tab" data-c="${c}" aria-selected="${c === catAtual}">${t(c)}</button>`).join("") + `<input class="busca-sabor" id="buscaMenu" type="search" placeholder="${t("Buscar no cardápio")}" aria-label="${t("Buscar no cardápio")}">`;
 const iconeLata = cor => `<svg class="lata" viewBox="0 0 60 60" aria-hidden="true"><rect x="20" y="6" width="20" height="48" rx="6" fill="${cor}"/><rect x="24" y="2" width="12" height="6" rx="2" fill="${cor}" opacity=".7"/><rect x="20" y="22" width="20" height="14" fill="#fff" opacity=".85"/><rect x="24" y="10" width="3" height="40" rx="1.5" fill="#fff" opacity=".25"/></svg>`;
 const mais = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>`;
 function pintaCardapio() {
@@ -1297,24 +1492,24 @@ function pintaCardapio() {
   } else if (catAtual === "Bebidas") html = PIZZARIA.bebidas.map(itemBebida).join("");
   else if (catAtual === "Combos") html = (PIZZARIA.combos || []).map(itemCombo).join("");
   else html = PIZZARIA.sabores.filter(s => s.cat === catAtual).map(itemPizza).join("");
-  $("#itens").innerHTML = html || `<p class="nada">Nada encontrado.</p>`;
+  $("#itens").innerHTML = html || `<p class="nada">${t("Nada encontrado.")}</p>`;
   $$("#itens .surgir").forEach((el, i) => { el.animate([{ opacity: 0, transform: "translateY(14px)" }, { opacity: 1, transform: "none" }], { duration: reduz ? 1 : 500, delay: i * 40, easing: "cubic-bezier(.34,1.56,.64,1)", fill: "backwards" }); });
 }
 function itemPizza(s) {
-  return `<div class="item surgir" data-sabor="${s.nome}">${mini(s)}<div><div class="topo-item"><h4>${s.nome}${s.tag ? `<span class="tag">${s.tag}</span>` : ""}</h4><span class="pontos"></span><span class="preco">${brl(s.precos[TP])}</span></div><p>${s.desc}</p><div class="tams">${PIZZARIA.tamanhos.map((t, i) => `${t.nome} <b>${brl(s.precos[i]).replace("R$", "").trim()}</b>`).join(" · ")}</div></div><button class="mais" data-rapido="${s.nome}" aria-label="Adicionar ${s.nome} ${PIZZARIA.tamanhos[TP].nome.toLowerCase()}">${mais}</button></div>`;
+  return `<div class="item surgir" data-sabor="${s.id}">${mini(s)}<div><div class="topo-item"><h4>${s.nome}${s.tag ? `<span class="tag">${s.tag}</span>` : ""}</h4><span class="pontos"></span><span class="preco">${brl(s.precos[TP])}</span></div><p>${s.desc}</p><div class="tams">${PIZZARIA.tamanhos.map((t, i) => `${t.nome} <b>${brl(s.precos[i]).replace("R$", "").trim()}</b>`).join(" · ")}</div></div><button class="mais" data-rapido="${s.id}" aria-label="${t("Adicionar {x}", { x: s.nome + " " + PIZZARIA.tamanhos[TP].nome.toLowerCase() })}">${mais}</button></div>`;
 }
 function itemCombo(c, i) {
   const s = c.sabores.map(sabor).filter(Boolean);
-  return `<div class="item combo surgir">${pizzaSVG({ setores: s.slice(0, 1), fatias: 12, detalhe: .55 }, 'class="mini" aria-hidden="true"')}<div><div class="topo-item"><h4>${c.nome}${c.de ? `<span class="tag">-${Math.round((1 - c.preco / c.de) * 100)}%</span>` : ""}</h4><span class="pontos"></span><span class="preco">${c.de ? `<s>${brl(c.de)}</s> ` : ""}${brl(c.preco)}</span></div><p>${c.desc}</p>${c.serve ? `<div class="tams">Serve <b>${c.serve} pessoas</b></div>` : ""}</div><button class="mais" data-combo="${i}" aria-label="Adicionar ${c.nome}">${mais}</button></div>`;
+  return `<div class="item combo surgir">${pizzaSVG({ setores: s.slice(0, 1), fatias: 12, detalhe: .55 }, 'class="mini" aria-hidden="true"')}<div><div class="topo-item"><h4>${c.nome}${c.de ? `<span class="tag">-${Math.round((1 - c.preco / c.de) * 100)}%</span>` : ""}</h4><span class="pontos"></span><span class="preco">${c.de ? `<s>${brl(c.de)}</s> ` : ""}${brl(c.preco)}</span></div><p>${c.desc}</p>${c.serve ? `<div class="tams">${t("Serve <b>{n} pessoas</b>", { n: c.serve })}</div>` : ""}</div><button class="mais" data-combo="${i}" aria-label="${t("Adicionar {x}", { x: c.nome })}">${mais}</button></div>`;
 }
 function itemBebida(b, i) {
-  return `<div class="item bebida surgir">${iconeLata(b.cor || "#b3141c")}<div><div class="topo-item"><h4>${b.nome}</h4><span class="pontos"></span><span class="preco">${brl(b.preco)}</span></div></div><button class="mais" data-bebida="${b.nome}" aria-label="Adicionar ${b.nome}">${mais}</button></div>`;
+  return `<div class="item bebida surgir">${iconeLata(b.cor || "#b3141c")}<div><div class="topo-item"><h4>${b.nome}</h4><span class="pontos"></span><span class="preco">${brl(b.preco)}</span></div></div><button class="mais" data-bebida="${b.nome}" aria-label="${t("Adicionar {x}", { x: b.nome })}">${mais}</button></div>`;
 }
 $("#abas").onclick = e => { const b = e.target.closest(".aba"); if (!b) return; catAtual = b.dataset.c; $("#buscaMenu").value = ""; $$("#abas .aba").forEach(a => a.setAttribute("aria-selected", a === b)); pintaCardapio(); };
 $("#buscaMenu").oninput = pintaCardapio;
 $("#itens").onclick = e => {
   const r = e.target.closest("[data-rapido]"), bb = e.target.closest("[data-bebida]");
-  if (r) { const s = sabor(r.dataset.rapido); const it = { tipo: "pizza", tam: TP, vagas: [s], borda: 0, obs: "", qtd: 1, preco: s.precos[TP], nome: `Pizza ${PIZZARIA.tamanhos[TP].nome}`, desc: s.nome }; voar(r.closest(".item").querySelector(".mini").getBoundingClientRect(), mini(s, ""), () => adicionar(it)); return; }
+  if (r) { const s = sabor(r.dataset.rapido); const it = { tipo: "pizza", tam: TP, vagas: [s], borda: 0, obs: "", qtd: 1, preco: s.precos[TP], nome: t("Pizza {t}", { t: PIZZARIA.tamanhos[TP].nome }), desc: s.nome }; voar(r.closest(".item").querySelector(".mini").getBoundingClientRect(), mini(s, ""), () => adicionar(it)); return; }
   if (bb) { const b = PIZZARIA.bebidas.find(x => x.nome === bb.dataset.bebida); voar(bb.closest(".item").querySelector(".lata").getBoundingClientRect(), iconeLata(b.cor), () => adicionar({ tipo: "bebida", nome: b.nome, desc: "", preco: b.preco, qtd: 1, cor: b.cor })); return; }
   const cb = e.target.closest("[data-combo]");
   if (cb) { const c = PIZZARIA.combos[+cb.dataset.combo]; const el = cb.closest(".item").querySelector(".mini"); voar(el.getBoundingClientRect(), el.outerHTML, () => adicionar({ tipo: "combo", nome: "Combo " + c.nome, desc: "", preco: c.preco, qtd: 1, sabores: c.sabores })); return; }
@@ -1327,10 +1522,10 @@ $("#notaMenu").textContent = PIZZARIA.avisoCardapio || "";
 if (PIZZARIA.rodizio) {
   const r = PIZZARIA.rodizio;
   $("#rodDias").textContent = r.dias;
-  $("#rodPreco").textContent = r.preco ? brl(r.preco) : "Consulte";
+  $("#rodPreco").textContent = r.preco ? brl(r.preco) : t("Consulte");
   $("#rodObs").textContent = r.obs || "";
   $("#rodInclui").innerHTML = r.inclui.map(t => `<li>${t}</li>`).join("");
-  $("#rodReserva").href = linkZap(`Olá, ${PIZZARIA.nome}! Quero reservar uma mesa para o rodízio. Somos __ pessoas, para o dia __ às __h.`);
+  $("#rodReserva").href = linkZap(t("Olá, {n}! Quero reservar uma mesa para o rodízio. Somos __ pessoas, para o dia __ às __h.", { n: PIZZARIA.nome }));
 }
 
 /* ---------- FOTOS ---------- */
@@ -1340,7 +1535,7 @@ if (PIZZARIA.fotos && PIZZARIA.fotos.length) {
 } else $("#fotos").remove();
 
 /* ---------- ENTREGA ---------- */
-$("#entregaTexto").textContent = `Pedido feito aqui no site chega direto na nossa cozinha. Entrega em ${PIZZARIA.tempoEntrega}${PIZZARIA.taxaEntrega != null ? `, taxa de ${brl(PIZZARIA.taxaEntrega)}` : ""}.`;
+$("#entregaTexto").textContent = t("Pedido feito aqui no site chega direto na nossa cozinha. Entrega em {t}{taxa}.", { t: PIZZARIA.tempoEntrega, taxa: PIZZARIA.taxaEntrega != null ? t(", taxa de {v}", { v: brl(PIZZARIA.taxaEntrega) }) : "" });
 $("#tempoEntrega").textContent = PIZZARIA.tempoEntrega;
 const icSeg = {
   massa: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 30c0-8 8-14 18-14s18 6 18 14"/><path d="M4 30h40v4a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/><path d="M18 16c0-5 3-8 6-8s6 3 6 8"/></svg>`,
@@ -1364,12 +1559,12 @@ new IntersectionObserver(([e], o) => {
 /* ---------- ONDE ---------- */
 $("#linkMapa").href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(PIZZARIA.mapsBusca)}`;
 $("#contatos").innerHTML = [
-  `<a class="l" href="${linkZap(`Olá, ${PIZZARIA.nome}!`)}" target="_blank" rel="noopener">WhatsApp ${PIZZARIA.telefones[0]}</a>`,
+  `<a class="l" href="${linkZap(t("Olá, {n}!", { n: PIZZARIA.nome }))}" target="_blank" rel="noopener">WhatsApp ${PIZZARIA.telefones[0]}</a>`,
   ...PIZZARIA.telefones.slice(1).map(t => `<a class="l" href="tel:+55${t.replace(/\D/g, "")}">${t}</a>`),
   PIZZARIA.instagram ? `<a class="l" href="https://instagram.com/${PIZZARIA.instagram}" target="_blank" rel="noopener">@${PIZZARIA.instagram}</a>` : ""
 ].filter(Boolean).join("<br>");
-new IntersectionObserver(([e], o) => { if (!e.isIntersecting) return; o.disconnect(); $("#mapa").innerHTML = `<iframe title="Mapa" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=${encodeURIComponent(PIZZARIA.mapsBusca)}&output=embed"></iframe>`; }, { rootMargin: "400px" }).observe($("#mapa"));
-$("#zapFinal").href = linkZap(`Olá, ${PIZZARIA.nome}! Quero fazer um pedido.`);
+new IntersectionObserver(([e], o) => { if (!e.isIntersecting) return; o.disconnect(); $("#mapa").innerHTML = `<iframe title="${t("Mapa")}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=${encodeURIComponent(PIZZARIA.mapsBusca)}&hl=${IDIOMA}&output=embed"></iframe>`; }, { rootMargin: "400px" }).observe($("#mapa"));
+$("#zapFinal").href = linkZap(t("Olá, {n}! Quero fazer um pedido.", { n: PIZZARIA.nome }));
 
 /* ---------- FINAL: fatias voando ---------- */
 function fatiaSVG(s) {
@@ -1386,7 +1581,7 @@ function adicionar(item) {
   const ja = sacola.find(i => i.chave === chave);
   if (ja) ja.qtd++; else sacola.push({ ...item, chave });
   pintaSacola(true);
-  avisar(`${item.tipo === "pizza" ? item.nome + " · " + item.desc : item.nome} no pedido`);
+  avisar(t("{x} no pedido", { x: item.tipo === "pizza" ? item.nome + " · " + item.desc : item.nome }));
 }
 function pintaSacola(pulo) {
   const qtd = sacola.reduce((a, i) => a + i.qtd, 0), sub = sacola.reduce((a, i) => a + i.qtd * i.preco, 0);
@@ -1394,11 +1589,11 @@ function pintaSacola(pulo) {
   $$("[data-total]").forEach(e => e.textContent = brl(sub));
   $("#sacolaFlutua").classList.toggle("on", qtd > 0);
   if (pulo) $$(".sacola-btn").forEach(b => { b.classList.remove("pula"); void b.offsetWidth; b.classList.add("pula"); });
-  $("#sacolaItens").innerHTML = sacola.length ? sacola.map((i, k) => `<div class="linha-item">${i.tipo === "combo" ? pizzaSVG({ setores: [sabor(i.sabores[0])], fatias: 12, detalhe: .5 }, 'class="mini"') : i.tipo === "pizza" ? pizzaSVG({ setores: i.vagas, fatias: PIZZARIA.tamanhos[i.tam].fatias, borda: PIZZARIA.bordas[i.borda], detalhe: .5 }, 'class="mini"') : iconeLata(i.cor).replace('class="lata"', 'class="mini"')}<div><b>${i.nome}</b><small>${i.desc}${i.obs ? `<br>Obs.: ${i.obs}` : ""}</small><div class="qtd"><button data-menos="${k}" aria-label="Menos">−</button><span>${i.qtd}</span><button data-mais="${k}" aria-label="Mais">+</button></div></div><span class="v">${brl(i.preco * i.qtd)}</span></div>`).join("")
-    : `<div class="vazio-sacola">${iconeTam(8)}<p>Seu pedido está vazio.<br>Que tal montar uma pizza?</p></div>`;
+  $("#sacolaItens").innerHTML = sacola.length ? sacola.map((i, k) => `<div class="linha-item">${i.tipo === "combo" ? pizzaSVG({ setores: [sabor(i.sabores[0])], fatias: 12, detalhe: .5 }, 'class="mini"') : i.tipo === "pizza" ? pizzaSVG({ setores: i.vagas, fatias: PIZZARIA.tamanhos[i.tam].fatias, borda: PIZZARIA.bordas[i.borda], detalhe: .5 }, 'class="mini"') : iconeLata(i.cor).replace('class="lata"', 'class="mini"')}<div><b>${i.nome}</b><small>${i.desc}${i.obs ? `<br>${t("Obs.: {o}", { o: i.obs })}` : ""}</small><div class="qtd"><button data-menos="${k}" aria-label="${t("Menos")}">−</button><span>${i.qtd}</span><button data-mais="${k}" aria-label="${t("Mais")}">+</button></div></div><span class="v">${brl(i.preco * i.qtd)}</span></div>`).join("")
+    : `<div class="vazio-sacola">${iconeTam(8)}<p>${t("Seu pedido está vazio.<br>Que tal montar uma pizza?")}</p></div>`;
   const ent = modo === "entrega" ? PIZZARIA.taxaEntrega : 0;
   $("#rSub").textContent = brl(sub);
-  $("#rEnt").textContent = modo === "retirada" ? "Retirada no balcão" : (ent != null ? brl(ent) : "A combinar");
+  $("#rEnt").textContent = modo === "retirada" ? t("Retirada no balcão") : (ent != null ? brl(ent) : t("A combinar"));
   $("#rTot").textContent = brl(sub + (ent || 0));
 }
 $("#sacolaItens").onclick = e => {
@@ -1416,17 +1611,17 @@ addEventListener("keydown", e => { if (e.key === "Escape") fechar(); });
 $("#modo").onclick = e => { const b = e.target.closest("button"); if (!b) return; modo = b.dataset.modo; $$("#modo button").forEach(x => x.setAttribute("aria-pressed", x === b)); $("#campoEnd").hidden = modo !== "entrega"; pintaSacola(); };
 $("#fPag").onchange = e => $("#campoTroco").hidden = e.target.value !== "Dinheiro";
 $("#enviar").onclick = () => {
-  if (!sacola.length) { avisar("Adicione algo ao pedido primeiro"); return; }
+  if (!sacola.length) { avisar(t("Adicione algo ao pedido primeiro")); return; }
   const nome = $("#fNome").value.trim(), end = $("#fEnd").value.trim();
-  if (!nome) { $("#fNome").focus(); avisar("Qual é o seu nome?"); return; }
-  if (modo === "entrega" && !end) { $("#fEnd").focus(); avisar("Falta o endereço de entrega"); return; }
+  if (!nome) { $("#fNome").focus(); avisar(t("Qual é o seu nome?")); return; }
+  if (modo === "entrega" && !end) { $("#fEnd").focus(); avisar(t("Falta o endereço de entrega")); return; }
   const sub = sacola.reduce((a, i) => a + i.qtd * i.preco, 0);
   const ent = modo === "entrega" ? PIZZARIA.taxaEntrega : 0;
-  const linhas = [`*Pedido pelo site · ${PIZZARIA.nome}* 🍕`, ""];
-  sacola.forEach(i => { linhas.push(`${i.qtd}x ${i.nome}${i.desc ? ` (${i.desc})` : ""} · ${brl(i.preco * i.qtd)}`); if (i.obs) linhas.push(`   Obs.: ${i.obs}`); });
+  const linhas = [t("*Pedido pelo site · {n}* 🍕", { n: PIZZARIA.nome }), ""];
+  sacola.forEach(i => { linhas.push(`${i.qtd}x ${i.nome}${i.desc ? ` (${i.desc})` : ""} · ${brl(i.preco * i.qtd)}`); if (i.obs) linhas.push("   " + t("Obs.: {o}", { o: i.obs })); });
   linhas.push("", `Subtotal: ${brl(sub)}`);
-  if (modo === "entrega") linhas.push(`Entrega: ${ent != null ? brl(ent) : "a combinar"}`);
-  linhas.push(`*Total: ${brl(sub + (ent || 0))}*`, "", `Nome: ${nome}`, modo === "entrega" ? `Entregar em: ${end}` : "Vou retirar no balcão", `Pagamento: ${$("#fPag").value}${$("#fPag").value === "Dinheiro" && $("#fTroco").value ? ` (troco para R$ ${$("#fTroco").value})` : ""}`);
+  if (modo === "entrega") linhas.push(t("Entrega: {v}", { v: ent != null ? brl(ent) : t("a combinar") }));
+  linhas.push(`*Total: ${brl(sub + (ent || 0))}*`, "", t("Nome: {n}", { n: nome }), modo === "entrega" ? t("Entregar em: {e}", { e: end }) : t("Vou retirar no balcão"), t("Pagamento: {p}", { p: $("#fPag").selectedOptions[0].text }) + ($("#fPag").value === "Dinheiro" && $("#fTroco").value ? t(" (troco para R$ {v})", { v: $("#fTroco").value }) : ""));
   window.open(linkZap(linhas.join("\n")), "_blank", "noopener");
 };
 pintaSacola();
@@ -1436,7 +1631,8 @@ let avisoT;
 function avisar(t) { const a = $("#aviso"); a.textContent = t; a.classList.add("on"); clearTimeout(avisoT); avisoT = setTimeout(() => a.classList.remove("on"), 2200); }
 function voar(rect, html, fim) {
   const alvoBtn = $("#sacolaFlutua").classList.contains("on") ? $("#sacolaFlutua .sacola-btn") : $(".topo .sacola-btn");
-  const alvo = alvoBtn.getBoundingClientRect();
+  // no celular o botão do topo fica escondido: a caixa voa para onde o botão flutuante aparece
+  const alvo = alvoBtn.offsetWidth ? alvoBtn.getBoundingClientRect() : { left: innerWidth / 2 - 20, top: innerHeight - 60, width: 40, height: 40 };
   if (reduz) { fim(); return; }
   const v = document.createElement("div"); v.className = "voador"; v.innerHTML = html;
   Object.assign(v.style, { left: rect.left + "px", top: rect.top + "px", width: rect.width + "px", height: rect.height + "px" });
