@@ -4,8 +4,8 @@ Site institucional da SA Studio. Página única em `index.html` (HTML, CSS e JS 
 
 Publicado via GitHub Pages: https://sastudioofc.github.io/sa-studio/
 
-- Versão em inglês (clientes internacionais, preços em US$): `en/index.html`. Ao mudar textos ou preços no `index.html`, atualize também o `en/index.html`. As duas páginas se ligam pelo seletor PT/EN no topo e pelas tags `hreflang`.
-- Número do WhatsApp: constante `WHATSAPP` no fim do `index.html` (e do `en/index.html`).
+- Versões internacionais (preços em US$): inglês em `en/index.html` e espanhol em `es/index.html`. Ao mudar textos ou preços no `index.html`, atualize também as outras duas. As três páginas se ligam pelo seletor PT/EN/ES no topo e pelas tags `hreflang`.
+- Número do WhatsApp: constante `WHATSAPP` no fim de cada `index.html`.
 - Artes da designer: troque os blocos `.arte` por `<img src="...">`.
 
 ## Ferramenta de prospecção
