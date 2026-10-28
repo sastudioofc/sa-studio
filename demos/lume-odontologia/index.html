@@ -138,7 +138,7 @@
   .palco { position: relative; aspect-ratio: 1 / 1.02; max-width: 560px; width: 100%; justify-self: center; }
   .palco .disco { position: absolute; inset: 4% 2% 14%; border-radius: 46% 54% 50% 50% / 52% 46% 54% 48%; background: var(--branco); box-shadow: 0 50px 90px -50px rgba(15, 43, 51, .45), inset 0 0 0 1px var(--linha); animation: respira 9s ease-in-out infinite; }
   @keyframes respira { 50% { border-radius: 52% 48% 46% 54% / 47% 53% 47% 53%; } }
-  .palco .sorriso { position: absolute; left: 8%; right: 8%; top: 18%; width: 84%; filter: drop-shadow(0 22px 26px rgba(15, 43, 51, .16)); }
+  .palco .sorriso { position: absolute; left: 8%; right: 8%; top: 20%; width: 84%; filter: drop-shadow(0 22px 26px rgba(15, 43, 51, .16)); }
   .palco .rotulo { position: absolute; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 16px; background: var(--branco); box-shadow: 0 18px 40px -22px rgba(15, 43, 51, .55), inset 0 0 0 1px var(--linha); font-size: .82rem; font-weight: 600; color: var(--texto-2); animation: flutua 6s ease-in-out infinite; }
   .palco .rotulo b { display: block; color: var(--tinta); font-size: .95rem; font-family: var(--display); }
   .palco .rotulo .ic { width: 36px; height: 36px; border-radius: 11px; display: grid; place-items: center; background: var(--menta); color: var(--tinta); flex: none; }
@@ -1016,99 +1016,81 @@ const IC = {
 };
 
 /* =====================================================================
-   O SORRISO: desenho vetorial gerado por código.
-   Dentes superiores (incisivos, caninos e pré-molares) seguem a curva do sorriso.
+   O SORRISO: desenho vetorial gerado por código, no estilo de um emoji sorrindo.
+   Só a fileira de cima aparece, com dentes arredondados que seguem a curva da boca.
    ===================================================================== */
-const SUP = [{ w: 34, h: 58, t: "inc" }, { w: 27, h: 49, t: "inc" }, { w: 26, h: 54, t: "can" }, { w: 22, h: 45, t: "pm" }, { w: 19, h: 40, t: "pm" }, { w: 17, h: 36, t: "pm" }];
-const INF = [{ w: 19, h: 44 }, { w: 20, h: 44 }, { w: 23, h: 46, t: "can" }, { w: 21, h: 42 }, { w: 19, h: 40 }];
-const borda = dx => 124 - 0.0011 * dx * dx; // altura da ponta dos dentes de cima conforme a distância do centro
-function formaDente(x, y, w, h, tipo, inferior) {
-  // y é a margem da gengiva; o dente "desce" até y + h (ou sobe, se inferior)
-  const s = inferior ? -1 : 1, Y = v => f1(y + s * v * h), X = v => f1(x + v * w);
-  if (tipo === "can") return `M${X(.05)} ${Y(.17)} Q${X(.5)} ${Y(-.07)} ${X(.95)} ${Y(.17)} L${X(1)} ${Y(.76)} Q${X(.82)} ${Y(.92)} ${X(.5)} ${Y(1)} Q${X(.18)} ${Y(.92)} ${X(0)} ${Y(.76)} Z`;
-  return `M${X(.05)} ${Y(.16)} Q${X(.5)} ${Y(-.06)} ${X(.95)} ${Y(.16)} L${X(1)} ${Y(.84)} Q${X(.99)} ${Y(1)} ${X(.82)} ${Y(1)} L${X(.18)} ${Y(1)} Q${X(.01)} ${Y(1)} ${X(0)} ${Y(.84)} Z`;
+const SUP = [34, 28, 25, 22, 19, 17]; // largura dos dentes, do centro para o canto
+const BOCA = "M44 70 Q200 98 356 70 C 344 168 56 168 44 70 Z";
+const labio = dx => 84 - 12 * (dx / 156) ** 2;        // borda de cima da boca
+const ponta = dx => 137 - 0.0019 * dx * dx;           // ponta dos dentes, acompanhando o sorriso
+function formaDente(x, y, w, h) {
+  const X = v => f1(x + v * w), Y = v => f1(y + v * h), r = Math.min(.42, w * .3 / h);
+  return `M${X(0)} ${Y(0)} L${X(1)} ${Y(0)} L${X(1)} ${Y(1 - r)} Q${X(1)} ${Y(1)} ${X(.7)} ${Y(1)} L${X(.3)} ${Y(1)} Q${X(0)} ${Y(1)} ${X(0)} ${Y(1 - r)} Z`;
 }
 let sorrisoN = 0;
 function desenhaSorriso(opts = {}) {
   const id = "s" + (++sorrisoN), R = sorteio(7);
-  const boca = "M38 96 C 96 42 304 42 362 96 C 300 166 100 166 38 96 Z";
-  let inf = "", sup = "", gengSup = [], tartaro = "", placa = "", alvoInfo = null, carie = null;
-  // inferiores (atrás)
-  [-1, 1].forEach(lado => {
-    let acc = .8;
-    INF.forEach((d, k) => {
-      const x0 = lado > 0 ? 200 + acc : 200 - acc - d.w, cx = x0 + d.w / 2, dx = cx - 200;
-      const topo = borda(dx) - 10 + 0.0004 * dx * dx;
-      const base = topo + d.h;
-      inf += `<path class="esmalte" d="${formaDente(x0, base, d.w, d.h, d.t, true)}"/><path d="${formaDente(x0, base, d.w, d.h, d.t, true)}" fill="url(#${id}gi)"/>`;
-      acc += d.w + .9;
-    });
-  });
-  // superiores
   const dentes = [];
   [-1, 1].forEach(lado => {
-    let acc = .7;
-    SUP.forEach((d, k) => {
-      const x0 = lado > 0 ? 200 + acc : 200 - acc - d.w, cx = x0 + d.w / 2, dx = cx - 200;
-      const ponta = borda(dx), topo = ponta - d.h;
-      dentes.push({ x0, cx, dx, topo, ponta, d, k, lado });
-      acc += d.w + .9;
+    let acc = .6;
+    SUP.forEach((w, k) => {
+      const x0 = lado > 0 ? 200 + acc : 200 - acc - w, cx = x0 + w / 2, dx = cx - 200;
+      const topo = labio(dx) + 7, d = { w, h: ponta(dx) - topo };
+      dentes.push({ x0, cx, dx, topo, d, k, lado });
+      acc += w + 1.6;
     });
   });
   dentes.sort((a, b) => a.x0 - b.x0);
-  // gengiva superior com papilas entre os dentes
+  // gengiva: faixa fina logo abaixo do lábio, com papilas entre os dentes
   let g = "M20 20 L20 " + f1(dentes[0].topo + 6);
-  dentes.forEach((p, i) => {
-    g += ` L${f1(p.x0 - .6)} ${f1(p.topo + p.d.h * .3)} Q${f1(p.cx)} ${f1(p.topo - p.d.h * .16)} ${f1(p.x0 + p.d.w + .6)} ${f1(p.topo + p.d.h * .3)}`;
-  });
+  dentes.forEach(p => { g += ` L${f1(p.x0 - .8)} ${f1(p.topo + 9)} Q${f1(p.cx)} ${f1(p.topo - 1)} ${f1(p.x0 + p.d.w + .8)} ${f1(p.topo + 9)}`; });
   g += ` L380 ${f1(dentes[dentes.length - 1].topo + 6)} L380 20 Z`;
-  dentes.forEach((p, i) => {
-    const forma = formaDente(p.x0, p.topo, p.d.w, p.d.h, p.d.t);
+  let sup = "", tartaro = "", placa = "", a = null, c = null;
+  dentes.forEach(p => {
+    const forma = formaDente(p.x0, p.topo, p.d.w, p.d.h);
     const alvo = p.lado > 0 && p.k === 1; // incisivo lateral direito: o dente do implante
-    const sens = p.lado < 0 && p.k === 2; // canino esquerdo: o dente da dor
-    const tx = f1((R() - .5) * 5), ty = f1((R() - .5) * 8), r = f1((R() - .5) * 14 * (p.k < 3 ? 1 : .5)), sy = f1(.86 + R() * .14);
-    if (sens) alvoInfo = p;
-    if (p.lado < 0 && p.k === 3) carie = p;
-    sup += `<g class="dente${alvo ? " alvo" : ""}" style="--tx:${tx}px;--ty:${ty}px;--r:${r}deg;--sy:${sy};--d:${f1(Math.abs(p.k) * .06 + (p.lado > 0 ? .03 : 0))}s">
+    if (p.lado < 0 && p.k === 2) a = p;   // canino esquerdo: o dente da dor
+    if (p.lado < 0 && p.k === 1) c = p;   // onde aparece a cárie
+    const tx = f1((R() - .5) * 4), ty = f1((R() - .5) * 6), r = f1((R() - .5) * 12 * (p.k < 3 ? 1 : .5)), sy = f1(.84 + R() * .16);
+    sup += `<g class="dente${alvo ? " alvo" : ""}" style="--tx:${tx}px;--ty:${ty}px;--r:${r}deg;--sy:${sy};--d:${f1(p.k * .06 + (p.lado > 0 ? .03 : 0))}s">
       <path class="esmalte" d="${forma}"/>
       <path d="${forma}" fill="url(#${id}gs)"/>
-      <path d="M${f1(p.x0 + p.d.w * .28)} ${f1(p.topo + p.d.h * .22)} Q${f1(p.x0 + p.d.w * .22)} ${f1(p.topo + p.d.h * .55)} ${f1(p.x0 + p.d.w * .32)} ${f1(p.topo + p.d.h * .78)}" stroke="#fff" stroke-width="${f1(p.d.w * .12)}" stroke-linecap="round" fill="none" opacity=".5"/>
+      <path d="M${f1(p.x0 + p.d.w * .26)} ${f1(p.topo + p.d.h * .3)} L${f1(p.x0 + p.d.w * .26)} ${f1(p.topo + p.d.h * .62)}" stroke="#fff" stroke-width="${f1(p.d.w * .14)}" stroke-linecap="round" opacity=".55"/>
     </g>`;
-    if (p.k < 4) tartaro += `<ellipse cx="${f1(p.cx + (R() - .5) * 4)}" cy="${f1(p.topo + p.d.h * .2)}" rx="${f1(p.d.w * .34)}" ry="${f1(p.d.h * .07)}" fill="#c9a35f" opacity=".85"/><ellipse cx="${f1(p.cx + p.d.w * .2)}" cy="${f1(p.topo + p.d.h * .26)}" rx="${f1(p.d.w * .12)}" ry="${f1(p.d.h * .05)}" fill="#a8823f" opacity=".7"/>`;
+    if (p.k < 4) tartaro += `<ellipse cx="${f1(p.cx + (R() - .5) * 4)}" cy="${f1(p.topo + 5)}" rx="${f1(p.d.w * .34)}" ry="3" fill="#c9a35f" opacity=".85"/>`;
     placa += `<path d="${forma}"/>`;
   });
-  const a = alvoInfo, c = carie;
-  const faiscas = [[118, 78, .0], [262, 88, .5], [196, 104, 1.1], [300, 76, 1.6], [146, 112, 2]].map(([x, y, d]) => `<path class="faisca" style="--d:${d}s" d="M${x} ${y - 7}Q${x + 1} ${y - 1} ${x + 7} ${y}Q${x + 1} ${y + 1} ${x} ${y + 7}Q${x - 1} ${y + 1} ${x - 7} ${y}Q${x - 1} ${y - 1} ${x} ${y - 7}Z" fill="#fff"/>`).join("");
-  return `<svg class="sorriso brilha" viewBox="20 30 360 170" role="img" aria-label="${t("Mapa do sorriso")}" data-e="${opts.efeito || ""}" data-f="${opts.fase || "antes"}">
+  const meio = p => f1(p.topo + p.d.h * .5);
+  const faiscas = [[112, 80, 0], [268, 96, .5], [190, 112, 1.1], [306, 82, 1.6], [150, 118, 2]].map(([x, y, d]) => `<path class="faisca" style="--d:${d}s" d="M${x} ${y - 7}Q${x + 1} ${y - 1} ${x + 7} ${y}Q${x + 1} ${y + 1} ${x} ${y + 7}Q${x - 1} ${y + 1} ${x - 7} ${y}Q${x - 1} ${y - 1} ${x} ${y - 7}Z" fill="#fff"/>`).join("");
+  return `<svg class="sorriso brilha" viewBox="20 40 360 130" role="img" aria-label="${t("Mapa do sorriso")}" data-e="${opts.efeito || ""}" data-f="${opts.fase || "antes"}">
     <defs>
-      <clipPath id="${id}c"><path d="${boca}"/></clipPath>
-      <linearGradient id="${id}gs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b98a52" stop-opacity=".28"/><stop offset=".3" stop-color="#b98a52" stop-opacity="0"/><stop offset=".86" stop-color="#9fb4c4" stop-opacity="0"/><stop offset="1" stop-color="#9fb4c4" stop-opacity=".3"/></linearGradient>
-      <linearGradient id="${id}gi" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#b98a52" stop-opacity=".3"/><stop offset=".35" stop-color="#5a3a2a" stop-opacity="0"/><stop offset=".85" stop-color="#5a3a2a" stop-opacity=".12"/><stop offset="1" stop-color="#5a3a2a" stop-opacity=".3"/></linearGradient>
-      <radialGradient id="${id}gb" cx=".5" cy=".35" r=".7"><stop offset="0" stop-color="#5a1e26"/><stop offset="1" stop-color="#2a0c12"/></radialGradient>
-      <linearGradient id="${id}gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f08f86"/><stop offset="1" stop-color="#d8665f"/></linearGradient>
-      <radialGradient id="${id}gh"><stop offset="0" stop-color="#ff5b4a" stop-opacity=".75"/><stop offset="1" stop-color="#ff5b4a" stop-opacity="0"/></radialGradient>
+      <clipPath id="${id}c"><path d="${BOCA}"/></clipPath>
+      <linearGradient id="${id}gs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c79a66" stop-opacity=".22"/><stop offset=".28" stop-color="#c79a66" stop-opacity="0"/><stop offset=".85" stop-color="#b9c8d2" stop-opacity="0"/><stop offset="1" stop-color="#b9c8d2" stop-opacity=".28"/></linearGradient>
+      <linearGradient id="${id}gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b44d5c"/><stop offset="1" stop-color="#8e3446"/></linearGradient>
+      <linearGradient id="${id}gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f29a8e"/><stop offset="1" stop-color="#e57c72"/></linearGradient>
+      <radialGradient id="${id}gh"><stop offset="0" stop-color="#ff5b4a" stop-opacity=".7"/><stop offset="1" stop-color="#ff5b4a" stop-opacity="0"/></radialGradient>
       <radialGradient id="${id}gm"><stop offset="0" stop-color="#8fd8bf" stop-opacity=".9"/><stop offset="1" stop-color="#8fd8bf" stop-opacity="0"/></radialGradient>
     </defs>
     <g clip-path="url(#${id}c)">
-      <rect x="20" y="30" width="360" height="170" fill="url(#${id}gb)"/>
-      <ellipse cx="200" cy="164" rx="110" ry="22" fill="#b44e58"/>
-      ${inf}
+      <rect x="20" y="40" width="360" height="130" fill="url(#${id}gb)"/>
+      <ellipse cx="200" cy="160" rx="96" ry="26" fill="#ef8a93"/>
       <path class="gengiva" d="${g}"/>
-      <path class="gengiva halo halo-gengiva" d="${g}" fill="none" stroke="#ff8f8f" stroke-width="3" opacity="0"/>
-      <circle class="halo halo-alvo" cx="${f1(a.cx)}" cy="${f1(a.topo + a.d.h * .5)}" r="34" fill="url(#${id}gm)"/>
-      <circle class="zap" cx="${f1(a.cx)}" cy="${f1(a.topo + a.d.h * .5)}" r="36" fill="url(#${id}gh)"/>
+      <path class="gengiva halo halo-gengiva" d="${g}" fill="none" stroke="#ff8f8f" stroke-width="3"/>
+      <circle class="halo halo-alvo" cx="${f1(a.cx)}" cy="${meio(a)}" r="30" fill="url(#${id}gm)"/>
+      <circle class="zap" cx="${f1(a.cx)}" cy="${meio(a)}" r="32" fill="url(#${id}gh)"/>
       ${sup}
       <g class="tartaro">${tartaro}</g>
-      <g class="carie"><ellipse cx="${f1(c.cx + 2)}" cy="${f1(c.topo + c.d.h * .62)}" rx="4.4" ry="3.6" fill="#5b3a1e"/><ellipse cx="${f1(c.cx + 1)}" cy="${f1(c.topo + c.d.h * .6)}" rx="2" ry="1.5" fill="#2e1a0c"/></g>
+      <g class="carie"><circle cx="${f1(c.cx + 3)}" cy="${f1(c.topo + c.d.h * .62)}" r="3.6" fill="#7a5130"/></g>
       <g class="placa" fill="rgba(220,245,255,.35)" stroke="rgba(255,255,255,.95)" stroke-width="1.4">${placa}</g>
     </g>
-    <path d="${boca}" fill="none" stroke="url(#${id}gl)" stroke-width="13" stroke-linejoin="round"/>
-    <path d="M70 80 C 120 50 280 50 330 80" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="${BOCA}" fill="none" stroke="url(#${id}gl)" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M34 60 Q28 70 36 80" fill="none" stroke="#e57c72" stroke-width="3.4" stroke-linecap="round"/>
+    <path d="M366 60 Q372 70 364 80" fill="none" stroke="#e57c72" stroke-width="3.4" stroke-linecap="round"/>
     <g class="zap" fill="none" stroke="#ff5b4a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M${f1(a.cx - 26)} ${f1(a.topo - 18)} l6 6 -5 3 7 7"/>
-      <path d="M${f1(a.cx - 4)} ${f1(a.topo - 26)} l2 8 -6 1 4 9"/>
+      <path d="M${f1(a.cx - 22)} ${f1(a.topo - 8)} l5 -6 3 5 6 -7"/>
+      <path d="M${f1(a.cx + 4)} ${f1(a.topo - 12)} l3 -6 3 4 4 -6"/>
     </g>
-    <g class="adesivo"><circle cx="318" cy="56" r="20" fill="#ffe39a" stroke="#fff" stroke-width="3"/><path d="m318 44 3.6 7.6 8.2.9-6.1 5.6 1.7 8.1-7.4-4.2-7.4 4.2 1.7-8.1-6.1-5.6 8.2-.9z" fill="#ff6f4f"/></g>
+    <g class="adesivo"><circle cx="330" cy="58" r="15" fill="#ffe39a" stroke="#fff" stroke-width="3"/><path d="m330 49 2.7 5.7 6.2.7-4.6 4.2 1.3 6.1-5.6-3.2-5.6 3.2 1.3-6.1-4.6-4.2 6.2-.7z" fill="#ff6f4f"/></g>
     ${faiscas}
   </svg>`;
 }
