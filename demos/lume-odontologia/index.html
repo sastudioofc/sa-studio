@@ -136,9 +136,13 @@
   .fatos li svg { width: 20px; height: 20px; color: var(--menta-3); flex: none; }
 
   .palco { position: relative; aspect-ratio: 1 / 1.02; max-width: 560px; width: 100%; justify-self: center; }
-  .palco .disco { position: absolute; inset: 4% 2% 14%; border-radius: 46% 54% 50% 50% / 52% 46% 54% 48%; background: var(--branco); box-shadow: 0 50px 90px -50px rgba(15, 43, 51, .45), inset 0 0 0 1px var(--linha); animation: respira 9s ease-in-out infinite; }
+  .palco .disco { position: absolute; inset: 4% 2% 14%; overflow: hidden; border-radius: 46% 54% 50% 50% / 52% 46% 54% 48%; background: var(--branco); box-shadow: 0 50px 90px -50px rgba(15, 43, 51, .45), inset 0 0 0 1px var(--linha); animation: respira 9s ease-in-out infinite; }
   @keyframes respira { 50% { border-radius: 52% 48% 46% 54% / 47% 53% 47% 53%; } }
-  .palco .sorriso { position: absolute; left: 14%; top: -2%; width: 72%; filter: drop-shadow(0 22px 26px rgba(15, 43, 51, .16)); }
+  .palco .disco img, .palco .disco span { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+  /* clareamento na foto: a máscara recorta só os dentes; uma camada amarela (multiply) e uma branca (screen) mudam o tom */
+  .palco .disco span { -webkit-mask: var(--mascara) 50% 40% / cover no-repeat; mask: var(--mascara) 50% 40% / cover no-repeat; transition: background .35s, opacity .35s; }
+  .palco .tom-amarelo { mix-blend-mode: multiply; background: var(--amarelo, #fff); }
+  .palco .tom-branco { mix-blend-mode: screen; background: #fff; opacity: var(--branco-op, 0); }
   .palco .rotulo { position: absolute; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 16px; background: var(--branco); box-shadow: 0 18px 40px -22px rgba(15, 43, 51, .55), inset 0 0 0 1px var(--linha); font-size: .82rem; font-weight: 600; color: var(--texto-2); animation: flutua 6s ease-in-out infinite; }
   .palco .rotulo b { display: block; color: var(--tinta); font-size: .95rem; font-family: var(--display); }
   .palco .rotulo .ic { width: 36px; height: 36px; border-radius: 11px; display: grid; place-items: center; background: var(--menta); color: var(--tinta); flex: none; }
@@ -460,9 +464,8 @@
     .palco .r2 { display: none; }
     .tela { min-height: 0; }
     #sorrisoMapa { padding: 34px 0 4px; }
-    .palco { aspect-ratio: auto; }
-    .palco .sorriso { position: relative; left: auto; top: 0; width: 82%; margin: 0 auto; }
-    .escala { position: relative; left: 0; right: 0; margin-top: -24px; padding: 14px 14px 12px; }
+    .palco { aspect-ratio: 1 / 1.12; }
+    .escala { left: 0; right: 0; padding: 14px 14px 12px; }
     .hero .acoes .btn { flex: 1 1 100%; }
     .tratamentos, .passos { grid-template-columns: 1fr; }
     .equipe { grid-template-columns: 1fr; }
@@ -528,8 +531,7 @@
     </div>
 
     <div class="palco" aria-label="Simulador de clareamento">
-      <div class="disco"></div>
-      <div class="sorriso-hero" id="sorrisoHero"></div>
+      <div class="disco" id="fotoSorriso"><img alt="Sorriso" width="380" height="380"><span class="tom-amarelo"></span><span class="tom-branco"></span></div>
       <div class="rotulo r1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3.2"/></svg></span><span><b>Simulador</b>de clareamento</span></div>
       <div class="rotulo r2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21s-7-4.4-7-10.2A4.4 4.4 0 0 1 12 8a4.4 4.4 0 0 1 7 2.8C19 16.6 12 21 12 21z"/></svg></span><span><b data-c="pacientesTxt"></b>sorrisos cuidados</span></div>
       <div class="escala">
@@ -802,6 +804,8 @@ const CLINICA = {
   horarios: [null, ["08:00", "19:00"], ["08:00", "19:00"], ["08:00", "19:00"], ["08:00", "19:00"], ["08:00", "19:00"], ["08:00", "12:00"]],
   convenios: ["Odontoprev", "Amil Dental", "SulAmérica Odonto", "Bradesco Dental", "Uniodonto", "MetLife Odonto", "Porto Seguro Odonto"],
   fotoConsultorio: "img/consulta.jpg",
+  // foto do simulador de clareamento: a foto e uma máscara PNG (branco = dentes, resto transparente) do mesmo tamanho
+  fotoSorriso: { foto: "img/sorriso.jpg", dentes: "img/sorriso-dentes.png" },
   // ícones disponíveis: lupa, brilho, sol, alinhador, implante, diamante, raio, gota, estrela
   tratamentos: [
     { id: "avaliacao", icone: "lupa", nome: { pt: "Avaliação e check-up", en: "Check-up & exam", es: "Evaluación y chequeo" }, texto: { pt: "Exame completo com câmera intraoral e plano de tratamento por escrito.", en: "Full exam with an intraoral camera and a written treatment plan.", es: "Examen completo con cámara intraoral y plan de tratamiento por escrito." }, tempo: { pt: "1 consulta", en: "1 visit", es: "1 consulta" } },
@@ -869,7 +873,7 @@ const TRADUCOES = {
     "Início": "Home", "Menu principal": "Main menu", "Idioma": "Language", "Abrir menu": "Open menu",
     "Mapa do sorriso": "Smile map", "Tratamentos": "Treatments", "Equipe": "Team", "Dúvidas": "FAQ", "Onde estamos": "Find us",
     "Agendar avaliação": "Book a visit", "Descobrir meu tratamento": "Find my treatment", "Agendar": "Book",
-    "Simulador de clareamento": "Whitening simulator", "Simulador": "Whitening", "de clareamento": "simulator", "sorrisos cuidados": "smiles cared for",
+    "Simulador de clareamento": "Whitening simulator", "Sorriso": "Smile", "Simulador": "Whitening", "de clareamento": "simulator", "sorrisos cuidados": "smiles cared for",
     "Arraste para clarear": "Drag to whiten", "Tom dos dentes": "Tooth shade",
     "Escala de cor usada no consultório. Simulação ilustrativa: o resultado depende da avaliação.": "The shade guide we use in the clinic. Illustrative simulation: results depend on your exam.",
     "Números da clínica": "Clinic numbers", "Convênios aceitos": "Insurance accepted",
@@ -915,7 +919,7 @@ const TRADUCOES = {
     "Início": "Inicio", "Menu principal": "Menú principal", "Idioma": "Idioma", "Abrir menu": "Abrir menú",
     "Mapa do sorriso": "Mapa de la sonrisa", "Tratamentos": "Tratamientos", "Equipe": "Equipo", "Dúvidas": "Preguntas", "Onde estamos": "Dónde estamos",
     "Agendar avaliação": "Agendar evaluación", "Descobrir meu tratamento": "Descubrir mi tratamiento", "Agendar": "Agendar",
-    "Simulador de clareamento": "Simulador de blanqueamiento", "Simulador": "Simulador", "de clareamento": "de blanqueamiento", "sorrisos cuidados": "sonrisas cuidadas",
+    "Simulador de clareamento": "Simulador de blanqueamiento", "Sorriso": "Sonrisa", "Simulador": "Simulador", "de clareamento": "de blanqueamiento", "sorrisos cuidados": "sonrisas cuidadas",
     "Arraste para clarear": "Desliza para blanquear", "Tom dos dentes": "Tono de los dientes",
     "Escala de cor usada no consultório. Simulação ilustrativa: o resultado depende da avaliação.": "Guía de colores que usamos en el consultorio. Simulación ilustrativa: el resultado depende de la evaluación.",
     "Números da clínica": "Números de la clínica", "Convênios aceitos": "Seguros aceptados",
@@ -1029,19 +1033,6 @@ function formaDente(x, y, w, h) {
   const X = v => f1(x + v * w), Y = v => f1(y + v * h), r = Math.min(.42, w * .3 / h);
   return `M${X(0)} ${Y(0)} L${X(1)} ${Y(0)} L${X(1)} ${Y(1 - r)} Q${X(1)} ${Y(1)} ${X(.7)} ${Y(1)} L${X(.3)} ${Y(1)} Q${X(0)} ${Y(1)} ${X(0)} ${Y(1 - r)} Z`;
 }
-// rosto ilustrado em volta da boca (usado no topo do site)
-const PELE = "#f1c39c", PELE_2 = "#e2a982", CABELO = "#3b2a22";
-const ROSTO = `
-  <path d="M52 420 C 62 372 128 356 200 356 C 272 356 338 372 348 420 Z" fill="#8fd8bf"/>
-  <rect x="168" y="318" width="64" height="52" rx="12" fill="${PELE_2}"/>
-  <path d="M172 357 L200 392 L228 357 Z" fill="${PELE_2}"/>
-  <ellipse cx="72" cy="222" rx="18" ry="26" fill="${PELE_2}"/><ellipse cx="328" cy="222" rx="18" ry="26" fill="${PELE_2}"/>
-  <ellipse cx="200" cy="212" rx="130" ry="152" fill="${PELE}"/>
-  <path d="M66 214 C 52 96 126 42 206 44 C 296 46 352 106 334 214 C 326 156 302 124 262 112 C 232 138 150 142 104 124 C 84 148 72 178 66 214 Z" fill="${CABELO}"/>
-  <path d="M132 204 Q152 184 172 204 M228 204 Q248 184 268 204" fill="none" stroke="${CABELO}" stroke-width="7" stroke-linecap="round"/>
-  <path d="M130 170 Q150 160 172 166 M228 166 Q250 160 270 170" fill="none" stroke="${CABELO}" stroke-width="6" stroke-linecap="round" opacity=".85"/>
-  <path d="M198 220 Q210 238 194 244" fill="none" stroke="${PELE_2}" stroke-width="5" stroke-linecap="round"/>
-  <circle cx="122" cy="252" r="22" fill="#f59a92" opacity=".45"/><circle cx="278" cy="252" r="22" fill="#f59a92" opacity=".45"/>`;
 let sorrisoN = 0;
 function desenhaSorriso(opts = {}) {
   const id = "s" + (++sorrisoN), R = sorteio(7);
@@ -1077,7 +1068,7 @@ function desenhaSorriso(opts = {}) {
   });
   const meio = p => f1(p.topo + p.d.h * .5);
   const faiscas = [[112, 80, 0], [268, 96, .5], [190, 112, 1.1], [306, 82, 1.6], [150, 118, 2]].map(([x, y, d]) => `<path class="faisca" style="--d:${d}s" d="M${x} ${y - 7}Q${x + 1} ${y - 1} ${x + 7} ${y}Q${x + 1} ${y + 1} ${x} ${y + 7}Q${x - 1} ${y + 1} ${x - 7} ${y}Q${x - 1} ${y - 1} ${x} ${y - 7}Z" fill="#fff"/>`).join("");
-  return `<svg class="sorriso brilha${opts.rosto ? " com-rosto" : ""}" viewBox="${opts.rosto ? "0 0 400 420" : "20 40 360 130"}" role="img" aria-label="${t("Mapa do sorriso")}" data-e="${opts.efeito || ""}" data-f="${opts.fase || "antes"}">
+  return `<svg class="sorriso brilha" viewBox="20 40 360 130" role="img" aria-label="${t("Mapa do sorriso")}" data-e="${opts.efeito || ""}" data-f="${opts.fase || "antes"}">
     <defs>
       <clipPath id="${id}c"><path d="${BOCA}"/></clipPath>
       <linearGradient id="${id}gs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c79a66" stop-opacity=".22"/><stop offset=".28" stop-color="#c79a66" stop-opacity="0"/><stop offset=".85" stop-color="#b9c8d2" stop-opacity="0"/><stop offset="1" stop-color="#b9c8d2" stop-opacity=".28"/></linearGradient>
@@ -1086,7 +1077,6 @@ function desenhaSorriso(opts = {}) {
       <radialGradient id="${id}gh"><stop offset="0" stop-color="#ff5b4a" stop-opacity=".7"/><stop offset="1" stop-color="#ff5b4a" stop-opacity="0"/></radialGradient>
       <radialGradient id="${id}gm"><stop offset="0" stop-color="#8fd8bf" stop-opacity=".9"/><stop offset="1" stop-color="#8fd8bf" stop-opacity="0"/></radialGradient>
     </defs>
-    ${opts.rosto ? ROSTO + `<g transform="translate(200 290) scale(.56) translate(-200 -105)">` : ""}
     <g clip-path="url(#${id}c)">
       <rect x="20" y="40" width="360" height="130" fill="url(#${id}gb)"/>
       <ellipse cx="200" cy="156" rx="110" ry="30" fill="#f2a0a6"/>
@@ -1108,7 +1098,6 @@ function desenhaSorriso(opts = {}) {
     </g>
     <g class="adesivo"><circle cx="330" cy="58" r="15" fill="#ffe39a" stroke="#fff" stroke-width="3"/><path d="m330 49 2.7 5.7 6.2.7-4.6 4.2 1.3 6.1-5.6-3.2-5.6 3.2 1.3-6.1-4.6-4.2 6.2-.7z" fill="#ff6f4f"/></g>
     ${faiscas}
-    ${opts.rosto ? "</g>" : ""}
   </svg>`;
 }
 
@@ -1162,9 +1151,9 @@ $("#horas").innerHTML = [1, 2, 3, 4, 5, 6, 0].map(d => { const h = CLINICA.horar
 
 /* ---------- hero: fatos e simulador de clareamento ---------- */
 $("#fatos").innerHTML = [[IC.relogio, st0.txt], [IC.escudo, t("Atende convênios")], [IC.balao, t("Sala kids")]].map(([i, x]) => `<li>${i}<span>${x}</span></li>`).join("");
-$("#sorrisoHero").innerHTML = desenhaSorriso({ efeito: "", fase: "depois", rosto: true });
-const heroSvg = $("#sorrisoHero svg");
-$("#sorrisoHero").replaceWith(heroSvg);
+const fotoSorriso = $("#fotoSorriso");
+$("img", fotoSorriso).src = CLINICA.fotoSorriso.foto;
+fotoSorriso.style.setProperty("--mascara", `url("${CLINICA.fotoSorriso.dentes}")`);
 const TONS = [["A4", "#d6b77d"], ["A3,5", "#dcc08a"], ["A3", "#e2ca98"], ["B3", "#e6d1a3"], ["A2", "#ebd9b0"], ["D2", "#eee0bd"], ["B2", "#f1e6c9"], ["A1", "#f4ecd6"], ["B1", "#f6f1e2"], ["BL4", "#f8f5ea"], ["BL3", "#faf8f0"], ["BL1", "#fdfcf7"]];
 const tabs = $("#tabs");
 tabs.setAttribute("aria-valuemax", TONS.length - 1);
@@ -1172,11 +1161,13 @@ tabs.innerHTML = TONS.map(([n, c], i) => `<button type="button" tabindex="-1" st
 let tomI = 4;
 function poeTom(i, anima = true) {
   tomI = Math.max(0, Math.min(TONS.length - 1, i));
-  heroSvg.style.setProperty("--dente", TONS[tomI][1]);
+  // do mais escuro (amarela a foto) ao mais claro (clareia a foto)
+  const k = tomI / (TONS.length - 1), mix = (a, b) => Math.round(a + (b - a) * Math.min(1, k * 1.6));
+  fotoSorriso.style.setProperty("--amarelo", `rgb(${mix(214, 255)} ${mix(176, 255)} ${mix(112, 255)})`);
+  fotoSorriso.style.setProperty("--branco-op", Math.max(0, k - .55) * .9);
   $$("button", tabs).forEach((b, k) => b.classList.toggle("on", k === tomI));
   $("#tomAtual").textContent = IDIOMA === "en" ? TONS[tomI][0].replace(",", ".") : TONS[tomI][0];
   tabs.setAttribute("aria-valuenow", tomI); tabs.setAttribute("aria-valuetext", TONS[tomI][0]);
-  heroSvg.classList.toggle("brilha", tomI >= TONS.length - 3);
 }
 poeTom(4);
 let arrastando = false, mexeu = false;
