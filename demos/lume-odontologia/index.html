@@ -1231,8 +1231,8 @@ function mostraResposta() {
     <a href="#agendar" class="btn btn-destaque" id="agendaQueixa">${IC.seta}<span>${t("Agendar sobre isso")}</span></a>`;
   $("#agendaQueixa").onclick = () => escolheMotivo(queixa.trat);
 }
-$$("#queixas button").forEach(b => b.onclick = () => {
-  const q = CLINICA.queixas[b.dataset.i];
+function escolheQueixa(i, mostraDepois = true) {
+  const b = $$("#queixas button")[i], q = CLINICA.queixas[i];
   $$("#queixas button").forEach(x => x.setAttribute("aria-pressed", x === b));
   queixa = q;
   clearTimeout(timerFase);
@@ -1243,11 +1243,14 @@ $$("#queixas button").forEach(b => b.onclick = () => {
   void mapaSvg.getBoundingClientRect();
   requestAnimationFrame(() => $$(".dente", mapaSvg).forEach(d => d.style.transition = ""));
   mostraResposta();
-  timerFase = setTimeout(() => fase("depois"), 1700);
-});
+  if (mostraDepois) timerFase = setTimeout(() => fase("depois"), 1700);
+}
+$$("#queixas button").forEach(b => b.onclick = () => escolheQueixa(+b.dataset.i));
 $$("#fases button").forEach(b => b.onclick = () => { clearTimeout(timerFase); fase(b.dataset.f); });
-mostraResposta();
-fase("depois");
+// a simulação já abre com uma queixa marcada e mostra o "depois" quando a seção aparece na tela
+const QUEIXA_INICIAL = Math.max(0, CLINICA.queixas.findIndex(q => q.efeito === "alinhar"));
+escolheQueixa(QUEIXA_INICIAL, false);
+new IntersectionObserver(([e], o) => { if (!e.isIntersecting) return; o.disconnect(); timerFase = setTimeout(() => fase("depois"), 1200); }, { threshold: .5 }).observe($(".tela"));
 addEventListener("resize", () => fase(mapaSvg.dataset.f));
 
 /* ---------- tratamentos ---------- */
