@@ -1019,10 +1019,10 @@ const IC = {
    O SORRISO: desenho vetorial gerado por código, no estilo de um emoji sorrindo.
    Só a fileira de cima aparece, com dentes arredondados que seguem a curva da boca.
    ===================================================================== */
-const SUP = [34, 28, 25, 22, 19, 17]; // largura dos dentes, do centro para o canto
+const SUP = [27, 23, 20, 18, 16, 14]; // largura dos dentes, do centro para o canto
 const BOCA = "M44 70 Q200 98 356 70 C 344 168 56 168 44 70 Z";
 const labio = dx => 84 - 12 * (dx / 156) ** 2;        // borda de cima da boca
-const ponta = dx => 137 - 0.0019 * dx * dx;           // ponta dos dentes, acompanhando o sorriso
+const ponta = dx => 122 - 0.0011 * dx * dx;           // ponta dos dentes, acompanhando o sorriso
 function formaDente(x, y, w, h) {
   const X = v => f1(x + v * w), Y = v => f1(y + v * h), r = Math.min(.42, w * .3 / h);
   return `M${X(0)} ${Y(0)} L${X(1)} ${Y(0)} L${X(1)} ${Y(1 - r)} Q${X(1)} ${Y(1)} ${X(.7)} ${Y(1)} L${X(.3)} ${Y(1)} Q${X(0)} ${Y(1)} ${X(0)} ${Y(1 - r)} Z`;
@@ -1055,7 +1055,7 @@ function desenhaSorriso(opts = {}) {
     sup += `<g class="dente${alvo ? " alvo" : ""}" style="--tx:${tx}px;--ty:${ty}px;--r:${r}deg;--sy:${sy};--d:${f1(p.k * .06 + (p.lado > 0 ? .03 : 0))}s">
       <path class="esmalte" d="${forma}"/>
       <path d="${forma}" fill="url(#${id}gs)"/>
-      <path d="M${f1(p.x0 + p.d.w * .26)} ${f1(p.topo + p.d.h * .3)} L${f1(p.x0 + p.d.w * .26)} ${f1(p.topo + p.d.h * .62)}" stroke="#fff" stroke-width="${f1(p.d.w * .14)}" stroke-linecap="round" opacity=".55"/>
+      <path d="M${f1(p.x0 + p.d.w * .26)} ${f1(p.topo + p.d.h * .3)} L${f1(p.x0 + p.d.w * .26)} ${f1(p.topo + p.d.h * .62)}" stroke="#fff" stroke-width="${f1(p.d.w * .14)}" stroke-linecap="round" opacity=".35"/>
     </g>`;
     if (p.k < 4) tartaro += `<ellipse cx="${f1(p.cx + (R() - .5) * 4)}" cy="${f1(p.topo + 5)}" rx="${f1(p.d.w * .34)}" ry="3" fill="#c9a35f" opacity=".85"/>`;
     placa += `<path d="${forma}"/>`;
@@ -1066,14 +1066,14 @@ function desenhaSorriso(opts = {}) {
     <defs>
       <clipPath id="${id}c"><path d="${BOCA}"/></clipPath>
       <linearGradient id="${id}gs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c79a66" stop-opacity=".22"/><stop offset=".28" stop-color="#c79a66" stop-opacity="0"/><stop offset=".85" stop-color="#b9c8d2" stop-opacity="0"/><stop offset="1" stop-color="#b9c8d2" stop-opacity=".28"/></linearGradient>
-      <linearGradient id="${id}gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b44d5c"/><stop offset="1" stop-color="#8e3446"/></linearGradient>
+      <linearGradient id="${id}gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d77f88"/><stop offset="1" stop-color="#c46572"/></linearGradient>
       <linearGradient id="${id}gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f29a8e"/><stop offset="1" stop-color="#e57c72"/></linearGradient>
       <radialGradient id="${id}gh"><stop offset="0" stop-color="#ff5b4a" stop-opacity=".7"/><stop offset="1" stop-color="#ff5b4a" stop-opacity="0"/></radialGradient>
       <radialGradient id="${id}gm"><stop offset="0" stop-color="#8fd8bf" stop-opacity=".9"/><stop offset="1" stop-color="#8fd8bf" stop-opacity="0"/></radialGradient>
     </defs>
     <g clip-path="url(#${id}c)">
       <rect x="20" y="40" width="360" height="130" fill="url(#${id}gb)"/>
-      <ellipse cx="200" cy="160" rx="96" ry="26" fill="#ef8a93"/>
+      <ellipse cx="200" cy="156" rx="110" ry="30" fill="#f2a0a6"/>
       <path class="gengiva" d="${g}"/>
       <path class="gengiva halo halo-gengiva" d="${g}" fill="none" stroke="#ff8f8f" stroke-width="3"/>
       <circle class="halo halo-alvo" cx="${f1(a.cx)}" cy="${meio(a)}" r="30" fill="url(#${id}gm)"/>
@@ -1152,7 +1152,7 @@ const TONS = [["A4", "#d6b77d"], ["A3,5", "#dcc08a"], ["A3", "#e2ca98"], ["B3", 
 const tabs = $("#tabs");
 tabs.setAttribute("aria-valuemax", TONS.length - 1);
 tabs.innerHTML = TONS.map(([n, c], i) => `<button type="button" tabindex="-1" style="--c:${c}" data-i="${i}" aria-label="${n}"><span>${IDIOMA === "en" ? n.replace(",", ".") : n}</span></button>`).join("");
-let tomI = 2;
+let tomI = 4;
 function poeTom(i, anima = true) {
   tomI = Math.max(0, Math.min(TONS.length - 1, i));
   heroSvg.style.setProperty("--dente", TONS[tomI][1]);
@@ -1161,7 +1161,7 @@ function poeTom(i, anima = true) {
   tabs.setAttribute("aria-valuenow", tomI); tabs.setAttribute("aria-valuetext", TONS[tomI][0]);
   heroSvg.classList.toggle("brilha", tomI >= TONS.length - 3);
 }
-poeTom(2);
+poeTom(4);
 let arrastando = false, mexeu = false;
 const tomDoPonto = e => { const r = tabs.getBoundingClientRect(); return Math.floor((e.clientX - r.left) / r.width * TONS.length); };
 tabs.addEventListener("pointerdown", e => { arrastando = true; mexeu = true; tabs.setPointerCapture(e.pointerId); poeTom(tomDoPonto(e)); });
@@ -1174,7 +1174,7 @@ if (!reduz) {
   let dir = 1;
   const auto = setInterval(() => {
     if (mexeu) return clearInterval(auto);
-    if (tomI >= TONS.length - 1) dir = -1; else if (tomI <= 2) dir = 1;
+    if (tomI >= TONS.length - 1) dir = -1; else if (tomI <= 4) dir = 1;
     poeTom(tomI + dir);
   }, 650);
 }
