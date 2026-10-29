@@ -936,7 +936,17 @@ $("#exemplos").addEventListener("click", ev => {
 
 function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
+// sem "o que você vende", tenta adivinhar pelo nome da empresa (ex.: "Pizzaria Raio" vira pizzaria)
+function pelaEmpresa() {
+  const nome = slug(sNome.value);
+  return nome && EXEMPLOS.find(e => [e.produto, e.rotulo].some(x => nome.includes(slug(x.split(" ")[0]))));
+}
+
 function atualiza(redigita) {
+  if (!sProd.value.trim()) {
+    const achou = pelaEmpresa();
+    if (achou && achou !== exemplo) { exemplo = achou; redigita = true; $$("#exemplos button").forEach((x, i) => x.classList.toggle("ativo", EXEMPLOS[i] === achou)); }
+  }
   const produto = (sProd.value.trim() || exemplo.produto).toLowerCase();
   const cidade = sCid.value.trim() || "Tubarão";
   const generico = !EXEMPLOS.some(e => slug(e.produto) === slug(produto));
@@ -970,19 +980,25 @@ function atualiza(redigita) {
   $("#igArte").style.setProperty("--arte", generico ? "linear-gradient(150deg,#3a3f4b,#0b0c0f)" : exemplo.arte);
   $("#igLegenda").textContent = `Atendendo ${cidade} e região. Chama no WhatsApp! 📲`;
 
-  if (redigita) digita(termo); else $("#serpTermo").textContent = termo;
+  if (redigita) digita(termo);
+  else { clearInterval(digitando); rodada++; $("#serpTermo").textContent = termo; $("#anuncio").classList.add("mostra"); }
 }
 
+// cada digitação ganha um número; uma rodada antiga nunca mexe no anúncio da rodada atual
+let rodada = 0;
 function digita(termo) {
   clearInterval(digitando);
-  const alvo = $("#serpTermo"), ad = $("#anuncio");
+  const minha = ++rodada, alvo = $("#serpTermo"), ad = $("#anuncio");
+  if (reduz || !termo) { alvo.textContent = termo; ad.classList.add("mostra"); return; }
   ad.classList.remove("mostra");
-  if (reduz) { alvo.textContent = termo; ad.classList.add("mostra"); return; }
   let i = 0; alvo.textContent = "";
   digitando = setInterval(() => {
+    if (minha !== rodada) return clearInterval(digitando);
     alvo.textContent = termo.slice(0, ++i);
-    if (i >= termo.length) { clearInterval(digitando); setTimeout(() => ad.classList.add("mostra"), 250); }
+    if (i >= termo.length) { clearInterval(digitando); setTimeout(() => { if (minha === rodada) ad.classList.add("mostra"); }, 250); }
   }, 55);
+  // garantia: o anúncio sempre volta, mesmo se o navegador pausar o timer
+  setTimeout(() => { if (minha === rodada) { alvo.textContent = termo; ad.classList.add("mostra"); } }, termo.length * 55 + 1500);
 }
 
 // abas Google / Instagram
