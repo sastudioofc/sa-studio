@@ -1,0 +1,1021 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<!--
+  SITE DA MARKETIZA (agência de branding e redes sociais, Sorocaba/SP) · proposta da SA Studio
+  Para editar:
+    1. Textos, contato, serviços, perguntas do diagnóstico e números dos cases ficam no objeto MK
+       no começo do <script>.
+    2. Fotos em img/ (tiradas do Instagram da Marketiza). Para trocar, mantenha o mesmo nome do arquivo.
+    3. Cores em :root (preto, branco, marrom e bege, os mesmos do link da bio).
+  O post do Instagram da seção "Resultados" é desenhado pelo próprio código, sem arte externa.
+-->
+<title>Marketiza · Agência de Branding e Redes Sociais em Sorocaba (SP)</title>
+<meta name="description" content="Marketiza, agência de branding e gestão de redes sociais em Sorocaba (SP). Posicionamento, conteúdo persuasivo e estratégia para a sua marca ser lembrada, desejada e escolhida.">
+<meta name="theme-color" content="#0e0c0b">
+<link rel="icon" href="img/logo-m.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Montserrat:ital,wght@0,400..700;1,400..600&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --tinta: #0e0c0b;
+    --tinta-2: #171412;
+    --tinta-3: #221e1b;
+    --papel: #ffffff;
+    --creme: #f7f2ec;
+    --areia: #ece2d7;
+    --bege: #b8a08b;
+    --bege-2: #cdb9a6;
+    --marrom: #66473a;
+    --marrom-2: #4d3429;
+    --texto: #1b1715;
+    --texto-2: #625650;
+    --linha: rgba(14, 12, 11, .1);
+    --linha-clara: rgba(255, 255, 255, .12);
+    --zap: #25d366;
+    --serif: "Bodoni Moda", "Didot", Georgia, serif;
+    --script: "Pinyon Script", cursive;
+    --fonte: "Montserrat", system-ui, sans-serif;
+    --mola: cubic-bezier(.34, 1.56, .64, 1);
+    --suave: cubic-bezier(.22, 1, .36, 1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; overflow-x: hidden; scroll-padding-top: 84px; }
+  body { font-family: var(--fonte); color: var(--texto); background: var(--papel); line-height: 1.65; overflow-x: clip; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  button, input, select { font: inherit; color: inherit; }
+  button { cursor: pointer; background: none; border: 0; }
+  img, svg { display: block; }
+  .embrulho { width: min(1200px, 100% - 32px); margin: 0 auto; }
+  ::selection { background: var(--marrom); color: #fff; }
+  :focus-visible { outline: 2px solid var(--marrom); outline-offset: 3px; }
+
+  h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.05; letter-spacing: -.01em; }
+  h2 { font-size: clamp(2.2rem, 5vw, 3.9rem); }
+  h1 em, h2 em, h3 em { font-style: italic; color: var(--bege); }
+  .escuro h2 em { color: var(--bege-2); }
+  .cap { font-family: var(--script); font-weight: 400; font-size: 1.55em; line-height: 0; color: var(--tinta); margin-right: -.08em; position: relative; top: .1em; }
+  .escuro .cap { color: #fff; }
+  .olho { display: inline-flex; align-items: center; gap: 12px; font-size: .72rem; font-weight: 600; letter-spacing: .32em; text-transform: uppercase; color: var(--marrom); margin-bottom: 20px; }
+  .olho::before { content: ""; width: 28px; height: 1px; background: currentColor; }
+  .escuro .olho { color: var(--bege-2); }
+  .lead { font-size: clamp(1rem, 1.3vw, 1.1rem); color: var(--texto-2); max-width: 56ch; }
+  .escuro .lead { color: #b9aea6; }
+  .secao { padding: clamp(80px, 11vw, 140px) 0; position: relative; }
+  .cabeca { display: flex; justify-content: space-between; align-items: flex-end; gap: 28px; flex-wrap: wrap; margin-bottom: clamp(36px, 5vw, 64px); }
+  .cabeca .lead { max-width: 42ch; }
+
+  .btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; padding: 0 28px; border-radius: 99px; font-weight: 600; font-size: .92rem; letter-spacing: .04em; white-space: nowrap; transition: transform .35s var(--mola), background .25s, color .25s, box-shadow .3s; }
+  .btn svg { width: 19px; height: 19px; flex: none; }
+  .btn::after { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, .28) 50%, transparent 65%); transform: translateX(-120%); transition: transform .8s var(--suave); }
+  .btn:hover::after { transform: translateX(120%); }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: scale(.97); }
+  .btn-tinta { background: var(--tinta); color: #fff; box-shadow: 0 18px 34px -18px rgba(14, 12, 11, .7); }
+  .btn-tinta:hover { background: var(--marrom); }
+  .btn-linha { box-shadow: inset 0 0 0 1px var(--tinta); }
+  .btn-linha:hover { background: var(--tinta); color: #fff; }
+  .btn-claro { background: #fff; color: var(--tinta); }
+  .btn-claro:hover { background: var(--areia); }
+  .btn-zap { background: var(--zap); color: #062b14; }
+
+  .demo { background: var(--tinta); color: #d9cfc6; text-align: center; font-size: .76rem; padding: 8px 16px; letter-spacing: .02em; }
+  .demo a { color: #fff; text-decoration: underline; text-underline-offset: 3px; font-weight: 600; }
+
+  /* ---------- topo ---------- */
+  .topo { position: sticky; top: 0; z-index: 60; background: rgba(255, 255, 255, .0); transition: background .3s, box-shadow .3s; }
+  .topo.rolou { background: rgba(255, 255, 255, .86); backdrop-filter: blur(14px) saturate(1.3); -webkit-backdrop-filter: blur(14px) saturate(1.3); box-shadow: 0 1px 0 var(--linha); }
+  .topo .embrulho { display: flex; align-items: center; gap: 24px; height: 78px; }
+  .marca { display: flex; align-items: center; gap: 12px; }
+  .marca img { width: 40px; height: auto; }
+  .marca b { display: block; font-family: var(--serif); font-weight: 500; font-size: 1.12rem; letter-spacing: .34em; line-height: 1.1; }
+  .marca small { display: block; font-size: .6rem; letter-spacing: .38em; text-transform: uppercase; color: var(--texto-2); }
+  .menu { display: flex; gap: 30px; margin-left: auto; font-size: .82rem; font-weight: 500; letter-spacing: .06em; }
+  .menu a { position: relative; padding: 6px 0; }
+  .menu a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--marrom); transform: scaleX(0); transform-origin: right; transition: transform .4s var(--suave); }
+  .menu a:hover::after { transform: scaleX(1); transform-origin: left; }
+  .topo .btn { min-height: 44px; padding: 0 20px; font-size: .82rem; }
+  .sanduiche { display: none; width: 44px; height: 44px; border-radius: 50%; margin-left: auto; place-items: center; box-shadow: inset 0 0 0 1px var(--linha); }
+  .sanduiche span { width: 18px; height: 1.5px; background: var(--tinta); position: relative; transition: background .2s; }
+  .sanduiche span::before, .sanduiche span::after { content: ""; position: absolute; left: 0; width: 18px; height: 1.5px; background: var(--tinta); transition: transform .3s var(--suave); }
+  .sanduiche span::before { top: -6px; } .sanduiche span::after { top: 6px; }
+  .menu-aberto .sanduiche span { background: transparent; }
+  .menu-aberto .sanduiche span::before { transform: translateY(6px) rotate(45deg); }
+  .menu-aberto .sanduiche span::after { transform: translateY(-6px) rotate(-45deg); }
+
+  /* ---------- hero ---------- */
+  .hero { position: relative; padding: clamp(36px, 6vw, 80px) 0 clamp(70px, 9vw, 120px); overflow: hidden; }
+  .marca-dagua { position: absolute; font-family: var(--script); color: rgba(14, 12, 11, .045); line-height: .8; pointer-events: none; user-select: none; }
+  .hero .marca-dagua { font-size: clamp(26rem, 60vw, 54rem); right: -6vw; top: -8vw; }
+  .hero .embrulho { display: grid; grid-template-columns: 1.08fr .92fr; gap: clamp(32px, 5vw, 72px); align-items: center; position: relative; }
+  .hero h1 { font-size: clamp(2.5rem, 5.6vw, 4.6rem); margin-bottom: 26px; }
+  .hero h1 em { display: inline; }
+  .hero .lead { margin-bottom: 14px; }
+  .giro { font-family: var(--serif); font-style: italic; font-size: clamp(1.25rem, 2vw, 1.55rem); color: var(--marrom); margin-bottom: 34px; min-height: 1.6em; }
+  .giro span { display: inline-block; border-bottom: 1px solid var(--bege); transition: opacity .35s, transform .35s var(--suave); }
+  .giro span.sai { opacity: 0; transform: translateY(-10px); }
+  .acoes { display: flex; gap: 12px; flex-wrap: wrap; }
+  .credenciais { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 36px; list-style: none; font-size: .78rem; color: var(--texto-2); }
+  .credenciais li { display: flex; align-items: center; gap: 8px; }
+  .credenciais li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--bege); }
+
+  .colagem { position: relative; aspect-ratio: 1 / 1.08; max-width: 520px; width: 100%; justify-self: center; }
+  .colagem .foto { position: absolute; border-radius: 4px; overflow: hidden; box-shadow: 0 40px 70px -40px rgba(14, 12, 11, .55); background: var(--areia); transition: transform .9s var(--suave); }
+  .colagem .foto img { width: 100%; height: 100%; object-fit: cover; }
+  .colagem .f1 { width: 50%; aspect-ratio: 233 / 364; left: 25%; top: 4%; z-index: 2; }
+  .colagem .f2 { width: 38%; aspect-ratio: 233 / 363; left: 0; top: 26%; transform: rotate(-6deg); }
+  .colagem .f3 { width: 38%; aspect-ratio: 232 / 365; right: 0; top: 32%; transform: rotate(5deg); }
+  .colagem .chip { position: absolute; z-index: 3; background: #fff; border-radius: 99px; padding: 10px 16px 10px 10px; display: flex; align-items: center; gap: 10px; font-size: .74rem; color: var(--texto-2); box-shadow: 0 20px 40px -20px rgba(14, 12, 11, .45); white-space: nowrap; animation: flutua 6s ease-in-out infinite; }
+  .colagem .chip b { display: block; color: var(--tinta); font-family: var(--serif); font-size: 1.05rem; font-weight: 600; line-height: 1.1; }
+  .colagem .chip i { width: 34px; height: 34px; border-radius: 50%; background: var(--tinta); color: #fff; display: grid; place-items: center; font-style: normal; }
+  .colagem .chip i svg { width: 16px; height: 16px; }
+  .colagem .c1 { left: -4%; bottom: 10%; }
+  .colagem .c2 { right: -2%; top: 10%; animation-delay: -2s; }
+  .colagem .c3 { right: 6%; bottom: -2%; animation-delay: -4s; }
+  @keyframes flutua { 50% { transform: translateY(-10px); } }
+
+  /* ---------- faixa ---------- */
+  .faixa { background: var(--tinta); color: #e9e0d7; overflow: hidden; padding: 20px 0; }
+  .faixa .trilho { display: flex; gap: 48px; width: max-content; animation: corre 38s linear infinite; }
+  .faixa span { font-family: var(--serif); font-style: italic; font-size: clamp(1.1rem, 2vw, 1.5rem); display: flex; align-items: center; gap: 48px; white-space: nowrap; }
+  .faixa span::after { content: "✦"; font-style: normal; font-size: .7em; color: var(--bege); }
+  @keyframes corre { to { transform: translateX(-50%); } }
+
+  /* ---------- o que fazemos ---------- */
+  .fazemos .embrulho:not(.faixa-foto) { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
+  .fazemos h2 { font-size: clamp(2.6rem, 6vw, 4.6rem); text-transform: uppercase; letter-spacing: .01em; }
+  .fazemos h2 em { text-transform: uppercase; }
+  .fazemos .texto p { font-size: clamp(1rem, 1.35vw, 1.12rem); color: var(--texto-2); margin-bottom: 20px; }
+  .fazemos .texto mark { background: none; color: var(--marrom); font-weight: 600; background-image: linear-gradient(var(--areia), var(--areia)); background-repeat: no-repeat; background-size: 0 40%; background-position: 0 88%; transition: background-size 1.2s var(--suave); }
+  .fazemos .texto.visto mark { background-size: 100% 40%; }
+  .fazemos .assina { font-family: var(--serif); font-style: italic; font-size: 1.5rem; color: var(--tinta); }
+  .fazemos .assina b { font-weight: 600; }
+  .fazemos .faixa-foto { margin-top: clamp(48px, 7vw, 90px); display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .faixa-foto figure { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--areia); }
+  .faixa-foto img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05); transition: filter .6s, transform 1.2s var(--suave); }
+  .faixa-foto figure:hover img { filter: none; transform: scale(1.04); }
+
+  /* ---------- pilares ---------- */
+  .pilares { background: var(--creme); overflow: hidden; }
+  .pilares .marca-dagua { font-size: clamp(22rem, 46vw, 40rem); left: -6vw; top: -4vw; }
+  .pilares .titulo-script { text-align: center; font-family: var(--serif); font-style: italic; font-size: clamp(1.4rem, 2.4vw, 2rem); color: var(--tinta); margin-bottom: clamp(40px, 6vw, 70px); position: relative; }
+  .pilares .grade { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2.4vw, 28px); position: relative; }
+  .pilar { position: relative; padding-top: 70px; }
+  .pilar .num { position: absolute; top: 0; left: 0; right: 0; text-align: center; font-family: var(--serif); font-size: clamp(2.4rem, 4vw, 3.4rem); color: transparent; -webkit-text-stroke: 1px var(--bege); letter-spacing: .02em; line-height: 1; }
+  .pilar .caixa { position: relative; background: var(--marrom); color: #f3ebe4; border-radius: 6px; padding: 64px clamp(22px, 2.4vw, 32px) 36px; min-height: 100%; transition: transform .5s var(--suave), background .4s, box-shadow .5s; }
+  .pilar:hover .caixa { transform: translateY(-8px); background: var(--marrom-2); box-shadow: 0 36px 60px -36px rgba(77, 52, 41, .8); }
+  .pilar .ic { position: absolute; top: -34px; left: 50%; translate: -50% 0; width: 68px; height: 68px; border-radius: 50%; background: var(--tinta); color: #fff; display: grid; place-items: center; box-shadow: 0 0 0 6px var(--creme); transition: transform .6s var(--mola); }
+  .pilar:hover .ic { transform: rotate(-12deg) scale(1.06); }
+  .pilar .ic svg { width: 32px; height: 32px; }
+  .pilar h3 { font-size: 1.5rem; margin-bottom: 12px; color: #fff; }
+  .pilar p { font-size: .92rem; color: #dccdc1; }
+
+  /* ---------- serviços ---------- */
+  .escuro { background: var(--tinta); color: #f2ebe5; }
+  .servicos .embrulho { display: grid; grid-template-columns: .82fr 1.18fr; gap: clamp(32px, 6vw, 90px); align-items: start; }
+  .servicos .lado { position: sticky; top: 110px; }
+  .servicos .lado .btn { margin-top: 30px; }
+  .servicos .foto-lado { margin-top: 40px; aspect-ratio: 4 / 5; max-width: 320px; overflow: hidden; border-radius: 4px; }
+  .servicos .foto-lado img { width: 100%; height: 100%; object-fit: cover; }
+  .lista { list-style: none; border-top: 1px solid var(--linha-clara); }
+  .item { border-bottom: 1px solid var(--linha-clara); }
+  .item button { width: 100%; display: grid; grid-template-columns: 52px 1fr 32px; align-items: center; gap: 12px; padding: 24px 0; text-align: left; }
+  .item .n { font-family: var(--serif); font-size: .9rem; color: #8e8079; }
+  .item h3 { font-size: clamp(1.3rem, 2.4vw, 1.85rem); font-style: italic; color: var(--bege-2); transition: color .3s, transform .5s var(--suave); }
+  .item button:hover h3 { color: #fff; transform: translateX(6px); }
+  .item .mais { width: 32px; height: 32px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--linha-clara); position: relative; transition: transform .4s var(--suave), background .3s; }
+  .item .mais::before, .item .mais::after { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 1px; background: #fff; translate: -50% -50%; }
+  .item .mais::after { transform: rotate(90deg); transition: transform .4s var(--suave); }
+  .item.aberto .mais { background: var(--marrom); }
+  .item.aberto .mais::after { transform: rotate(0); }
+  .item .corpo { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .5s var(--suave); }
+  .item.aberto .corpo { grid-template-rows: 1fr; }
+  .item .corpo > div { overflow: hidden; }
+  .item .corpo p { padding: 0 44px 26px 64px; color: #bdb1a9; font-size: .95rem; max-width: 60ch; }
+  .item .corpo .tag { display: inline-block; margin-left: 64px; margin-bottom: 26px; margin-top: -10px; font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--bege-2); border: 1px solid var(--linha-clara); border-radius: 99px; padding: 4px 12px; }
+
+  /* ---------- diagnóstico ---------- */
+  .diag { background: var(--creme); }
+  .diag .embrulho { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+  .quiz { background: #fff; border-radius: 8px; padding: clamp(24px, 3.6vw, 44px); box-shadow: 0 40px 80px -50px rgba(77, 52, 41, .55), 0 0 0 1px var(--linha); min-height: 460px; display: flex; flex-direction: column; }
+  .quiz .barra { height: 2px; background: var(--areia); margin-bottom: 26px; }
+  .quiz .barra i { display: block; height: 100%; width: 0; background: var(--marrom); transition: width .6s var(--suave); }
+  .quiz .passo { font-size: .7rem; letter-spacing: .28em; text-transform: uppercase; color: var(--texto-2); margin-bottom: 10px; }
+  .quiz h3 { font-size: clamp(1.45rem, 2.4vw, 1.9rem); margin-bottom: 24px; }
+  .opcoes { display: grid; gap: 10px; }
+  .opcao { display: flex; align-items: center; gap: 14px; text-align: left; padding: 16px 18px; border-radius: 6px; box-shadow: inset 0 0 0 1px var(--linha); font-size: .94rem; transition: background .25s, box-shadow .25s, transform .35s var(--mola); }
+  .opcao::before { content: ""; flex: none; width: 18px; height: 18px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--bege); transition: box-shadow .3s var(--mola), background .3s; }
+  .opcao:hover { background: var(--creme); transform: translateX(4px); }
+  .opcao.marcada { background: var(--tinta); color: #fff; box-shadow: none; }
+  .opcao.marcada::before { box-shadow: inset 0 0 0 5px var(--bege-2); }
+  .quiz .rodape { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 22px; }
+  .quiz .voltar { font-size: .82rem; color: var(--texto-2); text-decoration: underline; text-underline-offset: 4px; }
+  .quiz .voltar[hidden] { display: block; visibility: hidden; }
+  .resultado { animation: entra .7s var(--suave); }
+  .resultado .selo { display: inline-flex; align-items: center; gap: 10px; font-size: .7rem; letter-spacing: .28em; text-transform: uppercase; color: var(--marrom); margin-bottom: 12px; }
+  .resultado h3 { margin-bottom: 14px; }
+  .resultado p { color: var(--texto-2); margin-bottom: 18px; font-size: .95rem; }
+  .resultado ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+  .resultado li { font-size: .78rem; padding: 6px 14px; border-radius: 99px; background: var(--creme); color: var(--marrom-2); }
+  .resultado .acoes { margin-top: auto; }
+  @keyframes entra { from { opacity: 0; transform: translateY(14px); } }
+
+  /* ---------- resultados ---------- */
+  .resultados { overflow: hidden; }
+  .resultados .marca-dagua { font-size: clamp(22rem, 46vw, 40rem); right: -8vw; top: 0; }
+  .case { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 80px); align-items: center; position: relative; }
+  .case + .case { margin-top: clamp(80px, 10vw, 130px); }
+  .case .rotulo { font-size: .7rem; letter-spacing: .28em; text-transform: uppercase; color: var(--marrom); margin-bottom: 14px; }
+  .case h3 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); margin-bottom: 18px; }
+  .case p { color: var(--texto-2); margin-bottom: 14px; }
+  .case p b { color: var(--marrom); font-style: italic; }
+  .comparar { background: var(--creme); border-radius: 8px; padding: clamp(24px, 3.4vw, 40px); }
+  .comparar .linha { margin-bottom: 26px; }
+  .comparar .linha:last-of-type { margin-bottom: 0; }
+  .comparar .topo-linha { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .comparar .topo-linha span { font-family: var(--script); font-size: 2rem; line-height: 1; }
+  .comparar .topo-linha b { font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 600; }
+  .comparar .trilha { height: 14px; border-radius: 99px; background: #fff; overflow: hidden; }
+  .comparar .trilha i { display: block; height: 100%; width: 0; border-radius: 99px; background: var(--bege); transition: width 2.2s var(--suave); }
+  .comparar .depois .trilha i { background: linear-gradient(90deg, var(--marrom), var(--bege)); }
+  .comparar.visto .antes i { width: .8%; min-width: 10px; }
+  .comparar.visto .depois i { width: 100%; }
+  .comparar .extras { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 26px; }
+  .comparar .extras div { background: #fff; border-radius: 6px; padding: 14px; text-align: center; }
+  .comparar .extras b { display: block; font-family: var(--serif); font-size: 1.4rem; font-weight: 600; }
+  .comparar .extras small { font-size: .72rem; color: var(--texto-2); }
+  .comparar .nota { font-size: .76rem; color: var(--texto-2); margin-top: 16px; font-style: italic; }
+
+  .post-sim { display: grid; grid-template-columns: auto 1fr; gap: clamp(20px, 3vw, 40px); align-items: center; }
+  .tempos { display: grid; gap: 8px; }
+  .tempo { text-align: left; padding: 14px 18px; border-radius: 6px; box-shadow: inset 0 0 0 1px var(--linha); font-size: .86rem; color: var(--texto-2); transition: background .3s, color .3s, box-shadow .3s; position: relative; overflow: hidden; }
+  .tempo b { display: block; font-family: var(--serif); font-size: 1.1rem; color: var(--tinta); font-weight: 500; transition: color .3s; }
+  .tempo.ativo { background: var(--tinta); color: #c9bdb4; box-shadow: none; }
+  .tempo.ativo b { color: #fff; }
+  .tempo .prog { position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: var(--bege-2); }
+  .tempo.ativo .prog { animation: prog 3.6s linear forwards; }
+  .post-sim.parado .tempo .prog { animation: none; width: 0; }
+  @keyframes prog { to { width: 100%; } }
+  .ig { background: #fff; border-radius: 14px; box-shadow: 0 40px 80px -40px rgba(14, 12, 11, .5), 0 0 0 1px var(--linha); width: min(340px, 100%); justify-self: center; overflow: hidden; font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color: #111; }
+  .ig .cab { display: flex; align-items: center; gap: 10px; padding: 12px 14px; font-size: .82rem; font-weight: 600; }
+  .ig .cab img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px #d6249f; }
+  .ig .cab small { display: block; font-weight: 400; color: #737373; font-size: .7rem; }
+  .ig .arte { aspect-ratio: 1 / 1; background: var(--tinta) url(img/labios.jpg) center / cover; position: relative; display: grid; place-items: end center; padding: 22px; }
+  .ig .arte span { font-family: var(--serif); font-style: italic; color: #fff; font-size: 1.05rem; text-align: center; text-shadow: 0 2px 14px rgba(0, 0, 0, .6); }
+  .ig .views { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px 0; font-size: .74rem; color: #3b5bdb; font-weight: 600; }
+  .ig .views em { font-style: normal; background: #4f5bd5; color: #fff; border-radius: 6px; padding: 4px 9px; font-size: .68rem; }
+  .ig .barra-ig { display: flex; gap: 16px; padding: 10px 14px 4px; font-size: .86rem; font-weight: 600; }
+  .ig .barra-ig span { display: flex; align-items: center; gap: 5px; }
+  .ig .barra-ig svg { width: 22px; height: 22px; }
+  .ig .barra-ig .salvar { margin-left: auto; }
+  .ig .legenda { padding: 4px 14px 14px; font-size: .78rem; line-height: 1.45; }
+  .ig .legenda small { display: block; color: #737373; font-size: .68rem; margin-top: 4px; }
+  .pulsa { animation: pulsa .5s var(--mola); }
+  @keyframes pulsa { 50% { transform: scale(1.25); } }
+
+  .numeros { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); margin-top: clamp(80px, 10vw, 120px); }
+  .numeros div { padding: 34px 18px; text-align: center; }
+  .numeros div + div { border-left: 1px solid var(--linha); }
+  .numeros b { display: block; font-family: var(--serif); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 500; line-height: 1.1; }
+  .numeros b em { color: var(--bege); font-style: normal; }
+  .numeros small { font-size: .8rem; color: var(--texto-2); }
+
+  /* ---------- clientes ---------- */
+  .clientes { background: var(--tinta); color: #f2ebe5; overflow: hidden; }
+  .galeria { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .galeria button { position: relative; aspect-ratio: 233 / 363; overflow: hidden; border-radius: 4px; background: var(--tinta-3); text-align: left; }
+  .galeria button:nth-child(4n+2), .galeria button:nth-child(4n+4) { transform: translateY(40px); }
+  .galeria img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--suave), filter .6s; }
+  .galeria button:hover img { transform: scale(1.06); }
+  .galeria .leg { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 16px 14px; background: linear-gradient(transparent, rgba(0, 0, 0, .78)); font-size: .78rem; color: #fff; opacity: 0; transform: translateY(8px); transition: opacity .4s, transform .5s var(--suave); }
+  .galeria .leg b { display: block; font-family: var(--serif); font-style: italic; font-size: 1.05rem; font-weight: 500; }
+  .galeria button:hover .leg, .galeria button:focus-visible .leg { opacity: 1; transform: none; }
+  .clientes .depoimento { margin-top: clamp(90px, 10vw, 130px); display: grid; grid-template-columns: auto 1fr; gap: clamp(24px, 4vw, 60px); align-items: center; }
+  .clientes .depoimento .rostos { display: flex; }
+  .clientes .depoimento .rostos img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover; object-position: top; box-shadow: 0 0 0 3px var(--tinta); }
+  .clientes .depoimento .rostos img + img { margin-left: -18px; }
+  .clientes .depoimento p { font-family: var(--serif); font-size: clamp(1.3rem, 2.4vw, 1.9rem); line-height: 1.3; }
+  .clientes .depoimento p em { color: var(--bege-2); }
+
+  .lightbox { position: fixed; inset: 0; z-index: 90; background: rgba(8, 7, 6, .92); display: grid; place-items: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity .35s; }
+  .lightbox.aberta { opacity: 1; pointer-events: auto; }
+  .lightbox figure { max-width: min(420px, 100%); transform: scale(.94); transition: transform .5s var(--suave); }
+  .lightbox.aberta figure { transform: none; }
+  .lightbox img { width: 100%; max-height: 78vh; object-fit: contain; border-radius: 4px; }
+  .lightbox figcaption { color: #e9e0d7; text-align: center; margin-top: 14px; font-family: var(--serif); font-style: italic; }
+  .lightbox .fechar { position: absolute; top: 18px; right: 18px; width: 46px; height: 46px; border-radius: 50%; background: rgba(255, 255, 255, .1); color: #fff; font-size: 1.4rem; }
+  .lightbox .seta { position: absolute; top: 50%; translate: 0 -50%; width: 46px; height: 46px; border-radius: 50%; background: rgba(255, 255, 255, .1); color: #fff; font-size: 1.3rem; }
+  .lightbox .ant { left: 14px; } .lightbox .prox { right: 14px; }
+
+  /* ---------- bastidores ---------- */
+  .bastidores .embrulho { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(32px, 6vw, 90px); align-items: center; }
+  .bastidores .duo { position: relative; aspect-ratio: 1 / 1; }
+  .bastidores .duo img { position: absolute; object-fit: cover; border-radius: 4px; box-shadow: 0 40px 70px -40px rgba(14, 12, 11, .6); }
+  .bastidores .duo .a { width: 60%; height: 86%; left: 0; top: 0; }
+  .bastidores .duo .b { width: 50%; height: 66%; right: 0; bottom: 0; border: 8px solid #fff; }
+  .bastidores blockquote { font-family: var(--serif); font-size: clamp(1.25rem, 2vw, 1.55rem); line-height: 1.35; border-left: 2px solid var(--bege); padding-left: 22px; margin: 26px 0; }
+  .bastidores blockquote small { display: block; font-family: var(--fonte); font-size: .8rem; color: var(--texto-2); margin-top: 10px; letter-spacing: .04em; }
+
+  /* ---------- visite ---------- */
+  .visite { background: var(--creme); }
+  .visite .grade { display: grid; grid-template-columns: 1fr 1.2fr; gap: 18px; }
+  .visite .cartao { background: #fff; border-radius: 8px; padding: clamp(24px, 3.4vw, 42px); box-shadow: 0 0 0 1px var(--linha); }
+  .visite .cartao .fachada { aspect-ratio: 400 / 186; border-radius: 4px; overflow: hidden; margin-bottom: 26px; }
+  .visite .cartao .fachada img { width: 100%; height: 100%; object-fit: cover; }
+  .visite dl { display: grid; gap: 18px; }
+  .visite dt { font-size: .68rem; letter-spacing: .26em; text-transform: uppercase; color: var(--marrom); margin-bottom: 4px; }
+  .visite dd { font-size: .98rem; }
+  .visite .acoes { margin-top: 28px; }
+  .mapa { border-radius: 8px; overflow: hidden; min-height: 420px; background: var(--areia); box-shadow: 0 0 0 1px var(--linha); }
+  .mapa iframe { width: 100%; height: 100%; min-height: 420px; border: 0; filter: grayscale(1) sepia(.18) contrast(.95); }
+
+  /* ---------- final ---------- */
+  .final { background: #fff; position: relative; overflow: hidden; }
+  .final .listra { height: 14px; background: var(--marrom); }
+  .final .embrulho { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(32px, 5vw, 70px); align-items: center; padding: clamp(70px, 9vw, 120px) 0; }
+  .final h2 { font-size: clamp(2.2rem, 5vw, 3.6rem); text-transform: uppercase; }
+  .final h2 em { display: block; font-size: 1.5em; text-transform: uppercase; letter-spacing: -.01em; }
+  .final .lead { margin: 18px 0 28px; }
+  .form { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 560px; }
+  .form label { display: grid; gap: 6px; font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--texto-2); }
+  .form label.cheio { grid-column: 1 / -1; }
+  .form input, .form select { min-height: 50px; border: 0; border-bottom: 1px solid var(--bege); background: transparent; padding: 0 2px; font-size: 1rem; letter-spacing: 0; text-transform: none; color: var(--tinta); border-radius: 0; transition: border-color .3s; }
+  .form input:focus, .form select:focus { outline: none; border-color: var(--tinta); }
+  .form .btn { grid-column: 1 / -1; justify-self: start; margin-top: 12px; }
+  .final .celular { position: relative; justify-self: center; width: min(300px, 82%); }
+  .fone { aspect-ratio: 9 / 18.5; border-radius: 42px; background: var(--tinta); padding: 12px; box-shadow: 0 0 0 2px #3a332e, 0 50px 80px -40px rgba(14, 12, 11, .7); transform: rotate(6deg); transition: transform 1s var(--suave); }
+  .final .celular:hover .fone { transform: rotate(2deg) translateY(-8px); }
+  .tela { position: relative; height: 100%; border-radius: 32px; background: #fff; overflow: hidden; font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color: #111; }
+  .tela::before { content: ""; position: absolute; top: 8px; left: 50%; translate: -50% 0; width: 32%; height: 20px; border-radius: 99px; background: var(--tinta); z-index: 2; }
+  .tela .perfil-ig { padding: 40px 14px 10px; display: grid; grid-template-columns: 58px 1fr; gap: 12px; align-items: center; }
+  .tela .perfil-ig img { width: 58px; height: 58px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px #d6249f; }
+  .tela .stats { display: flex; justify-content: space-around; text-align: center; font-size: .6rem; color: #555; }
+  .tela .stats b { display: block; font-size: .82rem; color: #111; }
+  .tela .bio { padding: 0 14px 10px; font-size: .62rem; line-height: 1.4; }
+  .tela .bio b { font-size: .7rem; }
+  .tela .seguir { margin: 0 14px 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .tela .seguir span { background: #efefef; border-radius: 8px; text-align: center; font-size: .62rem; font-weight: 600; padding: 6px 0; }
+  .tela .seguir span:first-child { background: #0095f6; color: #fff; }
+  .tela .grade-ig { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .tela .grade-ig img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+  .final .celular .tag-final { position: absolute; left: -22%; bottom: 14%; background: var(--tinta); color: #fff; padding: 16px 20px; border-radius: 6px; font-family: var(--serif); font-style: italic; font-size: 1.05rem; max-width: 230px; box-shadow: 0 30px 50px -30px rgba(0, 0, 0, .7); z-index: 2; }
+
+  footer { background: var(--tinta); color: #b9aea6; padding: 56px 0 30px; font-size: .86rem; }
+  footer .embrulho { display: grid; gap: 30px; }
+  footer .cima { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+  footer .marca b { color: #fff; }
+  footer .marca small { color: #8e8079; }
+  footer nav { display: flex; gap: 22px; flex-wrap: wrap; }
+  footer nav a:hover { color: #fff; }
+  footer .baixo { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 1px solid var(--linha-clara); padding-top: 24px; font-size: .76rem; }
+  footer .baixo a { text-decoration: underline; text-underline-offset: 3px; color: #fff; }
+
+  .zap-flutua { position: fixed; right: 18px; bottom: 18px; z-index: 70; width: 60px; height: 60px; border-radius: 50%; background: var(--zap); color: #fff; display: grid; place-items: center; box-shadow: 0 16px 34px -12px rgba(0, 0, 0, .45); transition: transform .4s var(--mola); }
+  .zap-flutua:hover { transform: scale(1.08) rotate(-6deg); }
+  .zap-flutua svg { width: 30px; height: 30px; }
+  .zap-flutua::before { content: ""; position: absolute; inset: 0; border-radius: 50%; box-shadow: 0 0 0 0 rgba(37, 211, 102, .5); animation: onda 2.6s infinite; }
+  @keyframes onda { 70% { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+  .surge { opacity: 0; transform: translateY(26px); transition: opacity .9s var(--suave), transform .9s var(--suave); }
+  .surge.visto { opacity: 1; transform: none; }
+  .galeria button.surge.visto:nth-child(4n+2), .galeria button.surge.visto:nth-child(4n+4) { transform: translateY(40px); }
+  .surge.d1 { transition-delay: .08s; } .surge.d2 { transition-delay: .16s; } .surge.d3 { transition-delay: .24s; }
+
+  /* ---------- responsivo ---------- */
+  @media (max-width: 980px) {
+    .menu, .topo .btn-tinta { display: none; }
+    .sanduiche { display: grid; }
+    .menu-aberto .menu { display: flex; position: fixed; top: 78px; left: 0; right: 0; flex-direction: column; gap: 0; background: #fff; padding: 8px 16px 20px; box-shadow: 0 30px 40px -30px rgba(0, 0, 0, .3); font-size: 1rem; }
+    .menu-aberto .menu a { padding: 14px 0; border-bottom: 1px solid var(--linha); }
+    .menu-aberto .menu a::after { display: none; }
+    .hero .embrulho, .fazemos .embrulho:not(.faixa-foto), .servicos .embrulho, .diag .embrulho, .case, .bastidores .embrulho, .visite .grade, .final .embrulho { grid-template-columns: 1fr; }
+    .colagem { max-width: 440px; }
+    .servicos .lado { position: static; }
+    .servicos .foto-lado { display: none; }
+    .pilares .grade { grid-template-columns: 1fr; gap: 54px; max-width: 520px; margin: 0 auto; }
+    .numeros { grid-template-columns: 1fr 1fr; }
+    .numeros div:nth-child(3) { border-left: 0; }
+    .numeros div:nth-child(n+3) { border-top: 1px solid var(--linha); }
+    .galeria { grid-template-columns: repeat(2, 1fr); }
+    .galeria button:nth-child(4n+2), .galeria button:nth-child(4n+4) { transform: none; }
+    .galeria button:nth-child(2n) { transform: translateY(30px); }
+    .galeria button.surge.visto:nth-child(4n+2), .galeria button.surge.visto:nth-child(4n+4) { transform: none; }
+    .galeria button.surge.visto:nth-child(2n) { transform: translateY(30px); }
+    .case.inverte > :first-child { order: 2; }
+    .final .celular { width: min(270px, 72%); margin-top: 20px; }
+  }
+  @media (max-width: 640px) {
+    .fazemos .faixa-foto { grid-template-columns: 1fr 1fr; }
+    .post-sim { grid-template-columns: 1fr; }
+    .tempos { grid-template-columns: repeat(3, 1fr); order: 2; }
+    .tempo { padding: 10px 12px; font-size: .72rem; }
+    .tempo b { font-size: .95rem; }
+    .comparar .extras { grid-template-columns: 1fr 1fr 1fr; }
+    .comparar .extras b { font-size: 1.1rem; }
+    .form { grid-template-columns: 1fr; }
+    .clientes .depoimento { grid-template-columns: 1fr; }
+    .item .corpo p { padding: 0 0 22px 64px; }
+    .colagem .chip { font-size: .66rem; padding: 7px 12px 7px 7px; }
+    .colagem .chip b { font-size: .9rem; }
+    .colagem .chip i { width: 28px; height: 28px; }
+    .colagem .c1 { left: 0; } .colagem .c2 { right: 0; }
+    .final .celular .tag-final { left: -10%; font-size: .9rem; }
+    .acoes .btn { flex: 1 1 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .surge { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="demo">Proposta de site feita pela SA Studio para a Marketiza. <a href="https://sastudio.vercel.app/" target="_blank" rel="noopener">Conheça a SA Studio</a></div>
+
+<header class="topo" id="topo">
+  <div class="embrulho">
+    <a class="marca" href="#" aria-label="Marketiza, início">
+      <img src="img/logo-m.png" alt="" width="40" height="42">
+      <span><b>MARKETIZA</b><small>Agência</small></span>
+    </a>
+    <nav class="menu" id="menu" aria-label="Principal">
+      <a href="#pilares">Pilares</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#diagnostico">Diagnóstico</a>
+      <a href="#resultados">Resultados</a>
+      <a href="#clientes">Clientes</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a class="btn btn-tinta" href="#" data-wa>Pedir orçamento</a>
+    <button class="sanduiche" id="sanduiche" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="marca-dagua" aria-hidden="true">M</div>
+  <div class="embrulho">
+    <div>
+      <p class="olho surge">Branding e redes sociais · Sorocaba/SP</p>
+      <h1 class="surge d1">O que faz algumas marcas venderem todos os dias enquanto outras são <em>ignoradas?</em></h1>
+      <p class="lead surge d2">Aqui, descobrimos o que faz o seu cliente dizer: <b>“Eu quero.”</b> Posicionamento, conteúdo e estratégia para a sua marca deixar de ser só mais uma opção.</p>
+      <p class="giro surge d2" aria-live="polite">Hoje não basta ser bom. Você precisa ser <span id="giro">lembrado.</span></p>
+      <div class="acoes surge d3">
+        <a class="btn btn-tinta" href="#" data-wa>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c.7.3 1.3.5 1.7.6a4.2 4.2 0 0 0 1.9.1 3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.7-.4zM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 1 1 8.3 4.6zm8.4-18.2A11.8 11.8 0 0 0 1.8 17.8L.1 24l6.4-1.7a11.8 11.8 0 0 0 5.6 1.4 11.8 11.8 0 0 0 8.3-20.1z"/></svg>
+          Receber meu orçamento
+        </a>
+        <a class="btn btn-linha" href="#diagnostico">Fazer o diagnóstico</a>
+      </div>
+      <ul class="credenciais surge d3">
+        <li>Atendimento online e presencial</li>
+        <li>Fotos e vídeos profissionais</li>
+        <li>StoryMaker ao vivo</li>
+      </ul>
+    </div>
+    <div class="colagem surge d2" id="colagem" aria-hidden="true">
+      <div class="foto f2" data-prof="18"><img src="img/c-rosemery.jpg" alt=""></div>
+      <div class="foto f1" data-prof="10"><img src="img/retrato.jpg" alt=""></div>
+      <div class="foto f3" data-prof="24"><img src="img/c-massot.jpg" alt=""></div>
+      <div class="chip c1"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="4"/><path d="M2 21c1-4 4-6 7-6s6 2 7 6M19 8v6M16 11h6"/></svg></i><span><b>+80 mil</b>seguidores conquistados</span></div>
+      <div class="chip c2"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg></i><span><b>5x mais</b>faturamento em um dia</span></div>
+      <div class="chip c3"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg></i><span><b>185 mil</b>visualizações num post</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="faixa" aria-hidden="true">
+  <div class="trilho" id="trilho"></div>
+</div>
+
+<section class="secao fazemos" id="fazemos">
+  <div class="embrulho">
+    <div>
+      <p class="olho surge">Quem somos</p>
+      <h2 class="surge d1"><span class="cap">O</span> que <em>fazemos?</em></h2>
+    </div>
+    <div class="texto surge d1" id="texto-fazemos">
+      <p>Se você sente que a sua empresa tem <mark>potencial</mark>, entrega um <mark>ótimo serviço</mark>, mas ainda não recebe a atenção, o reconhecimento e os clientes que merece, saiba que o problema provavelmente não está na qualidade do que você oferece.</p>
+      <p>Na maioria das vezes, o problema está na forma como a sua marca é percebida. Porque hoje não basta ser bom. <mark>Você precisa ser lembrado.</mark> <mark>Precisa ser desejado.</mark> Precisa ser a primeira opção quando alguém procura exatamente o que você oferece.</p>
+      <p class="assina">E é aí que a <b>Marketiza</b> entra.</p>
+    </div>
+  </div>
+  <div class="embrulho faixa-foto">
+    <figure class="surge"><img src="img/bastidores.jpg" alt="Notebook com a frase: por trás da Marketiza, muito mais que marketing" loading="lazy"></figure>
+    <figure class="surge d1"><img src="img/c-blazer.jpg" alt="Ensaio de marca pessoal produzido pela Marketiza" loading="lazy"></figure>
+    <figure class="surge d2"><img src="img/celular.jpg" alt="Mão segurando celular: você não tem uma estratégia, você tem um feed bonitinho que não vende" loading="lazy"></figure>
+    <figure class="surge d3"><img src="img/servicos.jpg" alt="Maleta preta: serviços que a Marketiza entrega" loading="lazy"></figure>
+  </div>
+</section>
+
+<section class="secao pilares" id="pilares">
+  <div class="marca-dagua" aria-hidden="true">M</div>
+  <div class="embrulho">
+    <div class="cabeca" style="justify-content: center; text-align: center">
+      <div>
+        <p class="olho surge">Método</p>
+        <h2 class="surge d1">Nossa agência trabalha com <em>três pilares</em></h2>
+      </div>
+    </div>
+    <div class="grade">
+      <article class="pilar surge">
+        <div class="num">PILAR 01</div>
+        <div class="caixa">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5.5"/><circle cx="12" cy="12" r="2"/><path d="M12 12l8-8M17 4h3v3"/></svg></span>
+          <h3>Posicionamento estratégico</h3>
+          <p>Definimos a essência da sua marca, destacamos seus diferenciais e construímos uma presença digital que transmite autoridade, valor e confiança.</p>
+        </div>
+      </article>
+      <article class="pilar surge d1">
+        <div class="num">PILAR 02</div>
+        <div class="caixa">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3.2"/><path d="M12 2v1.6M5 4.2l1 1.3M19 4.2l-1 1.3M12 20.4V22M5 19.8l1-1.3M19 19.8l-1-1.3"/></svg></span>
+          <h3>Conteúdo persuasivo</h3>
+          <p>Criamos conteúdos que despertam desejo, geram conexão com o público e conduzem seus seguidores à decisão de compra.</p>
+        </div>
+      </article>
+      <article class="pilar surge d2">
+        <div class="num">PILAR 03</div>
+        <div class="caixa">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M9 3l3 18 3-18M6 3l3 6M18 3l-3 6"/></svg></span>
+          <h3>Crescimento e conversão</h3>
+          <p>Utilizamos estratégias de distribuição, impulsionamento e análise de métricas para atrair clientes qualificados e transformar visibilidade em faturamento.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="secao servicos escuro" id="servicos">
+  <div class="embrulho">
+    <div class="lado">
+      <p class="olho surge">Serviços</p>
+      <h2 class="surge d1">O que <em>propomos</em></h2>
+      <p class="lead surge d2" style="margin-top: 18px">Da estratégia ao post publicado. Você escolhe o que a sua marca precisa agora, ou deixa tudo com a gente.</p>
+      <a class="btn btn-claro surge d3" href="#" data-wa>Quero um orçamento</a>
+      <div class="foto-lado surge d3"><img src="img/c-homem.jpg" alt="Ensaio de marca pessoal produzido pela Marketiza" loading="lazy"></div>
+    </div>
+    <ul class="lista" id="lista"></ul>
+  </div>
+</section>
+
+<section class="secao diag" id="diagnostico">
+  <div class="embrulho">
+    <div>
+      <p class="olho surge">Diagnóstico grátis</p>
+      <h2 class="surge d1">Feed bonitinho ou <em>feed que vende?</em></h2>
+      <p class="lead surge d2" style="margin-top: 18px">Responda 4 perguntas rápidas e descubra qual dos nossos pilares a sua marca precisa primeiro. No fim, você manda o resultado direto para o nosso WhatsApp.</p>
+    </div>
+    <div class="quiz surge d1" id="quiz" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="secao resultados" id="resultados">
+  <div class="marca-dagua" aria-hidden="true">R</div>
+  <div class="embrulho">
+    <div class="cabeca">
+      <div>
+        <p class="olho surge">Cases reais</p>
+        <h2 class="surge d1"><span class="cap">N</span>ossos <em>resultados</em></h2>
+      </div>
+      <p class="lead surge d2">Na maioria das vezes, o problema não é o design. É a falta de uma estratégia que faça o conteúdo chegar às pessoas certas e despertar o desejo de interagir.</p>
+    </div>
+
+    <div class="case">
+      <div>
+        <p class="rotulo surge">Cliente na Itália</p>
+        <h3 class="surge d1">Mesmo design. <em>Outra estratégia.</em></h3>
+        <p class="surge d2">Entramos para cuidar do perfil dela em junho e, até então, os conteúdos dificilmente passavam de <b>100 curtidas</b>. Não mudamos o design: mantivemos a mesma identidade visual.</p>
+        <p class="surge d2"><b>O que mudou foi a estratégia.</b> Estudamos a fundo o público que ela queria alcançar e ajustamos o posicionamento, a comunicação e a forma de produzir cada conteúdo. O resultado apareceu no mesmo mês.</p>
+      </div>
+      <div class="comparar surge d1" id="comparar">
+        <div class="linha antes">
+          <div class="topo-linha"><span>Antes</span><b>até 100</b></div>
+          <div class="trilha"><i></i></div>
+        </div>
+        <div class="linha depois">
+          <div class="topo-linha"><span>Depois</span><b><span data-conta="13000" data-mais>0</span></b></div>
+          <div class="trilha"><i></i></div>
+        </div>
+        <div class="extras">
+          <div><b data-conta="13000" data-mais>0</b><small>curtidas</small></div>
+          <div><b data-conta="85">0</b><small>comentários</small></div>
+          <div><b data-conta="8700" data-mais>0</b><small>compartilhamentos</small></div>
+        </div>
+        <p class="nota">Curtidas por conteúdo. Depois: um único post, no primeiro mês de trabalho.</p>
+      </div>
+    </div>
+
+    <div class="case inverte">
+      <div class="post-sim" id="post-sim">
+        <div class="tempos" id="tempos"></div>
+        <div class="ig" id="ig">
+          <div class="cab"><img src="img/perfil.jpg" alt=""><span>marketizaoficial<small>Patrocinado pela estratégia</small></span></div>
+          <div class="arte"></div>
+          <div class="views"><span>👁 <b id="ig-views">2 mil</b> · Ver insights</span><em>Turbinar post</em></div>
+          <div class="barra-ig">
+            <span><svg viewBox="0 0 24 24" fill="#ed4956"><path d="M12 21s-7.5-4.6-9.5-9.2C1 8.3 3.3 4.5 7 4.5c2.1 0 3.6 1.1 5 3 1.4-1.9 2.9-3 5-3 3.7 0 6 3.8 4.5 7.3C19.5 16.4 12 21 12 21z"/></svg><b id="ig-likes">67</b></span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.6 7.4L3.5 20l1.2-4.2A8.5 8.5 0 1 1 20.5 11.5z"/></svg><b id="ig-coment">1</b></span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M17 2l3 3-3 3M4 11V9a4 4 0 0 1 4-4h12M7 22l-3-3 3-3M20 13v2a4 4 0 0 1-4 4H4"/></svg><b id="ig-repost">1</b></span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M22 3L9.5 13.5M22 3l-7 19-5.5-8.5L2 9z"/></svg><b id="ig-envios"></b></span>
+            <span class="salvar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h12v18l-6-5-6 5z"/></svg></span>
+          </div>
+          <div class="legenda"><b>marketizaoficial</b> Existe um princípio muito antigo na Medicina Tradicional Chinesa: a respiração é a ponte entre a mente e o corpo… <small id="ig-quando">Há 21 minutos</small></div>
+        </div>
+      </div>
+      <div>
+        <p class="rotulo surge">O mesmo post, do primeiro minuto ao dia seguinte</p>
+        <h3 class="surge d1">De <em>67</em> para <em>3.138</em> curtidas.</h3>
+        <p class="surge d2">A cliente queria pegar depoimentos de clientes para uma nova ação. Montamos uma estratégia e o post subiu à 1h da manhã. Aperte os tempos ao lado para ver como ele cresceu.</p>
+        <p class="surge d2">Resultado: <b>500 comentários de depoimento</b> em outra ação e um post que passou de <b>185 mil visualizações</b>.</p>
+      </div>
+    </div>
+
+    <div class="numeros surge">
+      <div><b><em>+</em><span data-conta="80" >0</span> mil</b><small>seguidores para Rosemery Vidal</small></div>
+      <div><b><span data-conta="5">0</span>x</b><small>mais faturamento no Dia das Mulheres para uma massoterapeuta</small></div>
+      <div><b><span data-conta="185">0</span> mil</b><small>visualizações em um único post</small></div>
+      <div><b><span data-conta="500">0</span></b><small>comentários de depoimento em uma ação</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="secao clientes escuro" id="clientes">
+  <div class="embrulho">
+    <div class="cabeca">
+      <div>
+        <p class="olho surge">Captação de fotos e vídeos</p>
+        <h2 class="surge d1">O que nossos clientes <em>mostram por aí</em></h2>
+      </div>
+      <p class="lead surge d2">Ensaios, eventos e ações de marca produzidos pela Marketiza. Toque numa foto para ampliar.</p>
+    </div>
+    <div class="galeria" id="galeria"></div>
+    <div class="depoimento surge">
+      <div class="rostos"><img src="img/c-jaleco.jpg" alt=""><img src="img/c-homem.jpg" alt=""><img src="img/c-blazer.jpg" alt=""></div>
+      <p>Seguidores aplaudem. Clientes indicam, voltam e compram de novo. <em>A gente trabalha para construir a segunda turma.</em></p>
+    </div>
+  </div>
+</section>
+
+<section class="secao bastidores">
+  <div class="embrulho">
+    <div class="duo surge">
+      <img class="a" src="img/retrato.jpg" alt="Retrato em preto e branco da equipe Marketiza" loading="lazy">
+      <img class="b" src="img/c-massot.jpg" alt="Post: como nossa cliente massoterapeuta faturou 5x mais no Dia das Mulheres" loading="lazy">
+    </div>
+    <div>
+      <p class="olho surge">Por trás da Marketiza</p>
+      <h2 class="surge d1">Muito mais que <em>marketing.</em></h2>
+      <blockquote class="surge d2">“5x mais no Dia das Mulheres. E o mais curioso: não foi com um post, foi com uma ação estratégica.”<small>Case de uma cliente massoterapeuta</small></blockquote>
+      <p class="lead surge d2">Estratégia para marcas que querem crescer de verdade. Seu conteúdo não precisa ser perfeito, precisa ser postado, com intenção, para o público certo e no momento certo.</p>
+      <div class="acoes surge d3" style="margin-top: 30px">
+        <a class="btn btn-tinta" href="https://www.instagram.com/marketizaoficial/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          @marketizaoficial
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="secao visite" id="endereco">
+  <div class="embrulho">
+    <div class="cabeca">
+      <div>
+        <p class="olho surge">Nosso endereço</p>
+        <h2 class="surge d1">Atendimento <em>online</em> e presencial</h2>
+      </div>
+      <p class="lead surge d2">Presencial com agendamento, no Jardim Santa Rosália, em Sorocaba. Ou por vídeo, de onde você estiver.</p>
+    </div>
+    <div class="grade">
+      <div class="cartao surge">
+        <div class="fachada"><img src="img/fachada.jpg" alt="Fachada do prédio da Marketiza" loading="lazy"></div>
+        <dl>
+          <div><dt>Endereço</dt><dd id="end"></dd></div>
+          <div><dt>Horário</dt><dd id="horario"></dd></div>
+          <div><dt>WhatsApp</dt><dd><a href="#" data-wa id="fone"></a></dd></div>
+        </dl>
+        <div class="acoes">
+          <a class="btn btn-tinta" href="#" data-wa>Agendar uma conversa</a>
+          <a class="btn btn-linha" id="rotas" href="#" target="_blank" rel="noopener">Como chegar</a>
+        </div>
+      </div>
+      <div class="mapa surge d1" id="mapa"></div>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="contato">
+  <div class="listra"></div>
+  <div class="embrulho">
+    <div>
+      <p class="olho surge">Orçamento personalizado</p>
+      <h2 class="surge d1">Você está pronto para se <em>posicionar?</em></h2>
+      <p class="lead surge d2">Entre em contato e marketize a sua empresa! O seu resultado pode ser o próximo case de sucesso aqui.</p>
+      <form class="form surge d2" id="form">
+        <label>Seu nome<input name="nome" autocomplete="name" required></label>
+        <label>Empresa<input name="empresa" autocomplete="organization"></label>
+        <label>Instagram<input name="insta" placeholder="@suaempresa"></label>
+        <label>Interesse<select name="servico" id="servico-sel"></select></label>
+        <button class="btn btn-tinta" type="submit">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c.7.3 1.3.5 1.7.6a4.2 4.2 0 0 0 1.9.1 3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.7-.4zM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 1 1 8.3 4.6zm8.4-18.2A11.8 11.8 0 0 0 1.8 17.8L.1 24l6.4-1.7a11.8 11.8 0 0 0 5.6 1.4 11.8 11.8 0 0 0 8.3-20.1z"/></svg>
+          Receber meu orçamento
+        </button>
+      </form>
+    </div>
+    <div class="celular surge d1">
+      <div class="fone" aria-hidden="true"><div class="tela">
+        <div class="perfil-ig"><img src="img/perfil.jpg" alt=""><div class="stats"><span><b>31</b>posts</span><span><b>760</b>seguidores</span><span><b>482</b>seguindo</span></div></div>
+        <p class="bio"><b>MARKETIZA</b><br>Gerenciamento de Redes Sociais<br>O que faz algumas marcas venderem todos os dias enquanto outras são ignoradas?</p>
+        <div class="seguir"><span>Seguir</span><span>Mensagem</span></div>
+        <div class="grade-ig"><img src="img/c-jaleco.jpg" alt=""><img src="img/c-homem.jpg" alt=""><img src="img/c-blazer.jpg" alt=""><img src="img/c-rosemery.jpg" alt=""><img src="img/c-massot.jpg" alt=""><img src="img/endereco.jpg" alt=""><img src="img/bastidores.jpg" alt=""><img src="img/retrato.jpg" alt=""><img src="img/celular.jpg" alt=""></div>
+      </div></div>
+      <div class="tag-final">Marketize sua empresa.</div>
+    </div>
+  </div>
+  <div class="listra"></div>
+</section>
+</main>
+
+<footer>
+  <div class="embrulho">
+    <div class="cima">
+      <a class="marca" href="#"><img src="img/logo-m-claro.png" alt="" width="40" height="42"><span><b>MARKETIZA</b><small>Marketize sua empresa</small></span></a>
+      <nav aria-label="Rodapé">
+        <a href="#pilares">Pilares</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#resultados">Resultados</a>
+        <a href="https://www.instagram.com/marketizaoficial/" target="_blank" rel="noopener">Instagram</a>
+        <a href="#" data-wa>WhatsApp</a>
+      </nav>
+    </div>
+    <div class="baixo">
+      <span>© <span id="ano"></span> Marketiza · Agência de branding · Sorocaba/SP</span>
+      <span>Site feito pela <a href="https://sastudio.vercel.app/" target="_blank" rel="noopener">SA Studio</a></span>
+    </div>
+  </div>
+</footer>
+
+<a class="zap-flutua" href="#" data-wa aria-label="Falar com a Marketiza no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c.7.3 1.3.5 1.7.6a4.2 4.2 0 0 0 1.9.1 3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.7-.4zM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 1 1 8.3 4.6zm8.4-18.2A11.8 11.8 0 0 0 1.8 17.8L.1 24l6.4-1.7a11.8 11.8 0 0 0 5.6 1.4 11.8 11.8 0 0 0 8.3-20.1z"/></svg>
+</a>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <button class="fechar" id="lb-fechar" aria-label="Fechar">×</button>
+  <button class="seta ant" id="lb-ant" aria-label="Foto anterior">‹</button>
+  <figure><img id="lb-img" alt=""><figcaption id="lb-leg"></figcaption></figure>
+  <button class="seta prox" id="lb-prox" aria-label="Próxima foto">›</button>
+</div>
+
+<script>
+const MK = {
+  whatsapp: "5515992699269",
+  fone: "(15) 99269-9269",
+  mensagem: "Vim pelo site, gostaria de receber um orçamento!",
+  endereco: "Av. São Francisco, 121 · Jardim Santa Rosália, Sorocaba/SP · 18095-450",
+  mapsBusca: "Marketiza, Av. São Francisco, 121 - Jardim Santa Rosália, Sorocaba - SP, 18095-450",
+  mapsLink: "https://maps.app.goo.gl/YoJHRLi22iCDEvmJ9",
+  horario: "Dias úteis até as 17h · Sábado a partir das 9h · Presencial com agendamento",
+  giro: ["lembrado.", "desejado.", "a primeira opção."],
+  faixa: ["Posicionamento estratégico", "Conteúdo persuasivo", "Crescimento e conversão", "Identidade visual", "Captação de fotos e vídeos", "StoryMaker ao vivo", "Tráfego pago", "Sites e landing pages"],
+  servicos: [
+    ["Estratégia de posicionamento", "Antes de criar qualquer conteúdo, entendemos o seu negócio, o seu mercado e os seus diferenciais. Porque uma comunicação eficiente começa pela estratégia.", "Pilar 01"],
+    ["Gestão de redes sociais", "Planejamento, criação de conteúdo, design e acompanhamento para construir autoridade e fortalecer a sua marca.", "Pilar 02"],
+    ["Identidade visual", "Desenvolvemos marcas que transmitem profissionalismo, confiança e valor.", "Pilar 01"],
+    ["Captação de fotos", "Produções profissionais que valorizam a sua empresa e reforçam a sua credibilidade.", "Pilar 02"],
+    ["Captação de vídeos", "Conteúdos criados para aproximar a sua marca do público e gerar conexão.", "Pilar 02"],
+    ["Sites e landing pages", "Páginas criadas para apresentar a sua empresa e transformar visitantes em clientes.", "Pilar 03"],
+    ["Copywriting", "Textos estratégicos que despertam interesse, geram conexão e incentivam à ação.", "Pilar 02"],
+    ["Tráfego pago", "Campanhas estratégicas para atrair pessoas com potencial real de compra e gerar oportunidades de negócio.", "Pilar 03"],
+    ["StoryMaker ao vivo", "O StoryMaker é o profissional que acompanha a sua empresa em tempo real, registrando, editando e publicando conteúdos durante o acontecimento.", "Eventos"]
+  ],
+  // cada resposta soma um ponto num pilar: P = posicionamento, C = conteúdo, G = crescimento
+  perguntas: [
+    ["Como está o Instagram da sua empresa hoje?", [["Bonito, mas não vende", "G"], ["Parado: posto quando sobra tempo", "C"], ["Não sei como a minha marca é vista", "P"], ["Tem seguidores, mas pouco cliente", "G"]]],
+    ["A sua marca tem uma identidade clara (cores, tom de voz, promessa)?", [["Sim, bem definida", "C"], ["Mais ou menos", "P"], ["Não, cada post sai de um jeito", "P"]]],
+    ["O que mais falta para a sua marca hoje?", [["Tempo para produzir conteúdo", "C"], ["Fotos e vídeos profissionais", "C"], ["Gente nova chegando todo mês", "G"], ["Ser vista como referência", "P"]]],
+    ["Qual o próximo passo que você quer dar?", [["Lançar ou reposicionar a marca", "P"], ["Postar com constância e intenção", "C"], ["Transformar seguidores em clientes", "G"], ["Ter um site ou landing page", "G"]]]
+  ],
+  pilares: {
+    P: { nome: "Posicionamento estratégico", titulo: "A sua marca precisa ser <em>percebida</em> do jeito certo.", texto: "Antes de postar mais, vale definir a essência da marca, os diferenciais e a forma como ela fala. É isso que faz o cliente enxergar valor e confiar.", servicos: ["Estratégia de posicionamento", "Identidade visual", "Copywriting"] },
+    C: { nome: "Conteúdo persuasivo", titulo: "Você não precisa de mais posts. Precisa de <em>posts que vendem.</em>", texto: "A base já existe. Agora é transformar o feed em conteúdo que desperta desejo, gera conexão e leva o seguidor até a compra, com constância.", servicos: ["Gestão de redes sociais", "Captação de fotos", "Captação de vídeos", "StoryMaker ao vivo"] },
+    G: { nome: "Crescimento e conversão", titulo: "Hora de transformar <em>visibilidade em faturamento.</em>", texto: "Com distribuição, impulsionamento e leitura de métricas, o seu conteúdo chega a quem tem potencial real de compra, e o seu perfil vira canal de vendas.", servicos: ["Tráfego pago", "Sites e landing pages", "Copywriting"] }
+  },
+  post: [
+    { rotulo: "21 minutos", sub: "Primeiros minutos no ar", quando: "Há 21 minutos", views: "2 mil", likes: 67, coment: 1, repost: 1, envios: 0 },
+    { rotulo: "1 hora", sub: "O mesmo post 1h depois", quando: "Há 1 hora", views: "8,7 mil", likes: 346, coment: 10, repost: 13, envios: 0 },
+    { rotulo: "1 dia", sub: "O mesmo post no dia seguinte", quando: "Há 1 dia", views: "185 mil", likes: 3138, coment: 59, repost: 76, envios: 1673 }
+  ],
+  galeria: [
+    ["c-jaleco.jpg", "Ensaio de marca", "Retrato profissional para clínica"],
+    ["c-homem.jpg", "Ensaio de marca pessoal", "Fotos para posicionamento"],
+    ["c-biomed.jpg", "Evento", "Captação de vídeo ao vivo"],
+    ["c-majstra.jpg", "Majstra", "Formulações veterinárias"],
+    ["c-blazer.jpg", "Ensaio de marca pessoal", "Autoridade em cada foto"],
+    ["c-berrys.jpg", "Berry's", "Ação de marca com carrinho de sorvete"],
+    ["c-rosemery.jpg", "Rosemery Vidal", "Estratégia que gerou +80 mil seguidores"],
+    ["labios.jpg", "Conteúdo para estética", "Vídeo de procedimento"]
+  ]
+};
+
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const wa = (msg = MK.mensagem) => `https://wa.me/${MK.whatsapp}?text=${encodeURIComponent(msg)}`;
+const fmt = n => n.toLocaleString("pt-BR");
+const curto = n => n >= 1000 ? (n / 1000).toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + " mil" : fmt(n);
+const calmo = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+$$("[data-wa]").forEach(a => { a.href = wa(); a.target = "_blank"; a.rel = "noopener"; });
+$("#fone").textContent = MK.fone;
+$("#end").textContent = MK.endereco;
+$("#horario").textContent = MK.horario;
+$("#rotas").href = MK.mapsLink;
+$("#ano").textContent = new Date().getFullYear();
+
+/* topo e menu */
+const topo = $("#topo");
+addEventListener("scroll", () => topo.classList.toggle("rolou", scrollY > 10), { passive: true });
+$("#sanduiche").addEventListener("click", () => {
+  const aberto = document.body.classList.toggle("menu-aberto");
+  $("#sanduiche").setAttribute("aria-expanded", aberto);
+});
+$$("#menu a").forEach(a => a.addEventListener("click", () => document.body.classList.remove("menu-aberto")));
+
+/* palavra que gira no hero */
+let iGiro = 0;
+if (!calmo) setInterval(() => {
+  const s = $("#giro");
+  s.classList.add("sai");
+  setTimeout(() => { iGiro = (iGiro + 1) % MK.giro.length; s.textContent = MK.giro[iGiro]; s.classList.remove("sai"); }, 350);
+}, 2600);
+
+/* colagem acompanha o mouse */
+const colagem = $("#colagem");
+if (!calmo && matchMedia("(pointer: fine)").matches) {
+  addEventListener("pointermove", e => {
+    const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
+    $$(".foto", colagem).forEach(f => { const p = +f.dataset.prof; f.style.translate = `${x * p}px ${y * p}px`; });
+  });
+}
+
+/* faixa */
+$("#trilho").innerHTML = [...MK.faixa, ...MK.faixa].map(t => `<span>${t}</span>`).join("");
+
+/* serviços */
+$("#lista").innerHTML = MK.servicos.map(([t, d, tag], i) => `
+  <li class="item surge${i ? "" : " aberto"}">
+    <button aria-expanded="${!i}"><span class="n">${String(i + 1).padStart(2, "0")}</span><h3>${t}</h3><span class="mais"></span></button>
+    <div class="corpo"><div><p>${d}</p><span class="tag">${tag}</span></div></div>
+  </li>`).join("");
+$$("#lista .item").forEach(it => $("button", it).addEventListener("click", () => {
+  const abrir = !it.classList.contains("aberto");
+  $$("#lista .item").forEach(o => { o.classList.remove("aberto"); $("button", o).setAttribute("aria-expanded", false); });
+  if (abrir) { it.classList.add("aberto"); $("button", it).setAttribute("aria-expanded", true); }
+}));
+$("#servico-sel").innerHTML = `<option value="">Ainda não sei</option>` + MK.servicos.map(([t]) => `<option>${t}</option>`).join("");
+
+/* diagnóstico */
+const quiz = $("#quiz");
+let respostas = [];
+function pergunta(i) {
+  const [q, ops] = MK.perguntas[i];
+  quiz.innerHTML = `
+    <div class="barra"><i style="width:${i / MK.perguntas.length * 100}%"></i></div>
+    <p class="passo">Pergunta ${i + 1} de ${MK.perguntas.length}</p>
+    <h3>${q}</h3>
+    <div class="opcoes">${ops.map(([t], k) => `<button class="opcao${respostas[i] === k ? " marcada" : ""}" data-k="${k}">${t}</button>`).join("")}</div>
+    <div class="rodape"><button class="voltar" ${i ? "" : "hidden"}>Voltar</button><span class="passo" style="margin:0">Diagnóstico Marketiza</span></div>`;
+  requestAnimationFrame(() => $(".barra i", quiz).style.width = `${(i + .5) / MK.perguntas.length * 100}%`);
+  $$(".opcao", quiz).forEach(b => b.addEventListener("click", () => {
+    respostas[i] = +b.dataset.k;
+    $$(".opcao", quiz).forEach(o => o.classList.toggle("marcada", o === b));
+    setTimeout(() => i + 1 < MK.perguntas.length ? pergunta(i + 1) : resultado(), 380);
+  }));
+  $(".voltar", quiz).addEventListener("click", () => pergunta(i - 1));
+}
+function resultado() {
+  const pontos = { P: 0, C: 0, G: 0 };
+  respostas.forEach((k, i) => pontos[MK.perguntas[i][1][k][1]]++);
+  const chave = Object.keys(pontos).sort((a, b) => pontos[b] - pontos[a])[0];
+  const r = MK.pilares[chave];
+  const resumo = respostas.map((k, i) => `• ${MK.perguntas[i][0]} ${MK.perguntas[i][1][k][0]}`).join("\n");
+  const msg = `Olá! Vim pelo site e fiz o diagnóstico da Marketiza.\nResultado: ${r.nome}\n\n${resumo}\n\nGostaria de receber um orçamento!`;
+  quiz.innerHTML = `
+    <div class="barra"><i style="width:100%"></i></div>
+    <div class="resultado">
+      <p class="selo">Seu pilar prioritário · ${r.nome}</p>
+      <h3>${r.titulo}</h3>
+      <p>${r.texto}</p>
+      <ul>${r.servicos.map(s => `<li>${s}</li>`).join("")}</ul>
+    </div>
+    <div class="rodape" style="flex-wrap:wrap;gap:12px">
+      <a class="btn btn-tinta" href="${wa(msg)}" target="_blank" rel="noopener">Enviar resultado no WhatsApp</a>
+      <button class="voltar" id="refazer">Refazer</button>
+    </div>`;
+  $("#refazer").addEventListener("click", () => { respostas = []; pergunta(0); });
+}
+pergunta(0);
+
+/* contadores */
+function contar(el) {
+  const fim = +el.dataset.conta, mais = el.hasAttribute("data-mais");
+  const mostra = v => el.textContent = (fim >= 1000 ? curto(v) : fmt(v)) + (mais && v === fim ? "+" : "");
+  if (calmo) return mostra(fim);
+  const t0 = performance.now(), dur = 1800;
+  (function passo(t) {
+    const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+    mostra(p < 1 ? Math.round(fim * e / (fim >= 1000 ? 100 : 1)) * (fim >= 1000 ? 100 : 1) : fim);
+    if (p < 1) requestAnimationFrame(passo);
+  })(t0);
+}
+
+/* post que cresce */
+const tempos = $("#tempos"), simPost = $("#post-sim");
+tempos.innerHTML = MK.post.map((p, i) => `<button class="tempo" data-i="${i}"><b>${p.rotulo}</b>${p.sub}<span class="prog"></span></button>`).join("");
+let iPost = 0, timerPost = null, numAtual = { likes: 67, coment: 1, repost: 1, envios: 0 };
+function mostraPost(i, auto) {
+  iPost = i;
+  const p = MK.post[i];
+  $$(".tempo", tempos).forEach((b, k) => { b.classList.remove("ativo"); void b.offsetWidth; b.classList.toggle("ativo", k === i); });
+  $("#ig-views").textContent = p.views;
+  $("#ig-quando").textContent = p.quando;
+  ["likes", "coment", "repost", "envios"].forEach(c => {
+    const el = $("#ig-" + c), de = numAtual[c], ate = p[c];
+    numAtual[c] = ate;
+    if (calmo) { el.textContent = ate ? fmt(ate) : ""; return; }
+    const t0 = performance.now();
+    (function passo(t) {
+      const k = Math.min(1, (t - t0) / 900), v = Math.round(de + (ate - de) * (1 - Math.pow(1 - k, 3)));
+      el.textContent = v ? fmt(v) : "";
+      if (k < 1) requestAnimationFrame(passo);
+    })(t0);
+    if (ate > de) { el.parentNode.classList.remove("pulsa"); void el.offsetWidth; el.parentNode.classList.add("pulsa"); }
+  });
+  clearTimeout(timerPost);
+  simPost.classList.toggle("parado", !auto);
+  if (auto && !calmo) timerPost = setTimeout(() => mostraPost((i + 1) % MK.post.length, true), 3600);
+}
+$$(".tempo", tempos).forEach(b => b.addEventListener("click", () => mostraPost(+b.dataset.i, false)));
+mostraPost(0, false);
+
+/* galeria e lightbox */
+$("#galeria").innerHTML = MK.galeria.map(([img, t, d], i) => `
+  <button class="surge${i % 4 ? " d" + (i % 4) : ""}" data-i="${i}" aria-label="Ampliar: ${t}">
+    <img src="img/${img}" alt="${t}. ${d}" loading="lazy"><span class="leg"><b>${t}</b>${d}</span>
+  </button>`).join("");
+const lb = $("#lightbox");
+let iLb = 0;
+function abreLb(i) {
+  iLb = (i + MK.galeria.length) % MK.galeria.length;
+  const [img, t, d] = MK.galeria[iLb];
+  $("#lb-img").src = "img/" + img; $("#lb-img").alt = t;
+  $("#lb-leg").textContent = `${t} · ${d}`;
+  lb.classList.add("aberta"); $("#lb-fechar").focus();
+}
+const fechaLb = () => lb.classList.remove("aberta");
+$$("#galeria button").forEach(b => b.addEventListener("click", () => abreLb(+b.dataset.i)));
+$("#lb-fechar").addEventListener("click", fechaLb);
+$("#lb-ant").addEventListener("click", () => abreLb(iLb - 1));
+$("#lb-prox").addEventListener("click", () => abreLb(iLb + 1));
+lb.addEventListener("click", e => { if (e.target === lb) fechaLb(); });
+addEventListener("keydown", e => {
+  if (!lb.classList.contains("aberta")) return;
+  if (e.key === "Escape") fechaLb();
+  if (e.key === "ArrowLeft") abreLb(iLb - 1);
+  if (e.key === "ArrowRight") abreLb(iLb + 1);
+});
+
+/* formulário vai pro WhatsApp */
+$("#form").addEventListener("submit", e => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const linhas = [MK.mensagem, "", `Nome: ${f.get("nome")}`];
+  if (f.get("empresa")) linhas.push(`Empresa: ${f.get("empresa")}`);
+  if (f.get("insta")) linhas.push(`Instagram: ${f.get("insta")}`);
+  if (f.get("servico")) linhas.push(`Interesse: ${f.get("servico")}`);
+  open(wa(linhas.join("\n")), "_blank", "noopener");
+});
+
+/* aparece ao rolar */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  e.target.classList.add("visto");
+  $$("[data-conta]", e.target).forEach(contar);
+  if (e.target === simPost) mostraPost(1, true);
+  io.unobserve(e.target);
+}), { threshold: .18 });
+$$(".surge, #texto-fazemos, #comparar, #post-sim").forEach(el => io.observe(el));
+
+/* mapa só carrega perto da tela */
+new IntersectionObserver((es, obs) => {
+  if (!es[0].isIntersecting) return;
+  obs.disconnect();
+  $("#mapa").innerHTML = `<iframe title="Mapa: Marketiza em Sorocaba" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=${encodeURIComponent(MK.mapsBusca)}&hl=pt-BR&output=embed"></iframe>`;
+}, { rootMargin: "400px" }).observe($("#mapa"));
+</script>
+</body>
+</html>
