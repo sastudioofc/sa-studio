@@ -112,7 +112,7 @@
     async criarPublico(d) {
       const c = await carregaSB();
       const r = await c.from("agendamentos").insert({ ...d, origem: "site", status: "pendente" });
-      if (r.error) throw new Error(r.error.code === "23505" ? "ocupado" : r.error.message);
+      if (r.error) throw new Error(r.error.code === "23505" ? "ocupado" : r.error.code === "42501" ? "recusado" : r.error.message);
       return d;
     },
     async entrar(email, senha) { const c = await carregaSB(); const r = await c.auth.signInWithPassword({ email, password: senha }); if (r.error) { const m = r.error.message || ""; throw new Error(/confirm/i.test(m) ? "Esse email ainda não foi confirmado no Supabase" : /invalid login/i.test(m) ? "Email ou senha incorretos" : "Erro do banco: " + m); } return { email: r.data.user.email }; },

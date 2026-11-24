@@ -1534,7 +1534,7 @@ $("#ag-enviar").addEventListener("click", async () => {
   } catch (e) {
     if (janela) janela.close();
     btn.disabled = false;
-    avisar(e.message === "ocupado" ? "Esse horário acabou de ser ocupado. Escolha outro." : "Não deu para salvar agora. Tente de novo ou chame no WhatsApp.");
+    avisar(e.message === "ocupado" ? "Esse horário acabou de ser ocupado. Escolha outro." : e.message === "recusado" ? "Esse horário não está mais disponível, ou você já tem pedidos em aberto. Escolha outro ou chame no WhatsApp." : "Não deu para salvar agora. Tente de novo ou chame no WhatsApp.");
     carregaAgenda(true);
     return;
   }
