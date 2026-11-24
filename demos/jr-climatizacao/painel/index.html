@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<!--
+  PAINEL DA JR CLIMATIZAÇÃO · agenda, pedidos, bloqueios e expediente
+  Os dados vêm de ../agenda.js (Supabase quando configurado, senão modo demonstração).
+-->
+<title>Painel · JR Climatização</title>
+<meta name="theme-color" content="#0a2463">
+<link rel="icon" href="../img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --marinho: #0a2463; --marinho-2: #0b3a8c; --azul: #1565d8; --azul-2: #2a8ff0; --celeste: #6cc1ff;
+    --gelo: #eef6ff; --gelo-2: #dcecff; --fundo: #f4f7fc; --texto: #0f1b33; --texto-2: #5a6a84; --linha: rgba(10, 36, 99, .1);
+    --zap: #25d366; --pendente: #f59e0b; --confirmado: #1565d8; --concluido: #16a34a; --cancelado: #9aa5b8; --bloq: #e11d48;
+    --titulo: "Poppins", system-ui, sans-serif; --fonte: "Inter", system-ui, sans-serif;
+    --sombra: 0 18px 40px -24px rgba(10, 36, 99, .35); --mola: cubic-bezier(.34, 1.56, .64, 1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--fonte); color: var(--texto); background: var(--fundo); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; background: none; border: 0; }
+  a { color: inherit; }
+  h1, h2, h3 { font-family: var(--titulo); color: var(--marinho); line-height: 1.15; }
+  :focus-visible { outline: 2px solid var(--azul); outline-offset: 2px; }
+  [hidden] { display: none !important; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 44px; padding: 0 18px; border-radius: 12px; font-family: var(--titulo); font-weight: 600; font-size: .9rem; white-space: nowrap; transition: transform .25s var(--mola), background .2s; }
+  .btn:active { transform: scale(.97); }
+  .btn svg { width: 18px; height: 18px; flex: none; }
+  .btn-azul { background: var(--azul); color: #fff; }
+  .btn-azul:hover { background: var(--marinho-2); }
+  .btn-linha { background: #fff; box-shadow: inset 0 0 0 1.5px var(--gelo-2); color: var(--marinho); }
+  .btn-linha:hover { box-shadow: inset 0 0 0 1.5px var(--azul); }
+  .btn-zap { background: var(--zap); color: #fff; }
+  .btn-perigo { background: #fff; color: var(--bloq); box-shadow: inset 0 0 0 1.5px #fecdd3; }
+  .btn-peq { height: 36px; padding: 0 12px; font-size: .82rem; border-radius: 10px; }
+
+  label.campo { display: grid; gap: 6px; font-size: .8rem; font-weight: 600; color: var(--marinho); }
+  .campo input, .campo select, .campo textarea { height: 46px; padding: 0 14px; border-radius: 12px; border: 1.5px solid var(--gelo-2); background: #fff; font-size: .95rem; outline: none; transition: border-color .2s; width: 100%; }
+  .campo textarea { height: 84px; padding: 12px 14px; resize: vertical; }
+  .campo input:focus, .campo select:focus, .campo textarea:focus { border-color: var(--azul); }
+
+  .faixa-demo { background: #fff7e6; color: #8a5300; font-size: .82rem; text-align: center; padding: 8px 16px; border-bottom: 1px solid #fde7b0; }
+  .faixa-demo b { color: #6b3f00; }
+
+  /* login */
+  .login { min-height: 100vh; display: grid; place-items: center; padding: 24px 16px; background: radial-gradient(circle at 20% 10%, rgba(42, 143, 240, .25), transparent 50%), linear-gradient(160deg, var(--marinho-2), var(--marinho)); }
+  .login form { width: min(400px, 100%); background: #fff; border-radius: 24px; padding: 32px 28px; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .5); display: grid; gap: 16px; }
+  .login .logo { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  .login .logo img { width: 52px; height: 52px; border-radius: 50%; }
+  .login .logo small { display: block; color: var(--texto-2); font-size: .8rem; }
+  .login .erro { color: var(--bloq); font-size: .85rem; min-height: 1.2em; }
+  .login .dica { font-size: .8rem; color: var(--texto-2); background: var(--gelo); border-radius: 12px; padding: 10px 12px; }
+  .login .btn { width: 100%; height: 50px; }
+
+  /* app */
+  .topo { position: sticky; top: 0; z-index: 30; background: #fff; border-bottom: 1px solid var(--linha); }
+  .topo .in { max-width: 1320px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; gap: 18px; min-height: 66px; }
+  .marca { display: flex; align-items: center; gap: 10px; flex: none; text-decoration: none; }
+  .marca img { width: 40px; height: 40px; border-radius: 50%; }
+  .marca b { font-family: var(--titulo); color: var(--marinho); display: block; line-height: 1.1; }
+  .marca small { color: var(--texto-2); font-size: .74rem; }
+  .abas { display: flex; gap: 4px; margin-left: 12px; }
+  .aba { height: 40px; padding: 0 14px; border-radius: 10px; font-weight: 600; font-size: .9rem; color: var(--texto-2); display: inline-flex; align-items: center; gap: 8px; }
+  .aba:hover { background: var(--gelo); color: var(--marinho); }
+  .aba[aria-selected="true"] { background: var(--gelo); color: var(--azul); }
+  .aba .n { min-width: 20px; height: 20px; border-radius: 10px; background: var(--pendente); color: #fff; font-size: .7rem; display: grid; place-items: center; padding: 0 6px; }
+  .topo .dir { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+  .topo .quem { font-size: .8rem; color: var(--texto-2); }
+  main { max-width: 1320px; margin: 0 auto; padding: 24px 16px 80px; }
+  .cab { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
+  .cab h1 { font-size: 1.6rem; }
+  .cab p { color: var(--texto-2); font-size: .9rem; }
+  .cartao { background: #fff; border-radius: 20px; box-shadow: var(--sombra); border: 1px solid var(--linha); }
+
+  /* números */
+  .numeros { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
+  .numero { padding: 16px 18px; }
+  .numero small { display: block; font-size: .74rem; text-transform: uppercase; letter-spacing: .1em; color: var(--texto-2); font-weight: 600; }
+  .numero b { font-family: var(--titulo); font-size: 1.8rem; color: var(--marinho); }
+  .numero span { display: block; font-size: .8rem; color: var(--texto-2); }
+
+  /* semana */
+  .nav-semana { display: flex; align-items: center; gap: 8px; }
+  .nav-semana .x { width: 40px; height: 40px; border-radius: 10px; background: #fff; box-shadow: inset 0 0 0 1.5px var(--gelo-2); font-size: 1.2rem; color: var(--marinho); }
+  .nav-semana b { min-width: 170px; text-align: center; font-family: var(--titulo); color: var(--marinho); font-size: .95rem; }
+  .legenda { display: flex; gap: 14px; flex-wrap: wrap; font-size: .78rem; color: var(--texto-2); margin: 0 0 12px; }
+  .legenda span { display: inline-flex; align-items: center; gap: 6px; }
+  .legenda i { width: 10px; height: 10px; border-radius: 3px; }
+  .semana { display: grid; grid-template-columns: repeat(7, minmax(150px, 1fr)); gap: 10px; overflow-x: auto; padding: 4px 2px 12px; scroll-snap-type: x mandatory; }
+  .dia { scroll-snap-align: start; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  .dia-cab { padding: 10px 12px; border-radius: 14px; background: #fff; border: 1px solid var(--linha); display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+  .dia-cab small { display: block; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--texto-2); }
+  .dia-cab b { font-family: var(--titulo); color: var(--marinho); font-size: 1.05rem; white-space: nowrap; }
+  .dia.hoje .dia-cab { background: var(--azul); border-color: var(--azul); }
+  .dia.hoje .dia-cab small, .dia.hoje .dia-cab b { color: #fff; }
+  .dia-cab button { font-size: .66rem; line-height: 1.2; text-align: center; max-width: 64px; font-weight: 600; color: var(--texto-2); padding: 4px 8px; border-radius: 8px; background: var(--fundo); }
+  .dia.hoje .dia-cab button { background: rgba(255, 255, 255, .2); color: #fff; }
+  .dia-cab button:hover { color: var(--bloq); }
+  .slot { text-align: left; border-radius: 12px; padding: 10px 12px; font-size: .82rem; border: 1.5px dashed var(--gelo-2); background: transparent; color: var(--texto-2); min-height: 82px; display: flex; flex-direction: column; gap: 2px; transition: border-color .2s, transform .25s var(--mola), box-shadow .2s; }
+  .slot:hover { border-color: var(--azul); transform: translateY(-2px); }
+  .slot .h { font-weight: 700; color: var(--marinho); font-size: .8rem; }
+  .slot.livre .mais { color: var(--azul); font-weight: 600; font-size: .78rem; opacity: 0; transition: opacity .2s; }
+  .slot.livre:hover .mais { opacity: 1; }
+  .slot.ag { border: 0; background: #fff; box-shadow: 0 8px 20px -14px rgba(10, 36, 99, .5); border-left: 4px solid var(--c); color: var(--texto); }
+  .slot.ag b { font-size: .86rem; color: var(--marinho); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .slot.ag .st { font-size: .7rem; font-weight: 700; color: var(--c); text-transform: uppercase; letter-spacing: .06em; }
+  .slot.bloq { border: 0; background: repeating-linear-gradient(135deg, #fff1f3 0 8px, #ffe4e8 8px 16px); color: var(--bloq); }
+  .slot.bloq .h { color: var(--bloq); }
+  .slot.passado { opacity: .55; }
+  .dia.fechado .vazio-dia { font-size: .8rem; color: var(--texto-2); text-align: center; padding: 18px 8px; border-radius: 12px; background: repeating-linear-gradient(135deg, #f8fafc 0 8px, #f1f5f9 8px 16px); }
+  .dia.bloqueado .vazio-dia { color: var(--bloq); background: repeating-linear-gradient(135deg, #fff1f3 0 8px, #ffe4e8 8px 16px); }
+
+  /* lista de pedidos */
+  .filtros { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+  .chip { height: 36px; padding: 0 14px; border-radius: 99px; border: 1.5px solid var(--gelo-2); background: #fff; font-weight: 600; font-size: .82rem; color: var(--texto-2); }
+  .chip[aria-pressed="true"] { background: var(--marinho); border-color: var(--marinho); color: #fff; }
+  .busca { flex: 1; min-width: 200px; max-width: 320px; height: 40px; padding: 0 14px; border-radius: 12px; border: 1.5px solid var(--gelo-2); outline: none; background: #fff; margin-left: auto; }
+  .busca:focus { border-color: var(--azul); }
+  .tabela { width: 100%; border-collapse: collapse; font-size: .88rem; }
+  .tabela th { text-align: left; font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--texto-2); padding: 14px 16px; border-bottom: 1px solid var(--linha); font-weight: 600; }
+  .tabela td { padding: 14px 16px; border-bottom: 1px solid var(--linha); vertical-align: top; }
+  .tabela tr:last-child td { border-bottom: 0; }
+  .tabela tbody tr { cursor: pointer; transition: background .15s; }
+  .tabela tbody tr:hover { background: var(--gelo); }
+  .tabela td small { display: block; color: var(--texto-2); font-size: .78rem; }
+  .selo { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 99px; font-size: .74rem; font-weight: 700; color: var(--c); background: color-mix(in srgb, var(--c) 12%, #fff); }
+  .selo::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--c); }
+  .origem { font-size: .72rem; font-weight: 600; color: var(--texto-2); background: var(--fundo); padding: 3px 8px; border-radius: 6px; }
+  .vazio { padding: 40px 16px; text-align: center; color: var(--texto-2); }
+
+  /* bloqueios e expediente */
+  .duas { display: grid; grid-template-columns: 380px 1fr; gap: 18px; align-items: start; }
+  .caixa { padding: 22px; }
+  .caixa h2 { font-size: 1.1rem; margin-bottom: 4px; }
+  .caixa > p { color: var(--texto-2); font-size: .86rem; margin-bottom: 16px; }
+  .form-grade { display: grid; gap: 12px; }
+  .alterna { display: flex; background: var(--fundo); border-radius: 12px; padding: 4px; gap: 4px; }
+  .alterna button { flex: 1; height: 38px; border-radius: 9px; font-weight: 600; font-size: .85rem; color: var(--texto-2); }
+  .alterna button[aria-pressed="true"] { background: #fff; color: var(--marinho); box-shadow: 0 4px 10px -6px rgba(10, 36, 99, .4); }
+  .lista-bloq { display: grid; gap: 8px; }
+  .item-bloq { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--linha); background: #fff; }
+  .item-bloq .ic { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: #fff1f3; color: var(--bloq); flex: none; }
+  .item-bloq .ic svg { width: 20px; height: 20px; }
+  .item-bloq b { display: block; color: var(--marinho); font-size: .92rem; }
+  .item-bloq small { color: var(--texto-2); font-size: .8rem; }
+  .item-bloq button { margin-left: auto; }
+  .expediente { display: grid; gap: 10px; }
+  .linha-exp { display: grid; grid-template-columns: 110px 1fr; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--linha); }
+  .linha-exp:last-child { border-bottom: 0; }
+  .linha-exp b { font-family: var(--titulo); color: var(--marinho); font-size: .92rem; }
+  .horas-exp { display: flex; flex-wrap: wrap; gap: 6px; }
+  .h-exp { height: 34px; padding: 0 10px; border-radius: 9px; border: 1.5px solid var(--gelo-2); background: #fff; font-size: .8rem; font-weight: 600; color: var(--texto-2); }
+  .h-exp[aria-pressed="true"] { background: var(--azul); border-color: var(--azul); color: #fff; }
+  .ajustes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+
+  /* modal */
+  .modal { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 16px; background: rgba(7, 26, 71, .5); opacity: 0; pointer-events: none; transition: opacity .25s; }
+  .modal.on { opacity: 1; pointer-events: auto; }
+  .modal .janela { width: min(560px, 100%); max-height: calc(100vh - 32px); overflow: auto; background: #fff; border-radius: 22px; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .4); transform: translateY(16px) scale(.98); transition: transform .35s var(--mola); }
+  .modal.on .janela { transform: none; }
+  .modal header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid var(--linha); position: sticky; top: 0; background: #fff; z-index: 1; }
+  .modal header h3 { font-size: 1.15rem; }
+  .fechar { width: 38px; height: 38px; border-radius: 10px; background: var(--fundo); font-size: 1.3rem; color: var(--marinho); }
+  .modal .corpo { padding: 20px 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .modal .corpo .toda { grid-column: 1 / -1; }
+  .modal footer { padding: 16px 22px 20px; display: flex; gap: 10px; flex-wrap: wrap; border-top: 1px solid var(--linha); }
+  .modal footer .esp { margin-left: auto; }
+  .status-esc { display: flex; gap: 6px; flex-wrap: wrap; }
+  .status-esc button { height: 36px; padding: 0 12px; border-radius: 10px; border: 1.5px solid var(--gelo-2); font-size: .8rem; font-weight: 600; color: var(--texto-2); background: #fff; }
+  .status-esc button[aria-pressed="true"] { border-color: var(--c); background: color-mix(in srgb, var(--c) 12%, #fff); color: var(--c); }
+  .aviso { position: fixed; left: 50%; bottom: 24px; z-index: 120; transform: translate(-50%, 30px); opacity: 0; padding: 12px 20px; border-radius: 14px; background: var(--marinho); color: #fff; font-weight: 600; font-size: .9rem; transition: transform .35s var(--mola), opacity .25s; pointer-events: none; max-width: calc(100% - 32px); text-align: center; }
+  .aviso.on { transform: translate(-50%, 0); opacity: 1; }
+  .aviso.erro { background: var(--bloq); }
+  .carregando { padding: 60px; text-align: center; color: var(--texto-2); }
+
+  @media (max-width: 980px) {
+    .abas { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; margin: 0; background: #fff; border-top: 1px solid var(--linha); padding: 6px 8px calc(6px + env(safe-area-inset-bottom)); justify-content: space-around; }
+    .aba { flex-direction: column; gap: 2px; height: auto; padding: 6px 8px; font-size: .7rem; }
+    .aba svg { width: 20px; height: 20px; }
+    .aba .n { position: absolute; transform: translate(12px, -4px); }
+    .aba { position: relative; }
+    .numeros { grid-template-columns: 1fr 1fr; }
+    .duas { grid-template-columns: 1fr; }
+    .topo .quem { display: none; }
+    .tabela thead { display: none; }
+    .tabela, .tabela tbody, .tabela tr, .tabela td { display: block; width: 100%; }
+    .tabela tr { padding: 12px 16px; border-bottom: 1px solid var(--linha); display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; }
+    .tabela td { padding: 0; border: 0; }
+    .tabela td:nth-child(1) { grid-column: 1; }
+    .tabela td:nth-child(5) { grid-column: 2; grid-row: 1; text-align: right; }
+    .tabela td.oc { display: none; }
+  }
+  @media (max-width: 600px) {
+    .semana { grid-template-columns: repeat(7, 78%); }
+    .modal .corpo, .ajustes { grid-template-columns: 1fr; }
+    .linha-exp { grid-template-columns: 1fr; gap: 6px; }
+    .cab h1 { font-size: 1.3rem; }
+    .topo .btn-novo span { display: none; }
+    .busca { max-width: none; margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="faixa-demo" id="faixa-demo" hidden><b>Modo demonstração:</b> os dados ficam salvos só neste navegador. Ligue o Supabase em agenda.js para valer de verdade.</div>
+
+<section class="login" id="tela-login" hidden>
+  <form id="form-login">
+    <div class="logo"><img src="../img/logo.png" alt=""><div><h1 style="font-size:1.3rem">Painel JR</h1><small>Agenda e pedidos da JR Climatização</small></div></div>
+    <label class="campo">Email<input type="email" id="l-email" autocomplete="username" required></label>
+    <label class="campo">Senha<input type="password" id="l-senha" autocomplete="current-password" required></label>
+    <p class="erro" id="l-erro" role="alert"></p>
+    <button class="btn btn-azul" type="submit">Entrar</button>
+    <p class="dica" id="l-dica" hidden>Demonstração: use qualquer email com a senha <b>jr2026</b>.</p>
+    <a href="../" style="font-size:.84rem;color:var(--texto-2);text-align:center">← Voltar para o site</a>
+  </form>
+</section>
+
+<div id="app" hidden>
+  <header class="topo">
+    <div class="in">
+      <a class="marca" href="../" title="Abrir o site"><img src="../img/logo.png" alt=""><span><b>Painel JR</b><small>JR Climatização</small></span></a>
+      <nav class="abas" role="tablist" aria-label="Seções">
+        <button class="aba" role="tab" data-aba="agenda" aria-selected="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Agenda</button>
+        <button class="aba" role="tab" data-aba="pedidos" aria-selected="false"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Pedidos<span class="n" id="n-pend" hidden>0</span></button>
+        <button class="aba" role="tab" data-aba="bloqueios" aria-selected="false"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m5.7 5.7 12.6 12.6"/></svg>Bloqueios</button>
+        <button class="aba" role="tab" data-aba="expediente" aria-selected="false"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Expediente</button>
+      </nav>
+      <div class="dir">
+        <span class="quem" id="quem"></span>
+        <button class="btn btn-azul btn-peq btn-novo" id="novo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span>Novo agendamento</span></button>
+        <button class="btn btn-linha btn-peq" id="sair">Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- AGENDA -->
+    <section data-painel="agenda">
+      <div class="cab">
+        <div><h1>Agenda</h1><p>Clique num horário livre para marcar um cliente que veio pelo WhatsApp ou telefone.</p></div>
+        <div class="nav-semana"><button class="x" id="sem-ant" aria-label="Semana anterior">‹</button><b id="sem-rot"></b><button class="x" id="sem-prox" aria-label="Próxima semana">›</button><button class="btn btn-linha btn-peq" id="sem-hoje">Hoje</button></div>
+      </div>
+      <div class="numeros" id="numeros"></div>
+      <div class="legenda">
+        <span><i style="background:var(--pendente)"></i>Pendente (veio do site)</span>
+        <span><i style="background:var(--confirmado)"></i>Confirmado</span>
+        <span><i style="background:var(--concluido)"></i>Concluído</span>
+        <span><i style="background:repeating-linear-gradient(135deg,#fecdd3 0 3px,#fff 3px 6px)"></i>Bloqueado</span>
+      </div>
+      <div class="semana" id="semana"></div>
+    </section>
+
+    <!-- PEDIDOS -->
+    <section data-painel="pedidos" hidden>
+      <div class="cab"><div><h1>Pedidos e histórico</h1><p>Todos os agendamentos, do site e os marcados aqui.</p></div></div>
+      <div class="filtros" id="filtros-st"></div>
+      <div class="cartao"><table class="tabela"><thead><tr><th>Cliente</th><th>Serviço</th><th>Data</th><th>Origem</th><th>Status</th></tr></thead><tbody id="lista"></tbody></table></div>
+    </section>
+
+    <!-- BLOQUEIOS -->
+    <section data-painel="bloqueios" hidden>
+      <div class="cab"><div><h1>Bloqueios</h1><p>Dias ou horários em que a equipe não atende. O site não deixa marcar nesses horários.</p></div></div>
+      <div class="duas">
+        <form class="cartao caixa" id="form-bloq">
+          <h2>Bloquear</h2><p>Folga, feriado, compromisso ou serviço fechado fora do site.</p>
+          <div class="form-grade">
+            <div class="alterna" id="bloq-tipo"><button type="button" data-t="dia" aria-pressed="true">Dia inteiro</button><button type="button" data-t="hora" aria-pressed="false">Um horário</button></div>
+            <label class="campo">Data<input type="date" id="b-data" required></label>
+            <label class="campo" id="b-hora-l" hidden>Horário<select id="b-hora"></select></label>
+            <label class="campo">Motivo (opcional)<input id="b-motivo" placeholder="Ex.: equipe em treinamento"></label>
+            <button class="btn btn-azul" type="submit">Bloquear</button>
+          </div>
+        </form>
+        <div class="cartao caixa"><h2>Próximos bloqueios</h2><p>Remova quando a equipe voltar a atender.</p><div class="lista-bloq" id="lista-bloq"></div></div>
+      </div>
+    </section>
+
+    <!-- EXPEDIENTE -->
+    <section data-painel="expediente" hidden>
+      <div class="cab"><div><h1>Expediente</h1><p>Horários que aparecem para o cliente no site, em cada dia da semana.</p></div><button class="btn btn-azul" id="salvar-exp">Salvar expediente</button></div>
+      <div class="cartao caixa">
+        <div class="expediente" id="expediente"></div>
+        <div class="ajustes">
+          <label class="campo">Quantos dias à frente o site mostra<input type="number" id="cfg-dias" min="3" max="60"></label>
+          <label class="campo">Antecedência mínima (horas)<input type="number" id="cfg-antec" min="0" max="72"></label>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="modal" id="modal" aria-hidden="true">
+  <form class="janela" id="form-ag" role="dialog" aria-modal="true" aria-labelledby="m-tit">
+    <header><h3 id="m-tit">Agendamento</h3><button type="button" class="fechar" data-fechar aria-label="Fechar">×</button></header>
+    <div class="corpo">
+      <label class="campo toda">Cliente<input id="m-nome" required></label>
+      <label class="campo">WhatsApp / telefone<input id="m-tel" inputmode="tel" placeholder="11 99999-9999"></label>
+      <label class="campo">Serviço<select id="m-serv"></select></label>
+      <label class="campo">Data<input type="date" id="m-data" required></label>
+      <label class="campo">Horário<input type="time" id="m-hora" required step="900"></label>
+      <label class="campo">Aparelhos<input type="number" id="m-qtd" min="1" max="50" value="1"></label>
+      <label class="campo">Origem<select id="m-origem"><option value="whatsapp">WhatsApp / telefone</option><option value="manual">Presencial / indicação</option><option value="site">Site</option></select></label>
+      <label class="campo toda">Endereço<input id="m-end"></label>
+      <label class="campo toda">Observações<textarea id="m-obs" placeholder="Modelo do aparelho, andar, ponto de referência..."></textarea></label>
+      <div class="campo toda"><span>Status</span><div class="status-esc" id="m-status"></div></div>
+    </div>
+    <footer>
+      <button type="submit" class="btn btn-azul">Salvar</button>
+      <a class="btn btn-zap" id="m-zap" target="_blank" rel="noopener" hidden>WhatsApp do cliente</a>
+      <button type="button" class="btn btn-perigo esp" id="m-excluir" hidden>Excluir</button>
+    </footer>
+  </form>
+</div>
+<div class="aviso" id="aviso" role="status"></div>
+
+<script src="../agenda.js"></script>
+<script>
+const A = window.JRAgenda;
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const SEM = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+const SEM_LONGO = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+const MES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+const COR = { pendente: "var(--pendente)", confirmado: "var(--confirmado)", concluido: "var(--concluido)", cancelado: "var(--cancelado)" };
+const HORAS_BASE = ["07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00"];
+const fmtData = s => { const d = A.deIso(s); return `${SEM[d.getDay()]}, ${d.getDate()} ${MES[d.getMonth()]}`; };
+let avisoT;
+function avisar(t, erro) { const a = $("#aviso"); a.textContent = t; a.classList.toggle("erro", !!erro); a.classList.add("on"); clearTimeout(avisoT); avisoT = setTimeout(() => a.classList.remove("on"), 2600); }
+
+let dados = { ags: [], bloqs: [], cfg: A.CONFIG_PADRAO };
+let inicioSemana = segunda(A.iso(A.agora()));
+function segunda(s) { const d = A.deIso(s); const dif = (d.getDay() + 6) % 7; return A.somaDias(s, -dif); }
+
+$("#faixa-demo").hidden = A.modo !== "demo";
+$("#l-dica").hidden = A.modo !== "demo";
+
+/* ---------- login ---------- */
+async function inicia() {
+  let s = null;
+  try { s = await A.sessao(); } catch (e) { avisar(e.message, true); }
+  if (!s) { $("#tela-login").hidden = false; $("#app").hidden = true; $("#l-email").focus(); return; }
+  $("#tela-login").hidden = true; $("#app").hidden = false;
+  $("#quem").textContent = s.email;
+  await recarrega();
+}
+$("#form-login").addEventListener("submit", async e => {
+  e.preventDefault(); $("#l-erro").textContent = "";
+  try { await A.entrar($("#l-email").value.trim(), $("#l-senha").value); $("#l-senha").value = ""; inicia(); }
+  catch (err) { $("#l-erro").textContent = err.message; }
+});
+$("#sair").onclick = async () => { await A.sair(); inicia(); };
+
+async function recarrega() {
+  try {
+    const [ags, bloqs, cfg] = await Promise.all([A.listar(), A.bloqueios(), A.config()]);
+    dados = { ags: ags || [], bloqs: bloqs || [], cfg };
+  } catch (e) { avisar("Erro ao carregar: " + e.message, true); }
+  pinta();
+}
+function pinta() { pintaAgenda(); pintaLista(); pintaBloqueios(); pintaExpediente(); pintaNumeros(); }
+
+/* ---------- abas ---------- */
+$$(".aba").forEach(b => b.onclick = () => {
+  $$(".aba").forEach(x => x.setAttribute("aria-selected", x === b));
+  $$("[data-painel]").forEach(p => p.hidden = p.dataset.painel !== b.dataset.aba);
+  scrollTo(0, 0);
+});
+
+/* ---------- números ---------- */
+function pintaNumeros() {
+  const hoje = A.iso(A.agora()), fimSem = A.somaDias(segunda(hoje), 6);
+  const ativos = dados.ags.filter(a => a.status !== "cancelado");
+  const mes = hoje.slice(0, 7);
+  const n = [
+    ["Hoje", ativos.filter(a => a.data === hoje).length, "serviços marcados"],
+    ["Esta semana", ativos.filter(a => a.data >= hoje && a.data <= fimSem).length, "até domingo"],
+    ["Pendentes", dados.ags.filter(a => a.status === "pendente").length, "aguardando confirmar"],
+    ["Concluídos no mês", dados.ags.filter(a => a.status === "concluido" && a.data.startsWith(mes)).length, "serviços feitos"]
+  ];
+  $("#numeros").innerHTML = n.map(([t, v, s]) => `<div class="cartao numero"><small>${t}</small><b>${v}</b><span>${s}</span></div>`).join("");
+  const p = dados.ags.filter(a => a.status === "pendente").length;
+  $("#n-pend").hidden = !p; $("#n-pend").textContent = p;
+}
+
+/* ---------- agenda semanal ---------- */
+function pintaAgenda() {
+  const hoje = A.iso(A.agora());
+  const fim = A.somaDias(inicioSemana, 6);
+  const di = A.deIso(inicioSemana), df = A.deIso(fim);
+  $("#sem-rot").textContent = `${di.getDate()} ${MES[di.getMonth()]} – ${df.getDate()} ${MES[df.getMonth()]}`;
+  const agora = A.agora();
+  let html = "";
+  for (let i = 0; i < 7; i++) {
+    const data = A.somaDias(inicioSemana, i), d = A.deIso(data);
+    const ags = dados.ags.filter(a => a.data === data && a.status !== "cancelado");
+    const bloqDia = dados.bloqs.find(b => b.data === data && !b.hora);
+    const horas = [...new Set([...(dados.cfg.horarios[d.getDay()] || []), ...ags.map(a => a.hora)])].sort();
+    const passadoDia = data < hoje;
+    html += `<div class="dia ${data === hoje ? "hoje" : ""} ${!horas.length ? "fechado" : ""} ${bloqDia ? "bloqueado" : ""}">
+      <div class="dia-cab"><div><small>${SEM[d.getDay()]}</small><b>${d.getDate()} ${MES[d.getMonth()]}</b></div>${!passadoDia && horas.length ? (bloqDia ? `<button data-desbloq="${bloqDia.id}">Liberar dia</button>` : `<button data-bloqdia="${data}">Bloquear dia</button>`) : ""}</div>`;
+    if (bloqDia && !ags.length) html += `<div class="vazio-dia">Dia bloqueado${bloqDia.motivo ? `<br><small>${esc(bloqDia.motivo)}</small>` : ""}</div>`;
+    else if (!horas.length) html += `<div class="vazio-dia">Sem expediente</div>`;
+    else horas.forEach(h => {
+      const ag = ags.find(a => a.hora === h);
+      const bl = dados.bloqs.find(b => b.data === data && b.hora === h);
+      const [hh, mm] = h.split(":").map(Number); const q = A.deIso(data); q.setHours(hh, mm);
+      const passou = q < agora ? "passado" : "";
+      if (ag) html += `<button class="slot ag ${passou}" style="--c:${COR[ag.status]}" data-ag="${ag.id}"><span class="h">${h} · ${esc(ag.servico)}</span><b>${esc(ag.nome)}</b><span class="st">${A.STATUS[ag.status]}${ag.qtd > 1 ? ` · ${ag.qtd} aparelhos` : ""}</span></button>`;
+      else if (bl || bloqDia) html += `<button class="slot bloq ${passou}" ${bl ? `data-desbloq="${bl.id}"` : ""} title="Clique para liberar"><span class="h">${h}</span>Bloqueado${bl && bl.motivo ? ` · ${esc(bl.motivo)}` : ""}</button>`;
+      else if (passou) html += `<div class="slot passado"><span class="h">${h}</span>Livre</div>`;
+      else html += `<button class="slot livre" data-livre="${data}|${h}"><span class="h">${h}</span>Livre<span class="mais">+ marcar cliente</span></button>`;
+    });
+    html += `</div>`;
+  }
+  $("#semana").innerHTML = html;
+  const h = $("#semana .dia.hoje");
+  const sem = $("#semana");
+  sem.scrollLeft = 0;
+  if (h && sem.scrollWidth > sem.clientWidth) sem.scrollLeft = h.getBoundingClientRect().left - sem.getBoundingClientRect().left - 2;
+}
+$("#sem-ant").onclick = () => { inicioSemana = A.somaDias(inicioSemana, -7); pintaAgenda(); };
+$("#sem-prox").onclick = () => { inicioSemana = A.somaDias(inicioSemana, 7); pintaAgenda(); };
+$("#sem-hoje").onclick = () => { inicioSemana = segunda(A.iso(A.agora())); pintaAgenda(); };
+$("#semana").addEventListener("click", async e => {
+  const ag = e.target.closest("[data-ag]"), livre = e.target.closest("[data-livre]"), bd = e.target.closest("[data-bloqdia]"), db = e.target.closest("[data-desbloq]");
+  if (ag) abreModal(dados.ags.find(a => a.id === ag.dataset.ag));
+  else if (livre) { const [data, hora] = livre.dataset.livre.split("|"); abreModal(null, { data, hora }); }
+  else if (bd) { await acao(() => A.bloquear({ data: bd.dataset.bloqdia, hora: null, motivo: "" }), "Dia bloqueado"); }
+  else if (db) { await acao(() => A.desbloquear(db.dataset.desbloq), "Liberado"); }
+});
+async function acao(fn, ok) { try { await fn(); avisar(ok); await recarrega(); } catch (e) { avisar(e.message, true); } }
+
+/* ---------- lista / histórico ---------- */
+let filtroSt = "todos", termo = "";
+$("#filtros-st").innerHTML = [["todos", "Todos"], ["proximos", "Próximos"], ...Object.entries(A.STATUS)].map(([v, t]) => `<button class="chip" data-st="${v}" aria-pressed="${v === filtroSt}">${t}</button>`).join("") + `<input class="busca" id="busca" type="search" placeholder="Buscar cliente, telefone ou endereço">`;
+$("#filtros-st").addEventListener("click", e => { const b = e.target.closest("[data-st]"); if (!b) return; filtroSt = b.dataset.st; $$("#filtros-st .chip").forEach(x => x.setAttribute("aria-pressed", x === b)); pintaLista(); });
+$("#busca").addEventListener("input", e => { termo = e.target.value.toLowerCase(); pintaLista(); });
+function pintaLista() {
+  const hoje = A.iso(A.agora());
+  let l = dados.ags.slice();
+  if (filtroSt === "proximos") l = l.filter(a => a.data >= hoje && a.status !== "cancelado").sort((a, b) => (a.data + a.hora).localeCompare(b.data + b.hora));
+  else { if (filtroSt !== "todos") l = l.filter(a => a.status === filtroSt); l.sort((a, b) => (b.data + b.hora).localeCompare(a.data + a.hora)); }
+  if (termo) l = l.filter(a => [a.nome, a.telefone, a.endereco, a.servico].join(" ").toLowerCase().includes(termo));
+  const ORIG = { site: "Site", manual: "Presencial", whatsapp: "WhatsApp" };
+  $("#lista").innerHTML = l.length ? l.map(a => `<tr data-ag="${a.id}">
+    <td><b>${esc(a.nome)}</b><small>${esc(a.telefone || "")}</small></td>
+    <td>${esc(a.servico)}<small>${a.qtd} aparelho${a.qtd > 1 ? "s" : ""}</small></td>
+    <td>${fmtData(a.data)}<small>às ${a.hora}</small></td>
+    <td class="oc"><span class="origem">${ORIG[a.origem] || a.origem}</span></td>
+    <td><span class="selo" style="--c:${COR[a.status]}">${A.STATUS[a.status]}</span></td></tr>`).join("")
+    : `<tr><td colspan="5" class="vazio">Nenhum agendamento encontrado.</td></tr>`;
+}
+$("#lista").addEventListener("click", e => { const r = e.target.closest("[data-ag]"); if (r) abreModal(dados.ags.find(a => a.id === r.dataset.ag)); });
+
+/* ---------- bloqueios ---------- */
+let tipoBloq = "dia";
+$("#b-data").min = A.iso(A.agora());
+$("#bloq-tipo").onclick = e => { const b = e.target.closest("button"); if (!b) return; tipoBloq = b.dataset.t; $$("#bloq-tipo button").forEach(x => x.setAttribute("aria-pressed", x === b)); $("#b-hora-l").hidden = tipoBloq !== "hora"; opcoesHoraBloq(); };
+$("#b-data").onchange = opcoesHoraBloq;
+function opcoesHoraBloq() {
+  const v = $("#b-data").value; const hs = v ? (dados.cfg.horarios[A.deIso(v).getDay()] || []) : [];
+  $("#b-hora").innerHTML = hs.length ? hs.map(h => `<option>${h}</option>`).join("") : `<option value="">Sem expediente nesse dia</option>`;
+}
+$("#form-bloq").addEventListener("submit", async e => {
+  e.preventDefault();
+  const data = $("#b-data").value, hora = tipoBloq === "hora" ? $("#b-hora").value : null;
+  if (tipoBloq === "hora" && !hora) { avisar("Escolha um horário", true); return; }
+  if (dados.bloqs.some(b => b.data === data && (b.hora || null) === hora)) { avisar("Isso já está bloqueado", true); return; }
+  await acao(() => A.bloquear({ data, hora, motivo: $("#b-motivo").value.trim() }), "Bloqueado");
+  $("#b-motivo").value = "";
+});
+function pintaBloqueios() {
+  const hoje = A.iso(A.agora());
+  const l = dados.bloqs.filter(b => b.data >= hoje).sort((a, b) => (a.data + (a.hora || "")).localeCompare(b.data + (b.hora || "")));
+  $("#lista-bloq").innerHTML = l.length ? l.map(b => `<div class="item-bloq"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="m5.7 5.7 12.6 12.6"/></svg></span><div><b>${fmtData(b.data)}${b.hora ? ` às ${b.hora}` : " · dia inteiro"}</b><small>${esc(b.motivo || "Sem motivo")}</small></div><button class="btn btn-linha btn-peq" data-desbloq="${b.id}">Liberar</button></div>`).join("")
+    : `<p class="vazio" style="padding:20px">Nenhum bloqueio marcado.</p>`;
+}
+$("#lista-bloq").addEventListener("click", e => { const b = e.target.closest("[data-desbloq]"); if (b) acao(() => A.desbloquear(b.dataset.desbloq), "Liberado"); });
+
+/* ---------- expediente ---------- */
+let rascunhoExp = null;
+function pintaExpediente() {
+  rascunhoExp = JSON.parse(JSON.stringify(dados.cfg.horarios));
+  const ordem = [1, 2, 3, 4, 5, 6, 0];
+  $("#expediente").innerHTML = ordem.map(d => `<div class="linha-exp"><b>${SEM_LONGO[d]}</b><div class="horas-exp">${HORAS_BASE.map(h => `<button type="button" class="h-exp" data-d="${d}" data-h="${h}" aria-pressed="${(rascunhoExp[d] || []).includes(h)}">${h}</button>`).join("")}</div></div>`).join("");
+  $("#cfg-dias").value = dados.cfg.diasAgenda; $("#cfg-antec").value = dados.cfg.antecedenciaHoras;
+}
+$("#expediente").addEventListener("click", e => {
+  const b = e.target.closest(".h-exp"); if (!b) return;
+  const d = b.dataset.d, h = b.dataset.h, l = rascunhoExp[d] = rascunhoExp[d] || [];
+  const i = l.indexOf(h); i >= 0 ? l.splice(i, 1) : l.push(h); l.sort();
+  b.setAttribute("aria-pressed", i < 0);
+});
+$("#salvar-exp").onclick = () => acao(() => A.salvarConfig({ horarios: rascunhoExp, diasAgenda: Math.max(3, Math.min(60, +$("#cfg-dias").value || 14)), antecedenciaHoras: Math.max(0, Math.min(72, +$("#cfg-antec").value || 0)) }), "Expediente salvo");
+
+/* ---------- modal de agendamento ---------- */
+$("#m-serv").innerHTML = A.SERVICOS.map(s => `<option>${s}</option>`).join("");
+let editando = null, statusSel = "confirmado";
+function pintaStatus() { $("#m-status").innerHTML = Object.entries(A.STATUS).map(([k, t]) => `<button type="button" data-s="${k}" style="--c:${COR[k]}" aria-pressed="${k === statusSel}">${t}</button>`).join(""); }
+$("#m-status").onclick = e => { const b = e.target.closest("[data-s]"); if (b) { statusSel = b.dataset.s; pintaStatus(); } };
+function abreModal(ag, pre = {}) {
+  editando = ag || null;
+  const a = ag || { nome: "", telefone: "", servico: A.SERVICOS[0], data: pre.data || A.iso(A.agora()), hora: pre.hora || "08:00", qtd: 1, origem: "whatsapp", endereco: "", obs: "", status: "confirmado" };
+  $("#m-tit").textContent = ag ? "Agendamento" : "Novo agendamento";
+  $("#m-nome").value = a.nome; $("#m-tel").value = a.telefone || ""; $("#m-serv").value = A.SERVICOS.includes(a.servico) ? a.servico : A.SERVICOS[0];
+  $("#m-data").value = a.data; $("#m-hora").value = a.hora; $("#m-qtd").value = a.qtd || 1; $("#m-origem").value = a.origem || "whatsapp";
+  $("#m-end").value = a.endereco || ""; $("#m-obs").value = a.obs || "";
+  statusSel = a.status; pintaStatus();
+  const fone = (a.telefone || "").replace(/\D/g, "");
+  $("#m-zap").hidden = !(ag && fone.length >= 10);
+  if (ag && fone) $("#m-zap").href = `https://wa.me/55${fone.replace(/^55(?=\d{10,11}$)/, "")}?text=${encodeURIComponent(`Olá, ${a.nome.split(" ")[0]}! Aqui é da JR Climatização. Confirmando a sua ${a.servico.toLowerCase()} em ${fmtData(a.data)} às ${a.hora}.`)}`;
+  $("#m-excluir").hidden = !ag;
+  $("#modal").classList.add("on"); $("#modal").setAttribute("aria-hidden", "false");
+  setTimeout(() => $("#m-nome").focus(), 50);
+}
+function fechaModal() { $("#modal").classList.remove("on"); $("#modal").setAttribute("aria-hidden", "true"); }
+$$("[data-fechar]").forEach(b => b.onclick = fechaModal);
+$("#modal").addEventListener("click", e => { if (e.target.id === "modal") fechaModal(); });
+addEventListener("keydown", e => { if (e.key === "Escape") fechaModal(); });
+$("#novo").onclick = () => abreModal(null);
+$("#form-ag").addEventListener("submit", async e => {
+  e.preventDefault();
+  const ag = { nome: $("#m-nome").value.trim(), telefone: $("#m-tel").value.trim(), servico: $("#m-serv").value, data: $("#m-data").value, hora: $("#m-hora").value, qtd: Math.max(1, +$("#m-qtd").value || 1), origem: $("#m-origem").value, endereco: $("#m-end").value.trim(), obs: $("#m-obs").value.trim(), status: statusSel };
+  if (editando) ag.id = editando.id;
+  if (statusSel !== "cancelado" && dados.bloqs.some(b => b.data === ag.data && (!b.hora || b.hora === ag.hora))) {
+    if (!confirm("Esse horário está bloqueado. Marcar mesmo assim?")) return;
+  }
+  try { await A.salvar(ag); fechaModal(); avisar(editando ? "Agendamento atualizado" : "Agendamento criado"); await recarrega(); }
+  catch (err) { avisar(err.message, true); }
+});
+$("#m-excluir").onclick = async () => {
+  if (!editando || !confirm(`Excluir o agendamento de ${editando.nome}? Para manter no histórico, use o status Cancelado.`)) return;
+  try { await A.excluir(editando.id); fechaModal(); avisar("Excluído"); await recarrega(); } catch (err) { avisar(err.message, true); }
+};
+
+inicia();
+</script>
+</body>
+</html>
