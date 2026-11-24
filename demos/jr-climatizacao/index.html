@@ -1,0 +1,1042 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<!--
+  SITE DA JR CLIMATIZAÇÃO (instalação, higienização e manutenção de ar-condicionado split) · proposta da SA Studio
+  Para editar:
+    1. WhatsApp, telefone, endereço, horário, avaliações, sintomas e fotos da galeria ficam no objeto JR
+       no começo do <script>.
+    2. Fotos em img/ (tiradas do Instagram @jrcliimatizacao). Para trocar, mantenha o mesmo nome do arquivo.
+    3. Cores em :root (azul e branco, os mesmos da logo e das artes do Instagram).
+  O ar-condicionado e o controle remoto do topo são desenhados pelo próprio código, sem arte externa.
+-->
+<title>JR Climatização · Instalação, Higienização e Manutenção de Ar-Condicionado Split</title>
+<meta name="description" content="JR Climatização: instalação de ar-condicionado split, higienização e manutenção. Nota 4,9 no Google com 63 avaliações. Ótimo preço, instalação rápida e acabamento perfeito. Peça seu orçamento pelo WhatsApp.">
+<meta name="theme-color" content="#0b3a8c">
+<link rel="icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --marinho: #0a2463;
+    --marinho-2: #0b3a8c;
+    --azul: #1565d8;
+    --azul-2: #2a8ff0;
+    --celeste: #6cc1ff;
+    --gelo: #eef6ff;
+    --gelo-2: #dcecff;
+    --branco: #ffffff;
+    --texto: #0f1b33;
+    --texto-2: #50607a;
+    --linha: rgba(10, 36, 99, .1);
+    --quente: #ff8a3d;
+    --zap: #25d366;
+    --titulo: "Poppins", system-ui, sans-serif;
+    --fonte: "Inter", system-ui, sans-serif;
+    --mola: cubic-bezier(.34, 1.56, .64, 1);
+    --suave: cubic-bezier(.22, 1, .36, 1);
+    --sombra: 0 24px 60px -28px rgba(10, 36, 99, .35);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; overflow-x: hidden; scroll-padding-top: 84px; }
+  body { font-family: var(--fonte); color: var(--texto); background: var(--branco); line-height: 1.65; overflow-x: clip; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  button, input, select { font: inherit; color: inherit; }
+  button { cursor: pointer; background: none; border: 0; }
+  img, svg { display: block; }
+  .embrulho { width: min(1200px, 100% - 32px); margin: 0 auto; }
+  ::selection { background: var(--azul); color: #fff; }
+  :focus-visible { outline: 2px solid var(--azul); outline-offset: 3px; }
+
+  h1, h2, h3 { font-family: var(--titulo); font-weight: 800; line-height: 1.08; letter-spacing: -.02em; color: var(--marinho); }
+  h2 { font-size: clamp(2rem, 4.4vw, 3.3rem); }
+  h2 em, h1 em { font-style: normal; color: var(--azul); }
+  .azul-cheio h2, .azul-cheio h3 { color: #fff; }
+  .azul-cheio h2 em { color: var(--celeste); }
+  .olho { display: inline-flex; align-items: center; gap: 10px; font-family: var(--titulo); font-size: .74rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--azul); margin-bottom: 16px; }
+  .olho svg { width: 16px; height: 16px; }
+  .azul-cheio .olho { color: var(--celeste); }
+  .lead { font-size: clamp(1rem, 1.3vw, 1.12rem); color: var(--texto-2); max-width: 56ch; }
+  .azul-cheio .lead { color: #c9dcff; }
+  .secao { padding: clamp(76px, 10vw, 128px) 0; position: relative; }
+  .cabeca { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: clamp(36px, 5vw, 56px); }
+  .cabeca .lead { max-width: 44ch; }
+
+  .btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 26px; border-radius: 14px; font-family: var(--titulo); font-weight: 600; font-size: .95rem; white-space: nowrap; transition: transform .35s var(--mola), background .25s, color .25s, box-shadow .3s; }
+  .btn svg { width: 20px; height: 20px; flex: none; }
+  .btn::after { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, .32) 50%, transparent 65%); transform: translateX(-120%); transition: transform .8s var(--suave); }
+  .btn:hover::after { transform: translateX(120%); }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: scale(.97); }
+  .btn-azul { background: var(--azul); color: #fff; box-shadow: 0 16px 30px -14px rgba(21, 101, 216, .7); }
+  .btn-azul:hover { background: var(--marinho-2); }
+  .btn-zap { background: var(--zap); color: #fff; box-shadow: 0 16px 30px -14px rgba(37, 211, 102, .7); }
+  .btn-zap:hover { background: #1fb956; }
+  .btn-linha { box-shadow: inset 0 0 0 1.5px var(--gelo-2); color: var(--marinho); background: #fff; }
+  .btn-linha:hover { box-shadow: inset 0 0 0 1.5px var(--azul); }
+  .btn-branco { background: #fff; color: var(--marinho); }
+
+  .demo { background: var(--marinho); color: #c9dcff; text-align: center; font-size: .76rem; padding: 8px 16px; }
+  .demo a { color: #fff; text-decoration: underline; text-underline-offset: 3px; font-weight: 600; }
+
+  /* topo */
+  .topo { position: sticky; top: 0; z-index: 50; background: rgba(255, 255, 255, .86); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid transparent; transition: border-color .3s, box-shadow .3s; }
+  .topo.rolou { border-color: var(--linha); box-shadow: 0 10px 30px -24px rgba(10, 36, 99, .5); }
+  .topo .embrulho { display: flex; align-items: center; gap: 28px; min-height: 74px; }
+  .marca { display: flex; align-items: center; gap: 12px; flex: none; }
+  .marca img { width: 46px; height: 46px; border-radius: 50%; box-shadow: 0 6px 16px -8px rgba(10, 36, 99, .6); }
+  .marca b { display: block; font-family: var(--titulo); font-weight: 800; font-size: 1.05rem; color: var(--marinho); line-height: 1.1; letter-spacing: -.01em; }
+  .marca small { display: block; font-size: .72rem; color: var(--texto-2); letter-spacing: .04em; }
+  .menu { display: flex; gap: 26px; margin-left: auto; font-size: .92rem; font-weight: 500; color: var(--texto-2); }
+  .menu a { position: relative; padding: 6px 0; transition: color .2s; }
+  .menu a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; border-radius: 2px; background: var(--azul); transform: scaleX(0); transition: transform .3s var(--suave); }
+  .menu a:hover { color: var(--marinho); }
+  .menu a:hover::after { transform: scaleX(1); }
+  .topo .btn { min-height: 44px; padding: 0 20px; font-size: .88rem; }
+  .sanduiche { display: none; width: 44px; height: 44px; border-radius: 12px; background: var(--gelo); position: relative; }
+  .sanduiche span, .sanduiche span::before, .sanduiche span::after { position: absolute; left: 12px; width: 20px; height: 2px; border-radius: 2px; background: var(--marinho); transition: transform .3s, opacity .2s; }
+  .sanduiche span { top: 21px; }
+  .sanduiche span::before { content: ""; left: 0; top: -6px; }
+  .sanduiche span::after { content: ""; left: 0; top: 6px; }
+  .sanduiche[aria-expanded="true"] span { background: transparent; }
+  .sanduiche[aria-expanded="true"] span::before { transform: translateY(6px) rotate(45deg); }
+  .sanduiche[aria-expanded="true"] span::after { transform: translateY(-6px) rotate(-45deg); }
+
+  /* hero */
+  .hero { position: relative; overflow: hidden; padding: clamp(44px, 7vw, 92px) 0 clamp(56px, 8vw, 104px); background: linear-gradient(180deg, var(--ambiente, #fff4ea) 0%, #fff 78%); transition: background 1.2s; }
+  .hero .embrulho { display: grid; grid-template-columns: 1.02fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .selo-google { display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px 8px 10px; border-radius: 99px; background: #fff; box-shadow: 0 8px 24px -14px rgba(10, 36, 99, .45); font-size: .84rem; color: var(--texto-2); margin-bottom: 22px; }
+  .selo-google svg { width: 20px; height: 20px; }
+  .selo-google b { color: var(--marinho); font-size: .95rem; }
+  .estrelas { color: #f5b301; letter-spacing: 1px; }
+  .hero h1 { font-size: clamp(2.3rem, 5.2vw, 4.1rem); margin-bottom: 20px; }
+  .hero h1 .giro { display: inline-block; color: var(--azul); min-width: 6ch; }
+  .hero .lead { margin-bottom: 30px; }
+  .hero .acoes { display: flex; gap: 12px; flex-wrap: wrap; }
+  .garantias { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 30px; font-size: .88rem; color: var(--texto-2); }
+  .garantias span { display: inline-flex; align-items: center; gap: 8px; }
+  .garantias svg { width: 18px; height: 18px; color: var(--azul); flex: none; }
+
+  /* cena do ar-condicionado */
+  .cena { position: relative; aspect-ratio: 1 / .92; border-radius: 28px; background: linear-gradient(160deg, #fff 0%, var(--parede, #fff1e3) 100%); box-shadow: var(--sombra), inset 0 0 0 1px rgba(255, 255, 255, .8); transition: background 1.2s; isolation: isolate; overflow: hidden; }
+  .cena::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 22%; background: linear-gradient(180deg, rgba(10, 36, 99, .04), rgba(10, 36, 99, .08)); }
+  .split { position: absolute; left: 8%; right: 8%; top: 12%; height: 23%; border-radius: 18px 18px 26px 26px; background: linear-gradient(180deg, #ffffff 0%, #f3f6fb 70%, #e4eaf3 100%); box-shadow: 0 22px 40px -22px rgba(10, 36, 99, .55), inset 0 -2px 0 rgba(10, 36, 99, .06); z-index: 2; }
+  .split::before { content: ""; position: absolute; left: 6%; right: 6%; bottom: 14%; height: 18%; border-radius: 0 0 14px 14px; background: linear-gradient(180deg, #d6dde8, #eef2f7); }
+  .aleta { position: absolute; left: 6%; right: 6%; bottom: 10%; height: 9%; border-radius: 0 0 12px 12px; background: #f7f9fc; box-shadow: 0 2px 0 rgba(10, 36, 99, .08); transform-origin: top center; transform: rotateX(0deg); transition: transform 1s var(--suave); }
+  .ligado .aleta { transform: rotateX(-55deg) translateY(4px); }
+  .split .logo-split { position: absolute; left: 7%; top: 22%; display: flex; align-items: center; gap: 6px; font-family: var(--titulo); font-weight: 800; font-size: clamp(.6rem, 1.2vw, .8rem); color: var(--marinho-2); letter-spacing: .02em; }
+  .split .logo-split img { width: 22px; height: 22px; border-radius: 50%; }
+  .visor { position: absolute; right: 8%; top: 18%; min-width: 74px; padding: 4px 10px; border-radius: 8px; background: #0b1730; color: #78c7ff; font-family: "Courier New", monospace; font-weight: 700; font-size: clamp(1rem, 2vw, 1.35rem); text-align: center; letter-spacing: .05em; text-shadow: 0 0 8px rgba(120, 199, 255, .8); opacity: .25; transition: opacity .4s; }
+  .ligado .visor { opacity: 1; }
+  .led { position: absolute; right: 4%; top: 26%; width: 7px; height: 7px; border-radius: 50%; background: #c7ced9; transition: background .3s, box-shadow .3s; }
+  .ligado .led { background: #34e07f; box-shadow: 0 0 8px #34e07f; }
+  .vento { position: absolute; left: 10%; right: 10%; top: 33%; height: 44%; z-index: 1; opacity: 0; transition: opacity .8s; }
+  .ligado .vento { opacity: 1; }
+  .vento path { fill: none; stroke: var(--celeste); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 14 22; opacity: .65; animation: sopra 1.6s linear infinite; }
+  .vento path:nth-child(2) { animation-duration: 2s; opacity: .45; }
+  .vento path:nth-child(3) { animation-duration: 1.8s; opacity: .55; }
+  .vento path:nth-child(4) { animation-duration: 2.3s; opacity: .35; }
+  @keyframes sopra { to { stroke-dashoffset: -72; } }
+  .flocos { position: absolute; inset: 34% 8% 18%; z-index: 1; pointer-events: none; }
+  .flocos i { position: absolute; top: 0; color: var(--azul-2); font-style: normal; font-size: 14px; opacity: 0; animation: cai 3.4s linear infinite; }
+  .ligado .flocos i { animation-play-state: running; }
+  @keyframes cai { 0% { transform: translateY(0) rotate(0); opacity: 0; } 15% { opacity: .9; } 100% { transform: translateY(170px) rotate(180deg); opacity: 0; } }
+  .cena:not(.ligado) .flocos i { animation-play-state: paused; opacity: 0; }
+
+  .termo { position: absolute; left: 6%; bottom: 7%; z-index: 3; display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 16px; background: rgba(255, 255, 255, .92); box-shadow: 0 14px 30px -18px rgba(10, 36, 99, .5); }
+  .termo .bulbo { width: 12px; height: 46px; border-radius: 99px; background: #e8edf5; position: relative; overflow: hidden; }
+  .termo .bulbo i { position: absolute; left: 0; right: 0; bottom: 0; height: var(--nivel, 80%); background: var(--cor-termo, var(--quente)); border-radius: 99px; transition: height .5s, background .5s; }
+  .termo small { display: block; font-size: .68rem; text-transform: uppercase; letter-spacing: .12em; color: var(--texto-2); }
+  .termo b { font-family: var(--titulo); font-size: 1.6rem; color: var(--marinho); line-height: 1; }
+  .termo .sensacao { display: block; font-size: .76rem; font-weight: 600; color: var(--cor-termo, var(--quente)); margin-top: 3px; }
+
+  .controle { position: absolute; right: 7%; bottom: 6%; z-index: 3; width: 118px; padding: 14px 12px 16px; border-radius: 26px 26px 34px 34px; background: linear-gradient(180deg, #ffffff, #eef2f8); box-shadow: 0 24px 40px -18px rgba(10, 36, 99, .6), inset 0 0 0 1px rgba(10, 36, 99, .06); transform: rotate(-8deg); transition: transform .4s var(--mola); }
+  .controle:hover { transform: rotate(-4deg) translateY(-4px); }
+  .controle .tela { border-radius: 10px; background: #cfe3f6; color: #0b2a5c; font-family: "Courier New", monospace; font-weight: 700; text-align: center; padding: 6px 4px; font-size: 1.15rem; margin-bottom: 12px; box-shadow: inset 0 2px 4px rgba(10, 36, 99, .2); }
+  .controle .tela small { display: block; font-family: var(--fonte); font-size: .55rem; letter-spacing: .1em; font-weight: 600; }
+  .controle .linha-bt { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+  .controle button { flex: 1; height: 34px; border-radius: 10px; background: #fff; box-shadow: 0 3px 0 #d5dde9, inset 0 0 0 1px #e3e9f2; font-weight: 700; font-size: 1.1rem; color: var(--marinho); transition: transform .1s, box-shadow .1s; }
+  .controle button:active { transform: translateY(3px); box-shadow: 0 0 0 #d5dde9, inset 0 0 0 1px #e3e9f2; }
+  .controle .power { width: 100%; background: var(--azul); color: #fff; box-shadow: 0 3px 0 var(--marinho-2); font-size: .72rem; letter-spacing: .1em; }
+  .controle .power svg { width: 16px; height: 16px; margin: 0 auto; }
+  .dica-controle { position: absolute; right: 6%; bottom: calc(6% + 214px); z-index: 3; font-size: .74rem; font-weight: 600; color: var(--marinho-2); background: #fff; padding: 6px 12px; border-radius: 99px; box-shadow: 0 8px 20px -12px rgba(10, 36, 99, .5); animation: flutua 2.4s ease-in-out infinite; }
+  @keyframes flutua { 50% { transform: translateY(-5px); } }
+
+  /* faixa de marcas */
+  .faixa { background: var(--marinho); color: #fff; overflow: hidden; padding: 18px 0; }
+  .faixa .trilho { display: flex; gap: 44px; width: max-content; animation: corre 38s linear infinite; font-family: var(--titulo); font-weight: 600; font-size: 1rem; white-space: nowrap; }
+  .faixa .trilho span { display: inline-flex; align-items: center; gap: 44px; }
+  .faixa .trilho span::after { content: "❄"; color: var(--celeste); font-size: .9rem; }
+  @keyframes corre { to { transform: translateX(-50%); } }
+
+  /* serviços */
+  .servicos { background: #fff; }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .card { position: relative; display: flex; flex-direction: column; border-radius: 24px; background: #fff; border: 1px solid var(--linha); overflow: hidden; transition: transform .45s var(--mola), box-shadow .4s, border-color .3s; }
+  .card:hover { transform: translateY(-6px); box-shadow: var(--sombra); border-color: transparent; }
+  .card .foto { aspect-ratio: 4 / 3; overflow: hidden; background: var(--gelo); position: relative; }
+  .card .foto img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--suave); }
+  .card:hover .foto img { transform: scale(1.06); }
+  .card .foto .num { position: absolute; left: 16px; top: 16px; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: #fff; color: var(--azul); box-shadow: 0 10px 20px -10px rgba(10, 36, 99, .5); }
+  .card .foto .num svg { width: 26px; height: 26px; }
+  .card .corpo { padding: 24px 24px 26px; display: flex; flex-direction: column; flex: 1; }
+  .card h3 { font-size: 1.35rem; margin-bottom: 8px; }
+  .card p { color: var(--texto-2); font-size: .95rem; margin-bottom: 16px; }
+  .card ul { list-style: none; display: grid; gap: 8px; margin-bottom: 22px; font-size: .9rem; }
+  .card li { display: flex; gap: 10px; align-items: flex-start; }
+  .card li::before { content: ""; flex: none; width: 18px; height: 18px; margin-top: 2px; border-radius: 50%; background: var(--gelo) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231565d8' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center / 12px no-repeat; }
+  .card .btn { margin-top: auto; align-self: flex-start; min-height: 46px; padding: 0 20px; font-size: .88rem; }
+
+  /* calculadora */
+  .calc { background: var(--gelo); overflow: hidden; }
+  .calc::before { content: ""; position: absolute; width: 560px; height: 560px; right: -180px; top: -180px; border-radius: 50%; background: radial-gradient(circle, rgba(42, 143, 240, .18), transparent 70%); }
+  .calc .grade { display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; align-items: stretch; position: relative; }
+  .painel { background: #fff; border-radius: 26px; padding: clamp(24px, 3.4vw, 40px); box-shadow: var(--sombra); }
+  .campo { margin-bottom: 26px; }
+  .campo:last-child { margin-bottom: 0; }
+  .campo > label, .campo > .rot { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-weight: 600; color: var(--marinho); margin-bottom: 12px; font-size: .95rem; }
+  .campo output { font-family: var(--titulo); font-weight: 700; color: var(--azul); font-size: 1.1rem; }
+  input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; border-radius: 99px; background: linear-gradient(90deg, var(--azul) var(--p, 30%), var(--gelo-2) var(--p, 30%)); outline: none; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; border-radius: 50%; background: #fff; border: 3px solid var(--azul); box-shadow: 0 6px 14px -6px rgba(10, 36, 99, .6); cursor: grab; transition: transform .2s var(--mola); }
+  input[type="range"]::-webkit-slider-thumb:active { transform: scale(1.15); cursor: grabbing; }
+  input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 3px solid var(--azul); cursor: grab; }
+  .opcoes { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
+  .opcao { position: relative; }
+  .opcao input { position: absolute; opacity: 0; pointer-events: none; }
+  .opcao span { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 14px; border: 1.5px solid var(--gelo-2); font-size: .9rem; font-weight: 500; cursor: pointer; transition: border-color .2s, background .2s, transform .3s var(--mola); }
+  .opcao span:hover { border-color: var(--celeste); }
+  .opcao span i { font-style: normal; font-size: 1.15rem; }
+  .opcao input:checked + span { border-color: var(--azul); background: var(--gelo); color: var(--marinho); transform: scale(1.02); }
+  .opcao input:focus-visible + span { outline: 2px solid var(--azul); outline-offset: 2px; }
+  .contador { display: flex; align-items: center; gap: 10px; }
+  .contador button { width: 40px; height: 40px; border-radius: 12px; background: var(--gelo); color: var(--marinho); font-size: 1.25rem; font-weight: 700; transition: background .2s, transform .2s var(--mola); }
+  .contador button:hover { background: var(--gelo-2); }
+  .contador button:active { transform: scale(.9); }
+  .contador output { min-width: 32px; text-align: center; }
+  .dupla { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .dupla .rot { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; font-weight: 600; color: var(--marinho); margin-bottom: 12px; font-size: .95rem; }
+  .dupla .rot small { font-weight: 400; color: var(--texto-2); font-size: .8rem; }
+
+  .resultado { position: relative; border-radius: 26px; padding: clamp(26px, 3.4vw, 40px); background: linear-gradient(160deg, var(--marinho-2), var(--marinho)); color: #fff; display: flex; flex-direction: column; overflow: hidden; }
+  .resultado::after { content: "❄"; position: absolute; right: -30px; bottom: -70px; font-size: 260px; line-height: 1; color: rgba(255, 255, 255, .05); pointer-events: none; }
+  .resultado small { font-size: .76rem; text-transform: uppercase; letter-spacing: .16em; color: var(--celeste); font-weight: 600; }
+  .resultado .btus { font-family: var(--titulo); font-weight: 800; font-size: clamp(3rem, 6vw, 4.6rem); line-height: 1; margin: 10px 0 4px; letter-spacing: -.03em; }
+  .resultado .btus b { font-weight: 800; }
+  .resultado .btus span { font-size: .38em; font-weight: 600; color: #c9dcff; margin-left: 6px; letter-spacing: 0; }
+  .resultado .calculo { font-size: .86rem; color: #a9c3ee; margin-bottom: 22px; }
+  .modelos { display: flex; align-items: flex-end; gap: 6px; height: 92px; margin-bottom: 10px; }
+  .modelos div { flex: 1; border-radius: 8px 8px 4px 4px; background: rgba(255, 255, 255, .12); height: var(--h); transition: background .4s, transform .4s var(--mola); transform-origin: bottom; }
+  .modelos div.sim { background: linear-gradient(180deg, var(--celeste), var(--azul-2)); transform: scaleY(1.04); box-shadow: 0 0 24px rgba(108, 193, 255, .5); }
+  .modelos-rot { display: flex; gap: 6px; font-size: .66rem; color: #a9c3ee; margin-bottom: 22px; }
+  .modelos-rot span { flex: 1; text-align: center; }
+  .modelos-rot span.sim { color: #fff; font-weight: 700; }
+  .resultado p { font-size: .92rem; color: #d7e5ff; margin-bottom: 22px; }
+  .resultado .btn { margin-top: auto; }
+  .resultado .aviso { font-size: .74rem; color: #8fa9d6; margin: 12px 0 0; }
+
+  /* sintomas */
+  .sintomas .grade { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip { display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: 99px; border: 1.5px solid var(--gelo-2); background: #fff; font-weight: 500; font-size: .93rem; transition: border-color .2s, background .2s, color .2s, transform .35s var(--mola); }
+  .chip i { font-style: normal; }
+  .chip:hover { border-color: var(--celeste); transform: translateY(-2px); }
+  .chip[aria-pressed="true"] { background: var(--azul); border-color: var(--azul); color: #fff; }
+  .receita { border-radius: 24px; background: var(--gelo); padding: clamp(24px, 3vw, 34px); display: flex; flex-direction: column; }
+  .receita h3 { font-size: 1.3rem; margin-bottom: 6px; }
+  .receita > p { color: var(--texto-2); font-size: .94rem; margin-bottom: 18px; }
+  .receita ul { list-style: none; display: grid; gap: 10px; margin-bottom: 22px; }
+  .receita li { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 16px; background: #fff; animation: entra .5s var(--mola); }
+  .receita li b { display: block; color: var(--marinho); font-family: var(--titulo); font-size: .98rem; }
+  .receita li span { font-size: .86rem; color: var(--texto-2); }
+  .receita li .ic { flex: none; width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: var(--gelo); color: var(--azul); font-size: 1.1rem; }
+  .receita .vazio { color: var(--texto-2); font-size: .92rem; padding: 18px; border: 1.5px dashed var(--gelo-2); border-radius: 16px; background: #fff; }
+  .receita .btn { margin-top: auto; align-self: flex-start; }
+  @keyframes entra { from { opacity: 0; transform: translateY(10px) scale(.98); } }
+
+  /* trabalhos */
+  .trabalhos { background: var(--gelo); }
+  .galeria { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .galeria button { position: relative; aspect-ratio: 3 / 4; border-radius: 18px; overflow: hidden; background: var(--gelo-2); }
+  .galeria button:nth-child(1) { grid-row: span 2; aspect-ratio: auto; }
+  .galeria img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--suave); }
+  .galeria button:hover img { transform: scale(1.06); }
+  .galeria figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 30px 14px 12px; background: linear-gradient(transparent, rgba(10, 36, 99, .88)); color: #fff; font-size: .8rem; text-align: left; font-weight: 500; transform: translateY(8px); opacity: .92; transition: transform .4s var(--suave), opacity .3s; }
+  .galeria button:hover figcaption { transform: none; opacity: 1; }
+  .ver-insta { display: flex; justify-content: center; margin-top: 30px; }
+
+  /* equipe */
+  .equipe .grade { display: grid; grid-template-columns: .95fr 1.05fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+  .fotos-equipe { position: relative; }
+  .fotos-equipe .grande { width: 78%; aspect-ratio: 3 / 4; border-radius: 26px; overflow: hidden; box-shadow: var(--sombra); }
+  .fotos-equipe .pequena { position: absolute; right: 0; bottom: -6%; width: 46%; aspect-ratio: 9 / 16; border-radius: 22px; overflow: hidden; border: 6px solid #fff; box-shadow: var(--sombra); }
+  .fotos-equipe img { width: 100%; height: 100%; object-fit: cover; }
+  .fotos-equipe .etiqueta { position: absolute; left: 6%; bottom: 6%; padding: 10px 14px; border-radius: 14px; background: #fff; font-size: .8rem; font-weight: 600; color: var(--marinho); box-shadow: 0 10px 24px -14px rgba(10, 36, 99, .6); display: flex; align-items: center; gap: 8px; }
+  .fotos-equipe .etiqueta i { width: 8px; height: 8px; border-radius: 50%; background: var(--zap); box-shadow: 0 0 0 4px rgba(37, 211, 102, .2); }
+  .diferenciais { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 30px; }
+  .dif { padding: 20px; border-radius: 18px; border: 1px solid var(--linha); transition: border-color .3s, transform .4s var(--mola); }
+  .dif:hover { border-color: var(--celeste); transform: translateY(-3px); }
+  .dif svg { width: 28px; height: 28px; color: var(--azul); margin-bottom: 10px; }
+  .dif b { display: block; font-family: var(--titulo); color: var(--marinho); margin-bottom: 4px; }
+  .dif span { font-size: .88rem; color: var(--texto-2); }
+
+  /* avaliações */
+  .avaliacoes { background: #fff; }
+  .avaliacoes .grade { display: grid; grid-template-columns: .8fr 1.2fr; gap: 24px; align-items: stretch; }
+  .nota { border-radius: 26px; padding: 34px; background: var(--gelo); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+  .nota .g { display: flex; align-items: center; gap: 8px; font-size: .84rem; color: var(--texto-2); margin-bottom: 18px; }
+  .nota .g svg { width: 22px; height: 22px; }
+  .nota b { font-family: var(--titulo); font-size: clamp(4rem, 8vw, 5.8rem); line-height: .9; color: var(--marinho); letter-spacing: -.04em; }
+  .nota .estrelas { font-size: 1.6rem; margin: 10px 0 6px; }
+  .nota p { color: var(--texto-2); margin-bottom: 22px; }
+  .depoimentos { display: grid; gap: 14px; }
+  .depo { position: relative; padding: 24px 26px 24px 74px; border-radius: 22px; border: 1px solid var(--linha); background: #fff; transition: transform .4s var(--mola), box-shadow .3s; }
+  .depo:hover { transform: translateX(6px); box-shadow: var(--sombra); }
+  .depo::before { content: "“"; position: absolute; left: 22px; top: 8px; font-family: var(--titulo); font-size: 4rem; line-height: 1; color: var(--azul-2); }
+  .depo p { font-size: 1.06rem; color: var(--texto); margin-bottom: 8px; font-weight: 500; }
+  .depo p mark { background: linear-gradient(transparent 60%, var(--gelo-2) 60%); color: inherit; }
+  .depo small { color: var(--texto-2); font-size: .82rem; }
+  .depo .estrelas { font-size: .85rem; margin-right: 8px; }
+
+  /* passos */
+  .passos { background: var(--gelo); }
+  .linha-passos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; position: relative; counter-reset: p; }
+  .linha-passos::before { content: ""; position: absolute; left: 16%; right: 16%; top: 34px; height: 2px; background: repeating-linear-gradient(90deg, var(--celeste) 0 10px, transparent 10px 18px); }
+  .passo { position: relative; text-align: center; padding: 0 10px; }
+  .passo .bola { position: relative; width: 68px; height: 68px; margin: 0 auto 20px; border-radius: 22px; background: #fff; display: grid; place-items: center; color: var(--azul); box-shadow: 0 16px 30px -16px rgba(10, 36, 99, .5); transition: transform .45s var(--mola); }
+  .passo:hover .bola { transform: translateY(-6px) rotate(-6deg); }
+  .passo .bola svg { width: 30px; height: 30px; }
+  .passo .bola::after { counter-increment: p; content: counter(p); position: absolute; right: -8px; top: -8px; width: 26px; height: 26px; border-radius: 50%; background: var(--azul); color: #fff; font-family: var(--titulo); font-weight: 700; font-size: .78rem; display: grid; place-items: center; border: 3px solid var(--gelo); }
+  .passo h3 { font-size: 1.15rem; margin-bottom: 8px; }
+  .passo p { color: var(--texto-2); font-size: .93rem; max-width: 30ch; margin: 0 auto; }
+
+  /* contato final */
+  .final { background: linear-gradient(150deg, var(--azul) 0%, var(--marinho-2) 55%, var(--marinho) 100%); color: #fff; overflow: hidden; }
+  .final::before { content: ""; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='40' viewBox='0 0 120 40'%3E%3Cpath d='M0 20 Q15 8 30 20 T60 20 T90 20 T120 20' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='2'/%3E%3C/svg%3E"); }
+  .final .grade { position: relative; display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
+  .form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px; }
+  .form label { display: grid; gap: 6px; font-size: .82rem; font-weight: 600; color: #c9dcff; }
+  .form label.toda { grid-column: 1 / -1; }
+  .form input, .form select { height: 52px; padding: 0 16px; border-radius: 14px; border: 1.5px solid rgba(255, 255, 255, .18); background: rgba(255, 255, 255, .08); color: #fff; font-size: .98rem; transition: border-color .2s, background .2s; }
+  .form select option { color: var(--texto); }
+  .form input::placeholder { color: rgba(255, 255, 255, .45); }
+  .form input:focus, .form select:focus { outline: none; border-color: var(--celeste); background: rgba(255, 255, 255, .12); }
+  .form .btn { grid-column: 1 / -1; min-height: 56px; }
+  .info { border-radius: 24px; background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .14); padding: 26px; backdrop-filter: blur(8px); }
+  .info dl { display: grid; gap: 16px; margin-bottom: 20px; }
+  .info dl div { display: flex; gap: 14px; align-items: flex-start; }
+  .info dt { flex: none; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: rgba(255, 255, 255, .12); color: var(--celeste); }
+  .info dt svg { width: 20px; height: 20px; }
+  .info dd small { display: block; font-size: .72rem; text-transform: uppercase; letter-spacing: .14em; color: #9fbcf0; }
+  .info dd { font-size: .96rem; }
+  .info dd a { font-weight: 600; text-decoration: underline; text-decoration-color: rgba(255, 255, 255, .3); text-underline-offset: 3px; }
+  .aberto { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: #7ef0ac; }
+  .aberto.fechado { color: #ffb4a8; }
+  .mapa { border-radius: 18px; overflow: hidden; aspect-ratio: 16 / 9; background: rgba(255, 255, 255, .06); }
+  .mapa iframe { width: 100%; height: 100%; border: 0; filter: saturate(.9); }
+
+  footer { background: #071a47; color: #9fb4da; padding: 40px 0 30px; font-size: .88rem; }
+  footer .cima { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, .08); margin-bottom: 20px; }
+  footer .marca b { color: #fff; }
+  footer .marca small { color: #9fb4da; }
+  footer nav { display: flex; gap: 22px; flex-wrap: wrap; }
+  footer nav a:hover { color: #fff; }
+  footer .baixo { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: .8rem; }
+  footer .baixo a { color: #fff; font-weight: 600; }
+
+  .zap-flutua { position: fixed; right: 18px; bottom: 18px; z-index: 60; width: 60px; height: 60px; border-radius: 50%; background: var(--zap); color: #fff; display: grid; place-items: center; box-shadow: 0 16px 30px -10px rgba(37, 211, 102, .8); transition: transform .35s var(--mola); }
+  .zap-flutua::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--zap); animation: pulsa 2.4s ease-out infinite; z-index: -1; }
+  @keyframes pulsa { to { transform: scale(1.6); opacity: 0; } }
+  .zap-flutua:hover { transform: scale(1.08); }
+  .zap-flutua svg { width: 30px; height: 30px; }
+
+  .lightbox { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 24px; background: rgba(7, 26, 71, .92); opacity: 0; pointer-events: none; transition: opacity .3s; }
+  .lightbox.aberta { opacity: 1; pointer-events: auto; }
+  .lightbox figure { max-width: min(520px, 100%); text-align: center; color: #fff; transform: scale(.96); transition: transform .4s var(--mola); }
+  .lightbox.aberta figure { transform: none; }
+  .lightbox img { max-height: 78vh; width: auto; max-width: 100%; margin: 0 auto 14px; border-radius: 16px; }
+  .lightbox figcaption { font-size: .92rem; color: #c9dcff; }
+  .lightbox .fechar, .lightbox .seta { position: absolute; width: 48px; height: 48px; border-radius: 50%; background: rgba(255, 255, 255, .1); color: #fff; font-size: 1.6rem; display: grid; place-items: center; transition: background .2s; }
+  .lightbox .fechar:hover, .lightbox .seta:hover { background: rgba(255, 255, 255, .2); }
+  .lightbox .fechar { top: 18px; right: 18px; }
+  .lightbox .seta.ant { left: 18px; top: 50%; translate: 0 -50%; }
+  .lightbox .seta.prox { right: 18px; top: 50%; translate: 0 -50%; }
+
+  .surge { opacity: 0; transform: translateY(26px); transition: opacity .8s var(--suave), transform .8s var(--suave); }
+  .surge.visto { opacity: 1; transform: none; }
+  .d1 { transition-delay: .08s; } .d2 { transition-delay: .16s; } .d3 { transition-delay: .24s; }
+
+  @media (max-width: 1020px) {
+    .menu { position: fixed; inset: 74px 0 auto 0; flex-direction: column; gap: 0; padding: 8px 16px 18px; background: #fff; border-bottom: 1px solid var(--linha); box-shadow: 0 20px 40px -20px rgba(10, 36, 99, .4); transform: translateY(-12px); opacity: 0; pointer-events: none; transition: transform .35s var(--suave), opacity .25s; }
+    .menu a { padding: 14px 4px; border-bottom: 1px solid var(--linha); font-size: 1rem; }
+    .menu a::after { display: none; }
+    .menu.aberto { transform: none; opacity: 1; pointer-events: auto; }
+    .sanduiche { display: block; }
+    .topo .btn { margin-left: auto; }
+    .hero .embrulho, .calc .grade, .sintomas .grade, .equipe .grade, .avaliacoes .grade, .final .grade { grid-template-columns: 1fr; }
+    .cards { grid-template-columns: 1fr 1fr; }
+    .galeria { grid-template-columns: repeat(3, 1fr); }
+    .galeria button:nth-child(1) { grid-row: auto; aspect-ratio: 3 / 4; }
+    .galeria button:nth-child(7) { display: none; }
+    .fotos-equipe { max-width: 520px; }
+  }
+  @media (max-width: 680px) {
+    .topo .btn { display: none; }
+    .sanduiche { margin-left: auto; }
+    .marca img { width: 40px; height: 40px; }
+    .cards, .diferenciais, .dupla, .form { grid-template-columns: 1fr; }
+    .galeria { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .linha-passos { grid-template-columns: 1fr; gap: 34px; }
+    .linha-passos::before { display: none; }
+    .cena { aspect-ratio: 1 / 1.08; }
+    .controle { width: 100px; right: 5%; bottom: 5%; padding: 12px 10px 14px; }
+    .controle button { height: 30px; }
+    .dica-controle { bottom: calc(5% + 190px); right: 4%; }
+    .termo { left: 5%; bottom: 5%; padding: 10px 12px; }
+    .termo b { font-size: 1.3rem; }
+    .hero .acoes .btn { flex: 1 1 100%; }
+    .depo { padding: 22px 20px 20px 58px; }
+    .depo::before { left: 16px; }
+    .lightbox .seta { top: auto; bottom: 18px; translate: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .surge { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="demo">Proposta de site feita pela SA Studio para a JR Climatização. <a href="https://sastudio.vercel.app/" target="_blank" rel="noopener">Conheça a SA Studio</a></div>
+
+<header class="topo" id="topo">
+  <div class="embrulho">
+    <a class="marca" href="#" aria-label="JR Climatização, início">
+      <img src="img/logo.png" alt="" width="46" height="46">
+      <span><b>JR Climatização</b><small>Ar-condicionado split</small></span>
+    </a>
+    <nav class="menu" id="menu" aria-label="Principal">
+      <a href="#servicos">Serviços</a>
+      <a href="#calculadora">Calcular BTUs</a>
+      <a href="#trabalhos">Trabalhos</a>
+      <a href="#avaliacoes">Avaliações</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a class="btn btn-azul" href="#" data-wa>Pedir orçamento</a>
+    <button class="sanduiche" id="sanduiche" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="hero">
+  <div class="embrulho">
+    <div>
+      <a class="selo-google surge" href="#avaliacoes">
+        <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.6 12.2c0-.8-.1-1.5-.2-2.2H12v4.2h5.9a5 5 0 0 1-2.2 3.3v2.7h3.6c2.1-1.9 3.3-4.8 3.3-8z"/><path fill="#34A853" d="M12 23c3 0 5.5-1 7.3-2.7l-3.6-2.8c-1 .7-2.2 1.1-3.7 1.1-2.9 0-5.3-1.9-6.2-4.5H2.1v2.8A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.8 14.1a6.6 6.6 0 0 1 0-4.2V7.1H2.1a11 11 0 0 0 0 9.8z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.2 1.7l3.2-3.2A11 11 0 0 0 2.1 7.1l3.7 2.8C6.7 7.3 9.1 5.4 12 5.4z"/></svg>
+        <b id="nota-topo">4,9</b><span class="estrelas">★★★★★</span><span id="qtd-topo">63 avaliações no Google</span>
+      </a>
+      <h1 class="surge d1">Ar-condicionado split com <span class="giro" id="giro">instalação rápida.</span></h1>
+      <p class="lead surge d2">Instalação, higienização e manutenção de ar-condicionado split, com ótimo preço e acabamento caprichado. Respire conforto, viva climatizado.</p>
+      <div class="acoes surge d2">
+        <a class="btn btn-zap" href="#" data-wa>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c.7.3 1.3.5 1.7.6a4.2 4.2 0 0 0 1.9.1 3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.7-.4zM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 1 1 8.3 4.6zm8.4-18.2A11.8 11.8 0 0 0 1.8 17.8L.1 24l6.4-1.7a11.8 11.8 0 0 0 5.6 1.4 11.8 11.8 0 0 0 8.3-20.1z"/></svg>
+          Orçamento pelo WhatsApp
+        </a>
+        <a class="btn btn-linha" href="#calculadora">Quantos BTUs eu preciso?</a>
+      </div>
+      <div class="garantias surge d3">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1"/></svg>Todas as marcas</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Atendimento ágil</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Orçamento sem compromisso</span>
+      </div>
+    </div>
+
+    <div class="cena surge d1" id="cena" aria-label="Simulação: ar-condicionado ligado esfriando o ambiente">
+      <div class="split">
+        <div class="logo-split"><img src="img/logo.png" alt="">JR</div>
+        <div class="visor" id="visor">--</div>
+        <div class="led"></div>
+        <div class="aleta"></div>
+      </div>
+      <svg class="vento" viewBox="0 0 400 200" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M40 10 C 80 60, 20 110, 70 190"/>
+        <path d="M140 10 C 180 70, 110 120, 160 195"/>
+        <path d="M250 10 C 290 60, 220 120, 270 190"/>
+        <path d="M350 10 C 380 70, 320 120, 360 195"/>
+      </svg>
+      <div class="flocos" id="flocos" aria-hidden="true"></div>
+      <div class="termo">
+        <div class="bulbo"><i></i></div>
+        <div><small>No ambiente</small><b id="temp-amb">32°</b><span class="sensacao" id="sensacao">Calor demais</span></div>
+      </div>
+      <span class="dica-controle">Use o controle</span>
+      <div class="controle" role="group" aria-label="Controle remoto">
+        <div class="tela"><small>COOL</small><span id="tela-controle">22°</span></div>
+        <div class="linha-bt"><button type="button" id="menos" aria-label="Baixar temperatura">−</button><button type="button" id="mais" aria-label="Subir temperatura">+</button></div>
+        <button type="button" class="power" id="power" aria-label="Ligar ou desligar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 3v8M6.3 6.8a8 8 0 1 0 11.4 0"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="faixa" aria-label="Marcas que instalamos"><div class="trilho" id="trilho"></div></div>
+
+<section class="secao servicos" id="servicos">
+  <div class="embrulho">
+    <div class="cabeca">
+      <div>
+        <p class="olho surge">Nossos serviços</p>
+        <h2 class="surge d1">Do primeiro furo à <em>limpeza</em> de rotina.</h2>
+      </div>
+      <p class="lead surge d2">Cuidamos do seu ar-condicionado split do começo ao fim: instalamos com capricho, deixamos limpo e mantemos funcionando bem por muitos verões.</p>
+    </div>
+    <div class="cards">
+      <article class="card surge">
+        <div class="foto"><img src="img/condensadora-lg.jpg" alt="Condensadora LG instalada em suporte na parede externa" loading="lazy"><span class="num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="9" rx="2"/><path d="M6 11h12M8 18v2M12 17v3M16 18v2"/></svg></span></div>
+        <div class="corpo">
+          <h3>Instalação de split</h3>
+          <p>Instalação completa de ar-condicionado split, com suporte firme, tubulação bem feita e acabamento limpo.</p>
+          <ul><li>Todas as marcas e potências</li><li>Ponto elétrico dedicado e canaleta</li><li>Teste de funcionamento na entrega</li></ul>
+          <a class="btn btn-azul" href="#" data-wa="Olá! Vim pelo site e quero um orçamento de instalação de ar-condicionado split.">Orçar instalação</a>
+        </div>
+      </article>
+      <article class="card surge d1">
+        <div class="foto"><img src="img/higienizacao.jpg" alt="Técnico da JR Climatização limpando um ar-condicionado" loading="lazy"><span class="num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5l-5 3-5-3M17 19l-5-3-5 3M2 12h20M5 7l3 5-3 5M19 7l-3 5 3 5"/></svg></span></div>
+        <div class="corpo">
+          <h3>Higienização</h3>
+          <p>Limpeza completa do aparelho para o ar voltar a sair puro, sem cheiro e com a força de antes.</p>
+          <ul><li>Ar mais saudável, puro e limpo</li><li>Menos falhas e menor consumo de energia</li><li>Prolonga a vida útil do aparelho</li></ul>
+          <a class="btn btn-azul" href="#" data-wa="Olá! Vim pelo site e quero agendar uma higienização de ar-condicionado.">Agendar higienização</a>
+        </div>
+      </article>
+      <article class="card surge d2">
+        <div class="foto"><img src="img/manutencao.jpg" alt="Técnico fazendo manutenção na evaporadora de um split" loading="lazy"><span class="num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></span></div>
+        <div class="corpo">
+          <h3>Manutenção</h3>
+          <p>Seu ar parou de gelar, está pingando ou fazendo barulho? A gente encontra o problema e resolve.</p>
+          <ul><li>Manutenção preventiva e corretiva</li><li>Diagnóstico de falhas</li><li>Garante a climatização correta do ambiente</li></ul>
+          <a class="btn btn-azul" href="#" data-wa="Olá! Vim pelo site e preciso de manutenção no meu ar-condicionado.">Pedir manutenção</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="secao calc" id="calculadora">
+  <div class="embrulho">
+    <div class="cabeca">
+      <div>
+        <p class="olho surge">Calculadora de BTUs</p>
+        <h2 class="surge d1">Qual ar-condicionado é o <em>certo</em> pro seu cômodo?</h2>
+      </div>
+      <p class="lead surge d2">Aparelho fraco não gela, aparelho forte demais gasta à toa. Responda 4 perguntas e veja a potência indicada.</p>
+    </div>
+    <div class="grade">
+      <form class="painel surge" id="calc-form" onsubmit="return false">
+        <div class="campo">
+          <label for="area">Tamanho do cômodo <output id="area-out">12 m²</output></label>
+          <input type="range" id="area" min="6" max="60" step="1" value="12">
+        </div>
+        <div class="campo">
+          <span class="rot">Que cômodo é?</span>
+          <div class="opcoes" id="comodos"></div>
+        </div>
+        <div class="campo">
+          <span class="rot">Bate sol à tarde?</span>
+          <div class="opcoes">
+            <label class="opcao"><input type="radio" name="sol" value="nao" checked><span><i>⛅</i>Não, só de manhã</span></label>
+            <label class="opcao"><input type="radio" name="sol" value="sim"><span><i>☀️</i>Sim, sol da tarde</span></label>
+          </div>
+        </div>
+        <div class="campo dupla">
+          <div>
+            <span class="rot">Pessoas no cômodo<small>que costumam ficar juntas</small></span>
+            <div class="contador" data-cont="pessoas" data-min="1" data-max="12"><button type="button" aria-label="Menos pessoas">−</button><output>2</output><button type="button" aria-label="Mais pessoas">+</button></div>
+          </div>
+          <div>
+            <span class="rot">Aparelhos ligados<small>TV, computador, geladeira…</small></span>
+            <div class="contador" data-cont="eletros" data-min="0" data-max="8"><button type="button" aria-label="Menos aparelhos">−</button><output>1</output><button type="button" aria-label="Mais aparelhos">+</button></div>
+          </div>
+        </div>
+      </form>
+      <div class="resultado surge d1" aria-live="polite">
+        <small>Potência indicada</small>
+        <div class="btus"><b id="btu-num">12.000</b><span>BTUs</span></div>
+        <div class="calculo" id="btu-calc">Cálculo estimado: 8.400 BTUs</div>
+        <div class="modelos" id="modelos"></div>
+        <div class="modelos-rot" id="modelos-rot"></div>
+        <p id="btu-texto">Um split de 12.000 BTUs dá conta do seu quarto com folga.</p>
+        <a class="btn btn-zap" href="#" id="btu-zap">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c.7.3 1.3.5 1.7.6a4.2 4.2 0 0 0 1.9.1 3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.7-.4zM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 1 1 8.3 4.6zm8.4-18.2A11.8 11.8 0 0 0 1.8 17.8L.1 24l6.4-1.7a11.8 11.8 0 0 0 5.6 1.4 11.8 11.8 0 0 0 8.3-20.1z"/></svg>
+          Orçar a instalação desse
+        </a>
+        <p class="aviso">Estimativa para orientar a escolha. Na visita, o técnico confirma a potência ideal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="secao sintomas" id="sintomas">
+  <div class="embrulho">
+    <div class="grade">
+      <div>
+        <p class="olho surge">Seu ar está dando sinais?</p>
+        <h2 class="surge d1">Toque no que está <em>acontecendo</em> e veja o que ele precisa.</h2>
+        <p class="lead surge d2" style="margin:18px 0 26px">Marque um ou mais sintomas. A gente monta a mensagem pronta para você mandar no WhatsApp.</p>
+        <div class="chips surge d2" id="chips"></div>
+      </div>
+      <div class="receita surge d1" aria-live="polite">
+        <h3>O que indicamos</h3>
+        <p>Com base no que você marcou:</p>
+        <ul id="receita"></ul>
+        <a class="btn btn-azul" href="#" id="sintoma-zap">Enviar para a JR Climatização</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="secao trabalhos" id="trabalhos">
+  <div class="embrulho">
+    <div class="cabeca">
+      <div>
+        <p class="olho surge">Trabalhos recentes</p>
+        <h2 class="surge d1">Acabamento que dá <em>gosto</em> de ver.</h2>
+      </div>
+      <p class="lead surge d2">Algumas instalações feitas pela equipe. Suporte alinhado, fiação escondida e tudo funcionando no mesmo dia.</p>
+    </div>
+    <div class="galeria" id="galeria"></div>
+    <div class="ver-insta surge"><a class="btn btn-linha" id="insta-link" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+      Ver mais no Instagram
+    </a></div>
+  </div>
+</section>
+
+<section class="secao equipe" id="equipe">
+  <div class="embrulho">
+    <div class="grade">
+      <div class="fotos-equipe surge">
+        <div class="grande"><img src="img/equipe.jpg" alt="Técnicos da JR Climatização com uniforme da empresa durante uma instalação" loading="lazy"></div>
+        <div class="pequena"><img src="img/a-caminho.jpg" alt="Equipe carregando o carro com um ar-condicionado para instalar" loading="lazy"></div>
+        <span class="etiqueta"><i></i>Equipe a caminho</span>
+      </div>
+      <div>
+        <p class="olho surge">Por que a JR</p>
+        <h2 class="surge d1">O que os clientes mais <em>elogiam</em>.</h2>
+        <p class="lead surge d2" style="margin-top:18px">As avaliações no Google repetem sempre as mesmas coisas. É o jeito que a gente trabalha em cada casa e em cada empresa.</p>
+        <div class="diferenciais">
+          <div class="dif surge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><b>Ótimo preço</b><span>Orçamento justo e claro, sem surpresa no final.</span></div>
+          <div class="dif surge d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg><b>Instalação rápida</b><span>Atendimento ágil, do primeiro contato até o ar gelando.</span></div>
+          <div class="dif surge d2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.7 5.5 6 .9-4.4 4.3 1 6L12 17l-5.4 2.8 1-6L3.3 9.4l6-.9z"/></svg><b>Acabamento perfeito</b><span>Tubulação alinhada, canaleta e parede limpa.</span></div>
+          <div class="dif surge d3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><b>Compromisso</b><span>Combinou, cumpriu. Agilidade e capricho em todo serviço.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="secao avaliacoes" id="avaliacoes">
+  <div class="embrulho">
+    <div class="cabeca">
+      <div>
+        <p class="olho surge">Avaliações</p>
+        <h2 class="surge d1">Quem chamou, <em>recomenda</em>.</h2>
+      </div>
+    </div>
+    <div class="grade">
+      <div class="nota surge">
+        <span class="g"><svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.6 12.2c0-.8-.1-1.5-.2-2.2H12v4.2h5.9a5 5 0 0 1-2.2 3.3v2.7h3.6c2.1-1.9 3.3-4.8 3.3-8z"/><path fill="#34A853" d="M12 23c3 0 5.5-1 7.3-2.7l-3.6-2.8c-1 .7-2.2 1.1-3.7 1.1-2.9 0-5.3-1.9-6.2-4.5H2.1v2.8A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.8 14.1a6.6 6.6 0 0 1 0-4.2V7.1H2.1a11 11 0 0 0 0 9.8z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.2 1.7l3.2-3.2A11 11 0 0 0 2.1 7.1l3.7 2.8C6.7 7.3 9.1 5.4 12 5.4z"/></svg>Avaliações no Google</span>
+        <b id="nota-grande" data-alvo="4.9">0,0</b>
+        <span class="estrelas">★★★★★</span>
+        <p id="qtd-grande">63 avaliações</p>
+        <a class="btn btn-linha" id="maps-avaliacoes" href="#" target="_blank" rel="noopener">Ver no Google Maps</a>
+      </div>
+      <div class="depoimentos" id="depoimentos"></div>
+    </div>
+  </div>
+</section>
+
+<section class="secao passos" id="como-funciona">
+  <div class="embrulho">
+    <div class="cabeca" style="justify-content:center;text-align:center">
+      <div>
+        <p class="olho surge">Como funciona</p>
+        <h2 class="surge d1">Ar gelando em <em>3 passos</em>.</h2>
+      </div>
+    </div>
+    <div class="linha-passos">
+      <div class="passo surge"><div class="bola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg></div><h3>Chama no WhatsApp</h3><p>Conte qual serviço precisa, o tamanho do cômodo e o seu bairro.</p></div>
+      <div class="passo surge d1"><div class="bola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg></div><h3>Receba o orçamento</h3><p>Preço claro e o melhor dia para o serviço, sem compromisso.</p></div>
+      <div class="passo surge d2"><div class="bola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5l-5 3-5-3M17 19l-5-3-5 3M2 12h20"/></svg></div><h3>Respire conforto</h3><p>Instalamos ou limpamos, testamos com você e deixamos tudo limpo.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="secao final azul-cheio" id="contato">
+  <div class="embrulho">
+    <div class="grade">
+      <div>
+        <p class="olho surge">Orçamento sem compromisso</p>
+        <h2 class="surge d1">Pronto para <em>viver climatizado?</em></h2>
+        <p class="lead surge d2" style="margin-top:16px">Preencha rapidinho e a mensagem vai pronta para o nosso WhatsApp.</p>
+        <form class="form surge d2" id="form">
+          <label>Seu nome<input name="nome" autocomplete="name" required></label>
+          <label>Bairro e cidade<input name="local" placeholder="Ex.: Jardim Bom Pastor, Carapicuíba"></label>
+          <label>Serviço<select name="servico" id="servico-sel"><option>Instalação de split</option><option>Higienização</option><option>Manutenção</option><option>Ainda não sei</option></select></label>
+          <label>Potência (BTUs)<select name="btus" id="btus-sel"><option value="">Não sei / não se aplica</option></select></label>
+          <button class="btn btn-zap" type="submit">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c.7.3 1.3.5 1.7.6a4.2 4.2 0 0 0 1.9.1 3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.7-.4zM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 1 1 8.3 4.6zm8.4-18.2A11.8 11.8 0 0 0 1.8 17.8L.1 24l6.4-1.7a11.8 11.8 0 0 0 5.6 1.4 11.8 11.8 0 0 0 8.3-20.1z"/></svg>
+            Receber meu orçamento
+          </button>
+        </form>
+      </div>
+      <div class="info surge d1">
+        <dl>
+          <div><dt><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c.7.3 1.3.5 1.7.6a4.2 4.2 0 0 0 1.9.1 3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.7-.4zM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 1 1 8.3 4.6zm8.4-18.2A11.8 11.8 0 0 0 1.8 17.8L.1 24l6.4-1.7a11.8 11.8 0 0 0 5.6 1.4 11.8 11.8 0 0 0 8.3-20.1z"/></svg></dt><dd><small>WhatsApp</small><a href="#" data-wa id="zap-num"></a></dd></div>
+          <div><dt><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></dt><dd><small>Telefone</small><a id="tel-num" href="#"></a></dd></div>
+          <div><dt><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></dt><dd><small>Horário</small><span id="horario"></span></dd></div>
+          <div><dt><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></dt><dd><small>Endereço</small><a id="endereco" href="#" target="_blank" rel="noopener"></a></dd></div>
+        </dl>
+        <div class="mapa" id="mapa"></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="embrulho">
+    <div class="cima">
+      <a class="marca" href="#"><img src="img/logo.png" alt="" width="46" height="46"><span><b>JR Climatização</b><small>Respire conforto, viva climatizado.</small></span></a>
+      <nav aria-label="Rodapé">
+        <a href="#servicos">Serviços</a>
+        <a href="#calculadora">Calcular BTUs</a>
+        <a href="#trabalhos">Trabalhos</a>
+        <a href="#" id="insta-rodape" target="_blank" rel="noopener">Instagram</a>
+        <a href="#" data-wa>WhatsApp</a>
+      </nav>
+    </div>
+    <div class="baixo">
+      <span>© <span id="ano"></span> JR Climatização · Instalação, higienização e manutenção de ar-condicionado</span>
+      <span>Site feito pela <a href="https://sastudio.vercel.app/" target="_blank" rel="noopener">SA Studio</a></span>
+    </div>
+  </div>
+</footer>
+
+<a class="zap-flutua" href="#" data-wa aria-label="Falar com a JR Climatização no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c.7.3 1.3.5 1.7.6a4.2 4.2 0 0 0 1.9.1 3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.7-.4zM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 1 1 8.3 4.6zm8.4-18.2A11.8 11.8 0 0 0 1.8 17.8L.1 24l6.4-1.7a11.8 11.8 0 0 0 5.6 1.4 11.8 11.8 0 0 0 8.3-20.1z"/></svg>
+</a>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <button class="fechar" id="lb-fechar" aria-label="Fechar">×</button>
+  <button class="seta ant" id="lb-ant" aria-label="Foto anterior">‹</button>
+  <figure><img id="lb-img" alt=""><figcaption id="lb-leg"></figcaption></figure>
+  <button class="seta prox" id="lb-prox" aria-label="Próxima foto">›</button>
+</div>
+
+<script>
+const JR = {
+  // WhatsApp do link da bio do Instagram (wa.link/go5lbo)
+  whatsapp: "5548999705297",
+  whatsappTexto: "(48) 99970-5297",
+  // telefone do Google Maps
+  telefone: "(11) 94545-0470",
+  telefoneLink: "+5511945450470",
+  mensagem: "Olá! Vim pelo site e quero mais informações sobre o serviço!",
+  endereco: "R. Paraíso · Jardim Bom Pastor, Carapicuíba/SP · 06385-090",
+  mapsBusca: "JR Climatização, R. Paraíso - Jardim Bom Pastor, Carapicuíba - SP, 06385-090",
+  mapsLink: "https://maps.app.goo.gl/XErRBtdvrd99GQje8",
+  fechaAs: 19, // o Google Maps mostra "Fecha 19:00"
+  instagram: "https://www.instagram.com/jrcliimatizacao/",
+  nota: 4.9,
+  avaliacoes: 63,
+  giro: ["instalação rápida.", "acabamento perfeito.", "ótimo preço.", "ar limpo de verdade."],
+  marcas: ["LG", "Samsung", "Midea", "Consul", "Elgin", "TCL", "Gree", "Springer", "Philco", "Electrolux", "Daikin", "Fujitsu"],
+  // trechos reais das avaliações do Google Maps (o destaque é o que o Google marca em negrito)
+  depoimentos: [
+    ["Ótimo <mark>preço</mark> e <mark>instalação</mark> perfeita, rápido atendimento, super recomendo.", "Cliente no Google"],
+    ["Agilidade e comprometimento no <mark>serviço</mark>.", "Cliente no Google"],
+    ["Serviço rápido, <mark>preço</mark> bom e faz um <mark>acabamento</mark> perfeito. Nota 10.", "Cliente no Google"]
+  ],
+  galeria: [
+    ["equipe.jpg", "Equipe JR uniformizada em mais uma instalação"],
+    ["condensadora-lg.jpg", "Condensadora LG Dual Inverter em suporte de parede"],
+    ["split-quarto.jpg", "Split instalado com ponto elétrico dedicado"],
+    ["condensadora-midea.jpg", "Condensadora Midea em sacada com rede de proteção"],
+    ["split-cozinha.jpg", "Split com tubulação embutida em canaleta"],
+    ["split-galpao.jpg", "Instalação em ambiente com laje aparente"],
+    ["a-caminho.jpg", "Carro carregado: mais um ar-condicionado a caminho"]
+  ],
+  // calculadora: BTUs por m² (sem sol / sol da tarde), por pessoa a mais e por aparelho ligado
+  comodos: [["quarto", "🛏️", "Quarto", 0], ["sala", "🛋️", "Sala", 0], ["cozinha", "🍳", "Cozinha", 1500], ["escritorio", "💼", "Escritório / loja", 600]],
+  btuM2: { nao: 600, sim: 800 },
+  btuPessoa: 600,
+  btuAparelho: 600,
+  modelos: [9000, 12000, 18000, 24000, 30000, 36000],
+  sintomas: [
+    ["cheiro", "👃", "Cheiro ruim quando liga", "hig"],
+    ["gela", "🥵", "Não gela como antes", "man"],
+    ["pinga", "💧", "Pingando água dentro de casa", "man"],
+    ["barulho", "🔊", "Fazendo barulho estranho", "man"],
+    ["luz", "⚡", "A conta de luz subiu", "hig"],
+    ["tempo", "📅", "Mais de 6 meses sem limpeza", "hig"],
+    ["alergia", "🤧", "Alguém em casa com alergia ou rinite", "hig"],
+    ["novo", "📦", "Comprei um aparelho novo", "ins"]
+  ],
+  servicosSintoma: {
+    hig: ["🧼", "Higienização", "Limpeza completa para o ar sair puro, sem cheiro e gastando menos energia."],
+    man: ["🔧", "Manutenção", "Diagnóstico do aparelho para achar a causa e deixar tudo funcionando de novo."],
+    ins: ["❄️", "Instalação de split", "Instalação completa com suporte, tubulação, ponto elétrico e acabamento."]
+  }
+};
+
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const wa = (txt = JR.mensagem) => `https://wa.me/${JR.whatsapp}?text=${encodeURIComponent(txt)}`;
+const milhar = n => n.toLocaleString("pt-BR");
+const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* links fixos */
+$$("[data-wa]").forEach(a => {
+  a.href = wa(a.dataset.wa || JR.mensagem);
+  a.target = "_blank"; a.rel = "noopener";
+});
+$("#zap-num").textContent = JR.whatsappTexto;
+$("#tel-num").textContent = JR.telefone;
+$("#tel-num").href = `tel:${JR.telefoneLink}`;
+$("#endereco").textContent = JR.endereco;
+$("#endereco").href = JR.mapsLink;
+$("#maps-avaliacoes").href = JR.mapsLink;
+$("#insta-link").href = $("#insta-rodape").href = JR.instagram;
+$("#ano").textContent = new Date().getFullYear();
+const notaTxt = JR.nota.toFixed(1).replace(".", ",");
+$("#nota-topo").textContent = notaTxt;
+$("#qtd-topo").textContent = `${JR.avaliacoes} avaliações no Google`;
+$("#qtd-grande").textContent = `${JR.avaliacoes} avaliações de clientes`;
+
+/* horário: aberto ou fechado agora (horário de Brasília) */
+(() => {
+  const h = Number(new Intl.DateTimeFormat("pt-BR", { hour: "numeric", hour12: false, timeZone: "America/Sao_Paulo" }).format(new Date()));
+  const aberto = h >= 8 && h < JR.fechaAs;
+  $("#horario").innerHTML = aberto
+    ? `<span class="aberto">● Aberto agora</span> · fecha às ${JR.fechaAs}h`
+    : `<span class="aberto fechado">● Fechado agora</span> · chame no WhatsApp que respondemos`;
+})();
+
+/* menu do celular */
+const sand = $("#sanduiche"), menu = $("#menu");
+sand.addEventListener("click", () => {
+  const ab = menu.classList.toggle("aberto");
+  sand.setAttribute("aria-expanded", ab);
+});
+$$("a", menu).forEach(a => a.addEventListener("click", () => { menu.classList.remove("aberto"); sand.setAttribute("aria-expanded", false); }));
+addEventListener("scroll", () => $("#topo").classList.toggle("rolou", scrollY > 10), { passive: true });
+
+/* frase que gira no título */
+(() => {
+  const el = $("#giro"); let i = 0;
+  if (reduz) return;
+  setInterval(() => {
+    i = (i + 1) % JR.giro.length;
+    el.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(-12px)" }], { duration: 260, easing: "ease-in" }).onfinish = () => {
+      el.textContent = JR.giro[i];
+      el.animate([{ opacity: 0, transform: "translateY(12px)" }, { opacity: 1, transform: "none" }], { duration: 380, easing: "cubic-bezier(.22,1,.36,1)" });
+    };
+  }, 2800);
+})();
+
+/* faixa de marcas */
+$("#trilho").innerHTML = [...JR.marcas, ...JR.marcas].map(m => `<span>${m}</span>`).join("");
+
+/* cena do ar-condicionado */
+(() => {
+  const cena = $("#cena"), hero = $("#hero");
+  const flocos = $("#flocos");
+  flocos.innerHTML = Array.from({ length: 14 }, (_, i) => `<i style="left:${5 + (i * 37) % 90}%;animation-delay:${(i * .27).toFixed(2)}s;font-size:${10 + (i * 7) % 10}px">❄</i>`).join("");
+  let ligado = false, alvo = 22, amb = 32, timer;
+  const quente = [255, 241, 227], frio = [232, 243, 255];
+  const mistura = t => quente.map((q, i) => Math.round(q + (frio[i] - q) * t));
+  function pinta() {
+    const t = Math.min(1, Math.max(0, (32 - amb) / 14));
+    const [r, g, b] = mistura(t);
+    cena.style.setProperty("--parede", `rgb(${r},${g},${b})`);
+    hero.style.setProperty("--ambiente", `rgb(${r},${g},${b})`);
+    $("#temp-amb").textContent = `${Math.round(amb)}°`;
+    const termo = $(".termo");
+    termo.style.setProperty("--nivel", `${30 + (amb - 16) * 4}%`);
+    const cor = amb >= 28 ? "#ff8a3d" : amb >= 25 ? "#f5b301" : "#1565d8";
+    termo.style.setProperty("--cor-termo", cor);
+    $("#sensacao").textContent = amb >= 28 ? "Calor demais" : amb >= 25 ? "Melhorando…" : "Conforto total";
+  }
+  function anda() {
+    clearInterval(timer);
+    timer = setInterval(() => {
+      const destino = ligado ? alvo : 32;
+      if (Math.abs(amb - destino) < .15) { amb = destino; pinta(); clearInterval(timer); return; }
+      amb += (destino - amb) * (ligado ? .08 : .04);
+      pinta();
+    }, 120);
+  }
+  function mostra() {
+    $("#visor").textContent = ligado ? `${alvo}°` : "--";
+    $("#tela-controle").textContent = `${alvo}°`;
+    cena.classList.toggle("ligado", ligado);
+  }
+  $("#power").addEventListener("click", () => { ligado = !ligado; mostra(); anda(); });
+  $("#mais").addEventListener("click", () => { alvo = Math.min(30, alvo + 1); if (!ligado) ligado = true; mostra(); anda(); });
+  $("#menos").addEventListener("click", () => { alvo = Math.max(16, alvo - 1); if (!ligado) ligado = true; mostra(); anda(); });
+  pinta(); mostra();
+  // liga sozinho quando aparece na tela
+  new IntersectionObserver((es, obs) => {
+    if (!es[0].isIntersecting) return;
+    obs.disconnect();
+    setTimeout(() => { ligado = true; mostra(); anda(); }, reduz ? 0 : 900);
+  }, { threshold: .4 }).observe(cena);
+})();
+
+/* calculadora de BTUs */
+const calc = { comodo: "quarto", pessoas: 2, eletros: 1, btu: 12000 };
+$("#comodos").innerHTML = JR.comodos.map(([v, ic, nome], i) => `<label class="opcao"><input type="radio" name="comodo" value="${v}" ${i === 0 ? "checked" : ""}><span><i>${ic}</i>${nome}</span></label>`).join("");
+$("#modelos").innerHTML = JR.modelos.map((m, i) => `<div style="--h:${28 + i * 13}%"></div>`).join("");
+$("#modelos-rot").innerHTML = JR.modelos.map(m => `<span>${m / 1000}k</span>`).join("");
+$("#btus-sel").innerHTML += JR.modelos.map(m => `<option value="${m}">${milhar(m)} BTUs</option>`).join("");
+$$(".contador").forEach(c => {
+  const [menos, mais] = $$("button", c), out = $("output", c), k = c.dataset.cont;
+  const muda = d => { calc[k] = Math.min(+c.dataset.max, Math.max(+c.dataset.min, calc[k] + d)); out.textContent = calc[k]; calcula(); };
+  menos.onclick = () => muda(-1); mais.onclick = () => muda(1);
+});
+let numAtual = 12000;
+function animaNum(alvo) {
+  const el = $("#btu-num"), ini = numAtual, t0 = performance.now();
+  numAtual = alvo;
+  if (reduz) { el.textContent = milhar(alvo); return; }
+  const passo = t => {
+    const p = Math.min(1, (t - t0) / 500), v = Math.round((ini + (alvo - ini) * (1 - Math.pow(1 - p, 3))) / 100) * 100;
+    el.textContent = milhar(v);
+    if (p < 1) requestAnimationFrame(passo);
+  };
+  requestAnimationFrame(passo);
+}
+function calcula() {
+  const area = +$("#area").value;
+  const sol = $("input[name=sol]:checked").value;
+  const comodo = $("input[name=comodo]:checked").value;
+  calc.comodo = comodo;
+  const extra = JR.comodos.find(c => c[0] === comodo)[3];
+  const bruto = area * JR.btuM2[sol] + Math.max(0, calc.pessoas - 1) * JR.btuPessoa + calc.eletros * JR.btuAparelho + extra;
+  const modelo = JR.modelos.find(m => m >= bruto) || JR.modelos[JR.modelos.length - 1];
+  calc.btu = modelo;
+  $("#area-out").textContent = `${area} m²`;
+  $("#area").style.setProperty("--p", `${(area - 6) / 54 * 100}%`);
+  animaNum(modelo);
+  $("#btu-calc").textContent = `Cálculo estimado: ${milhar(Math.round(bruto / 100) * 100)} BTUs`;
+  $$("#modelos div").forEach((d, i) => d.classList.toggle("sim", JR.modelos[i] === modelo));
+  $$("#modelos-rot span").forEach((d, i) => d.classList.toggle("sim", JR.modelos[i] === modelo));
+  const nome = JR.comodos.find(c => c[0] === comodo)[2].toLowerCase();
+  const acima = bruto > JR.modelos[JR.modelos.length - 1];
+  $("#btu-texto").textContent = acima
+    ? `Ambiente grande: pode valer usar dois aparelhos. A gente avalia na visita.`
+    : `Um split de ${milhar(modelo)} BTUs dá conta do seu ${nome} de ${area} m² com folga.`;
+  $("#btus-sel").value = String(modelo);
+  const msg = [
+    "Olá! Vim pelo site e quero um orçamento de instalação de ar-condicionado split.", "",
+    `Cômodo: ${JR.comodos.find(c => c[0] === comodo)[2]} de ${area} m²`,
+    `Sol da tarde: ${sol === "sim" ? "sim" : "não"}`,
+    `Pessoas: ${calc.pessoas} · Aparelhos ligados: ${calc.eletros}`,
+    `Potência indicada pela calculadora: ${milhar(modelo)} BTUs`
+  ].join("\n");
+  const z = $("#btu-zap"); z.href = wa(msg); z.target = "_blank"; z.rel = "noopener";
+}
+$("#calc-form").addEventListener("input", calcula);
+$("#calc-form").addEventListener("change", calcula);
+calcula();
+
+/* sintomas */
+const marcados = new Set(["cheiro"]);
+$("#chips").innerHTML = JR.sintomas.map(([id, ic, txt]) => `<button type="button" class="chip" data-id="${id}" aria-pressed="${marcados.has(id)}"><i>${ic}</i>${txt}</button>`).join("");
+function receita() {
+  const tipos = [...new Set(JR.sintomas.filter(s => marcados.has(s[0])).map(s => s[3]))];
+  const ul = $("#receita");
+  ul.innerHTML = tipos.length
+    ? tipos.map(t => { const [ic, nome, desc] = JR.servicosSintoma[t]; return `<li><span class="ic">${ic}</span><div><b>${nome}</b><span>${desc}</span></div></li>`; }).join("")
+    : `<li class="vazio">Marque ao lado o que está acontecendo com o seu ar-condicionado.</li>`;
+  const sintomas = JR.sintomas.filter(s => marcados.has(s[0])).map(s => `• ${s[2]}`);
+  const msg = sintomas.length
+    ? ["Olá! Vim pelo site. Meu ar-condicionado está assim:", ...sintomas, "", `Acho que preciso de: ${tipos.map(t => JR.servicosSintoma[t][1]).join(" + ")}. Podem me passar um orçamento?`].join("\n")
+    : JR.mensagem;
+  const z = $("#sintoma-zap"); z.href = wa(msg); z.target = "_blank"; z.rel = "noopener";
+}
+$("#chips").addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  const id = b.dataset.id;
+  marcados.has(id) ? marcados.delete(id) : marcados.add(id);
+  b.setAttribute("aria-pressed", marcados.has(id));
+  receita();
+});
+receita();
+
+/* galeria + lightbox */
+$("#galeria").innerHTML = JR.galeria.map(([f, leg], i) => `<button type="button" class="surge ${["", "d1", "d2", "d3"][i % 4]}" data-i="${i}" aria-label="Ampliar: ${leg}"><img src="img/${f}" alt="${leg}" loading="lazy"><figcaption>${leg}</figcaption></button>`).join("");
+const lb = $("#lightbox"); let iLb = 0;
+function abreLb(i) {
+  iLb = (i + JR.galeria.length) % JR.galeria.length;
+  const [f, leg] = JR.galeria[iLb];
+  $("#lb-img").src = `img/${f}`; $("#lb-img").alt = leg; $("#lb-leg").textContent = leg;
+  lb.classList.add("aberta"); document.body.style.overflow = "hidden";
+}
+function fechaLb() { lb.classList.remove("aberta"); document.body.style.overflow = ""; }
+$("#galeria").addEventListener("click", e => { const b = e.target.closest("button"); if (b) abreLb(+b.dataset.i); });
+$("#lb-fechar").onclick = fechaLb;
+$("#lb-ant").onclick = () => abreLb(iLb - 1);
+$("#lb-prox").onclick = () => abreLb(iLb + 1);
+lb.addEventListener("click", e => { if (e.target === lb) fechaLb(); });
+addEventListener("keydown", e => {
+  if (!lb.classList.contains("aberta")) return;
+  if (e.key === "Escape") fechaLb();
+  if (e.key === "ArrowLeft") abreLb(iLb - 1);
+  if (e.key === "ArrowRight") abreLb(iLb + 1);
+});
+
+/* depoimentos */
+$("#depoimentos").innerHTML = JR.depoimentos.map(([t, a], i) => `<blockquote class="depo surge ${["", "d1", "d2"][i]}"><p>${t}</p><small><span class="estrelas">★★★★★</span>${a}</small></blockquote>`).join("");
+
+/* nota que sobe */
+function contaNota(el) {
+  const alvo = +el.dataset.alvo, t0 = performance.now();
+  if (reduz) { el.textContent = notaTxt; return; }
+  const passo = t => { const p = Math.min(1, (t - t0) / 1200); el.textContent = (alvo * (1 - Math.pow(1 - p, 3))).toFixed(1).replace(".", ","); if (p < 1) requestAnimationFrame(passo); };
+  requestAnimationFrame(passo);
+}
+
+/* formulário vai pro WhatsApp */
+$("#form").addEventListener("submit", e => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const linhas = ["Olá! Vim pelo site e quero um orçamento.", "", `Nome: ${f.get("nome")}`];
+  if (f.get("local")) linhas.push(`Bairro/cidade: ${f.get("local")}`);
+  linhas.push(`Serviço: ${f.get("servico")}`);
+  if (f.get("btus")) linhas.push(`Potência: ${milhar(+f.get("btus"))} BTUs`);
+  open(wa(linhas.join("\n")), "_blank", "noopener");
+});
+
+/* aparece ao rolar */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  e.target.classList.add("visto");
+  if (e.target.classList.contains("nota")) contaNota($("#nota-grande"));
+  io.unobserve(e.target);
+}), { threshold: .15 });
+$$(".surge").forEach(el => io.observe(el));
+
+/* mapa só carrega perto da tela */
+new IntersectionObserver((es, obs) => {
+  if (!es[0].isIntersecting) return;
+  obs.disconnect();
+  $("#mapa").innerHTML = `<iframe title="Mapa: JR Climatização em Carapicuíba" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=${encodeURIComponent(JR.mapsBusca)}&hl=pt-BR&output=embed"></iframe>`;
+}, { rootMargin: "400px" }).observe($("#mapa"));
+</script>
+</body>
+</html>
