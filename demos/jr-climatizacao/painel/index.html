@@ -207,6 +207,11 @@
     .busca { max-width: none; margin-left: 0; }
   }
   .link-senha { background: none; border: 0; font: inherit; font-size: .84rem; color: var(--texto-2); cursor: pointer; text-decoration: underline; padding: 0; justify-self: center; align-self: center; }
+  .faixa-senha { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; padding: 12px 16px; background: #fff4e0; color: #7a4a00; font-size: .9rem; text-align: center; border-bottom: 1px solid #f5d7a1; }
+  .faixa-senha[hidden] { display: none; }
+  #b-senha.pulsa { color: #fff; background: var(--pendente, #f59e0b); box-shadow: none; animation: pulsa 1.4s ease-in-out infinite; }
+  @keyframes pulsa { 0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, .6); } 50% { box-shadow: 0 0 0 9px rgba(245, 158, 11, 0); } }
+  @media (prefers-reduced-motion: reduce) { #b-senha.pulsa { animation: none; } }
 </style>
 </head>
 <body>
@@ -245,6 +250,10 @@
     </div>
   </header>
 
+  <div class="faixa-senha" id="faixa-senha" hidden>
+    <span><b>Primeiro acesso:</b> você está usando uma senha provisória. Crie uma senha só sua para proteger a agenda.</span>
+    <button class="btn btn-azul btn-peq" id="faixa-trocar">Trocar agora</button>
+  </div>
   <main>
     <!-- AGENDA -->
     <section data-painel="agenda">
@@ -367,7 +376,9 @@ async function inicia() {
   if (!s) { $("#tela-login").hidden = false; $("#app").hidden = true; $("#l-email").focus(); return; }
   $("#tela-login").hidden = true; $("#app").hidden = false;
   $("#quem").textContent = s.email;
+  marcaPrimeiroAcesso(!!s.primeiroAcesso);
   if (veioDoEmail && !inicia.jaPediu) { inicia.jaPediu = true; history.replaceState(null, "", location.pathname); abreSenha("Você entrou pelo link do email. Agora crie a sua nova senha."); }
+  else if (s.primeiroAcesso && !inicia.jaPediu) { inicia.jaPediu = true; abreSenha("Bem-vindo ao painel! Essa senha que você recebeu é provisória. Crie agora uma senha só sua: depois disso, só quem souber ela entra aqui."); }
   await recarrega();
 }
 $("#form-login").addEventListener("submit", async e => {
@@ -389,13 +400,15 @@ function abreSenha(texto) {
   $("#modal-senha").classList.add("on"); $("#modal-senha").setAttribute("aria-hidden", "false"); setTimeout(() => $("#s-nova").focus(), 50);
 }
 $("#b-senha").onclick = () => abreSenha();
+$("#faixa-trocar").onclick = () => abreSenha();
+function marcaPrimeiroAcesso(sim) { $("#faixa-senha").hidden = !sim; $("#b-senha").classList.toggle("pulsa", sim); }
 $("#modal-senha").addEventListener("click", e => { if (e.target.id === "modal-senha") fechaModal(); });
 $("#form-senha").addEventListener("submit", async e => {
   e.preventDefault();
   const nova = $("#s-nova").value;
   if (nova.length < 8) { $("#s-erro").textContent = "Use pelo menos 8 caracteres"; return; }
   if (nova !== $("#s-conf").value) { $("#s-erro").textContent = "As duas senhas não estão iguais"; return; }
-  try { await A.trocarSenha(nova); fechaModal(); avisar("Senha trocada! Use a nova senha da próxima vez"); }
+  try { await A.trocarSenha(nova); marcaPrimeiroAcesso(false); fechaModal(); avisar("Senha trocada! Use a nova senha da próxima vez"); }
   catch (err) { $("#s-erro").textContent = err.message; }
 });
 
