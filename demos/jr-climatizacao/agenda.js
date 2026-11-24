@@ -113,7 +113,7 @@
       if (r.error) throw new Error(r.error.code === "23505" ? "ocupado" : r.error.message);
       return d;
     },
-    async entrar(email, senha) { const c = await carregaSB(); const r = await c.auth.signInWithPassword({ email, password: senha }); if (r.error) throw new Error("Email ou senha incorretos"); return { email: r.data.user.email }; },
+    async entrar(email, senha) { const c = await carregaSB(); const r = await c.auth.signInWithPassword({ email, password: senha }); if (r.error) { const m = r.error.message || ""; throw new Error(/confirm/i.test(m) ? "Esse email ainda não foi confirmado no Supabase" : /invalid login/i.test(m) ? "Email ou senha incorretos" : "Erro do banco: " + m); } return { email: r.data.user.email }; },
     async sair() { const c = await carregaSB(); await c.auth.signOut(); },
     async sessao() { const c = await carregaSB(); const r = await c.auth.getSession(); return r.data.session ? { email: r.data.session.user.email } : null; },
     async listar() { const c = await carregaSB(); return falha(await c.from("agendamentos").select("*").order("data", { ascending: false }).limit(2000)); },
