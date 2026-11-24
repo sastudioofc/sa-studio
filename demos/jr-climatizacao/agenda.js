@@ -6,12 +6,12 @@
     2. No SQL Editor, rode o arquivo painel/supabase.sql.
     3. Em Authentication > Users, crie o usuário da JR (email e senha) e, em
        Authentication > Sign In / Providers, desligue "Allow new users to sign up".
-    4. Cole abaixo a Project URL e a chave "anon public" (Project Settings > API).
+    4. Cole abaixo a Project URL e a Publishable key (Project Settings > API Keys).
   Sem isso, tudo funciona em MODO DEMONSTRAÇÃO, salvo só no navegador de quem está usando.
 */
 (function () {
-  const SUPABASE_URL = "";
-  const SUPABASE_KEY = ""; // chave "anon public" (pode ficar no site, o banco é protegido pelas regras do supabase.sql)
+  const SUPABASE_URL = "https://oyvmjbzmlagmquqkzylt.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_bDWp9FwLt8U9GasvRIpcDA_IqJuEXQa"; // chave pública (publishable) (pode ficar no site, o banco é protegido pelas regras do supabase.sql)
 
   const SERVICOS = ["Higienização", "Manutenção", "Instalação", "Visita técnica"];
   const STATUS = { pendente: "Pendente", confirmado: "Confirmado", concluido: "Concluído", cancelado: "Cancelado" };
