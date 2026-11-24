@@ -10,7 +10,7 @@
   Sem isso, tudo funciona em MODO DEMONSTRAÇÃO, salvo só no navegador de quem está usando.
 */
 (function () {
-  const SUPABASE_URL = "https://oyvmjbzmlagmquqkzylt.supabase.co";
+  const SUPABASE_URL = "https://oyvmjbmzlagmquqkzylt.supabase.co";
   const SUPABASE_KEY = "sb_publishable_bDWp9FwLt8U9GasvRIpcDA_IqJuEXQa"; // chave pública (publishable) (pode ficar no site, o banco é protegido pelas regras do supabase.sql)
 
   const SERVICOS = ["Higienização", "Manutenção", "Instalação", "Visita técnica"];
