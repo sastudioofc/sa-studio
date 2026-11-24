@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacidade · JR Climatização</title>
+<meta name="description" content="Como a JR Climatização usa os dados que você informa no site.">
+<link rel="icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --marinho: #0a2463; --azul: #1565d8; --gelo: #eef6ff; --texto: #0f1b33; --texto-2: #50607a; --linha: rgba(10, 36, 99, .1); }
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: "Inter", system-ui, sans-serif; color: var(--texto); background: var(--gelo); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  .topo { background: var(--marinho); padding: 18px 16px; }
+  .topo a { display: inline-flex; align-items: center; gap: 12px; color: #fff; text-decoration: none; font-family: "Poppins", system-ui, sans-serif; font-weight: 700; }
+  .topo img { width: 40px; height: 40px; border-radius: 50%; background: #fff; }
+  main { max-width: 760px; margin: 32px auto 56px; padding: 32px clamp(20px, 5vw, 48px); background: #fff; border-radius: 24px; box-shadow: 0 24px 60px -28px rgba(10, 36, 99, .35); }
+  h1 { font-family: "Poppins", system-ui, sans-serif; font-weight: 800; color: var(--marinho); font-size: clamp(1.7rem, 5vw, 2.3rem); line-height: 1.15; letter-spacing: -.02em; }
+  .data { color: var(--texto-2); font-size: .88rem; margin: 6px 0 24px; }
+  h2 { font-family: "Poppins", system-ui, sans-serif; color: var(--marinho); font-size: 1.12rem; margin: 26px 0 6px; }
+  p, li { color: #2a3650; }
+  ul { padding-left: 20px; margin-top: 4px; }
+  li { margin: 4px 0; }
+  a { color: var(--azul); }
+  .resumo { background: var(--gelo); border-radius: 16px; padding: 16px 18px; border-left: 4px solid var(--azul); }
+  .voltar { display: inline-block; margin-top: 30px; font-weight: 600; }
+  @media (max-width: 600px) { main { margin: 0; border-radius: 0; box-shadow: none; } }
+</style>
+</head>
+<body>
+<header class="topo"><a href="./"><img src="img/logo.png" alt="">JR Climatização</a></header>
+<main>
+  <h1>Política de privacidade</h1>
+  <p class="data">Atualizada em novembro de 2026</p>
+
+  <p class="resumo"><b>Resumindo:</b> usamos seu nome, WhatsApp e endereço só para marcar e fazer o serviço que você pediu. Não vendemos nem passamos seus dados para ninguém fazer propaganda. Quer ver, corrigir ou apagar seus dados? É só chamar a gente no WhatsApp.</p>
+
+  <h2>Quem cuida dos seus dados</h2>
+  <p>A JR Climatização, que presta os serviços de instalação, higienização e manutenção de ar-condicionado anunciados neste site.</p>
+
+  <h2>Quais dados coletamos</h2>
+  <ul>
+    <li><b>No agendamento:</b> nome, WhatsApp, endereço do serviço, serviço escolhido, quantidade de aparelhos, dia e horário.</li>
+    <li><b>No carrinho da loja:</b> os produtos que você escolheu ficam salvos só no seu próprio navegador. Eles não são enviados para nós até você mandar o pedido pelo WhatsApp.</li>
+    <li><b>Na conversa pelo WhatsApp:</b> o que você mesmo escrever para a gente.</li>
+  </ul>
+
+  <h2>Para que usamos</h2>
+  <ul>
+    <li>Reservar o seu horário e confirmar o atendimento com você.</li>
+    <li>Chegar ao endereço certo e fazer o serviço.</li>
+    <li>Falar com você sobre o serviço, como garantia, retorno ou o lembrete da próxima limpeza.</li>
+  </ul>
+  <p>Usamos esses dados porque eles são necessários para atender o seu pedido, como prevê a Lei Geral de Proteção de Dados (Lei 13.709/2018, art. 7º, V).</p>
+
+  <h2>Com quem compartilhamos</h2>
+  <ul>
+    <li><b>Supabase:</b> o serviço onde a nossa agenda fica guardada, com acesso só para a equipe da JR, protegido por senha.</li>
+    <li><b>WhatsApp (Meta):</b> quando você escolhe falar com a gente por lá.</li>
+    <li><b>Cloudflare:</b> faz a verificação que impede robôs de lotar a agenda com pedidos falsos.</li>
+  </ul>
+  <p>Fora isso, só compartilhamos dados se uma lei ou autoridade exigir.</p>
+
+  <h2>Por quanto tempo guardamos</h2>
+  <p>Pelo tempo necessário para fazer o serviço, cuidar da garantia e cumprir obrigações legais. Depois disso, os dados são apagados.</p>
+
+  <h2>Seus direitos</h2>
+  <p>Você pode pedir a qualquer momento para ver, corrigir ou apagar seus dados, ou tirar dúvidas sobre como eles são usados. É só mandar uma mensagem no WhatsApp <a href="#" id="zap">(11) 94545-0470</a>.</p>
+
+  <h2>Cookies</h2>
+  <p>Este site não usa cookies de propaganda nem de rastreamento. O navegador guarda só o seu carrinho, para ele não sumir se você fechar a página.</p>
+
+  <a class="voltar" href="./">← Voltar para o site</a>
+</main>
+<script>document.getElementById("zap").href = "https://wa.me/5511945450470?text=" + encodeURIComponent("Olá! Quero falar sobre os meus dados no site da JR Climatização.");</script>
+</body>
+</html>
