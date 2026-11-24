@@ -109,6 +109,12 @@
   .slot .h { font-weight: 700; color: var(--marinho); font-size: .8rem; }
   .slot.livre .mais { color: var(--azul); font-weight: 600; font-size: .78rem; opacity: 0; transition: opacity .2s; }
   .slot.livre:hover .mais { opacity: 1; }
+  .slot-wrap { position: relative; display: flex; flex-direction: column; }
+  .slot-wrap > .slot { flex: 1; }
+  .bloq-h { position: absolute; top: 6px; right: 6px; width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; border: 0; background: #fff; color: var(--texto-2); box-shadow: 0 2px 8px -3px rgba(10, 36, 99, .35); opacity: 0; transition: opacity .2s, color .2s; }
+  .slot-wrap:hover .bloq-h, .bloq-h:focus-visible { opacity: 1; }
+  .bloq-h:hover { color: var(--bloq); }
+  @media (hover: none) { .bloq-h { opacity: .85; } }
   .slot.ag { border: 0; background: #fff; box-shadow: 0 8px 20px -14px rgba(10, 36, 99, .5); border-left: 4px solid var(--c); color: var(--texto); }
   .slot.ag b { font-size: .86rem; color: var(--marinho); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .slot.ag .st { font-size: .7rem; font-weight: 700; color: var(--c); text-transform: uppercase; letter-spacing: .06em; }
@@ -159,6 +165,9 @@
   .horas-exp { display: flex; flex-wrap: wrap; gap: 6px; }
   .h-exp { height: 34px; padding: 0 10px; border-radius: 9px; border: 1.5px solid var(--gelo-2); background: #fff; font-size: .8rem; font-weight: 600; color: var(--texto-2); }
   .h-exp[aria-pressed="true"] { background: var(--azul); border-color: var(--azul); color: #fff; }
+  .add-exp { display: inline-flex; gap: 6px; align-items: center; }
+  .add-exp input { height: 34px; padding: 0 8px; border-radius: 9px; border: 1.5px solid var(--gelo-2); font: inherit; font-size: .8rem; color: var(--texto); background: #fff; }
+  .mais-exp { border-style: dashed; color: var(--azul); }
   .ajustes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
 
   /* modal */
@@ -258,7 +267,7 @@
     <!-- AGENDA -->
     <section data-painel="agenda">
       <div class="cab">
-        <div><h1>Agenda</h1><p>Clique num horário livre para marcar um cliente que veio pelo WhatsApp ou telefone.</p></div>
+        <div><h1>Agenda</h1><p>Clique num horário livre para marcar um cliente. Use o <span aria-hidden="true">⊘</span> do horário para bloquear só ele, e clique num bloqueado para liberar.</p></div>
         <div class="nav-semana"><button class="x" id="sem-ant" aria-label="Semana anterior">‹</button><b id="sem-rot"></b><button class="x" id="sem-prox" aria-label="Próxima semana">›</button><button class="btn btn-linha btn-peq" id="sem-hoje">Hoje</button></div>
       </div>
       <div class="numeros" id="numeros"></div>
@@ -470,7 +479,7 @@ function pintaAgenda() {
       if (ag) html += `<button class="slot ag ${passou}" style="--c:${COR[ag.status]}" data-ag="${ag.id}"><span class="h">${h} · ${esc(ag.servico)}</span><b>${esc(ag.nome)}</b><span class="st">${A.STATUS[ag.status]}${ag.qtd > 1 ? ` · ${ag.qtd} aparelhos` : ""}</span></button>`;
       else if (bl || bloqDia) html += `<button class="slot bloq ${passou}" ${bl ? `data-desbloq="${bl.id}"` : ""} title="Clique para liberar"><span class="h">${h}</span>Bloqueado${bl && bl.motivo ? ` · ${esc(bl.motivo)}` : ""}</button>`;
       else if (passou) html += `<div class="slot passado"><span class="h">${h}</span>Livre</div>`;
-      else html += `<button class="slot livre" data-livre="${data}|${h}"><span class="h">${h}</span>Livre<span class="mais">+ marcar cliente</span></button>`;
+      else html += `<div class="slot-wrap"><button class="slot livre" data-livre="${data}|${h}"><span class="h">${h}</span>Livre<span class="mais">+ marcar cliente</span></button><button class="bloq-h" data-bloqhora="${data}|${h}" title="Bloquear só esse horário" aria-label="Bloquear ${h}"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="m5.7 5.7 12.6 12.6"/></svg></button></div>`;
     });
     html += `</div>`;
   }
@@ -484,8 +493,9 @@ $("#sem-ant").onclick = () => { inicioSemana = A.somaDias(inicioSemana, -7); pin
 $("#sem-prox").onclick = () => { inicioSemana = A.somaDias(inicioSemana, 7); pintaAgenda(); };
 $("#sem-hoje").onclick = () => { inicioSemana = segunda(A.iso(A.agora())); pintaAgenda(); };
 $("#semana").addEventListener("click", async e => {
-  const ag = e.target.closest("[data-ag]"), livre = e.target.closest("[data-livre]"), bd = e.target.closest("[data-bloqdia]"), db = e.target.closest("[data-desbloq]");
-  if (ag) abreModal(dados.ags.find(a => a.id === ag.dataset.ag));
+  const ag = e.target.closest("[data-ag]"), livre = e.target.closest("[data-livre]"), bd = e.target.closest("[data-bloqdia]"), db = e.target.closest("[data-desbloq]"), bh = e.target.closest("[data-bloqhora]");
+  if (bh) { const [data, hora] = bh.dataset.bloqhora.split("|"); await acao(() => A.bloquear({ data, hora, motivo: "" }), `${hora} bloqueado`); }
+  else if (ag) abreModal(dados.ags.find(a => a.id === ag.dataset.ag));
   else if (livre) { const [data, hora] = livre.dataset.livre.split("|"); abreModal(null, { data, hora }); }
   else if (bd) { await acao(() => A.bloquear({ data: bd.dataset.bloqdia, hora: null, motivo: "" }), "Dia bloqueado"); }
   else if (db) { await acao(() => A.desbloquear(db.dataset.desbloq), "Liberado"); }
@@ -544,10 +554,28 @@ let rascunhoExp = null;
 function pintaExpediente() {
   rascunhoExp = JSON.parse(JSON.stringify(dados.cfg.horarios));
   const ordem = [1, 2, 3, 4, 5, 6, 0];
-  $("#expediente").innerHTML = ordem.map(d => `<div class="linha-exp"><b>${SEM_LONGO[d]}</b><div class="horas-exp">${HORAS_BASE.map(h => `<button type="button" class="h-exp" data-d="${d}" data-h="${h}" aria-pressed="${(rascunhoExp[d] || []).includes(h)}">${h}</button>`).join("")}</div></div>`).join("");
+  $("#expediente").innerHTML = ordem.map(d => `<div class="linha-exp"><b>${SEM_LONGO[d]}</b><div class="horas-exp" data-dia="${d}"></div></div>`).join("");
+  ordem.forEach(pintaLinhaExp);
   $("#cfg-dias").value = dados.cfg.diasAgenda; $("#cfg-antec").value = dados.cfg.antecedenciaHoras;
 }
+function pintaLinhaExp(d) {
+  const marcadas = rascunhoExp[d] || [];
+  const todas = [...new Set([...HORAS_BASE, ...marcadas, ...(extrasExp[d] || [])])].sort();
+  $(`.horas-exp[data-dia="${d}"]`).innerHTML = todas.map(h => `<button type="button" class="h-exp" data-d="${d}" data-h="${h}" aria-pressed="${marcadas.includes(h)}">${h}</button>`).join("")
+    + `<span class="add-exp"><input type="time" step="300" aria-label="Outro horário de ${SEM_LONGO[d]}"><button type="button" class="h-exp mais-exp" data-add="${d}">+ horário</button></span>`;
+}
+const extrasExp = {};
 $("#expediente").addEventListener("click", e => {
+  const add = e.target.closest("[data-add]");
+  if (add) {
+    const d = add.dataset.add, inp = add.previousElementSibling, h = inp.value;
+    if (!/^\d{2}:\d{2}$/.test(h)) { inp.focus(); avisar("Escolha o horário no campo ao lado (ex.: 07:30)", true); return; }
+    const l = rascunhoExp[d] = rascunhoExp[d] || [];
+    if (!l.includes(h)) l.push(h); l.sort();
+    (extrasExp[d] = extrasExp[d] || []).push(h);
+    pintaLinhaExp(d); avisar(`${h} adicionado. Clique em Salvar para valer.`);
+    return;
+  }
   const b = e.target.closest(".h-exp"); if (!b) return;
   const d = b.dataset.d, h = b.dataset.h, l = rascunhoExp[d] = rascunhoExp[d] || [];
   const i = l.indexOf(h); i >= 0 ? l.splice(i, 1) : l.push(h); l.sort();
