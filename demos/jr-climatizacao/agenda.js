@@ -13,6 +13,10 @@
   const SUPABASE_URL = "https://oyvmjbmzlagmquqkzylt.supabase.co";
   const SUPABASE_KEY = "sb_publishable_bDWp9FwLt8U9GasvRIpcDA_IqJuEXQa"; // chave pública (publishable) (pode ficar no site, o banco é protegido pelas regras do supabase.sql)
 
+  // Captcha (Cloudflare Turnstile). Vazio = sem captcha, o site grava direto (regras do supabase.sql).
+  // Preenchido = o site manda o pedido para a função "agendar", que confere o captcha (veja painel/captcha.sql).
+  const TURNSTILE_SITEKEY = "";
+
   const SERVICOS = ["Higienização", "Manutenção", "Instalação", "Visita técnica"];
   const STATUS = { pendente: "Pendente", confirmado: "Confirmado", concluido: "Concluído", cancelado: "Cancelado" };
   const CONFIG_PADRAO = {
@@ -109,7 +113,16 @@
     async config() { const c = await carregaSB(); const r = await c.from("config").select("dados").eq("id", 1).maybeSingle(); return { ...CONFIG_PADRAO, ...((falha(r) || {}).dados || {}) }; },
     async salvarConfig(dados) { const c = await carregaSB(); falha(await c.from("config").upsert({ id: 1, dados })); },
     async ocupados(de, ate) { const c = await carregaSB(); return falha(await c.rpc("horarios_ocupados", { de, ate })) || []; },
-    async criarPublico(d) {
+    async criarPublico(d, token) {
+      if (TURNSTILE_SITEKEY) {
+        let r;
+        try {
+          r = await fetch(SUPABASE_URL + "/functions/v1/agendar", { method: "POST", headers: { "Content-Type": "application/json", apikey: SUPABASE_KEY }, body: JSON.stringify({ ...d, token }) });
+        } catch (e) { throw new Error("rede"); }
+        if (r.ok) return d;
+        const j = await r.json().catch(() => ({}));
+        throw new Error(j.erro === "ocupado" || j.erro === "recusado" || j.erro === "captcha" ? j.erro : "Erro " + r.status);
+      }
       const c = await carregaSB();
       const r = await c.from("agendamentos").insert({ ...d, origem: "site", status: "pendente" });
       if (r.error) throw new Error(r.error.code === "23505" ? "ocupado" : r.error.code === "42501" ? "recusado" : r.error.message);
@@ -159,5 +172,5 @@
     return dias;
   }
 
-  window.JRAgenda = { modo: fonte === sb ? "supabase" : "demo", SERVICOS, STATUS, CONFIG_PADRAO, iso, deIso, somaDias, agora, disponibilidade, ...fonte };
+  window.JRAgenda = { modo: fonte === sb ? "supabase" : "demo", turnstile: fonte === sb ? TURNSTILE_SITEKEY : "", SERVICOS, STATUS, CONFIG_PADRAO, iso, deIso, somaDias, agora, disponibilidade, ...fonte };
 })();

@@ -459,6 +459,9 @@
   .ticket dd.falta { color: #b9c4d6; font-weight: 500; }
   .ticket .rodape-t { padding: 20px 24px 24px; }
   .ticket .rodape-t p { font-size: .8rem; color: var(--texto-2); margin-bottom: 14px; }
+  .ticket .lgpd { display: block; margin-top: 12px; font-size: .74rem; color: var(--texto-2); text-align: center; line-height: 1.5; }
+  .ticket .lgpd a { color: var(--azul); }
+  #captcha:not(:empty) { margin-bottom: 12px; display: flex; justify-content: center; }
   .ticket .btn { width: 100%; }
 
   /* carrinho (gaveta) */
@@ -744,10 +747,12 @@
         </dl>
         <div class="rodape-t">
           <p>O horário fica reservado na hora. Sem pagamento agora: você só paga depois do serviço feito.</p>
+          <div id="captcha"></div>
           <button class="btn btn-zap" type="button" id="ag-enviar">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c.7.3 1.3.5 1.7.6a4.2 4.2 0 0 0 1.9.1 3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.7-.4zM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 1 1 8.3 4.6zm8.4-18.2A11.8 11.8 0 0 0 1.8 17.8L.1 24l6.4-1.7a11.8 11.8 0 0 0 5.6 1.4 11.8 11.8 0 0 0 8.3-20.1z"/></svg>
             Confirmar pelo WhatsApp
           </button>
+          <small class="lgpd">Usamos seus dados só para marcar e fazer o serviço. <a href="privacidade.html">Privacidade</a></small>
         </div>
       </aside>
     </div>
@@ -951,7 +956,7 @@
     </div>
     <div class="baixo">
       <span>© <span id="ano"></span> JR Climatização · Instalação, higienização e manutenção de ar-condicionado</span>
-      <span><a href="painel/" style="font-weight:500;color:#9fb4da">Área da equipe</a> · Site feito pela <a href="https://sastudio.vercel.app/" target="_blank" rel="noopener">SA Studio</a></span>
+      <span><a href="privacidade.html" style="color:#9fb4da">Privacidade</a> · <a href="painel/" style="font-weight:500;color:#9fb4da">Área da equipe</a> · Site feito pela <a href="https://sastudio.vercel.app/" target="_blank" rel="noopener">SA Studio</a></span>
     </div>
   </div>
 </footer>
@@ -1526,15 +1531,21 @@ $("#ag-enviar").addEventListener("click", async () => {
   if (tel.replace(/\D/g, "").length < 10) { $("#ag-tel").focus(); avisar("Informe seu WhatsApp com DDD"); return; }
   if (!end) { $("#ag-end").focus(); avisar("Falta o endereço"); return; }
   const s = servAg(ag.serv), d = diasAg[ag.dia], hora = ag.hora;
+  let token = "";
+  if (AG.turnstile) {
+    token = window.turnstile && capId != null ? turnstile.getResponse(capId) : "";
+    if (!token) { avisar("Só um segundo: confirmando que você não é um robô…"); if (window.turnstile && capId != null) turnstile.execute(capId); return; }
+  }
   const btn = $("#ag-enviar"); btn.disabled = true;
   // abre a aba já no clique (senão o navegador bloqueia) e manda para o WhatsApp depois de salvar
   const janela = open("", "_blank");
   try {
-    await AG.criarPublico({ data: d.data, hora, servico: s[2], qtd: parseInt($("#ag-qtd").value) || 1, nome, telefone: tel, endereco: end, obs: "" });
+    await AG.criarPublico({ data: d.data, hora, servico: s[2], qtd: parseInt($("#ag-qtd").value) || 1, nome, telefone: tel, endereco: end, obs: "" }, token);
   } catch (e) {
     if (janela) janela.close();
     btn.disabled = false;
-    avisar(e.message === "ocupado" ? "Esse horário acabou de ser ocupado. Escolha outro." : e.message === "recusado" ? "Esse horário não está mais disponível, ou você já tem pedidos em aberto. Escolha outro ou chame no WhatsApp." : "Não deu para salvar agora. Tente de novo ou chame no WhatsApp.");
+    if (window.turnstile && capId != null) turnstile.reset(capId);
+    avisar(e.message === "ocupado" ? "Esse horário acabou de ser ocupado. Escolha outro." : e.message === "captcha" ? "Não conseguimos confirmar que você não é um robô. Tente de novo." : e.message === "recusado" ? "Esse horário não está mais disponível, ou você já tem pedidos em aberto. Escolha outro ou chame no WhatsApp." : "Não deu para salvar agora. Tente de novo ou chame no WhatsApp.");
     carregaAgenda(true);
     return;
   }
@@ -1542,8 +1553,17 @@ $("#ag-enviar").addEventListener("click", async () => {
   if (janela) janela.location.href = wa(msg); else location.href = wa(msg);
   btn.disabled = false;
   avisar("Horário reservado! Confirme pelo WhatsApp.");
+  if (window.turnstile && capId != null) turnstile.reset(capId);
   carregaAgenda();
 });
+// captcha invisível (só aparece um desafio se a Cloudflare desconfiar)
+let capId = null;
+if (AG.turnstile) {
+  window.jrCaptcha = () => { capId = turnstile.render("#captcha", { sitekey: AG.turnstile, appearance: "interaction-only", language: "pt-br" }); };
+  const s = document.createElement("script");
+  s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=jrCaptcha"; s.async = true;
+  document.head.appendChild(s);
+}
 // links "agendar" espalhados pelo site já escolhem o serviço
 $$("[data-agendar]").forEach(a => a.addEventListener("click", () => escolheServ(a.dataset.agendar)));
 pintaTicket(); pintaCarrinho(); carregaAgenda();
