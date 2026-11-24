@@ -7,7 +7,8 @@
 <!--
   SITE DA JR CLIMATIZAÇÃO (instalação, higienização e manutenção de ar-condicionado split) · proposta da SA Studio
   Para editar:
-    1. WhatsApp, telefone, endereço, horário, avaliações, sintomas e fotos da galeria ficam no objeto JR
+    1. WhatsApp, telefone, endereço, horário, avaliações, sintomas, fotos da galeria, PRODUTOS DA LOJA
+       (preços de exemplo), preço da instalação e serviços/horários do agendamento ficam no objeto JR
        no começo do <script>.
     2. Fotos em img/ (tiradas do Instagram @jrcliimatizacao). Para trocar, mantenha o mesmo nome do arquivo.
     3. Cores em :root (azul e branco, os mesmos da logo e das artes do Instagram).
@@ -254,7 +255,7 @@
   .receita li span { font-size: .86rem; color: var(--texto-2); }
   .receita li .ic { flex: none; width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: var(--gelo); color: var(--azul); font-size: 1.1rem; }
   .receita .vazio { color: var(--texto-2); font-size: .92rem; padding: 18px; border: 1.5px dashed var(--gelo-2); border-radius: 16px; background: #fff; }
-  .receita .btn { margin-top: auto; align-self: flex-start; }
+
   @keyframes entra { from { opacity: 0; transform: translateY(10px) scale(.98); } }
 
   /* trabalhos */
@@ -347,6 +348,7 @@
   footer .baixo { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: .8rem; }
   footer .baixo a { color: #fff; font-weight: 600; }
 
+  .com-carrinho .zap-flutua { bottom: 18px; }
   .zap-flutua { position: fixed; right: 18px; bottom: 18px; z-index: 60; width: 60px; height: 60px; border-radius: 50%; background: var(--zap); color: #fff; display: grid; place-items: center; box-shadow: 0 16px 30px -10px rgba(37, 211, 102, .8); transition: transform .35s var(--mola); }
   .zap-flutua::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--zap); animation: pulsa 2.4s ease-out infinite; z-index: -1; }
   @keyframes pulsa { to { transform: scale(1.6); opacity: 0; } }
@@ -369,7 +371,144 @@
   .surge.visto { opacity: 1; transform: none; }
   .d1 { transition-delay: .08s; } .d2 { transition-delay: .16s; } .d3 { transition-delay: .24s; }
 
+  /* carrinho no topo */
+  .carrinho-btn { position: relative; display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 14px; border-radius: 12px; background: var(--gelo); color: var(--marinho); font-family: var(--titulo); font-weight: 600; font-size: .88rem; transition: transform .3s var(--mola), background .2s; flex: none; }
+  .carrinho-btn:hover { background: var(--gelo-2); transform: translateY(-2px); }
+  .carrinho-btn svg { width: 20px; height: 20px; }
+  .carrinho-btn .n { min-width: 22px; height: 22px; border-radius: 11px; background: var(--azul); color: #fff; font-size: .72rem; display: grid; place-items: center; padding: 0 6px; }
+  .carrinho-btn.pula { animation: pula .5s var(--mola); }
+  @keyframes pula { 40% { transform: scale(1.15); } }
+
+  /* loja */
+  .loja { background: #fff; }
+  .filtros { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 26px; }
+  .filtro { height: 42px; padding: 0 18px; border-radius: 99px; border: 1.5px solid var(--gelo-2); font-weight: 600; font-size: .88rem; color: var(--texto-2); transition: all .25s; }
+  .filtro:hover { border-color: var(--celeste); color: var(--marinho); }
+  .filtro[aria-pressed="true"] { background: var(--marinho); border-color: var(--marinho); color: #fff; }
+  .produtos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .produto { position: relative; display: flex; flex-direction: column; border-radius: 22px; border: 1px solid var(--linha); background: #fff; overflow: hidden; transition: transform .45s var(--mola), box-shadow .35s, border-color .3s, opacity .3s; }
+  .produto:hover { transform: translateY(-5px); box-shadow: var(--sombra); border-color: transparent; }
+  .produto.some { display: none; }
+  .produto .vitrine { position: relative; aspect-ratio: 4 / 3; background: linear-gradient(160deg, var(--gelo) 0%, #fff 100%); display: grid; place-items: center; overflow: hidden; }
+  .produto .vitrine svg.aparelho { width: 84%; filter: drop-shadow(0 14px 18px rgba(10, 36, 99, .18)); transition: transform .6s var(--mola); }
+  .produto:hover .vitrine svg.aparelho { transform: translateY(-4px) scale(1.03); }
+  .produto .vitrine .ar path { stroke-dasharray: 10 16; animation: sopra 1.6s linear infinite; animation-play-state: paused; opacity: .3; transition: opacity .3s; }
+  .produto:hover .vitrine .ar path { animation-play-state: running; opacity: .7; }
+  .etiquetas { position: absolute; left: 12px; top: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .etiquetas span { padding: 4px 10px; border-radius: 99px; background: #fff; font-size: .68rem; font-weight: 700; color: var(--marinho-2); box-shadow: 0 4px 10px -6px rgba(10, 36, 99, .5); }
+  .etiquetas span.oferta { background: var(--quente); color: #fff; }
+  .produto .info-p { padding: 16px 18px 18px; display: flex; flex-direction: column; flex: 1; }
+  .produto .marca-p { font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--azul); }
+  .produto h3 { font-size: 1.02rem; line-height: 1.25; margin: 4px 0 6px; }
+  .produto .specs { font-size: .8rem; color: var(--texto-2); margin-bottom: 12px; }
+  .produto .preco { margin-top: auto; }
+  .produto .preco s { font-size: .8rem; color: var(--texto-2); }
+  .produto .preco b { display: block; font-family: var(--titulo); font-size: 1.45rem; color: var(--marinho); line-height: 1.1; }
+  .produto .preco small { font-size: .78rem; color: var(--texto-2); }
+  .com-inst { display: flex; align-items: center; gap: 10px; margin: 12px 0; padding: 10px 12px; border-radius: 12px; background: var(--gelo); font-size: .8rem; cursor: pointer; user-select: none; }
+  .com-inst input { width: 18px; height: 18px; accent-color: var(--azul); flex: none; }
+  .com-inst b { color: var(--marinho); }
+  .produto .btn { min-height: 46px; font-size: .88rem; width: 100%; }
+  .nota-loja { margin-top: 22px; font-size: .82rem; color: var(--texto-2); display: flex; gap: 18px; flex-wrap: wrap; }
+  .nota-loja span { display: inline-flex; align-items: center; gap: 8px; }
+  .nota-loja svg { width: 18px; height: 18px; color: var(--azul); }
+
+  /* agendamento */
+  .agenda { background: var(--gelo); }
+  .agenda .grade { display: grid; grid-template-columns: 1.15fr .85fr; gap: 24px; align-items: start; }
+  .agenda .grade > * { min-width: 0; }
+  .passo-ag { margin-bottom: 26px; }
+  .passo-ag:last-child { margin-bottom: 0; }
+  .passo-ag > .rot { display: flex; align-items: center; gap: 10px; font-family: var(--titulo); font-weight: 700; color: var(--marinho); margin-bottom: 12px; }
+  .passo-ag > .rot i { font-style: normal; width: 26px; height: 26px; border-radius: 50%; background: var(--azul); color: #fff; font-size: .76rem; display: grid; place-items: center; }
+  .servs-ag { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .serv-ag { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 14px; border-radius: 16px; border: 1.5px solid var(--gelo-2); text-align: left; transition: border-color .2s, background .2s, transform .3s var(--mola); }
+  .serv-ag:hover { border-color: var(--celeste); }
+  .serv-ag i { font-style: normal; font-size: 1.3rem; }
+  .serv-ag b { font-family: var(--titulo); font-size: .9rem; color: var(--marinho); line-height: 1.2; }
+  .serv-ag small { font-size: .74rem; color: var(--texto-2); }
+  .serv-ag[aria-pressed="true"] { border-color: var(--azul); background: var(--gelo); transform: scale(1.02); }
+  .dias { display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px 10px; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+  .dia { flex: none; width: 66px; padding: 10px 0; border-radius: 16px; border: 1.5px solid var(--gelo-2); text-align: center; scroll-snap-align: start; transition: all .25s var(--mola); }
+  .dia small { display: block; font-size: .68rem; text-transform: uppercase; letter-spacing: .08em; color: var(--texto-2); }
+  .dia b { display: block; font-family: var(--titulo); font-size: 1.35rem; color: var(--marinho); line-height: 1.2; }
+  .dia span { display: block; font-size: .66rem; color: var(--texto-2); }
+  .dia:hover { border-color: var(--celeste); }
+  .dia[aria-pressed="true"] { background: var(--azul); border-color: var(--azul); transform: translateY(-3px); }
+  .dia[aria-pressed="true"] small, .dia[aria-pressed="true"] b, .dia[aria-pressed="true"] span { color: #fff; }
+  .horas { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .hora { height: 44px; border-radius: 12px; border: 1.5px solid var(--gelo-2); font-weight: 600; font-size: .9rem; transition: all .2s; }
+  .hora:hover:not(:disabled) { border-color: var(--celeste); }
+  .hora[aria-pressed="true"] { background: var(--marinho); border-color: var(--marinho); color: #fff; }
+  .hora:disabled { opacity: .4; text-decoration: line-through; cursor: not-allowed; }
+  .campos-ag { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .campos-ag label, .form-car label { display: grid; gap: 6px; font-size: .8rem; font-weight: 600; color: var(--marinho); }
+  .campos-ag label.toda { grid-column: 1 / -1; }
+  .campos-ag input, .campos-ag select, .form-car input, .form-car select { height: 48px; padding: 0 14px; border-radius: 12px; border: 1.5px solid var(--gelo-2); background: #fff; font-size: .95rem; outline: none; transition: border-color .2s; }
+  .campos-ag input:focus, .campos-ag select:focus, .form-car input:focus, .form-car select:focus { border-color: var(--azul); }
+  .ticket { position: sticky; top: 96px; border-radius: 26px; background: #fff; box-shadow: var(--sombra); overflow: hidden; }
+  .ticket .topo-t { padding: 22px 24px; background: linear-gradient(150deg, var(--azul), var(--marinho)); color: #fff; }
+  .ticket .topo-t small { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--celeste); font-weight: 700; }
+  .ticket .topo-t h3 { color: #fff; font-size: 1.35rem; margin-top: 6px; }
+  .ticket dl { padding: 18px 24px 8px; display: grid; gap: 12px; border-bottom: 2px dashed var(--gelo-2); position: relative; }
+  .ticket dl::before, .ticket dl::after { content: ""; position: absolute; bottom: -12px; width: 22px; height: 22px; border-radius: 50%; background: var(--gelo); }
+  .ticket dl::before { left: -11px; } .ticket dl::after { right: -11px; }
+  .ticket dl div { display: flex; justify-content: space-between; gap: 12px; font-size: .9rem; padding-bottom: 10px; }
+  .ticket dt { color: var(--texto-2); }
+  .ticket dd { font-weight: 600; color: var(--marinho); text-align: right; }
+  .ticket dd.falta { color: #b9c4d6; font-weight: 500; }
+  .ticket .rodape-t { padding: 20px 24px 24px; }
+  .ticket .rodape-t p { font-size: .8rem; color: var(--texto-2); margin-bottom: 14px; }
+  .ticket .btn { width: 100%; }
+
+  /* carrinho (gaveta) */
+  .carrinho-flutua { position: fixed; right: 18px; bottom: 92px; z-index: 70; transform: translateY(40px); opacity: 0; pointer-events: none; transition: transform .5s var(--mola), opacity .3s; }
+  .carrinho-flutua.on { transform: none; opacity: 1; pointer-events: auto; }
+  .carrinho-flutua .carrinho-btn { height: 56px; padding: 0 18px; border-radius: 18px; background: var(--marinho); color: #fff; box-shadow: 0 18px 30px -12px rgba(10, 36, 99, .7); }
+  .carrinho-flutua .carrinho-btn .n { background: var(--celeste); color: var(--marinho); }
+  .gaveta { position: fixed; inset: 0; z-index: 90; pointer-events: none; }
+  .gaveta .fundo { position: absolute; inset: 0; background: rgba(7, 26, 71, .55); opacity: 0; transition: opacity .3s; }
+  .gaveta .lado { position: absolute; top: 0; right: 0; bottom: 0; width: min(460px, 100%); background: #fff; display: flex; flex-direction: column; transform: translateX(100%); transition: transform .45s cubic-bezier(.6, 0, .25, 1); box-shadow: -20px 0 50px rgba(7, 26, 71, .3); }
+  .gaveta.on { pointer-events: auto; }
+  .gaveta.on .fundo { opacity: 1; }
+  .gaveta.on .lado { transform: none; }
+  .gaveta header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid var(--linha); }
+  .gaveta header h3 { font-size: 1.35rem; }
+  .x { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--gelo); font-size: 1.4rem; line-height: 1; color: var(--marinho); }
+  .gaveta .rolagem { flex: 1; overflow: auto; padding: 6px 22px 22px; }
+  .linha-item { display: grid; grid-template-columns: 64px 1fr auto; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--linha); align-items: center; }
+  .linha-item .mini { width: 64px; height: 48px; border-radius: 10px; background: var(--gelo); display: grid; place-items: center; }
+  .linha-item .mini svg { width: 54px; }
+  .linha-item .mini.serv { font-size: 1.4rem; }
+  .linha-item b { display: block; font-size: .9rem; line-height: 1.25; color: var(--marinho); }
+  .linha-item small { display: block; color: var(--texto-2); font-size: .78rem; line-height: 1.35; }
+  .qtd { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+  .qtd button { width: 28px; height: 28px; border-radius: 8px; background: var(--gelo); font-weight: 700; color: var(--marinho); }
+  .linha-item .v { font-weight: 700; font-variant-numeric: tabular-nums; align-self: start; font-size: .92rem; }
+  .vazio-car { text-align: center; padding: 46px 10px; color: var(--texto-2); }
+  .vazio-car svg { width: 120px; margin: 0 auto 14px; opacity: .7; }
+  .extra-car { margin: 16px 0 4px; padding: 14px; border-radius: 14px; background: var(--gelo); font-size: .84rem; }
+  .extra-car b { color: var(--marinho); display: block; margin-bottom: 8px; }
+  .extra-car .chips-mini { display: flex; gap: 8px; flex-wrap: wrap; }
+  .extra-car button { padding: 8px 12px; border-radius: 99px; background: #fff; border: 1.5px solid var(--gelo-2); font-size: .8rem; font-weight: 600; color: var(--marinho); transition: border-color .2s; }
+  .extra-car button:hover { border-color: var(--azul); }
+  .form-car { display: grid; gap: 12px; margin-top: 18px; }
+  .form-car .dupla-car { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .resumo { padding: 16px 22px 20px; border-top: 1px solid var(--linha); background: #fff; }
+  .resumo div { display: flex; justify-content: space-between; font-size: .9rem; color: var(--texto-2); margin-bottom: 4px; }
+  .resumo .t { font-family: var(--titulo); font-weight: 700; font-size: 1.2rem; color: var(--marinho); margin: 8px 0 2px; }
+  .resumo .parc { font-size: .8rem; margin-bottom: 14px; }
+  .resumo .btn { width: 100%; }
+  .aviso { position: fixed; left: 50%; bottom: 28px; z-index: 120; transform: translate(-50%, 30px); opacity: 0; padding: 12px 20px; border-radius: 14px; background: var(--marinho); color: #fff; font-weight: 600; font-size: .9rem; box-shadow: 0 16px 30px -12px rgba(7, 26, 71, .7); transition: transform .4s var(--mola), opacity .3s; pointer-events: none; max-width: calc(100% - 32px); text-align: center; }
+  .aviso.on { transform: translate(-50%, 0); opacity: 1; }
+  .voador { position: fixed; z-index: 110; pointer-events: none; display: grid; place-items: center; }
+  .voador svg { width: 100%; }
+
   @media (max-width: 1020px) {
+    .produtos { grid-template-columns: repeat(2, 1fr); }
+    .agenda .grade { grid-template-columns: 1fr; }
+    .ticket { position: static; }
+    .servs-ag { grid-template-columns: repeat(2, 1fr); }
     .menu { position: fixed; inset: 74px 0 auto 0; flex-direction: column; gap: 0; padding: 8px 16px 18px; background: #fff; border-bottom: 1px solid var(--linha); box-shadow: 0 20px 40px -20px rgba(10, 36, 99, .4); transform: translateY(-12px); opacity: 0; pointer-events: none; transition: transform .35s var(--suave), opacity .25s; }
     .menu a { padding: 14px 4px; border-bottom: 1px solid var(--linha); font-size: 1rem; }
     .menu a::after { display: none; }
@@ -384,6 +523,25 @@
     .fotos-equipe { max-width: 520px; }
   }
   @media (max-width: 680px) {
+    .carrinho-btn .rot { display: none; }
+    .produtos { grid-template-columns: 1fr; gap: 14px; }
+    .produto { display: grid; grid-template-columns: 36% 1fr; }
+    .produto .vitrine { aspect-ratio: auto; height: 100%; }
+    .produto .vitrine svg.aparelho { width: 92%; }
+    .etiquetas { left: 8px; top: 8px; right: 8px; }
+    .etiquetas span { font-size: .62rem; padding: 3px 8px; }
+    .produto .info-p { padding: 14px 14px 14px 12px; }
+    .produto h3 { font-size: .95rem; }
+    .produto .specs { margin-bottom: 8px; font-size: .76rem; }
+    .produto .preco b { font-size: 1.25rem; }
+    .com-inst { margin: 10px 0; font-size: .76rem; padding: 8px 10px; }
+    .produto .btn { min-height: 42px; }
+    .aviso { top: 88px; bottom: auto; transform: translate(-50%, -30px); }
+    .horas { grid-template-columns: repeat(3, 1fr); }
+    .campos-ag, .form-car .dupla-car { grid-template-columns: 1fr; }
+    .carrinho-flutua { left: 12px; right: 84px; bottom: 18px; }
+    .carrinho-flutua .carrinho-btn { width: 100%; justify-content: center; }
+    .carrinho-flutua .carrinho-btn .rot { display: inline; }
     .topo .btn { display: none; }
     .sanduiche { margin-left: auto; }
     .marca img { width: 40px; height: 40px; }
@@ -419,13 +577,15 @@
       <span><b>JR Climatização</b><small>Ar-condicionado split</small></span>
     </a>
     <nav class="menu" id="menu" aria-label="Principal">
+      <a href="#loja">Loja</a>
+      <a href="#agendar">Agendar</a>
       <a href="#servicos">Serviços</a>
       <a href="#calculadora">Calcular BTUs</a>
-      <a href="#trabalhos">Trabalhos</a>
       <a href="#avaliacoes">Avaliações</a>
       <a href="#contato">Contato</a>
     </nav>
-    <a class="btn btn-azul" href="#" data-wa>Pedir orçamento</a>
+    <button class="carrinho-btn" data-abrir-car aria-label="Abrir carrinho"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.5L21.5 8H6"/></svg><span class="rot">Carrinho</span><span class="n" data-qtd>0</span></button>
+    <a class="btn btn-azul" href="#agendar">Agendar serviço</a>
     <button class="sanduiche" id="sanduiche" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><span></span></button>
   </div>
 </header>
@@ -439,13 +599,10 @@
         <b id="nota-topo">4,9</b><span class="estrelas">★★★★★</span><span id="qtd-topo">63 avaliações no Google</span>
       </a>
       <h1 class="surge d1">Ar-condicionado split com <span class="giro" id="giro">instalação rápida.</span></h1>
-      <p class="lead surge d2">Instalação, higienização e manutenção de ar-condicionado split, com ótimo preço e acabamento caprichado. Respire conforto, viva climatizado.</p>
+      <p class="lead surge d2">Venda de ar-condicionado split com instalação, além de higienização e manutenção com agendamento online. Ótimo preço e acabamento caprichado.</p>
       <div class="acoes surge d2">
-        <a class="btn btn-zap" href="#" data-wa>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c.7.3 1.3.5 1.7.6a4.2 4.2 0 0 0 1.9.1 3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.7-.4zM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 1 1 8.3 4.6zm8.4-18.2A11.8 11.8 0 0 0 1.8 17.8L.1 24l6.4-1.7a11.8 11.8 0 0 0 5.6 1.4 11.8 11.8 0 0 0 8.3-20.1z"/></svg>
-          Orçamento pelo WhatsApp
-        </a>
-        <a class="btn btn-linha" href="#calculadora">Quantos BTUs eu preciso?</a>
+        <a class="btn btn-azul" href="#loja"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.5L21.5 8H6"/></svg>Comprar ar-condicionado</a>
+        <a class="btn btn-linha" href="#agendar">Agendar higienização ou manutenção</a>
       </div>
       <div class="garantias surge d3">
         <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1"/></svg>Todas as marcas</span>
@@ -484,6 +641,25 @@
 
 <div class="faixa" aria-label="Marcas que instalamos"><div class="trilho" id="trilho"></div></div>
 
+<section class="secao loja" id="loja">
+  <div class="embrulho">
+    <div class="cabeca">
+      <div>
+        <p class="olho surge">Loja</p>
+        <h2 class="surge d1">Compre o aparelho e já leve a <em>instalação</em>.</h2>
+      </div>
+      <p class="lead surge d2">Escolha o ar-condicionado, marque a instalação e finalize pelo WhatsApp. A gente confirma o estoque e agenda o dia.</p>
+    </div>
+    <div class="filtros surge" id="filtros" role="group" aria-label="Filtrar por potência"></div>
+    <div class="produtos" id="produtos"></div>
+    <div class="nota-loja surge">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Até 10x no cartão ou desconto no Pix</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>Aparelho novo, com nota e garantia de fábrica</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Preços sujeitos à confirmação de estoque</span>
+    </div>
+  </div>
+</section>
+
 <section class="secao servicos" id="servicos">
   <div class="embrulho">
     <div class="cabeca">
@@ -500,7 +676,7 @@
           <h3>Instalação de split</h3>
           <p>Instalação completa de ar-condicionado split, com suporte firme, tubulação bem feita e acabamento limpo.</p>
           <ul><li>Todas as marcas e potências</li><li>Ponto elétrico dedicado e canaleta</li><li>Teste de funcionamento na entrega</li></ul>
-          <a class="btn btn-azul" href="#" data-wa="Olá! Vim pelo site e quero um orçamento de instalação de ar-condicionado split.">Orçar instalação</a>
+          <a class="btn btn-azul" href="#loja">Ver aparelhos</a>
         </div>
       </article>
       <article class="card surge d1">
@@ -509,7 +685,7 @@
           <h3>Higienização</h3>
           <p>Limpeza completa do aparelho para o ar voltar a sair puro, sem cheiro e com a força de antes.</p>
           <ul><li>Ar mais saudável, puro e limpo</li><li>Menos falhas e menor consumo de energia</li><li>Prolonga a vida útil do aparelho</li></ul>
-          <a class="btn btn-azul" href="#" data-wa="Olá! Vim pelo site e quero agendar uma higienização de ar-condicionado.">Agendar higienização</a>
+          <a class="btn btn-azul" href="#agendar" data-agendar="higienizacao">Agendar higienização</a>
         </div>
       </article>
       <article class="card surge d2">
@@ -518,9 +694,61 @@
           <h3>Manutenção</h3>
           <p>Seu ar parou de gelar, está pingando ou fazendo barulho? A gente encontra o problema e resolve.</p>
           <ul><li>Manutenção preventiva e corretiva</li><li>Diagnóstico de falhas</li><li>Garante a climatização correta do ambiente</li></ul>
-          <a class="btn btn-azul" href="#" data-wa="Olá! Vim pelo site e preciso de manutenção no meu ar-condicionado.">Pedir manutenção</a>
+          <a class="btn btn-azul" href="#agendar" data-agendar="manutencao">Agendar manutenção</a>
         </div>
       </article>
+    </div>
+  </div>
+</section>
+
+<section class="secao agenda" id="agendar">
+  <div class="embrulho">
+    <div class="cabeca">
+      <div>
+        <p class="olho surge">Agendamento online</p>
+        <h2 class="surge d1">Escolha o serviço, o dia e o <em>horário</em>.</h2>
+      </div>
+      <p class="lead surge d2">Em menos de um minuto. O pedido chega no nosso WhatsApp e a gente confirma o horário com você.</p>
+    </div>
+    <div class="grade">
+      <form class="painel surge" id="form-ag" onsubmit="return false">
+        <div class="passo-ag">
+          <span class="rot"><i>1</i>Qual serviço?</span>
+          <div class="servs-ag" id="servs-ag"></div>
+        </div>
+        <div class="passo-ag">
+          <span class="rot"><i>2</i>Qual dia?</span>
+          <div class="dias" id="dias"></div>
+        </div>
+        <div class="passo-ag">
+          <span class="rot"><i>3</i>Que horas?</span>
+          <div class="horas" id="horas"></div>
+        </div>
+        <div class="passo-ag">
+          <span class="rot"><i>4</i>Seus dados</span>
+          <div class="campos-ag">
+            <label>Seu nome<input id="ag-nome" autocomplete="name"></label>
+            <label>Quantos aparelhos?<select id="ag-qtd"><option>1</option><option>2</option><option>3</option><option>4</option><option value="5+">5 ou mais</option></select></label>
+            <label class="toda">Endereço com bairro<input id="ag-end" autocomplete="street-address" placeholder="Rua, número e bairro"></label>
+          </div>
+        </div>
+      </form>
+      <aside class="ticket surge d1" aria-live="polite">
+        <div class="topo-t"><small>Seu agendamento</small><h3 id="t-serv">Higienização</h3></div>
+        <dl>
+          <div><dt>Dia</dt><dd id="t-dia" class="falta">Escolha o dia</dd></div>
+          <div><dt>Horário</dt><dd id="t-hora" class="falta">Escolha o horário</dd></div>
+          <div><dt>Aparelhos</dt><dd id="t-qtd">1</dd></div>
+          <div><dt>Valor estimado</dt><dd id="t-valor">-</dd></div>
+        </dl>
+        <div class="rodape-t">
+          <p>Sem pagamento agora. Você só paga depois do serviço feito.</p>
+          <button class="btn btn-zap" type="button" id="ag-enviar">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c.7.3 1.3.5 1.7.6a4.2 4.2 0 0 0 1.9.1 3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.7-.4zM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 1 1 8.3 4.6zm8.4-18.2A11.8 11.8 0 0 0 1.8 17.8L.1 24l6.4-1.7a11.8 11.8 0 0 0 5.6 1.4 11.8 11.8 0 0 0 8.3-20.1z"/></svg>
+            Confirmar pelo WhatsApp
+          </button>
+        </div>
+      </aside>
     </div>
   </div>
 </section>
@@ -573,6 +801,7 @@
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c.7.3 1.3.5 1.7.6a4.2 4.2 0 0 0 1.9.1 3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.7-.4zM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 1 1 8.3 4.6zm8.4-18.2A11.8 11.8 0 0 0 1.8 17.8L.1 24l6.4-1.7a11.8 11.8 0 0 0 5.6 1.4 11.8 11.8 0 0 0 8.3-20.1z"/></svg>
           Orçar a instalação desse
         </a>
+        <a class="btn btn-branco" href="#loja" id="btu-loja" style="margin-top:10px">Ver aparelhos dessa potência</a>
         <p class="aviso">Estimativa para orientar a escolha. Na visita, o técnico confirma a potência ideal.</p>
       </div>
     </div>
@@ -592,7 +821,7 @@
         <h3>O que indicamos</h3>
         <p>Com base no que você marcou:</p>
         <ul id="receita"></ul>
-        <a class="btn btn-azul" href="#" id="sintoma-zap">Enviar para a JR Climatização</a>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:auto"><a class="btn btn-azul" href="#agendar" id="sintoma-ag">Agendar agora</a><a class="btn btn-linha" href="#" id="sintoma-zap">Mandar no WhatsApp</a></div>
       </div>
     </div>
   </div>
@@ -713,8 +942,8 @@
       <a class="marca" href="#"><img src="img/logo.png" alt="" width="46" height="46"><span><b>JR Climatização</b><small>Respire conforto, viva climatizado.</small></span></a>
       <nav aria-label="Rodapé">
         <a href="#servicos">Serviços</a>
-        <a href="#calculadora">Calcular BTUs</a>
-        <a href="#trabalhos">Trabalhos</a>
+        <a href="#loja">Loja</a>
+        <a href="#agendar">Agendar</a>
         <a href="#" id="insta-rodape" target="_blank" rel="noopener">Instagram</a>
         <a href="#" data-wa>WhatsApp</a>
       </nav>
@@ -729,6 +958,47 @@
 <a class="zap-flutua" href="#" data-wa aria-label="Falar com a JR Climatização no WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c.7.3 1.3.5 1.7.6a4.2 4.2 0 0 0 1.9.1 3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.7-.4zM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 1 1 8.3 4.6zm8.4-18.2A11.8 11.8 0 0 0 1.8 17.8L.1 24l6.4-1.7a11.8 11.8 0 0 0 5.6 1.4 11.8 11.8 0 0 0 8.3-20.1z"/></svg>
 </a>
+
+<div class="carrinho-flutua" id="carrinhoFlutua">
+  <button class="carrinho-btn" data-abrir-car>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.5L21.5 8H6"/></svg>
+    <span class="rot">Ver carrinho</span> <span class="n" data-qtd>0</span> <span data-total>R$ 0</span>
+  </button>
+</div>
+
+<div class="gaveta" id="gaveta" aria-hidden="true">
+  <div class="fundo" data-fechar></div>
+  <div class="lado" role="dialog" aria-modal="true" aria-label="Seu carrinho">
+    <header><h3>Seu carrinho</h3><button class="x" data-fechar aria-label="Fechar">×</button></header>
+    <div class="rolagem">
+      <div id="itensCar"></div>
+      <div class="extra-car" id="extraCar">
+        <b>Aproveite a visita</b>
+        <div class="chips-mini" id="extrasCar"></div>
+      </div>
+      <form class="form-car" id="formCar" onsubmit="return false">
+        <label>Seu nome<input id="c-nome" autocomplete="name"></label>
+        <label>Endereço com bairro<input id="c-end" autocomplete="street-address" placeholder="Para entrega e instalação"></label>
+        <div class="dupla-car">
+          <label>Pagamento<select id="c-pag"><option value="Pix">Pix (5% de desconto)</option><option value="Cartão">Cartão em até 10x</option><option value="Dinheiro">Dinheiro</option></select></label>
+          <label>Melhor dia<select id="c-dia"></select></label>
+        </div>
+      </form>
+    </div>
+    <div class="resumo">
+      <div><span>Aparelhos</span><span id="r-ap">R$ 0</span></div>
+      <div><span>Serviços</span><span id="r-sv">R$ 0</span></div>
+      <div id="r-pix-l" hidden><span>Desconto Pix (aparelhos)</span><span id="r-pix">- R$ 0</span></div>
+      <div class="t"><span>Total</span><span id="r-tot">R$ 0</span></div>
+      <div class="parc" id="r-parc"></div>
+      <button class="btn btn-zap" id="c-enviar">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c.7.3 1.3.5 1.7.6a4.2 4.2 0 0 0 1.9.1 3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.7-.4zM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 1 1 8.3 4.6zm8.4-18.2A11.8 11.8 0 0 0 1.8 17.8L.1 24l6.4-1.7a11.8 11.8 0 0 0 5.6 1.4 11.8 11.8 0 0 0 8.3-20.1z"/></svg>
+        Finalizar pedido no WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+<div class="aviso" id="aviso" role="status"></div>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
   <button class="fechar" id="lb-fechar" aria-label="Fechar">×</button>
@@ -776,6 +1046,33 @@ const JR = {
   btuPessoa: 600,
   btuAparelho: 600,
   modelos: [9000, 12000, 18000, 24000, 30000, 36000],
+  // ----- LOJA (preços de exemplo: troque pelos valores reais da JR) -----
+  produtos: [
+    // id, marca, nome, btus, ciclo, preço, preço antigo (ou null), cor de destaque, etiqueta extra
+    ["tcl-9", "TCL", "Split Inverter 9.000 BTUs", 9000, "Só frio", 1899, 2099, "#e2231a", "Mais vendido"],
+    ["elgin-9", "Elgin", "Split Eco Inverter 9.000 BTUs", 9000, "Só frio", 1999, null, "#00a0e3", ""],
+    ["midea-12", "Midea", "Split Inverter 12.000 BTUs", 12000, "Só frio", 2299, 2499, "#0a5eb0", "Oferta"],
+    ["lg-12", "LG", "Split Dual Inverter 12.000 BTUs", 12000, "Só frio", 2799, null, "#a50034", "Econômico"],
+    ["samsung-12", "Samsung", "Split Inverter 12.000 BTUs", 12000, "Quente e frio", 2999, null, "#1428a0", ""],
+    ["consul-18", "Consul", "Split Inverter 18.000 BTUs", 18000, "Só frio", 3399, 3699, "#1d4f91", "Oferta"],
+    ["lg-18", "LG", "Split Dual Inverter 18.000 BTUs", 18000, "Quente e frio", 4199, null, "#a50034", ""],
+    ["midea-24", "Midea", "Split Inverter 24.000 BTUs", 24000, "Só frio", 4599, null, "#0a5eb0", "Para salas grandes"]
+  ],
+  // instalação por potência (somada quando o cliente marca "com instalação")
+  instalacao: { 9000: 450, 12000: 450, 18000: 550, 24000: 650 },
+  descontoPix: .05,
+  parcelas: 10,
+  // ----- AGENDAMENTO -----
+  servicosAg: [
+    // id, ícone, nome, detalhe, preço por aparelho (null = a combinar)
+    ["higienizacao", "🧼", "Higienização", "R$ 180 por aparelho", 180],
+    ["manutencao", "🔧", "Manutenção", "R$ 150 por aparelho", 150],
+    ["instalacao", "❄️", "Instalação", "a partir de R$ 450", 450],
+    ["visita", "🔎", "Visita técnica", "R$ 100, abatido no serviço", 100]
+  ],
+  horarios: ["08:00", "10:00", "13:00", "15:00", "17:00"],
+  horariosSabado: ["08:00", "10:00"],
+  diasAgenda: 14,
   sintomas: [
     ["cheiro", "👃", "Cheiro ruim quando liga", "hig"],
     ["gela", "🥵", "Não gela como antes", "man"],
@@ -1021,6 +1318,231 @@ $("#form").addEventListener("submit", e => {
   if (f.get("btus")) linhas.push(`Potência: ${milhar(+f.get("btus"))} BTUs`);
   open(wa(linhas.join("\n")), "_blank", "noopener");
 });
+
+/* ---------- utilidades ---------- */
+const brl = (v, cents) => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: cents ? 2 : 0, maximumFractionDigits: cents ? 2 : 0 });
+let avisoT;
+function avisar(t) { const a = $("#aviso"); a.textContent = t; a.classList.add("on"); clearTimeout(avisoT); avisoT = setTimeout(() => a.classList.remove("on"), 2300); }
+const guarda = { get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
+function aparelhoSVG(p, extra = "") {
+  const [, marca, , btu, ciclo, , , cor] = p;
+  return `<svg class="aparelho" ${extra} viewBox="0 0 220 120" aria-hidden="true">
+    <defs><linearGradient id="g-${p[0]}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".75" stop-color="#f1f4f9"/><stop offset="1" stop-color="#dfe6f0"/></linearGradient></defs>
+    <rect x="6" y="6" width="208" height="62" rx="14" fill="url(#g-${p[0]})" stroke="#dbe3ee"/>
+    <rect x="18" y="50" width="184" height="9" rx="4.5" fill="#cfd8e5"/>
+    <rect x="18" y="56" width="184" height="6" rx="3" fill="#f7f9fc"/>
+    <text x="20" y="28" font-family="Poppins, sans-serif" font-weight="800" font-size="11" fill="${cor}">${marca.toUpperCase()}</text>
+    <rect x="160" y="16" width="38" height="16" rx="4" fill="#0b1730"/>
+    <text x="179" y="28" text-anchor="middle" font-family="Courier New, monospace" font-weight="700" font-size="10" fill="#78c7ff">${ciclo === "Quente e frio" ? "☀❄" : "22°"}</text>
+    <text x="20" y="42" font-family="Inter, sans-serif" font-size="8" fill="#8a97ab">${(btu / 1000)}K BTU · INVERTER</text>
+    <g class="ar" fill="none" stroke="#6cc1ff" stroke-width="2.4" stroke-linecap="round"><path d="M40 72c6 10-4 20 2 34"/><path d="M85 72c6 10-4 20 2 34"/><path d="M130 72c6 10-4 20 2 34"/><path d="M175 72c6 10-4 20 2 34"/></g>
+  </svg>`;
+}
+function voar(origem, html) {
+  if (reduz) return;
+  const alvoEl = $("#carrinhoFlutua").classList.contains("on") ? $("#carrinhoFlutua .carrinho-btn") : $(".topo .carrinho-btn");
+  const r = origem.getBoundingClientRect(), a = alvoEl.getBoundingClientRect();
+  const v = document.createElement("div"); v.className = "voador"; v.innerHTML = html;
+  Object.assign(v.style, { left: r.left + "px", top: r.top + "px", width: r.width + "px", height: r.height + "px" });
+  document.body.appendChild(v);
+  const dx = a.left + a.width / 2 - (r.left + r.width / 2), dy = a.top + a.height / 2 - (r.top + r.height / 2);
+  v.animate([{ transform: "none", opacity: 1 }, { transform: `translate(${dx * .5}px, ${dy * .5 - 80}px) scale(.6)`, opacity: 1, offset: .5 }, { transform: `translate(${dx}px, ${dy}px) scale(.15)`, opacity: .3 }], { duration: 750, easing: "cubic-bezier(.5,0,.4,1)" }).onfinish = () => v.remove();
+}
+
+/* ---------- loja ---------- */
+const filtrosLoja = [["todos", "Todos"], ...[...new Set(JR.produtos.map(p => p[3]))].map(b => [String(b), `${milhar(b)} BTUs`]), ["quente", "Quente e frio"]];
+$("#filtros").innerHTML = filtrosLoja.map(([v, t], i) => `<button type="button" class="filtro" data-f="${v}" aria-pressed="${i === 0}">${t}</button>`).join("");
+$("#produtos").innerHTML = JR.produtos.map((p, i) => {
+  const [id, marca, nome, btu, ciclo, preco, antigo, , tag] = p;
+  const inst = JR.instalacao[btu];
+  return `<article class="produto surge ${["", "d1", "d2", "d3"][i % 4]}" data-id="${id}" data-btu="${btu}" data-ciclo="${ciclo}">
+    <div class="vitrine">${aparelhoSVG(p)}<div class="etiquetas">${tag ? `<span class="${antigo ? "oferta" : ""}">${tag}</span>` : ""}<span>${ciclo}</span></div></div>
+    <div class="info-p">
+      <span class="marca-p">${marca}</span>
+      <h3>${nome}</h3>
+      <p class="specs">Inverter · ${ciclo} · até ${Math.round(btu / 700)} m²</p>
+      <div class="preco">${antigo ? `<s>${brl(antigo)}</s>` : ""}<b>${brl(preco)}</b><small>ou ${JR.parcelas}x de ${brl(preco / JR.parcelas, true)}</small></div>
+      <label class="com-inst"><input type="checkbox" checked data-inst>+ instalação <b>${brl(inst)}</b></label>
+      <button type="button" class="btn btn-azul" data-add="${id}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.5L21.5 8H6"/></svg>
+        Adicionar
+      </button>
+    </div>
+  </article>`;
+}).join("");
+function filtrar(f) {
+  $$("#filtros .filtro").forEach(b => b.setAttribute("aria-pressed", b.dataset.f === f));
+  $$(".produto").forEach(el => {
+    const ok = f === "todos" || (f === "quente" ? el.dataset.ciclo === "Quente e frio" : el.dataset.btu === f);
+    el.classList.toggle("some", !ok);
+    if (ok) el.classList.add("visto");
+  });
+}
+$("#filtros").addEventListener("click", e => { const b = e.target.closest(".filtro"); if (b) filtrar(b.dataset.f); });
+
+/* ---------- carrinho ---------- */
+// linhas: { k: "p:<id>:<0|1>" (produto, com instalação) ou "s:<id>" (serviço), qtd }
+let carrinho = (guarda.get("jr-carrinho") || []).filter(l => l && l.k && l.qtd > 0);
+const prod = id => JR.produtos.find(p => p[0] === id);
+const servAg = id => JR.servicosAg.find(s => s[0] === id);
+function linhaInfo(l) {
+  const [tipo, id, inst] = l.k.split(":");
+  if (tipo === "p") {
+    const p = prod(id); if (!p) return null;
+    return { p, nome: `${p[1]} ${p[2]}`, desc: `${p[4]}${inst === "1" ? ` · com instalação (+${brl(JR.instalacao[p[3]])})` : " · sem instalação"}`, aparelho: p[5] * l.qtd, servico: inst === "1" ? JR.instalacao[p[3]] * l.qtd : 0 };
+  }
+  const s = servAg(id); if (!s) return null;
+  return { s, nome: s[2], desc: "por aparelho", aparelho: 0, servico: (s[4] || 0) * l.qtd };
+}
+function adicionar(k, origem) {
+  const ja = carrinho.find(l => l.k === k);
+  if (ja) ja.qtd++; else carrinho.push({ k, qtd: 1 });
+  pintaCarrinho(true);
+  if (origem) voar(origem, origem.outerHTML);
+  const i = linhaInfo({ k, qtd: 1 });
+  avisar(`${i.nome} no carrinho`);
+}
+function totais() {
+  const pag = $("#c-pag").value;
+  let ap = 0, sv = 0;
+  carrinho.forEach(l => { const i = linhaInfo(l); if (i) { ap += i.aparelho; sv += i.servico; } });
+  const pix = pag === "Pix" ? Math.round(ap * JR.descontoPix) : 0;
+  return { ap, sv, pix, tot: ap + sv - pix, pag };
+}
+function pintaCarrinho(pulo) {
+  carrinho = carrinho.filter(l => linhaInfo(l));
+  guarda.set("jr-carrinho", carrinho);
+  const qtd = carrinho.reduce((a, l) => a + l.qtd, 0);
+  const t = totais();
+  $$("[data-qtd]").forEach(e => e.textContent = qtd);
+  $$("[data-total]").forEach(e => e.textContent = brl(t.tot));
+  $("#carrinhoFlutua").classList.toggle("on", qtd > 0);
+  document.body.classList.toggle("com-carrinho", qtd > 0);
+  if (pulo) $$(".carrinho-btn").forEach(b => { b.classList.remove("pula"); void b.offsetWidth; b.classList.add("pula"); });
+  $("#itensCar").innerHTML = carrinho.length ? carrinho.map((l, k) => {
+    const i = linhaInfo(l);
+    return `<div class="linha-item"><div class="mini ${i.s ? "serv" : ""}">${i.p ? aparelhoSVG(i.p) : i.s[1]}</div><div><b>${i.nome}</b><small>${i.desc}</small><div class="qtd"><button type="button" data-menos="${k}" aria-label="Menos">−</button><span>${l.qtd}</span><button type="button" data-mais="${k}" aria-label="Mais">+</button></div></div><span class="v">${brl(i.aparelho + i.servico)}</span></div>`;
+  }).join("") : `<div class="vazio-car">${aparelhoSVG(JR.produtos[0])}<p>Seu carrinho está vazio.<br>Escolha um aparelho ou um serviço.</p></div>`;
+  $("#extrasCar").innerHTML = JR.servicosAg.filter(s => s[0] === "higienizacao" || s[0] === "manutencao").map(s => `<button type="button" data-extra="${s[0]}">${s[1]} + ${s[2]} (${brl(s[4])})</button>`).join("");
+  $("#r-ap").textContent = brl(t.ap);
+  $("#r-sv").textContent = brl(t.sv);
+  $("#r-pix-l").hidden = !t.pix;
+  $("#r-pix").textContent = `- ${brl(t.pix)}`;
+  $("#r-tot").textContent = brl(t.tot);
+  $("#r-parc").textContent = t.pag === "Cartão" && t.tot ? `${JR.parcelas}x de ${brl(t.tot / JR.parcelas, true)} sem juros` : t.pag === "Pix" && t.pix ? `Você economiza ${brl(t.pix)} no Pix` : "";
+}
+$("#produtos").addEventListener("click", e => {
+  const b = e.target.closest("[data-add]"); if (!b) return;
+  const card = b.closest(".produto"), inst = $("[data-inst]", card).checked ? 1 : 0;
+  adicionar(`p:${b.dataset.add}:${inst}`, $("svg.aparelho", card));
+});
+$("#itensCar").addEventListener("click", e => {
+  const m = e.target.closest("[data-mais]"), n = e.target.closest("[data-menos]");
+  if (m) carrinho[+m.dataset.mais].qtd++;
+  if (n) { const k = +n.dataset.menos; if (--carrinho[k].qtd <= 0) carrinho.splice(k, 1); }
+  if (m || n) pintaCarrinho();
+});
+$("#extrasCar").addEventListener("click", e => { const b = e.target.closest("[data-extra]"); if (b) adicionar(`s:${b.dataset.extra}`); });
+$("#c-pag").addEventListener("change", () => pintaCarrinho());
+const gaveta = $("#gaveta");
+const abreCar = () => { gaveta.classList.add("on"); gaveta.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden"; };
+const fechaCar = () => { gaveta.classList.remove("on"); gaveta.setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; };
+$$("[data-abrir-car]").forEach(b => b.addEventListener("click", abreCar));
+$$("[data-fechar]").forEach(b => b.addEventListener("click", fechaCar));
+addEventListener("keydown", e => { if (e.key === "Escape" && gaveta.classList.contains("on")) fechaCar(); });
+$("#c-enviar").addEventListener("click", () => {
+  if (!carrinho.length) { avisar("Adicione um aparelho ou serviço primeiro"); return; }
+  const nome = $("#c-nome").value.trim(), end = $("#c-end").value.trim();
+  if (!nome) { $("#c-nome").focus(); avisar("Qual é o seu nome?"); return; }
+  if (!end) { $("#c-end").focus(); avisar("Falta o endereço"); return; }
+  const t = totais();
+  const linhas = ["*Pedido pelo site · JR Climatização* ❄️", ""];
+  carrinho.forEach(l => { const i = linhaInfo(l); linhas.push(`${l.qtd}x ${i.nome} (${i.desc}) · ${brl(i.aparelho + i.servico)}`); });
+  linhas.push("", `Aparelhos: ${brl(t.ap)}`, `Serviços: ${brl(t.sv)}`);
+  if (t.pix) linhas.push(`Desconto Pix: -${brl(t.pix)}`);
+  linhas.push(`*Total: ${brl(t.tot)}*`, "", `Nome: ${nome}`, `Endereço: ${end}`, `Pagamento: ${$("#c-pag").selectedOptions[0].text}`, `Melhor dia: ${$("#c-dia").value}`);
+  open(wa(linhas.join("\n")), "_blank", "noopener");
+});
+
+/* ---------- agendamento ---------- */
+const ag = { serv: "higienizacao", dia: null, hora: null };
+const semana = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"];
+const meses = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+const agoraSP = new Date(new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" }));
+const horasDo = d => d.getDay() === 6 ? JR.horariosSabado : JR.horarios;
+// horários já ocupados: simulação estável por dia (troque por uma agenda real se quiser)
+const ocupado = (d, h) => ((d.getDate() * 7 + d.getMonth() * 3 + parseInt(h)) % 5) === 0;
+function livres(d) {
+  const hoje = d.toDateString() === agoraSP.toDateString();
+  return horasDo(d).filter(h => !ocupado(d, h) && (!hoje || parseInt(h) > agoraSP.getHours() + 1));
+}
+const diasAg = [];
+for (let i = 0; diasAg.length < JR.diasAgenda && i < 40; i++) {
+  const d = new Date(agoraSP); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + i);
+  if (d.getDay() === 0 || !livres(d).length) continue;
+  diasAg.push(d);
+}
+const nomeDia = d => `${semana[d.getDay()]}, ${d.getDate()} de ${meses[d.getMonth()]}`;
+$("#c-dia").innerHTML = `<option>O quanto antes</option>` + diasAg.slice(0, 10).map(d => `<option>${nomeDia(d)}</option>`).join("");
+$("#servs-ag").innerHTML = JR.servicosAg.map(([id, ic, nome, det]) => `<button type="button" class="serv-ag" data-serv="${id}" aria-pressed="${id === ag.serv}"><i>${ic}</i><b>${nome}</b><small>${det}</small></button>`).join("");
+$("#dias").innerHTML = diasAg.map((d, i) => `<button type="button" class="dia" data-dia="${i}" aria-pressed="false"><small>${semana[d.getDay()]}</small><b>${d.getDate()}</b><span>${meses[d.getMonth()]}</span></button>`).join("");
+function pintaHoras() {
+  const d = diasAg[ag.dia];
+  const hs = d ? horasDo(d) : JR.horarios;
+  const ok = d ? livres(d) : [];
+  $("#horas").innerHTML = hs.map(h => `<button type="button" class="hora" data-hora="${h}" ${d && ok.includes(h) ? "" : "disabled"} aria-pressed="${ag.hora === h}">${h}</button>`).join("");
+}
+function pintaTicket() {
+  const s = servAg(ag.serv), qtd = $("#ag-qtd").value, n = parseInt(qtd) || 1;
+  $("#t-serv").textContent = s[2];
+  const d = diasAg[ag.dia];
+  $("#t-dia").textContent = d ? nomeDia(d) : "Escolha o dia"; $("#t-dia").classList.toggle("falta", !d);
+  $("#t-hora").textContent = ag.hora ? `às ${ag.hora}` : "Escolha o horário"; $("#t-hora").classList.toggle("falta", !ag.hora);
+  $("#t-qtd").textContent = qtd === "5+" ? "5 ou mais" : qtd;
+  $("#t-valor").textContent = s[4] == null ? "a combinar" : (s[0] === "instalacao" ? "a partir de " : "") + brl(s[4] * (s[0] === "visita" ? 1 : n));
+}
+function escolheServ(id) {
+  ag.serv = id;
+  $$("#servs-ag .serv-ag").forEach(b => b.setAttribute("aria-pressed", b.dataset.serv === id));
+  pintaTicket();
+}
+$("#servs-ag").addEventListener("click", e => { const b = e.target.closest("[data-serv]"); if (b) escolheServ(b.dataset.serv); });
+$("#dias").addEventListener("click", e => {
+  const b = e.target.closest("[data-dia]"); if (!b) return;
+  ag.dia = +b.dataset.dia; ag.hora = null;
+  $$("#dias .dia").forEach(x => x.setAttribute("aria-pressed", x === b));
+  pintaHoras(); pintaTicket();
+});
+$("#horas").addEventListener("click", e => {
+  const b = e.target.closest("[data-hora]"); if (!b || b.disabled) return;
+  ag.hora = b.dataset.hora;
+  $$("#horas .hora").forEach(x => x.setAttribute("aria-pressed", x === b));
+  pintaTicket();
+});
+$("#ag-qtd").addEventListener("change", pintaTicket);
+$("#ag-enviar").addEventListener("click", () => {
+  if (ag.dia == null) { avisar("Escolha o dia"); $("#dias").scrollIntoView({ behavior: "smooth", block: "center" }); return; }
+  if (!ag.hora) { avisar("Escolha o horário"); return; }
+  const nome = $("#ag-nome").value.trim(), end = $("#ag-end").value.trim();
+  if (!nome) { $("#ag-nome").focus(); avisar("Qual é o seu nome?"); return; }
+  if (!end) { $("#ag-end").focus(); avisar("Falta o endereço"); return; }
+  const s = servAg(ag.serv);
+  const msg = ["*Agendamento pelo site · JR Climatização* 📅", "", `Serviço: ${s[2]}`, `Dia: ${nomeDia(diasAg[ag.dia])} às ${ag.hora}`, `Aparelhos: ${$("#t-qtd").textContent}`, `Valor estimado: ${$("#t-valor").textContent}`, "", `Nome: ${nome}`, `Endereço: ${end}`, "", "Podem confirmar o horário?"].join("\n");
+  open(wa(msg), "_blank", "noopener");
+});
+// links "agendar" espalhados pelo site já escolhem o serviço
+$$("[data-agendar]").forEach(a => a.addEventListener("click", () => escolheServ(a.dataset.agendar)));
+pintaHoras(); pintaTicket(); pintaCarrinho();
+
+/* integra calculadora e sintomas com loja e agenda */
+function ligaExtras() {
+  $("#btu-loja").onclick = () => {
+    const tem = [...new Set(JR.produtos.map(p => p[3]))].sort((x, y) => x - y);
+    filtrar(String(tem.find(b => b >= calc.btu) || tem[tem.length - 1]));
+  };
+  $("#sintoma-ag").onclick = () => { const s = JR.sintomas.find(x => marcados.has(x[0])); const t = s ? s[3] : "hig"; escolheServ({ hig: "higienizacao", man: "manutencao", ins: "instalacao" }[t]); };
+}
+ligaExtras();
 
 /* aparece ao rolar */
 const io = new IntersectionObserver(es => es.forEach(e => {
