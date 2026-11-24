@@ -56,7 +56,7 @@
   .login .logo { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
   .login .logo img { width: 52px; height: 52px; border-radius: 50%; }
   .login .logo small { display: block; color: var(--texto-2); font-size: .8rem; }
-  .login .erro { color: var(--bloq); font-size: .85rem; min-height: 1.2em; }
+  .login .erro, #s-erro { color: var(--bloq); font-size: .85rem; min-height: 1.2em; }
   .login .dica { font-size: .8rem; color: var(--texto-2); background: var(--gelo); border-radius: 12px; padding: 10px 12px; }
   .login .btn { width: 100%; height: 50px; }
 
@@ -206,6 +206,7 @@
     .topo .btn-novo span { display: none; }
     .busca { max-width: none; margin-left: 0; }
   }
+  .link-senha { background: none; border: 0; font: inherit; font-size: .84rem; color: var(--texto-2); cursor: pointer; text-decoration: underline; padding: 0; justify-self: center; align-self: center; }
 </style>
 </head>
 <body>
@@ -219,6 +220,7 @@
     <label class="campo">Senha<input type="password" id="l-senha" autocomplete="current-password" required></label>
     <p class="erro" id="l-erro" role="alert"></p>
     <button class="btn btn-azul" type="submit">Entrar</button>
+    <button type="button" class="link-senha" id="esqueci">Esqueci minha senha</button>
     <p class="dica" id="l-dica" hidden>Demonstração: use qualquer email com a senha <b>jr2026</b>.</p>
     <a href="../" style="font-size:.84rem;color:var(--texto-2);text-align:center">← Voltar para o site</a>
   </form>
@@ -237,6 +239,7 @@
       <div class="dir">
         <span class="quem" id="quem"></span>
         <button class="btn btn-azul btn-peq btn-novo" id="novo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span>Novo agendamento</span></button>
+        <button class="btn btn-linha btn-peq" id="b-senha" title="Trocar minha senha">Senha</button>
         <button class="btn btn-linha btn-peq" id="sair">Sair</button>
       </div>
     </div>
@@ -320,11 +323,24 @@
     </footer>
   </form>
 </div>
+<div class="modal" id="modal-senha" aria-hidden="true">
+  <form class="janela" id="form-senha" role="dialog" aria-modal="true" aria-labelledby="s-tit" style="width:min(420px,100%)">
+    <header><h3 id="s-tit">Trocar senha</h3><button type="button" class="fechar" data-fechar aria-label="Fechar">×</button></header>
+    <div class="corpo" style="grid-template-columns:1fr">
+      <p id="s-texto" style="font-size:.88rem;color:var(--texto-2)"></p>
+      <label class="campo">Nova senha<input type="password" id="s-nova" autocomplete="new-password" minlength="8" required></label>
+      <label class="campo">Repita a nova senha<input type="password" id="s-conf" autocomplete="new-password" minlength="8" required></label>
+      <p class="erro" id="s-erro" role="alert"></p>
+    </div>
+    <footer><button type="submit" class="btn btn-azul">Salvar nova senha</button></footer>
+  </form>
+</div>
 <div class="aviso" id="aviso" role="status"></div>
 
 <script src="../agenda.js"></script>
 <script>
 const A = window.JRAgenda;
+const veioDoEmail = /type=recovery/.test(location.hash); // chegou pelo link de "esqueci minha senha"
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -351,6 +367,7 @@ async function inicia() {
   if (!s) { $("#tela-login").hidden = false; $("#app").hidden = true; $("#l-email").focus(); return; }
   $("#tela-login").hidden = true; $("#app").hidden = false;
   $("#quem").textContent = s.email;
+  if (veioDoEmail && !inicia.jaPediu) { inicia.jaPediu = true; history.replaceState(null, "", location.pathname); abreSenha("Você entrou pelo link do email. Agora crie a sua nova senha."); }
   await recarrega();
 }
 $("#form-login").addEventListener("submit", async e => {
@@ -359,6 +376,28 @@ $("#form-login").addEventListener("submit", async e => {
   catch (err) { $("#l-erro").textContent = err.message; }
 });
 $("#sair").onclick = async () => { await A.sair(); inicia(); };
+$("#esqueci").onclick = async () => {
+  const email = $("#l-email").value.trim();
+  $("#l-erro").textContent = "";
+  if (!email) { $("#l-email").focus(); $("#l-erro").textContent = "Digite seu email acima e clique de novo em \"Esqueci minha senha\""; return; }
+  try { await A.esqueciSenha(email); avisar("Se esse email tiver acesso, chega um link para criar uma senha nova"); }
+  catch (err) { $("#l-erro").textContent = err.message; }
+};
+function abreSenha(texto) {
+  $("#s-texto").textContent = texto || "Escolha uma senha só sua. Depois de salvar, só quem souber essa senha entra no painel.";
+  $("#s-nova").value = $("#s-conf").value = ""; $("#s-erro").textContent = "";
+  $("#modal-senha").classList.add("on"); $("#modal-senha").setAttribute("aria-hidden", "false"); setTimeout(() => $("#s-nova").focus(), 50);
+}
+$("#b-senha").onclick = () => abreSenha();
+$("#modal-senha").addEventListener("click", e => { if (e.target.id === "modal-senha") fechaModal(); });
+$("#form-senha").addEventListener("submit", async e => {
+  e.preventDefault();
+  const nova = $("#s-nova").value;
+  if (nova.length < 8) { $("#s-erro").textContent = "Use pelo menos 8 caracteres"; return; }
+  if (nova !== $("#s-conf").value) { $("#s-erro").textContent = "As duas senhas não estão iguais"; return; }
+  try { await A.trocarSenha(nova); fechaModal(); avisar("Senha trocada! Use a nova senha da próxima vez"); }
+  catch (err) { $("#s-erro").textContent = err.message; }
+});
 
 async function recarrega() {
   try {
@@ -523,7 +562,7 @@ function abreModal(ag, pre = {}) {
   $("#modal").classList.add("on"); $("#modal").setAttribute("aria-hidden", "false");
   setTimeout(() => $("#m-nome").focus(), 50);
 }
-function fechaModal() { $("#modal").classList.remove("on"); $("#modal").setAttribute("aria-hidden", "true"); }
+function fechaModal() { $$(".modal").forEach(m => { m.classList.remove("on"); m.setAttribute("aria-hidden", "true"); }); }
 $$("[data-fechar]").forEach(b => b.onclick = fechaModal);
 $("#modal").addEventListener("click", e => { if (e.target.id === "modal") fechaModal(); });
 addEventListener("keydown", e => { if (e.key === "Escape") fechaModal(); });
