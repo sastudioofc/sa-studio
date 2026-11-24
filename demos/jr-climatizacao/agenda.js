@@ -117,8 +117,8 @@
     },
     async entrar(email, senha) { const c = await carregaSB(); const r = await c.auth.signInWithPassword({ email, password: senha }); if (r.error) { const m = r.error.message || ""; throw new Error(/confirm/i.test(m) ? "Esse email ainda não foi confirmado no Supabase" : /invalid login/i.test(m) ? "Email ou senha incorretos" : "Erro do banco: " + m); } return { email: r.data.user.email }; },
     async sair() { const c = await carregaSB(); await c.auth.signOut(); },
-    async sessao() { const c = await carregaSB(); const r = await c.auth.getSession(); return r.data.session ? { email: r.data.session.user.email } : null; },
-    async trocarSenha(nova) { const c = await carregaSB(); const r = await c.auth.updateUser({ password: nova }); if (r.error) throw new Error(/different from the old/i.test(r.error.message) ? "A nova senha precisa ser diferente da atual" : /weak|at least/i.test(r.error.message) ? "Senha fraca: use pelo menos 8 caracteres" : r.error.message); },
+    async sessao() { const c = await carregaSB(); const r = await c.auth.getSession(); const u = r.data.session && r.data.session.user; return u ? { email: u.email, primeiroAcesso: !(u.user_metadata || {}).senha_propria } : null; },
+    async trocarSenha(nova) { const c = await carregaSB(); const r = await c.auth.updateUser({ password: nova, data: { senha_propria: true } }); if (r.error) throw new Error(/different from the old/i.test(r.error.message) ? "A nova senha precisa ser diferente da atual" : /weak|at least/i.test(r.error.message) ? "Senha fraca: use pelo menos 8 caracteres" : r.error.message); },
     async esqueciSenha(email) { const c = await carregaSB(); const r = await c.auth.resetPasswordForEmail(email, { redirectTo: location.origin + location.pathname }); if (r.error) throw new Error(/rate limit/i.test(r.error.message) ? "Muitos pedidos seguidos. Espere alguns minutos e tente de novo" : r.error.message); },
     async listar() { const c = await carregaSB(); return falha(await c.from("agendamentos").select("*").order("data", { ascending: false }).limit(2000)); },
     async salvar(ag) {
