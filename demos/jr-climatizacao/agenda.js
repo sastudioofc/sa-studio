@@ -64,7 +64,7 @@
     async salvarConfig(c) { ls.set("jr-ag-config", c); },
     async ocupados(de, ate) {
       semente();
-      const a = ls.get("jr-ag-agendamentos", []).filter(x => x.status !== "cancelado" && x.data >= de && x.data <= ate).map(x => ({ data: x.data, hora: x.hora }));
+      const a = ls.get("jr-ag-agendamentos", []).filter(x => x.status !== "cancelado" && !x.arquivado && x.data >= de && x.data <= ate).map(x => ({ data: x.data, hora: x.hora }));
       const b = ls.get("jr-ag-bloqueios", []).filter(x => x.data >= de && x.data <= ate).map(x => ({ data: x.data, hora: x.hora || null }));
       return [...a, ...b];
     },
@@ -84,13 +84,13 @@
     async listar() { semente(); return ls.get("jr-ag-agendamentos", []); },
     async salvar(ag) {
       const ags = ls.get("jr-ag-agendamentos", []);
-      const choque = ag.status !== "cancelado" && ags.some(x => x.id !== ag.id && x.status !== "cancelado" && x.data === ag.data && x.hora === ag.hora);
+      const choque = ag.status !== "cancelado" && !ag.arquivado && ags.some(x => x.id !== ag.id && x.status !== "cancelado" && !x.arquivado && x.data === ag.data && x.hora === ag.hora);
       if (choque) throw new Error("Já existe um agendamento nesse dia e horário");
       if (ag.id) { const i = ags.findIndex(x => x.id === ag.id); ags[i] = { ...ags[i], ...ag }; }
       else ags.push({ ...ag, id: uid(), criado_em: new Date().toISOString() });
       ls.set("jr-ag-agendamentos", ags);
     },
-    async excluir(id) { ls.set("jr-ag-agendamentos", ls.get("jr-ag-agendamentos", []).filter(x => x.id !== id)); },
+    async arquivar(id, sim = true) { const ags = ls.get("jr-ag-agendamentos", []); const x = ags.find(y => y.id === id); if (!sim && x.status !== "cancelado" && ags.some(y => y.id !== id && !y.arquivado && y.status !== "cancelado" && y.data === x.data && y.hora === x.hora)) throw new Error("Já existe um agendamento nesse dia e horário"); x.arquivado = sim; ls.set("jr-ag-agendamentos", ags); },
     async bloqueios() { return ls.get("jr-ag-bloqueios", []); },
     async bloquear(b) { const l = ls.get("jr-ag-bloqueios", []); l.push({ ...b, id: uid() }); ls.set("jr-ag-bloqueios", l); },
     async desbloquear(id) { ls.set("jr-ag-bloqueios", ls.get("jr-ag-bloqueios", []).filter(x => x.id !== id)); }
@@ -140,7 +140,7 @@
       const r = id ? await c.from("agendamentos").update(campos).eq("id", id) : await c.from("agendamentos").insert(campos);
       if (r.error) throw new Error(r.error.code === "23505" ? "Já existe um agendamento nesse dia e horário" : r.error.message);
     },
-    async excluir(id) { const c = await carregaSB(); falha(await c.from("agendamentos").delete().eq("id", id)); },
+    async arquivar(id, sim = true) { const c = await carregaSB(); const r = await c.from("agendamentos").update({ arquivado: sim }).eq("id", id); if (r.error) throw new Error(r.error.code === "23505" ? "Já existe um agendamento nesse dia e horário" : r.error.message); },
     async bloqueios() { const c = await carregaSB(); return falha(await c.from("bloqueios").select("*").order("data")); },
     async bloquear(b) { const c = await carregaSB(); falha(await c.from("bloqueios").insert({ data: b.data, hora: b.hora || null, motivo: b.motivo || "" })); },
     async desbloquear(id) { const c = await carregaSB(); falha(await c.from("bloqueios").delete().eq("id", id)); }

@@ -3,6 +3,7 @@
 -- estar com a TURNSTILE_SITEKEY preenchida em agenda.js. Antes disso, o site continuaria
 -- tentando gravar direto e passaria a ser recusado.
 -- Supabase > SQL Editor > New query > colar > Run.
+-- Se um dia rodar o supabase.sql de novo, rode este arquivo logo depois (o supabase.sql recria a gravação direta).
 
 -- grava um agendamento do site; só a função "agendar" (que já conferiu o captcha) consegue chamar
 create or replace function public.criar_agendamento_site(
