@@ -18,8 +18,12 @@ create table if not exists public.agendamentos (
   origem text not null default 'site' check (origem in ('site', 'manual', 'whatsapp')),
   status text not null default 'pendente' check (status in ('pendente', 'confirmado', 'concluido', 'cancelado'))
 );
+-- "arquivado" substitui o apagar: some da agenda, mas o registro fica guardado para sempre
+alter table public.agendamentos add column if not exists arquivado boolean not null default false;
+
 -- impede dois agendamentos ativos no mesmo dia e horário
-create unique index if not exists agendamentos_horario_unico on public.agendamentos (data, hora) where status <> 'cancelado';
+drop index if exists public.agendamentos_horario_unico;
+create unique index agendamentos_horario_unico on public.agendamentos (data, hora) where status <> 'cancelado' and not arquivado;
 
 -- dias ou horários bloqueados (hora vazia = dia inteiro)
 create table if not exists public.bloqueios (
@@ -76,7 +80,7 @@ begin
   -- dia ou horário bloqueado pela equipe
   if exists (select 1 from public.bloqueios b where b.data = p_data and (b.hora is null or b.hora = p_hora)) then return false; end if;
   -- no máximo 3 pedidos pendentes do mesmo WhatsApp
-  if (select count(*) from public.agendamentos a where a.origem = 'site' and a.status = 'pendente'
+  if (select count(*) from public.agendamentos a where a.origem = 'site' and a.status = 'pendente' and not a.arquivado
       and regexp_replace(a.telefone, '\D', '', 'g') = fone) >= 3 then return false; end if;
   -- freio geral: no máximo 20 pedidos do site por hora
   if (select count(*) from public.agendamentos a where a.origem = 'site' and a.criado_em > now() - interval '1 hour') >= 20 then return false; end if;
@@ -112,9 +116,60 @@ create policy "todos leem config" on public.config for select to anon using (tru
 create or replace function public.horarios_ocupados(de date, ate date)
 returns table (data date, hora text)
 language sql security definer set search_path = public stable as $$
-  select a.data, a.hora from public.agendamentos a where a.status <> 'cancelado' and a.data between de and ate and ate - de <= 120
+  select a.data, a.hora from public.agendamentos a where a.status <> 'cancelado' and not a.arquivado and a.data between de and ate and ate - de <= 120
   union all
   select b.data, b.hora from public.bloqueios b where b.data between de and ate and ate - de <= 120;
 $$;
 revoke all on function public.horarios_ocupados(date, date) from public;
 grant execute on function public.horarios_ocupados(date, date) to anon, authenticated;
+
+-- ============================================================
+-- HISTÓRICO QUE NUNCA SE PERDE
+-- ============================================================
+-- ninguém apaga agendamento pelo site ou pelo painel (o painel só arquiva)
+revoke delete, truncate on public.agendamentos from anon, authenticated;
+
+-- toda criação, alteração ou exclusão (mesmo feita direto no banco) fica registrada aqui, com a versão anterior
+create table if not exists public.agendamentos_historico (
+  id bigserial primary key,
+  quando timestamptz not null default now(),
+  agendamento_id uuid,
+  acao text not null,
+  quem text,
+  antes jsonb,
+  depois jsonb
+);
+alter table public.agendamentos_historico enable row level security;
+drop policy if exists "equipe le historico" on public.agendamentos_historico;
+create policy "equipe le historico" on public.agendamentos_historico for select to authenticated using (privado.e_equipe());
+revoke insert, update, delete, truncate on public.agendamentos_historico from anon, authenticated;
+revoke select on public.agendamentos_historico from anon;
+
+create or replace function privado.registra_historico() returns trigger
+language plpgsql security definer set search_path = public as $$
+begin
+  insert into public.agendamentos_historico (agendamento_id, acao, quem, antes, depois)
+  values (coalesce(new.id, old.id), lower(tg_op),
+          coalesce(auth.jwt() ->> 'email', case when coalesce(new.origem, '') = 'site' and tg_op = 'INSERT' then 'site' else 'sistema' end),
+          case when tg_op <> 'INSERT' then to_jsonb(old) end,
+          case when tg_op <> 'DELETE' then to_jsonb(new) end);
+  return coalesce(new, old);
+end $$;
+drop trigger if exists agendamentos_historico on public.agendamentos;
+create trigger agendamentos_historico after insert or update or delete on public.agendamentos
+  for each row execute function privado.registra_historico();
+
+-- o histórico em si não pode ser alterado nem apagado (nem por engano no SQL Editor)
+create or replace function privado.historico_imutavel() returns trigger language plpgsql as $$
+begin raise exception 'O histórico de agendamentos não pode ser alterado nem apagado'; end $$;
+drop trigger if exists historico_imutavel on public.agendamentos_historico;
+create trigger historico_imutavel before update or delete on public.agendamentos_historico
+  for each row execute function privado.historico_imutavel();
+drop trigger if exists historico_sem_truncate on public.agendamentos_historico;
+create trigger historico_sem_truncate before truncate on public.agendamentos_historico
+  for each statement execute function privado.historico_imutavel();
+
+-- guarda o que já existia antes do histórico ser ligado
+insert into public.agendamentos_historico (agendamento_id, acao, quem, depois)
+select a.id, 'existente', 'sistema', to_jsonb(a) from public.agendamentos a
+where not exists (select 1 from public.agendamentos_historico h where h.agendamento_id = a.id);

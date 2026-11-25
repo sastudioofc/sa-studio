@@ -337,7 +337,7 @@
     <footer>
       <button type="submit" class="btn btn-azul">Salvar</button>
       <a class="btn btn-zap" id="m-zap" target="_blank" rel="noopener" hidden>WhatsApp do cliente</a>
-      <button type="button" class="btn btn-perigo esp" id="m-excluir" hidden>Excluir</button>
+      <button type="button" class="btn btn-perigo esp" id="m-excluir" hidden>Arquivar</button>
     </footer>
   </form>
 </div>
@@ -371,7 +371,7 @@ const fmtData = s => { const d = A.deIso(s); return `${SEM[d.getDay()]}, ${d.get
 let avisoT;
 function avisar(t, erro) { const a = $("#aviso"); a.textContent = t; a.classList.toggle("erro", !!erro); a.classList.add("on"); clearTimeout(avisoT); avisoT = setTimeout(() => a.classList.remove("on"), 2600); }
 
-let dados = { ags: [], bloqs: [], cfg: A.CONFIG_PADRAO };
+let dados = { ags: [], arquivados: [], bloqs: [], cfg: A.CONFIG_PADRAO };
 let inicioSemana = segunda(A.iso(A.agora()));
 function segunda(s) { const d = A.deIso(s); const dif = (d.getDay() + 6) % 7; return A.somaDias(s, -dif); }
 
@@ -424,7 +424,7 @@ $("#form-senha").addEventListener("submit", async e => {
 async function recarrega() {
   try {
     const [ags, bloqs, cfg] = await Promise.all([A.listar(), A.bloqueios(), A.config()]);
-    dados = { ags: ags || [], bloqs: bloqs || [], cfg };
+    dados = { ags: (ags || []).filter(a => !a.arquivado), arquivados: (ags || []).filter(a => a.arquivado), bloqs: bloqs || [], cfg };
   } catch (e) { avisar("Erro ao carregar: " + e.message, true); }
   pinta();
 }
@@ -504,16 +504,18 @@ async function acao(fn, ok) { try { await fn(); avisar(ok); await recarrega(); }
 
 /* ---------- lista / histórico ---------- */
 let filtroSt = "todos", termo = "";
-$("#filtros-st").innerHTML = [["todos", "Todos"], ["proximos", "Próximos"], ...Object.entries(A.STATUS)].map(([v, t]) => `<button class="chip" data-st="${v}" aria-pressed="${v === filtroSt}">${t}</button>`).join("") + `<input class="busca" id="busca" type="search" placeholder="Buscar cliente, telefone ou endereço">`;
+const ORIG = { site: "Site", manual: "Presencial", whatsapp: "WhatsApp" };
+$("#filtros-st").innerHTML = [["todos", "Todos"], ["proximos", "Próximos"], ...Object.entries(A.STATUS), ["arquivados", "Arquivados"]].map(([v, t]) => `<button class="chip" data-st="${v}" aria-pressed="${v === filtroSt}">${t}</button>`).join("") + `<input class="busca" id="busca" type="search" placeholder="Buscar cliente, telefone ou endereço"><button class="btn btn-linha btn-peq" id="exportar" type="button" title="Baixa todos os agendamentos, inclusive arquivados, numa planilha">Baixar planilha</button>`;
 $("#filtros-st").addEventListener("click", e => { const b = e.target.closest("[data-st]"); if (!b) return; filtroSt = b.dataset.st; $$("#filtros-st .chip").forEach(x => x.setAttribute("aria-pressed", x === b)); pintaLista(); });
 $("#busca").addEventListener("input", e => { termo = e.target.value.toLowerCase(); pintaLista(); });
 function pintaLista() {
   const hoje = A.iso(A.agora());
-  let l = dados.ags.slice();
-  if (filtroSt === "proximos") l = l.filter(a => a.data >= hoje && a.status !== "cancelado").sort((a, b) => (a.data + a.hora).localeCompare(b.data + b.hora));
+  let l = (filtroSt === "arquivados" ? dados.arquivados : dados.ags).slice();
+  if (filtroSt === "arquivados") l.sort((a, b) => (b.data + b.hora).localeCompare(a.data + a.hora));
+  else if (filtroSt === "proximos") l = l.filter(a => a.data >= hoje && a.status !== "cancelado").sort((a, b) => (a.data + a.hora).localeCompare(b.data + b.hora));
   else { if (filtroSt !== "todos") l = l.filter(a => a.status === filtroSt); l.sort((a, b) => (b.data + b.hora).localeCompare(a.data + a.hora)); }
   if (termo) l = l.filter(a => [a.nome, a.telefone, a.endereco, a.servico].join(" ").toLowerCase().includes(termo));
-  const ORIG = { site: "Site", manual: "Presencial", whatsapp: "WhatsApp" };
+
   $("#lista").innerHTML = l.length ? l.map(a => `<tr data-ag="${a.id}">
     <td><b>${esc(a.nome)}</b><small>${esc(a.telefone || "")}</small></td>
     <td>${esc(a.servico)}<small>${a.qtd} aparelho${a.qtd > 1 ? "s" : ""}</small></td>
@@ -522,7 +524,18 @@ function pintaLista() {
     <td><span class="selo" style="--c:${COR[a.status]}">${A.STATUS[a.status]}</span></td></tr>`).join("")
     : `<tr><td colspan="5" class="vazio">Nenhum agendamento encontrado.</td></tr>`;
 }
-$("#lista").addEventListener("click", e => { const r = e.target.closest("[data-ag]"); if (r) abreModal(dados.ags.find(a => a.id === r.dataset.ag)); });
+$("#lista").addEventListener("click", e => { const r = e.target.closest("[data-ag]"); if (r) abreModal([...dados.ags, ...dados.arquivados].find(a => a.id === r.dataset.ag)); });
+$("#exportar").onclick = () => {
+  const todos = [...dados.ags, ...dados.arquivados].sort((a, b) => (a.data + a.hora).localeCompare(b.data + b.hora));
+  const cols = [["Data", a => a.data.split("-").reverse().join("/")], ["Hora", a => a.hora], ["Cliente", a => a.nome], ["WhatsApp", a => a.telefone], ["Serviço", a => a.servico], ["Aparelhos", a => a.qtd], ["Endereço", a => a.endereco], ["Observações", a => a.obs], ["Origem", a => ORIG[a.origem] || a.origem], ["Status", a => A.STATUS[a.status] || a.status], ["Arquivado", a => a.arquivado ? "sim" : ""], ["Criado em", a => a.criado_em ? new Date(a.criado_em).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }) : ""]];
+  const cel = v => { let t = String(v ?? ""); if (/^[=+\-@]/.test(t)) t = "'" + t; return `"${t.replace(/"/g, '""')}"`; };
+  const csv = "\ufeff" + [cols.map(c => cel(c[0])).join(";"), ...todos.map(a => cols.map(c => cel(c[1](a))).join(";"))].join("\r\n");
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+  link.download = `agendamentos-jr-${A.iso(A.agora())}.csv`; link.click();
+  setTimeout(() => URL.revokeObjectURL(link.href), 2000);
+  avisar(`Planilha com ${todos.length} agendamentos baixada`);
+};
 
 /* ---------- bloqueios ---------- */
 let tipoBloq = "dia";
@@ -600,6 +613,8 @@ function abreModal(ag, pre = {}) {
   $("#m-zap").hidden = !(ag && fone.length >= 10);
   if (ag && fone) $("#m-zap").href = `https://wa.me/55${fone.replace(/^55(?=\d{10,11}$)/, "")}?text=${encodeURIComponent(`Olá, ${a.nome.split(" ")[0]}! Aqui é da JR Climatização. Confirmando a sua ${a.servico.toLowerCase()} em ${fmtData(a.data)} às ${a.hora}.`)}`;
   $("#m-excluir").hidden = !ag;
+  $("#m-excluir").textContent = ag && ag.arquivado ? "Restaurar" : "Arquivar";
+  $("#m-excluir").classList.toggle("btn-perigo", !(ag && ag.arquivado)); $("#m-excluir").classList.toggle("btn-linha", !!(ag && ag.arquivado));
   $("#modal").classList.add("on"); $("#modal").setAttribute("aria-hidden", "false");
   setTimeout(() => $("#m-nome").focus(), 50);
 }
@@ -619,8 +634,13 @@ $("#form-ag").addEventListener("submit", async e => {
   catch (err) { avisar(err.message, true); }
 });
 $("#m-excluir").onclick = async () => {
-  if (!editando || !confirm(`Excluir o agendamento de ${editando.nome}? Para manter no histórico, use o status Cancelado.`)) return;
-  try { await A.excluir(editando.id); fechaModal(); avisar("Excluído"); await recarrega(); } catch (err) { avisar(err.message, true); }
+  if (!editando) return;
+  if (editando.arquivado) {
+    try { await A.arquivar(editando.id, false); fechaModal(); avisar("Restaurado"); await recarrega(); } catch (err) { avisar(err.message, true); }
+    return;
+  }
+  if (!confirm(`Arquivar o agendamento de ${editando.nome}? Ele sai da agenda, mas continua guardado em Pedidos > Arquivados e pode ser restaurado.`)) return;
+  try { await A.arquivar(editando.id); fechaModal(); avisar("Arquivado. Está em Pedidos > Arquivados"); await recarrega(); } catch (err) { avisar(err.message, true); }
 };
 
 inicia();
